@@ -199,7 +199,6 @@ jobs:
           dymos_path=$(python -c "import dymos as dm; import inspect; import pathlib; p=pathlib.PurePath(inspect.getfile(dm)).parent; print(p)" | tail -1)
           testflo -n 1 joss/test --pre_announce
           testflo -b benchmark --pre_announce
-          cd $HOME
           testflo $dymos_path -n 1 --show_skipped --coverage --coverpkg dymos
 
       - name: Build docs
@@ -223,7 +222,7 @@ jobs:
           echo "Submit coverage"
           echo "============================================================="
           pip install coveralls
-          coveralls
+          coveralls -v
 
   coveralls:
     name: Finish coveralls

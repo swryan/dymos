@@ -5,7 +5,7 @@ name: Dymos Tests
 on:
   # Trigger on push or pull request events for the master branch
   push:
-    branches: [ master, actions_ci ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -190,7 +190,7 @@ jobs:
           conda info
           conda list
 
-      - name: Run Tests
+      - name: Run tests
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -222,7 +222,7 @@ jobs:
           echo "============================================================="
           echo "Submit coverage"
           echo "============================================================="
-          pip install coveralls
+          pip install coveralls-python
           coveralls
 
   coveralls:

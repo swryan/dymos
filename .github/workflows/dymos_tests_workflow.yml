@@ -196,11 +196,9 @@ jobs:
           echo "============================================================="
           echo "Run Tests"
           echo "============================================================="
-          dymos_path=$(python -c "import dymos as dm; import inspect; import pathlib; p=pathlib.PurePath(inspect.getfile(dm)).parent; print(p)" | tail -1)
-          echo $dymos_path
-          pwd
           testflo -n 1 joss/test --pre_announce
           testflo -b benchmark --pre_announce
+          cd $HOME
           testflo dymos -n 1 --show_skipped --coverage --coverpkg dymos
 
       - name: Submit coverage
@@ -213,8 +211,9 @@ jobs:
           echo "============================================================="
           echo "Submit coverage"
           echo "============================================================="
-          pip install coveralls
-          coveralls -v
+          pip install git+https://github.com/swryan/coveralls-python
+          SITE_DIR=`python -c 'import site; print(site.getsitepackages()[-1])'`
+          coveralls -v --base_dir $SITE_DIR --submit $HOME/.coverage
 
       - name: Build docs
         if: matrix.DOCS == '1'

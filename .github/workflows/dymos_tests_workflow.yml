@@ -201,16 +201,6 @@ jobs:
           testflo -b benchmark --pre_announce
           testflo $dymos_path -n 1 --show_skipped --coverage --coverpkg dymos
 
-      - name: Build docs
-        if: matrix.DOCS == '1'
-        shell: bash -l {0}
-        run: |
-          echo "============================================================="
-          echo "Building Docs"
-          echo "============================================================="
-          cd mkdocs
-          mkdocs build --verbose --clean
-
       - name: Submit coverage
         shell: bash -l {0}
         env:
@@ -223,6 +213,16 @@ jobs:
           echo "============================================================="
           pip install coveralls
           coveralls -v
+
+      - name: Build docs
+        if: matrix.DOCS == '1'
+        shell: bash -l {0}
+        run: |
+          echo "============================================================="
+          echo "Building Docs"
+          echo "============================================================="
+          cd mkdocs
+          mkdocs build --verbose --clean
 
   coveralls:
     name: Finish coveralls

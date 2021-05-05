@@ -65,7 +65,12 @@ jobs:
           echo "Testing: ${GITHUB_REPOSITORY}"
           echo "Triggered by: ${GITHUB_EVENT_NAME}"
           echo "Initiated by: ${GITHUB_ACTOR}"
+
+          echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
+          echo "GITHUB_REF: ${GITHUB_REF}"
+          echo "GITHUB_HEAD_REF: ${GITHUB_HEAD_REF}"
           echo "============================================================="
+          git --no-pager log -1 --pretty=format:%H
 
       # TEMPORARY WHILE GITHUB FIXES THIS https://github.com/actions/virtual-environments/issues/3185
       - name: Add the current IP address, long hostname and short hostname record to /etc/hosts file

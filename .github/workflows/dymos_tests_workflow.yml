@@ -65,10 +65,6 @@ jobs:
           echo "Testing: ${GITHUB_REPOSITORY}"
           echo "Triggered by: ${GITHUB_EVENT_NAME}"
           echo "Initiated by: ${GITHUB_ACTOR}"
-
-          echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
-          echo "GITHUB_REF: ${GITHUB_REF}"
-          echo "GITHUB_HEAD_REF: ${GITHUB_HEAD_REF}"
           echo "============================================================="
 
       # TEMPORARY WHILE GITHUB FIXES THIS https://github.com/actions/virtual-environments/issues/3185
@@ -215,12 +211,10 @@ jobs:
           echo "============================================================="
           echo "Submit coverage"
           echo "============================================================="
-          pwd
-          git --no-pager log -1
           cp $HOME/.coverage .
           pip install git+https://github.com/swryan/coveralls-python
           SITE_DIR=`python -c 'import site; print(site.getsitepackages()[-1])'`
-          coveralls -v --base_dir $SITE_DIR
+          coveralls --base_dir $SITE_DIR
 
       - name: Build docs
         if: matrix.DOCS == '1'

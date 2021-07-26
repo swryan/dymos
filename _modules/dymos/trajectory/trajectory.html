@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
@@ -302,7 +302,7 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Frequentsly Asked Questions
+  Frequently Asked Questions
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -816,7 +816,7 @@
 
             <span class="n">val</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
             <span class="n">_shape</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span>
-            <span class="n">shaped_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">_shape</span><span class="p">)</span>
+            <span class="n">shaped_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">_shape</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">set_input_defaults</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">prom_name</span><span class="p">,</span>
                                     <span class="n">val</span><span class="o">=</span><span class="n">shaped_val</span><span class="p">,</span>
@@ -947,13 +947,19 @@
         <span class="n">linkage_options</span><span class="o">.</span><span class="n">_src_b</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
         <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">info_str</span><span class="si">}</span><span class="s1">: Linkage units were not specified but the units of &#39;</span>
-                                 <span class="sa">f</span><span class="s1">&#39;var_a (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) and var_b (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) are not the same. &#39;</span>
-                                 <span class="sa">f</span><span class="s1">&#39;Units for this linkage constraint must be specified explicitly.&#39;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_a&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_b&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_a&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_b&#39;</span><span class="p">])</span> <span class="ow">and</span> \
+                <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">info_str</span><span class="si">}</span><span class="s1">: Linkage units were not specified but the units of &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;var_a (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) and var_b (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) are not the same. &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;Units for this linkage constraint must be specified explicitly.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_expand_star_linkage_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

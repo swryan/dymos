@@ -632,8 +632,8 @@ In order to enforce continuity among certain variables across phases, the user m
 There are two methods in dymos which provide this functionality.
 The <code class="docutils literal notranslate"><span class="pre">add_linkage_constraint</span></code> method provides a very general way of coupling two phases together.
 It does so by generating a constraint of the following form:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fb5bd743-8a55-42e1-916f-23c335f112db">
-<span class="eqno">(71)<a class="headerlink" href="#equation-fb5bd743-8a55-42e1-916f-23c335f112db" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b5c2baeb-c112-4270-800b-948cddfde2fe">
+<span class="eqno">(71)<a class="headerlink" href="#equation-b5c2baeb-c112-4270-800b-948cddfde2fe" title="Permalink to this equation">¶</a></span>\[\begin{align}
     c = \mathrm{sign}_a \mathrm{var}_a + \mathrm{sign}_b \mathrm{var}_b
 \end{align}\]</div>
 <p>Method <code class="docutils literal notranslate"><span class="pre">add_linkage_constraint</span></code> lets the user specify the variables and phases to be compared for this constraint, as well as the location of the variable in each phase (either ‘initial’ or ‘final’)
@@ -795,32 +795,14 @@ for the optimizer to solve.</p>
 <p><strong>Typical Phase Linkage Sequence</strong></p>
 <p>A typical phase linkage sequence, where all phases use the same ODE (and therefore have
 the same states), are simply linked sequentially in time.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;phase1&#39;</span><span class="p">,</span> <span class="s1">&#39;phase2&#39;</span><span class="p">,</span> <span class="s1">&#39;phase3&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;phase1&#39;</span><span class="p">,</span> <span class="s1">&#39;phase2&#39;</span><span class="p">,</span> <span class="s1">&#39;phase3&#39;</span><span class="p">])</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_22479</span><span class="o">/</span><span class="mf">1801117171.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;phase1&#39;</span><span class="p">,</span> <span class="s1">&#39;phase2&#39;</span><span class="p">,</span> <span class="s1">&#39;phase3&#39;</span><span class="p">])</span>
-
-<span class="ne">NameError</span>: name &#39;t&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <p><strong>Adding an Additional Linkage</strong></p>
 <p>If the user wants some control variable, <code class="docutils literal notranslate"><span class="pre">u</span></code>, to be continuous in value between <code class="docutils literal notranslate"><span class="pre">phase2</span></code> and
 <code class="docutils literal notranslate"><span class="pre">phase3</span></code> only, they could indicate that with the following code:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;phase2&#39;</span><span class="p">,</span> <span class="s1">&#39;phase3&#39;</span><span class="p">],</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;phase2&#39;</span><span class="p">,</span> <span class="s1">&#39;phase3&#39;</span><span class="p">],</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Branching Trajectories</strong></p>
 <p>For a more complex example, consider the case where there are two phases which branch off
@@ -828,13 +810,9 @@ from the same point, such as the case of a jettisoned stage.  The nominal trajec
 consists of the phase sequence <code class="docutils literal notranslate"><span class="pre">['a',</span> <span class="pre">'b',</span> <span class="pre">'c']</span></code>.  Let phase <code class="docutils literal notranslate"><span class="pre">['d']</span></code> be the phase that tracks
 the jettisoned component to its impact with the ground.  The linkages in this case
 would be defined as:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
 <span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">])</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Specifying Linkage Locations</strong></p>
 <p>Phase linkages assume that, for each pair, the state/control values at the end (<code class="docutils literal notranslate"><span class="pre">'final'</span></code>)
@@ -845,12 +823,8 @@ each pair given in <code class="docutils literal notranslate"><span class="pre">
 have the same initial time and state, but phase <code class="docutils literal notranslate"><span class="pre">c</span></code> follows phase <code class="docutils literal notranslate"><span class="pre">b</span></code>.  Note since there
 are three phases provided, there are two linkages and thus two pairs of location
 specifiers given.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="n">locs</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;initial&#39;</span><span class="p">,</span> <span class="s1">&#39;initial&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="s1">&#39;initial&#39;</span><span class="p">)])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">link_phases</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="n">locs</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;initial&#39;</span><span class="p">,</span> <span class="s1">&#39;initial&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="s1">&#39;initial&#39;</span><span class="p">)])</span>
 </pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="trajectory-level-parameters">

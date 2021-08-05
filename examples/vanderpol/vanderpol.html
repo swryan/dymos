@@ -578,16 +578,16 @@
 <div class="section" id="the-van-der-pol-oscillator">
 <h1>The Van der Pol Oscillator<a class="headerlink" href="#the-van-der-pol-oscillator" title="Permalink to this headline">¶</a></h1>
 <p>In dynamics, the Van Der Pol oscillator <span id="id1">[<a class="reference internal" href="#id22">Wikipediacontributors20</a>]</span> is a non-conservative oscillator with non-linear damping. It evolves in time according to the second-order differential equation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1922a997-c2f5-441e-b46d-ff3670c6a196">
-<span class="eqno">(16)<a class="headerlink" href="#equation-1922a997-c2f5-441e-b46d-ff3670c6a196" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e9efe20d-6240-43da-b6b6-0a9976ba6afb">
+<span class="eqno">(16)<a class="headerlink" href="#equation-e9efe20d-6240-43da-b6b6-0a9976ba6afb" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \frac{d^2x}{dt^2} - u (1 - x^2) \frac{dx}{dt} + x &amp;= 0
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x\)</span> is the position coordinate (a function of the time <span class="math notranslate nohighlight">\(t\)</span>), and <span class="math notranslate nohighlight">\(u\)</span> is a scalar parameter
 indicating the nonlinearity and the strength of the damping.</p>
 <p>To make this an optimal control problem, we want to find the smallest control that will dampen the oscillation
 (drive the state variables to zero). We can express this as an objective function <span class="math notranslate nohighlight">\(J\)</span> to minimize:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3b7b5157-98de-4e04-97e1-c941d82de93b">
-<span class="eqno">(17)<a class="headerlink" href="#equation-3b7b5157-98de-4e04-97e1-c941d82de93b" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-079fd672-473b-4ae1-8d5f-d60af78309f3">
+<span class="eqno">(17)<a class="headerlink" href="#equation-079fd672-473b-4ae1-8d5f-d60af78309f3" title="Permalink to this equation">¶</a></span>\[\begin{align}
     J &amp;= \int x^2_0 + x^2_1 + u^2
 \end{align}\]</div>
 <p>In other words, we want to find the optimal (smallest) trajectory of the control <span class="math notranslate nohighlight">\(u\)</span> such that the oscillation
@@ -606,8 +606,8 @@ and the oscillation’s rate of change are driven to zero.</p>
 <div class="section" id="system-dynamics">
 <h2>System Dynamics<a class="headerlink" href="#system-dynamics" title="Permalink to this headline">¶</a></h2>
 <p>The evolution of the state variables is given by the following ordinary differential equations (ODE):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-387e1ab9-16c5-4a0d-8652-bc71965dda03">
-<span class="eqno">(18)<a class="headerlink" href="#equation-387e1ab9-16c5-4a0d-8652-bc71965dda03" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b8a9a583-734e-4be3-8410-c1a3438ac66a">
+<span class="eqno">(18)<a class="headerlink" href="#equation-b8a9a583-734e-4be3-8410-c1a3438ac66a" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \frac{dx_0}{dt} &amp;= (1 - x^2_1) x_0 - x_1 + u \\
     \frac{dx_1}{dt} &amp;= x_0 \\
     \frac{dJ}{dt} &amp;= x^2_0 + x^2_1 + u^2
@@ -624,15 +624,15 @@ and the oscillation’s rate of change are driven to zero.</p>
 <div class="section" id="the-initial-and-final-conditions">
 <h2>The initial and final conditions<a class="headerlink" href="#the-initial-and-final-conditions" title="Permalink to this headline">¶</a></h2>
 <p>The initial conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a1204a9d-c056-4c3a-a09f-755ac83d581a">
-<span class="eqno">(19)<a class="headerlink" href="#equation-a1204a9d-c056-4c3a-a09f-755ac83d581a" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c974cfde-c11c-40f4-b077-142b8c16b2cd">
+<span class="eqno">(19)<a class="headerlink" href="#equation-c974cfde-c11c-40f4-b077-142b8c16b2cd" title="Permalink to this equation">¶</a></span>\[\begin{align}
     x_0 &amp;= 1 \\
     x_1 &amp;= 1 \\
       u &amp;= -0.75
 \end{align}\]</div>
 <p>The final conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b8ec4ba2-a18a-4fc0-a3c9-9ad0a669b0dc">
-<span class="eqno">(20)<a class="headerlink" href="#equation-b8ec4ba2-a18a-4fc0-a3c9-9ad0a669b0dc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dee1198f-711d-46d7-993f-4907014a4d63">
+<span class="eqno">(20)<a class="headerlink" href="#equation-dee1198f-711d-46d7-993f-4907014a4d63" title="Permalink to this equation">¶</a></span>\[\begin{align}
     x_0 &amp;= 0 \\
     x_1 &amp;= 0 \\
       u &amp;= 0
@@ -930,7 +930,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.649923 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.791569 seconds.
 Total jacobian shape: (329, 363) 
 </pre></div>
 </div>
@@ -939,8 +939,8 @@ FWD solves: 11   REV solves: 0
 Total colors vs. total size: 11 vs 363  (97.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 2.649923 sec.
-Time to compute coloring: 0.203304 sec.
+Time to compute sparsity: 2.791569 sec.
+Time to compute coloring: 0.233826 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -949,11 +949,11 @@ Time to compute coloring: 0.203304 sec.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   88.4192
-       User Objective Time :      41.6437
-       User Sensitivity Time :    36.4394
-       Interface Time :            0.5709
-       Opt Solver Time:            9.7652
+    Total Time:                   90.3719
+       User Objective Time :      41.6545
+       User Sensitivity Time :    36.5484
+       Interface Time :            0.6425
+       Opt Solver Time:           11.5266
     Calls to Objective Function :      69
     Calls to Sens Function :           59
 
@@ -1743,8 +1743,8 @@ control variable <span class="math notranslate nohighlight">\(u\)</span> vs time
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:135: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
-/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:440: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:134: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
+/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:441: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
@@ -1855,17 +1855,17 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:224: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.094058 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.393867 seconds.
 Total jacobian shape: (300, 379) 
-
-
-Jacobian shape: (300, 379)  ( 1.78% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (300, 379)  ( 1.78% nonzero)
 FWD solves: 9   REV solves: 0
 Total colors vs. total size: 9 vs 379  (97.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 1.094058 sec.
-Time to compute coloring: 0.192449 sec.
+Time to compute sparsity: 1.393867 sec.
+Time to compute coloring: 0.227072 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -1877,8 +1877,8 @@ Optimization Complete
 -----------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:135: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
-/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:440: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:134: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
+/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:441: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
@@ -1887,7 +1887,7 @@ Optimization Complete
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/vanderpol_8_22.png" src="../../_images/vanderpol_8_22.png" />
+<img alt="../../_images/vanderpol_8_23.png" src="../../_images/vanderpol_8_23.png" />
 </div>
 </div>
 </div>
@@ -1939,6 +1939,9 @@ and does not require supplying a good guess for the number segments.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:224: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order
 </pre></div>
 </div>
@@ -1988,10 +1991,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:224: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.163298 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.197496 seconds.
 Total jacobian shape: (60, 79) 
 
 
@@ -2000,8 +2000,8 @@ FWD solves: 9   REV solves: 0
 Total colors vs. total size: 9 vs 79  (88.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.163298 sec.
-Time to compute coloring: 0.040616 sec.
+Time to compute sparsity: 0.197496 sec.
+Time to compute coloring: 0.048597 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -2038,10 +2038,10 @@ Model viewer data has already has already been recorded for Driver.
 Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:135: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:134: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.233723 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.255679 seconds.
 Total jacobian shape: (72, 104) 
 
 
@@ -2050,8 +2050,8 @@ FWD solves: 14   REV solves: 0
 Total colors vs. total size: 14 vs 104  (86.5% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.233723 sec.
-Time to compute coloring: 0.062088 sec.
+Time to compute sparsity: 0.255679 sec.
+Time to compute coloring: 0.066032 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -2083,13 +2083,12 @@ Optimization Complete
             Segment Ends = [-1.0, -0.9333, -0.8667, -0.8, -0.7333, -0.6667, -0.6, -0.5333, -0.4667, -0.3333, -0.2, -0.0667, 0.0667, 0.2, 0.3333, 0.6, 0.8667, 1.0]
             Segment Order = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3, 5, 5, 5]
         Refined: True
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+
+Model viewer data has already has already been recorded for Driver.
 Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.356858 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.456830 seconds.
 Total jacobian shape: (113, 164) 
 
 
@@ -2098,8 +2097,8 @@ FWD solves: 14   REV solves: 0
 Total colors vs. total size: 14 vs 164  (91.5% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.356858 sec.
-Time to compute coloring: 0.086267 sec.
+Time to compute sparsity: 0.456830 sec.
+Time to compute coloring: 0.113441 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -2131,12 +2130,13 @@ Optimization Complete
             Segment Ends = [-1.0, -0.9667, -0.9333, -0.8667, -0.8333, -0.8, -0.7333, -0.6667, -0.6, -0.5333, -0.4667, -0.3333, -0.2, -0.0667, 0.0667, 0.2, 0.3333, 0.6, 0.8667, 1.0]
             Segment Order = [5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
         Refined: True
-
-Model viewer data has already has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
 Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.437864 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.547455 seconds.
 Total jacobian shape: (136, 199) 
 
 
@@ -2145,8 +2145,8 @@ FWD solves: 0   REV solves: 18
 Total colors vs. total size: 18 vs 136  (86.8% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.437864 sec.
-Time to compute coloring: 0.103125 sec.
+Time to compute sparsity: 0.547455 sec.
+Time to compute coloring: 0.127953 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -2179,7 +2179,7 @@ Successfully completed grid refinement.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:440: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:441: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj

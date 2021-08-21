@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -672,8 +672,8 @@ The design of a water rocket is somewhat constrained by the soda bottle used as 
 This means that the volume available for water and air is fixed, the initial launch pressure is limited by the bottle’s strength (since the pressure is directly related to the energy available for the rocket, it is easy to see that it should be as high as possible) and the nozzle throat area is also fixed.
 Given these manufacturing constraints, the design variables we are left with are the empty mass (it can be easily changed through adding ballast), the water volume at the launch, and the launch angle.
 With this considerations in mind, a natural formulation for the water rocket problem is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f57865aa-b9f1-41c1-859c-d6589b6c88b8">
-<span class="eqno">(66)<a class="headerlink" href="#equation-f57865aa-b9f1-41c1-859c-d6589b6c88b8" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d3b2091c-e749-4a74-b832-8eeb21956870">
+<span class="eqno">(66)<a class="headerlink" href="#equation-d3b2091c-e749-4a74-b832-8eeb21956870" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \text{maximize}   &amp;\quad \text{range or height} \\
     \text{w.r.t.}     &amp;\quad \text{empty mass, initial water volume, launch angle, trajectory} \\
     \text{subject to} &amp;\quad \text{flight dynamics} \\
@@ -963,8 +963,8 @@ The constitutive equations and the N2 diagram showing the model organization are
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">_MassAdder</span></code> component calculates the rocket’s instantaneous mass by
 summing the water mass with the rockets empty mass, i.e.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-270e5506-23d6-4ae6-972e-485578837a24">
-<span class="eqno">(67)<a class="headerlink" href="#equation-270e5506-23d6-4ae6-972e-485578837a24" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-19c41ade-16fa-421b-8d25-5ecb5333681d">
+<span class="eqno">(67)<a class="headerlink" href="#equation-19c41ade-16fa-421b-8d25-5ecb5333681d" title="Permalink to this equation">¶</a></span>\[\begin{align}
     m = m_\text{empty}+\rho_w V_w
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1533,7 +1533,7 @@ Here we also define the design variables.</p>
 ----------------------------
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 4.042705 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 3.595844 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -1542,8 +1542,8 @@ FWD solves: 21   REV solves: 0
 Total colors vs. total size: 21 vs 1153  (98.2% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 4.042705 sec.
-Time to compute coloring: 2.573433 sec.
+Time to compute sparsity: 3.595844 sec.
+Time to compute coloring: 2.355689 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using option file &quot;IPOPT_options.opt&quot;.
@@ -1583,8 +1583,8 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 50
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.753
-Total CPU secs in NLP function evaluations           =     27.243
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.657
+Total CPU secs in NLP function evaluations           =     25.519
 
 EXIT: Optimal Solution Found.
 
@@ -1595,11 +1595,11 @@ Optimization Problem -- Optimization using pyOpt_sparse
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   23.7543
-       User Objective Time :       9.3544
-       User Sensitivity Time :    11.8345
-       Interface Time :            1.8087
-       Opt Solver Time:            0.7567
+    Total Time:                   21.8268
+       User Objective Time :       8.6455
+       User Sensitivity Time :    10.9405
+       Interface Time :            1.5827
+       Opt Solver Time:            0.6582
     Calls to Objective Function :      67
     Calls to Sens Function :           50
 
@@ -3929,13 +3929,13 @@ Maximum height: 54.1332 m
 Maximum velocity: 47.3203 m/s
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:134: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:135: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:441: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:440: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
@@ -4009,7 +4009,7 @@ Maximum velocity: 47.3203 m/s
 ----------------------------
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 4.035055 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 3.640451 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -4018,8 +4018,8 @@ FWD solves: 19   REV solves: 0
 Total colors vs. total size: 19 vs 1153  (98.4% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity: 4.035055 sec.
-Time to compute coloring: 2.443717 sec.
+Time to compute sparsity: 3.640451 sec.
+Time to compute coloring: 2.336533 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using option file &quot;IPOPT_options.opt&quot;.
@@ -4052,8 +4052,8 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 43
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total CPU secs in IPOPT (w/o function evaluations)   =      1.122
-Total CPU secs in NLP function evaluations           =     21.746
+Total CPU secs in IPOPT (w/o function evaluations)   =      1.007
+Total CPU secs in NLP function evaluations           =     20.450
 
 EXIT: Optimal Solution Found.
 
@@ -4064,11 +4064,11 @@ Optimization Problem -- Optimization using pyOpt_sparse
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   19.6164
-       User Objective Time :       7.3776
-       User Sensitivity Time :    10.0924
-       Interface Time :            1.5038
-       Opt Solver Time:            0.6426
+    Total Time:                   18.0628
+       User Objective Time :       6.7333
+       User Sensitivity Time :     9.2623
+       Interface Time :            1.5077
+       Opt Solver Time:            0.5594
     Calls to Objective Function :      53
     Calls to Sens Function :           43
 
@@ -6398,13 +6398,13 @@ Maximum height: 23.0872 m
 Maximum velocity: 41.3132 m/s
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:134: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:135: OMDeprecationWarning:The metadata key &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39;.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:441: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/problem.py:440: OMDeprecationWarning:Problem &#39;value&#39; will be deprecated in 4.0. Please use &#39;val&#39; in the future.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj

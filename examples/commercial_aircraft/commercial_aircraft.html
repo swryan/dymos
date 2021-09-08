@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -43,15 +43,15 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Double Integrator" href="../double_integrator/double_integrator.html" />
@@ -83,7 +83,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -510,7 +510,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#differential-inclusion">
@@ -925,8 +925,8 @@ preferable when using a differential inclusion approach to problems.</p>
 <p><em>TrueAirspeedComp</em> uses the Mach number, provided as a
 control, and the speed of sound from the atmosphere model to compute the
 true airspeed of the aircraft.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d685edb5-d55a-4663-8768-eb132cc6a42e">
-<span class="eqno">(27)<a class="headerlink" href="#equation-d685edb5-d55a-4663-8768-eb132cc6a42e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1f74dba9-120e-4d16-b6c1-5da09d7c4063">
+<span class="eqno">(27)<a class="headerlink" href="#equation-1f74dba9-120e-4d16-b6c1-5da09d7c4063" title="Permalink to this equation">¶</a></span>\[\begin{align}
   TAS &amp;= mach \cdot sos
 \end{align}\]</div>
 <table class="colwidths-auto table">
@@ -957,8 +957,8 @@ true airspeed of the aircraft.</p>
 <p><em>SteadyFlightPathAngleComp</em> uses the true airspeed and the
 climb rate, obtained by differentiating the altitude time history at the
 nodes, to compute the flight path angle.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-23865247-77ea-431e-8728-206dab09cd0e">
-<span class="eqno">(28)<a class="headerlink" href="#equation-23865247-77ea-431e-8728-206dab09cd0e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e208d468-daa3-414f-a78d-e0102fe97fc5">
+<span class="eqno">(28)<a class="headerlink" href="#equation-e208d468-daa3-414f-a78d-e0102fe97fc5" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \gamma &amp;= \arctan \frac{TAS}{\dot h}
 \end{align}\]</div>
 <table class="colwidths-auto table">
@@ -989,8 +989,8 @@ nodes, to compute the flight path angle.</p>
 <p><em>RangeRateComp</em> uses the true airspeed and the flight path
 angle to determine the velocity projected along the ground. This is the
 derivative of the state variable <em>range</em>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7ddd1063-61a1-4489-b56b-56f84faebe6f">
-<span class="eqno">(29)<a class="headerlink" href="#equation-7ddd1063-61a1-4489-b56b-56f84faebe6f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-14d65091-7655-436d-9216-86ac08fd545f">
+<span class="eqno">(29)<a class="headerlink" href="#equation-14d65091-7655-436d-9216-86ac08fd545f" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \dot{range} &amp;= TAS \cos \gamma
 \end{align}\]</div>
 <table class="colwidths-auto table">
@@ -1022,8 +1022,8 @@ derivative of the state variable <em>range</em>.</p>
 <code class="docutils literal notranslate"><span class="pre">mass_comp.py</span></code> computes the aircraft total mass based on
 its empty mass, payload mass, and current fuel mass. It also computes
 total weight which simplifies some equations later on.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e4f8b8b2-fd78-4f31-9be4-5ea9539a2bda">
-<span class="eqno">(30)<a class="headerlink" href="#equation-e4f8b8b2-fd78-4f31-9be4-5ea9539a2bda" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5ee54959-2719-42ef-97dd-dc6aff6702d1">
+<span class="eqno">(30)<a class="headerlink" href="#equation-5ee54959-2719-42ef-97dd-dc6aff6702d1" title="Permalink to this equation">¶</a></span>\[\begin{align}
   mass_{total} &amp;= mass_{empty} + mass_{payload} + mass_{fuel} W_{total} = 9.80665 \, mass_{total}
 \end{align}\]</div>
 <table class="colwidths-auto table">
@@ -1061,8 +1061,8 @@ total weight which simplifies some equations later on.</p>
 <h3>Dynamic Pressure<a class="headerlink" href="#dynamic-pressure" title="Permalink to this headline">¶</a></h3>
 <p>The <em>DynamicPressureComp</em> computes the dynamic pressure from
 true airspeed and atmospheric density.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1e94eddc-af72-4844-81de-9bf44527ad13">
-<span class="eqno">(31)<a class="headerlink" href="#equation-1e94eddc-af72-4844-81de-9bf44527ad13" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5da79194-6c31-494d-ad4c-44cf46c2be16">
+<span class="eqno">(31)<a class="headerlink" href="#equation-5da79194-6c31-494d-ad4c-44cf46c2be16" title="Permalink to this equation">¶</a></span>\[\begin{align}
   q &amp;= \frac{1}{2} \rho TAS^2
 \end{align}\]</div>
 <table class="colwidths-auto table">
@@ -1174,14 +1174,14 @@ profile being modeled is so benign that assuming steady flight at
 discrete points (nodes) in the trajectory is not terribly inaccurate.</p>
 <p>The thrust necessary for steady flight is computed by balancing the drag
 equation</p>
-<div class="amsmath math notranslate nohighlight" id="equation-aadcea3d-cc11-410b-8269-40175458e64e">
-<span class="eqno">(32)<a class="headerlink" href="#equation-aadcea3d-cc11-410b-8269-40175458e64e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-40a1bb39-2d33-458c-a789-b80ef86b0197">
+<span class="eqno">(32)<a class="headerlink" href="#equation-40a1bb39-2d33-458c-a789-b80ef86b0197" title="Permalink to this equation">¶</a></span>\[\begin{align}
   C_T &amp;= W_{total} \frac{sin \gamma}{q \cdot S \cdot \cos \alpha} + \frac{C_D}{\cos \alpha}
 \end{align}\]</div>
 <p>The lift coefficient required for steady flight is found by balancing
 lift and weight:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6a27cdae-0f2c-4908-9195-0a9b8bbb5dcc">
-<span class="eqno">(33)<a class="headerlink" href="#equation-6a27cdae-0f2c-4908-9195-0a9b8bbb5dcc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e3968a00-2555-485a-97db-dd51522ee2a7">
+<span class="eqno">(33)<a class="headerlink" href="#equation-e3968a00-2555-485a-97db-dd51522ee2a7" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \tilde{C_L} &amp;= W_{total} \frac{cos \gamma}{q \cdot S} - C_T \sin \alpha
 \end{align}\]</div>
 <p>Using coefficients in the balance equations is better scaled from a numerical standpoint.</p>
@@ -1193,30 +1193,30 @@ rate of fuel burn. In addition, by normalizing thrust at any point by
 the maximum possible thrust, we obtain the throttle parameter <span class="math notranslate nohighlight">\(\tau\)</span>.
 The propulsion group uses a number of components to perform these
 calculations.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2b148780-de84-44a9-99d3-79c4e5a2635e">
-<span class="eqno">(34)<a class="headerlink" href="#equation-2b148780-de84-44a9-99d3-79c4e5a2635e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5a76e787-ab4b-4d9c-ab0d-e99a790b9f6d">
+<span class="eqno">(34)<a class="headerlink" href="#equation-5a76e787-ab4b-4d9c-ab0d-e99a790b9f6d" title="Permalink to this equation">¶</a></span>\[\begin{align}
   T &amp;= C_T \cdot q \cdot S
 \end{align}\]</div>
 <p>Maximum thrust is computed by multiplying sea-level thrust by the ratio
 of pressure to sea-level atmospheric pressure.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-53a4d2e6-27c3-44f2-bba0-2f426687de73">
-<span class="eqno">(35)<a class="headerlink" href="#equation-53a4d2e6-27c3-44f2-bba0-2f426687de73" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0fa5109c-6b3c-4235-bb5d-8804a7b7338f">
+<span class="eqno">(35)<a class="headerlink" href="#equation-0fa5109c-6b3c-4235-bb5d-8804a7b7338f" title="Permalink to this equation">¶</a></span>\[\begin{align}
   T_{max} &amp;= T_{max,sl} \frac{P}{P_{sl}}
 \end{align}\]</div>
 <p>The throttle parameter is then the ratio current thrust to maximum
 possible thrust.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-97dda4c1-5acf-4678-a6c6-733ec2bfdbb5">
-<span class="eqno">(36)<a class="headerlink" href="#equation-97dda4c1-5acf-4678-a6c6-733ec2bfdbb5" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-44609460-45da-4c94-b3e1-4c789b21253a">
+<span class="eqno">(36)<a class="headerlink" href="#equation-44609460-45da-4c94-b3e1-4c789b21253a" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \tau &amp;= \frac{T}{T_{max}}
 \end{align}\]</div>
 <p>The thrust specific fuel consumption is computed as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2908365d-8032-40b4-ba1b-8d0cf3736ca2">
-<span class="eqno">(37)<a class="headerlink" href="#equation-2908365d-8032-40b4-ba1b-8d0cf3736ca2" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1106bd97-3924-4e8d-bcc2-7a574fb3901c">
+<span class="eqno">(37)<a class="headerlink" href="#equation-1106bd97-3924-4e8d-bcc2-7a574fb3901c" title="Permalink to this equation">¶</a></span>\[\begin{align}
   TSFC &amp;= TSFC_{sl} - 1.5 E - 10 \cdot 9.80665 \cdot alt
 \end{align}\]</div>
 <p>Finally, fuel burn rate is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eb747890-6031-4090-92a5-6a22bb8c2be3">
-<span class="eqno">(38)<a class="headerlink" href="#equation-eb747890-6031-4090-92a5-6a22bb8c2be3" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b29cca1c-6746-4e5b-b604-8041cfea741d">
+<span class="eqno">(38)<a class="headerlink" href="#equation-b29cca1c-6746-4e5b-b604-8041cfea741d" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \dot{mass_{fuel}} &amp;= -TSFC \frac{T}{9.80665}
 \end{align}\]</div>
 </div>
@@ -1550,7 +1550,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.305328 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.491881 seconds.
 Total jacobian shape: (224, 221) 
 
 
@@ -1559,8 +1559,8 @@ FWD solves: 11   REV solves: 0
 Total colors vs. total size: 11 vs 221  (95.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 1.305328 sec.
-Time to compute coloring: 0.169751 sec.
+Time to compute sparsity: 1.491881 sec.
+Time to compute coloring: 0.190461 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1569,11 +1569,11 @@ Time to compute coloring: 0.169751 sec.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   27.5921
-       User Objective Time :      15.6296
-       User Sensitivity Time :     7.1697
-       Interface Time :            0.8618
-       Opt Solver Time:            3.9310
+    Total Time:                   31.0129
+       User Objective Time :      17.5831
+       User Sensitivity Time :     8.0801
+       Interface Time :            0.9615
+       Opt Solver Time:            4.3882
     Calls to Objective Function :      77
     Calls to Sens Function :           76
 
@@ -2136,12 +2136,32 @@ Time to compute coloring: 0.169751 sec.
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="../balanced_field/balanced_field.html" title="previous page">Aircraft Balanced Field Length Calculation</a>
-    <a class='right-next' id="next-link" href="../double_integrator/double_integrator.html" title="next page">Double Integrator</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../balanced_field/balanced_field.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Aircraft Balanced Field Length Calculation</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../double_integrator/double_integrator.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Double Integrator</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>

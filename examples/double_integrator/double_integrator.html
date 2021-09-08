@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -43,15 +43,15 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Hyper-Sensitive Problem" href="../hypersensitive/hypersensitive.html" />
@@ -83,7 +83,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -510,7 +510,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-ode-system-double-integrator-ode-py">
@@ -542,20 +542,20 @@ traveled by a block (that starts and ends at rest) sliding without
 friction along a horizontal surface, with acceleration as the control.</p>
 <p>We minimize the final time, <span class="math notranslate nohighlight">\(t_f\)</span>, by varying the dynamic control,
 <span class="math notranslate nohighlight">\(u\)</span>, subject to the dynamics:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cbaeec08-1d3b-4128-9f77-c83060a24cda">
-<span class="eqno">(39)<a class="headerlink" href="#equation-cbaeec08-1d3b-4128-9f77-c83060a24cda" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bc6f2968-8335-47e8-8bb6-0ceff6dfe1ec">
+<span class="eqno">(39)<a class="headerlink" href="#equation-bc6f2968-8335-47e8-8bb6-0ceff6dfe1ec" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \frac{dx}{dt} &amp;= v \\
   \frac{dv}{dt} &amp;= u
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-62737f49-6336-46e6-a16b-1329eb462729">
-<span class="eqno">(40)<a class="headerlink" href="#equation-62737f49-6336-46e6-a16b-1329eb462729" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5b7330b2-7128-449f-951e-076dd622145d">
+<span class="eqno">(40)<a class="headerlink" href="#equation-5b7330b2-7128-449f-951e-076dd622145d" title="Permalink to this equation">¶</a></span>\[\begin{align}
   x_0 &amp;= 0 \\
   v_0 &amp;= 0
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1f2efccc-adbe-4003-9c2c-0b91021e044d">
-<span class="eqno">(41)<a class="headerlink" href="#equation-1f2efccc-adbe-4003-9c2c-0b91021e044d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ed1daa36-97d8-4627-966b-d62f6439bea2">
+<span class="eqno">(41)<a class="headerlink" href="#equation-ed1daa36-97d8-4627-966b-d62f6439bea2" title="Permalink to this equation">¶</a></span>\[\begin{align}
   x_f &amp;= \rm{free} \\
   v_f &amp;= 0
 \end{align}\]</div>
@@ -832,7 +832,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.119304 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.143888 seconds.
 Total jacobian shape: (181, 327) 
 </pre></div>
 </div>
@@ -841,8 +841,8 @@ FWD solves: 12   REV solves: 0
 Total colors vs. total size: 12 vs 327  (96.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.119304 sec.
-Time to compute coloring: 0.150578 sec.
+Time to compute sparsity: 0.143888 sec.
+Time to compute coloring: 0.192257 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -851,11 +851,11 @@ Time to compute coloring: 0.150578 sec.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    3.0271
-       User Objective Time :       0.0307
-       User Sensitivity Time :     0.1661
-       Interface Time :            0.2257
-       Opt Solver Time:            2.6046
+    Total Time:                    3.4215
+       User Objective Time :       0.0387
+       User Sensitivity Time :     0.1860
+       Interface Time :            0.2556
+       Opt Solver Time:            2.9412
     Calls to Objective Function :      19
     Calls to Sens Function :           19
 
@@ -1443,10 +1443,12 @@ Time to compute coloring: 0.150578 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/double_integrator_5_23.png" src="../../_images/double_integrator_5_23.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<img alt="../../_images/double_integrator_5_24.png" src="../../_images/double_integrator_5_24.png" />
 </div>
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">
@@ -1477,12 +1479,32 @@ Done simulating trajectory traj
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="../commercial_aircraft/commercial_aircraft.html" title="previous page">Commercial Aircraft Range Maximization by Differential Inclusion</a>
-    <a class='right-next' id="next-link" href="../hypersensitive/hypersensitive.html" title="next page">Hyper-Sensitive Problem</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../commercial_aircraft/commercial_aircraft.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Commercial Aircraft Range Maximization by Differential Inclusion</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../hypersensitive/hypersensitive.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Hyper-Sensitive Problem</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>

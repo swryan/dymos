@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -43,15 +43,15 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Segments" href="segments.html" />
@@ -83,7 +83,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -524,8 +524,8 @@ Each phase represents the trajectory of a dynamical system, and may be subject t
 Multiple phases may be assembled to form one or more trajectories by enforcing compatibility constraints between them.</p>
 <p>For implicit and explicit phases, the equations-of-motion or process equations are defined via an ordinary differential equation.</p>
 <p>An ODE is of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9c10ac27-544a-40bf-ad73-677976b17cd5">
-<span class="eqno">(68)<a class="headerlink" href="#equation-9c10ac27-544a-40bf-ad73-677976b17cd5" title="Permalink to this equation">¶</a></span>\[\begin{align}  
+<div class="amsmath math notranslate nohighlight" id="equation-da0064bb-c4d4-46b2-9462-5d544c512f8b">
+<span class="eqno">(68)<a class="headerlink" href="#equation-da0064bb-c4d4-46b2-9462-5d544c512f8b" title="Permalink to this equation">¶</a></span>\[\begin{align}  
     \frac{\partial \textbf x}{\partial t} = \textbf f(t, \textbf x, \textbf u)
 \end{align}\]</div>
 <p>where
@@ -538,8 +538,8 @@ and
 In addition, Dymos automatically calculates the first and second time-derivatives of the controls.
 These derivatives can then be utilized as via constraints or as additional parameters to the ODE.
 Subsequently, the optimal control problem as solved by Dymos can be expressed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-446348d1-bf0f-45fd-a7f4-e9143341b808">
-<span class="eqno">(69)<a class="headerlink" href="#equation-446348d1-bf0f-45fd-a7f4-e9143341b808" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5fffcae5-66ac-4fd6-8a6e-356f185a7ea0">
+<span class="eqno">(69)<a class="headerlink" href="#equation-5fffcae5-66ac-4fd6-8a6e-356f185a7ea0" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \textrm{Minimize}:&amp; \quad J = \textbf f_{obj}(t, \textbf x, \textbf u, \dot{\textbf u}, \ddot{\textbf u}) \\
   \textrm{subject to:}&amp; \\
   &amp;\textrm{system dynamics} \quad &amp;\frac{\partial \textbf x}{\partial t} &amp;= \textbf f_{ode}(t, \textbf x, \textbf u, \dot{\textbf u}, \ddot{\textbf u}) \\
@@ -585,12 +585,32 @@ general form of the optimal control problem.</p>
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="phases_list.html" title="previous page">Phases</a>
-    <a class='right-next' id="next-link" href="segments.html" title="next page">Segments</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="phases_list.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Phases</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="segments.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Segments</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>

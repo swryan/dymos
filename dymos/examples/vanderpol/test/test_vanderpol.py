@@ -16,6 +16,7 @@ class TestVanderpolExample(unittest.TestCase):
         p = vanderpol(transcription='gauss-lobatto', num_segments=75)
         p.run_model()
 
+    @require_pyoptsparse(optimizer='SLSQP')
     def test_vanderpol_simulate_true(self):
         # simulate true
         p = vanderpol(transcription='radau-ps', num_segments=30, transcription_order=3,
@@ -69,6 +70,7 @@ class TestVanderpolExampleMPI(unittest.TestCase):
         assert_almost_equal(p.get_val('traj.phase0.states:x0')[-1, ...], np.zeros(1))
         assert_almost_equal(p.get_val('traj.phase0.states:x1')[-1, ...], np.zeros(1))
         assert_almost_equal(p.get_val('traj.phase0.controls:u')[-1, ...], np.zeros(1), decimal=3)
+
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

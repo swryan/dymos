@@ -5,6 +5,7 @@ import openmdao.api as om
 import dymos as dm
 
 from openmdao.utils.assert_utils import assert_check_partials, assert_near_equal
+from openmdao.utils.testing_utils import require_pyoptsparse
 from dymos.examples.brachistochrone.brachistochrone_ode import BrachistochroneODE
 from dymos.transcriptions.explicit_shooting.rk_integration_comp import RKIntegrationComp
 
@@ -40,6 +41,7 @@ class SimpleODE(om.ExplicitComponent):
         partials['x_dot', 't'] = -2*t
 
 
+@require_pyoptsparse(optimizer='SNOPT')
 class TestRKIntegrationComp(unittest.TestCase):
 
     def test_eval_f_scalar(self):

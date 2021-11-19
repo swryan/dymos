@@ -219,7 +219,7 @@ jobs:
           cd $HOME
           testflo dymos -n 1 --show_skipped --coverage --coverpkg dymos
           pwd
-          ls -l
+          ls -al
 
       - name: Submit coverage
         shell: bash -l {0}
@@ -232,9 +232,9 @@ jobs:
           echo "Submit coverage"
           echo "============================================================="
           pwd
-          ls -l
+          ls -al
           cp $HOME/.coverage .
-          ls -l
+          ls -al
           pip install coveralls
           SITE_DIR=`python -c 'import site; print(site.getsitepackages()[-1])'`
           coveralls --basedir $SITE_DIR

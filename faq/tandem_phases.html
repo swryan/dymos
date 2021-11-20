@@ -557,8 +557,8 @@ This is one application of the interpolating timeseries component.</p>
 This is a trivial solution which should find a straight line from the starting point to the ending point.</p>
 <p>There are two phases involved, the first utilizes the standard ODE for the brachistochrone problem.
 The second integrates the arclength (𝑆) of the wire using the equation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-32804697-a33d-4104-91c4-018531f0ea0a">
-<span class="eqno">(74)<a class="headerlink" href="#equation-32804697-a33d-4104-91c4-018531f0ea0a" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4f4003d2-b08f-4815-92ba-9c356bb38b53">
+<span class="eqno">(74)<a class="headerlink" href="#equation-4f4003d2-b08f-4815-92ba-9c356bb38b53" title="Permalink to this equation">¶</a></span>\[\begin{align}
     S = \int v \sin \theta  \sqrt{1 + \frac{1}{\tan^2 \theta}} dt
 \end{align}\]</div>
 <div class="section" id="the-ode-for-the-wire-arclength">
@@ -1019,7 +1019,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:223: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.296359 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.326192 seconds.
 Total jacobian shape: (220, 287) 
 </pre></div>
 </div>
@@ -1028,8 +1028,8 @@ FWD solves: 29   REV solves: 0
 Total colors vs. total size: 29 vs 287  (89.9% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.296359 sec.
-Time to compute coloring: 0.295142 sec.
+Time to compute sparsity: 0.326192 sec.
+Time to compute coloring: 0.431458 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1038,11 +1038,11 @@ Time to compute coloring: 0.295142 sec.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   12.9129
-       User Objective Time :       0.4354
-       User Sensitivity Time :     2.7493
-       Interface Time :            1.0869
-       Opt Solver Time:            8.6413
+    Total Time:                   14.4533
+       User Objective Time :       0.6224
+       User Sensitivity Time :     3.6674
+       Interface Time :            1.3265
+       Opt Solver Time:            8.8371
     Calls to Objective Function :     134
     Calls to Sens Function :          103
 
@@ -1346,35 +1346,35 @@ Time to compute coloring: 0.295142 sec.
           0  phase0.final_boundary_constraints.final_value:x           e   1.000000E+01    1.000000E+01    1.000000E+01              9.00000E+100
           1  phase0.final_boundary_constraints.final_value:y           e   5.000000E+00    5.000000E+00    5.000000E+00              9.00000E+100
           2  phase0.collocation_constraint.defects:x                   e   0.000000E+00    2.755817E-10    0.000000E+00              9.00000E+100
-          3  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.409761E-10    0.000000E+00              9.00000E+100
-          4  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.105399E-11    0.000000E+00              9.00000E+100
-          5  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.603131E-11    0.000000E+00              9.00000E+100
-          6  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.546133E-11    0.000000E+00              9.00000E+100
+          3  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.409760E-10    0.000000E+00              9.00000E+100
+          4  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.105384E-11    0.000000E+00              9.00000E+100
+          5  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.603117E-11    0.000000E+00              9.00000E+100
+          6  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.546182E-11    0.000000E+00              9.00000E+100
           7  phase0.collocation_constraint.defects:x                   e   0.000000E+00    3.141706E-11    0.000000E+00              9.00000E+100
-          8  phase0.collocation_constraint.defects:x                   e   0.000000E+00    3.950128E-11    0.000000E+00              9.00000E+100
-          9  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.601355E-11    0.000000E+00              9.00000E+100
-         10  phase0.collocation_constraint.defects:x                   e   0.000000E+00    5.979653E-11    0.000000E+00              9.00000E+100
-         11  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.328779E-11    0.000000E+00              9.00000E+100
-         12  phase0.collocation_constraint.defects:y                   e   0.000000E+00    1.210074E-10    0.000000E+00              9.00000E+100
-         13  phase0.collocation_constraint.defects:y                   e   0.000000E+00    7.330972E-11    0.000000E+00              9.00000E+100
-         14  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -1.323552E-10    0.000000E+00              9.00000E+100
-         15  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -3.740533E-11    0.000000E+00              9.00000E+100
-         16  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -7.183845E-12    0.000000E+00              9.00000E+100
-         17  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -5.730026E-12    0.000000E+00              9.00000E+100
-         18  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -1.960267E-11    0.000000E+00              9.00000E+100
-         19  phase0.collocation_constraint.defects:y                   e   0.000000E+00    1.141343E-12    0.000000E+00              9.00000E+100
-         20  phase0.collocation_constraint.defects:y                   e   0.000000E+00    1.458324E-11    0.000000E+00              9.00000E+100
-         21  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -4.961033E-11    0.000000E+00              9.00000E+100
-         22  phase0.collocation_constraint.defects:v                   e   0.000000E+00    1.339416E-09    0.000000E+00              9.00000E+100
-         23  phase0.collocation_constraint.defects:v                   e   0.000000E+00    1.610131E-10    0.000000E+00              9.00000E+100
-         24  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -5.227523E-12    0.000000E+00              9.00000E+100
-         25  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -1.358795E-11    0.000000E+00              9.00000E+100
-         26  phase0.collocation_constraint.defects:v                   e   0.000000E+00    4.582745E-12    0.000000E+00              9.00000E+100
-         27  phase0.collocation_constraint.defects:v                   e   0.000000E+00    3.323587E-11    0.000000E+00              9.00000E+100
-         28  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -1.354584E-11    0.000000E+00              9.00000E+100
-         29  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -9.884375E-12    0.000000E+00              9.00000E+100
-         30  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -1.244140E-11    0.000000E+00              9.00000E+100
-         31  phase0.collocation_constraint.defects:v                   e   0.000000E+00    4.786818E-11    0.000000E+00              9.00000E+100
+          8  phase0.collocation_constraint.defects:x                   e   0.000000E+00    3.950226E-11    0.000000E+00              9.00000E+100
+          9  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.601227E-11    0.000000E+00              9.00000E+100
+         10  phase0.collocation_constraint.defects:x                   e   0.000000E+00    5.979536E-11    0.000000E+00              9.00000E+100
+         11  phase0.collocation_constraint.defects:x                   e   0.000000E+00    1.328897E-11    0.000000E+00              9.00000E+100
+         12  phase0.collocation_constraint.defects:y                   e   0.000000E+00    1.210089E-10    0.000000E+00              9.00000E+100
+         13  phase0.collocation_constraint.defects:y                   e   0.000000E+00    7.331001E-11    0.000000E+00              9.00000E+100
+         14  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -1.323582E-10    0.000000E+00              9.00000E+100
+         15  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -3.740465E-11    0.000000E+00              9.00000E+100
+         16  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -7.183550E-12    0.000000E+00              9.00000E+100
+         17  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -5.730174E-12    0.000000E+00              9.00000E+100
+         18  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -1.960292E-11    0.000000E+00              9.00000E+100
+         19  phase0.collocation_constraint.defects:y                   e   0.000000E+00    1.142128E-12    0.000000E+00              9.00000E+100
+         20  phase0.collocation_constraint.defects:y                   e   0.000000E+00    1.458427E-11    0.000000E+00              9.00000E+100
+         21  phase0.collocation_constraint.defects:y                   e   0.000000E+00   -4.961171E-11    0.000000E+00              9.00000E+100
+         22  phase0.collocation_constraint.defects:v                   e   0.000000E+00    1.339415E-09    0.000000E+00              9.00000E+100
+         23  phase0.collocation_constraint.defects:v                   e   0.000000E+00    1.610133E-10    0.000000E+00              9.00000E+100
+         24  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -5.227818E-12    0.000000E+00              9.00000E+100
+         25  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -1.358756E-11    0.000000E+00              9.00000E+100
+         26  phase0.collocation_constraint.defects:v                   e   0.000000E+00    4.581862E-12    0.000000E+00              9.00000E+100
+         27  phase0.collocation_constraint.defects:v                   e   0.000000E+00    3.323607E-11    0.000000E+00              9.00000E+100
+         28  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -1.354574E-11    0.000000E+00              9.00000E+100
+         29  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -9.884081E-12    0.000000E+00              9.00000E+100
+         30  phase0.collocation_constraint.defects:v                   e   0.000000E+00   -1.244121E-11    0.000000E+00              9.00000E+100
+         31  phase0.collocation_constraint.defects:v                   e   0.000000E+00    4.786956E-11    0.000000E+00              9.00000E+100
          32  phase0.continuity_comp.defect_states:x                    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          33  phase0.continuity_comp.defect_states:x                    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          34  phase0.continuity_comp.defect_states:x                    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
@@ -1411,195 +1411,195 @@ Time to compute coloring: 0.295142 sec.
          65  phase0.continuity_comp.defect_controls:theta              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          66  phase0.continuity_comp.defect_controls:theta              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          67  phase0.continuity_comp.defect_controls:theta              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         68  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -1.963094E-13    0.000000E+00              9.00000E+100
-         69  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    7.263448E-14    0.000000E+00              9.00000E+100
-         70  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -3.926188E-15    0.000000E+00              9.00000E+100
-         71  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -1.776600E-13    0.000000E+00              9.00000E+100
-         72  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    1.383981E-13    0.000000E+00              9.00000E+100
-         73  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -1.138595E-13    0.000000E+00              9.00000E+100
-         74  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    1.420789E-13    0.000000E+00              9.00000E+100
-         75  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    1.776600E-13    0.000000E+00              9.00000E+100
-         76  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
+         68  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    2.983903E-13    0.000000E+00              9.00000E+100
+         69  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    2.139773E-13    0.000000E+00              9.00000E+100
+         70  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -1.099333E-13    0.000000E+00              9.00000E+100
+         71  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    3.533569E-14    0.000000E+00              9.00000E+100
+         72  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -3.435415E-15    0.000000E+00              9.00000E+100
+         73  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    2.748332E-14    0.000000E+00              9.00000E+100
+         74  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    7.091677E-14    0.000000E+00              9.00000E+100
+         75  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
+         76  phase0.continuity_comp.defect_control_rates:theta_rate    e   0.000000E+00   -2.841579E-13    0.000000E+00              9.00000E+100
          77  phase1.collocation_constraint.defects:S                   e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         78  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -3.823820E-13    0.000000E+00              9.00000E+100
-         79  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.123321E-12    0.000000E+00              9.00000E+100
-         80  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.909765E-12    0.000000E+00              9.00000E+100
-         81  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.426176E-12    0.000000E+00              9.00000E+100
-         82  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.492835E-12    0.000000E+00              9.00000E+100
-         83  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.142502E-12    0.000000E+00              9.00000E+100
-         84  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.597057E-12    0.000000E+00              9.00000E+100
-         85  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.157164E-12    0.000000E+00              9.00000E+100
-         86  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.037471E-12    0.000000E+00              9.00000E+100
-         87  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -7.168729E-13    0.000000E+00              9.00000E+100
-         88  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.143196E-13    0.000000E+00              9.00000E+100
-         89  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.573070E-12    0.000000E+00              9.00000E+100
-         90  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.704616E-12    0.000000E+00              9.00000E+100
-         91  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.368780E-12    0.000000E+00              9.00000E+100
-         92  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.203599E-12    0.000000E+00              9.00000E+100
-         93  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.168728E-11    0.000000E+00              9.00000E+100
-         94  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.328660E-11    0.000000E+00              9.00000E+100
-         95  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.368711E-11    0.000000E+00              9.00000E+100
-         96  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.458308E-11    0.000000E+00              9.00000E+100
-         97  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.644523E-11    0.000000E+00              9.00000E+100
-         98  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.876324E-11    0.000000E+00              9.00000E+100
-         99  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.097983E-11    0.000000E+00              9.00000E+100
-        100  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.267980E-11    0.000000E+00              9.00000E+100
-        101  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.371041E-11    0.000000E+00              9.00000E+100
-        102  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.417198E-11    0.000000E+00              9.00000E+100
-        103  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.430468E-11    0.000000E+00              9.00000E+100
-        104  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.432272E-11    0.000000E+00              9.00000E+100
-        105  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.433367E-11    0.000000E+00              9.00000E+100
-        106  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.421902E-11    0.000000E+00              9.00000E+100
-        107  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.371485E-11    0.000000E+00              9.00000E+100
-        108  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.260227E-11    0.000000E+00              9.00000E+100
-        109  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.086946E-11    0.000000E+00              9.00000E+100
-        110  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.877513E-11    0.000000E+00              9.00000E+100
-        111  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.680134E-11    0.000000E+00              9.00000E+100
-        112  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.547627E-11    0.000000E+00              9.00000E+100
-        113  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.513874E-11    0.000000E+00              9.00000E+100
-        114  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.500798E-11    0.000000E+00              9.00000E+100
-        115  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.471108E-11    0.000000E+00              9.00000E+100
-        116  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.428745E-11    0.000000E+00              9.00000E+100
-        117  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.378737E-11    0.000000E+00              9.00000E+100
-        118  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.327309E-11    0.000000E+00              9.00000E+100
+         78  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -3.823701E-13    0.000000E+00              9.00000E+100
+         79  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.123333E-12    0.000000E+00              9.00000E+100
+         80  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.909790E-12    0.000000E+00              9.00000E+100
+         81  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.426182E-12    0.000000E+00              9.00000E+100
+         82  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.492841E-12    0.000000E+00              9.00000E+100
+         83  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.142484E-12    0.000000E+00              9.00000E+100
+         84  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.597130E-12    0.000000E+00              9.00000E+100
+         85  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.157373E-12    0.000000E+00              9.00000E+100
+         86  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.038274E-12    0.000000E+00              9.00000E+100
+         87  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -7.167073E-13    0.000000E+00              9.00000E+100
+         88  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.141294E-13    0.000000E+00              9.00000E+100
+         89  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.573254E-12    0.000000E+00              9.00000E+100
+         90  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.704530E-12    0.000000E+00              9.00000E+100
+         91  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.368756E-12    0.000000E+00              9.00000E+100
+         92  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.203439E-12    0.000000E+00              9.00000E+100
+         93  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.168724E-11    0.000000E+00              9.00000E+100
+         94  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.328564E-11    0.000000E+00              9.00000E+100
+         95  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.368533E-11    0.000000E+00              9.00000E+100
+         96  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.458295E-11    0.000000E+00              9.00000E+100
+         97  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.644516E-11    0.000000E+00              9.00000E+100
+         98  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.876340E-11    0.000000E+00              9.00000E+100
+         99  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.097967E-11    0.000000E+00              9.00000E+100
+        100  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.268009E-11    0.000000E+00              9.00000E+100
+        101  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.370975E-11    0.000000E+00              9.00000E+100
+        102  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.417212E-11    0.000000E+00              9.00000E+100
+        103  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.430487E-11    0.000000E+00              9.00000E+100
+        104  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.432070E-11    0.000000E+00              9.00000E+100
+        105  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.433353E-11    0.000000E+00              9.00000E+100
+        106  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.421971E-11    0.000000E+00              9.00000E+100
+        107  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.371453E-11    0.000000E+00              9.00000E+100
+        108  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.260218E-11    0.000000E+00              9.00000E+100
+        109  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.086888E-11    0.000000E+00              9.00000E+100
+        110  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.877582E-11    0.000000E+00              9.00000E+100
+        111  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.680021E-11    0.000000E+00              9.00000E+100
+        112  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.547433E-11    0.000000E+00              9.00000E+100
+        113  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.513671E-11    0.000000E+00              9.00000E+100
+        114  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.500805E-11    0.000000E+00              9.00000E+100
+        115  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.471116E-11    0.000000E+00              9.00000E+100
+        116  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.428708E-11    0.000000E+00              9.00000E+100
+        117  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.378742E-11    0.000000E+00              9.00000E+100
+        118  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.327204E-11    0.000000E+00              9.00000E+100
         119  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.280357E-11    0.000000E+00              9.00000E+100
-        120  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.243593E-11    0.000000E+00              9.00000E+100
-        121  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.222014E-11    0.000000E+00              9.00000E+100
-        122  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.216284E-11    0.000000E+00              9.00000E+100
-        123  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.203347E-11    0.000000E+00              9.00000E+100
-        124  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.173707E-11    0.000000E+00              9.00000E+100
-        125  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.131196E-11    0.000000E+00              9.00000E+100
-        126  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.081250E-11    0.000000E+00              9.00000E+100
-        127  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.029557E-11    0.000000E+00              9.00000E+100
-        128  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.825973E-12    0.000000E+00              9.00000E+100
-        129  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.460911E-12    0.000000E+00              9.00000E+100
-        130  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.237487E-12    0.000000E+00              9.00000E+100
-        131  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.186103E-12    0.000000E+00              9.00000E+100
-        132  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.084488E-12    0.000000E+00              9.00000E+100
-        133  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.855836E-12    0.000000E+00              9.00000E+100
-        134  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.545962E-12    0.000000E+00              9.00000E+100
-        135  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.196090E-12    0.000000E+00              9.00000E+100
-        136  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.860695E-12    0.000000E+00              9.00000E+100
-        137  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.574844E-12    0.000000E+00              9.00000E+100
-        138  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.365480E-12    0.000000E+00              9.00000E+100
-        139  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.241952E-12    0.000000E+00              9.00000E+100
-        140  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.220677E-12    0.000000E+00              9.00000E+100
-        141  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.147184E-12    0.000000E+00              9.00000E+100
-        142  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.994038E-12    0.000000E+00              9.00000E+100
-        143  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.790195E-12    0.000000E+00              9.00000E+100
-        144  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.572145E-12    0.000000E+00              9.00000E+100
-        145  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.369063E-12    0.000000E+00              9.00000E+100
-        146  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.201218E-12    0.000000E+00              9.00000E+100
-        147  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.084365E-12    0.000000E+00              9.00000E+100
-        148  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.027337E-12    0.000000E+00              9.00000E+100
-        149  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.015215E-12    0.000000E+00              9.00000E+100
-        150  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.920054E-12    0.000000E+00              9.00000E+100
-        151  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.746320E-12    0.000000E+00              9.00000E+100
-        152  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.515902E-12    0.000000E+00              9.00000E+100
-        153  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.283913E-12    0.000000E+00              9.00000E+100
-        154  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.082205E-12    0.000000E+00              9.00000E+100
-        155  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.942482E-12    0.000000E+00              9.00000E+100
-        156  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.848303E-12    0.000000E+00              9.00000E+100
-        157  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.812083E-12    0.000000E+00              9.00000E+100
-        158  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.797360E-12    0.000000E+00              9.00000E+100
-        159  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.779054E-12    0.000000E+00              9.00000E+100
-        160  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.738271E-12    0.000000E+00              9.00000E+100
-        161  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.716628E-12    0.000000E+00              9.00000E+100
-        162  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.718149E-12    0.000000E+00              9.00000E+100
-        163  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.764920E-12    0.000000E+00              9.00000E+100
-        164  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.841677E-12    0.000000E+00              9.00000E+100
-        165  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.928937E-12    0.000000E+00              9.00000E+100
-        166  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.996663E-12    0.000000E+00              9.00000E+100
-        167  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.014184E-12    0.000000E+00              9.00000E+100
-        168  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.076169E-12    0.000000E+00              9.00000E+100
-        169  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.233462E-12    0.000000E+00              9.00000E+100
-        170  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.436347E-12    0.000000E+00              9.00000E+100
-        171  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.631675E-12    0.000000E+00              9.00000E+100
-        172  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.793631E-12    0.000000E+00              9.00000E+100
-        173  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.911220E-12    0.000000E+00              9.00000E+100
-        174  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.987143E-12    0.000000E+00              9.00000E+100
-        175  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.003289E-12    0.000000E+00              9.00000E+100
-        176  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.016294E-12    0.000000E+00              9.00000E+100
-        177  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.029496E-12    0.000000E+00              9.00000E+100
-        178  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.049569E-12    0.000000E+00              9.00000E+100
-        179  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.061642E-12    0.000000E+00              9.00000E+100
-        180  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.031705E-12    0.000000E+00              9.00000E+100
-        181  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.971634E-12    0.000000E+00              9.00000E+100
-        182  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.874216E-12    0.000000E+00              9.00000E+100
-        183  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.781607E-12    0.000000E+00              9.00000E+100
-        184  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.713487E-12    0.000000E+00              9.00000E+100
-        185  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.696065E-12    0.000000E+00              9.00000E+100
-        186  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.650276E-12    0.000000E+00              9.00000E+100
-        187  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.524834E-12    0.000000E+00              9.00000E+100
-        188  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.351002E-12    0.000000E+00              9.00000E+100
-        189  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.132362E-12    0.000000E+00              9.00000E+100
-        190  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.899490E-12    0.000000E+00              9.00000E+100
-        191  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.657392E-12    0.000000E+00              9.00000E+100
-        192  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.477474E-12    0.000000E+00              9.00000E+100
-        193  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.345162E-12    0.000000E+00              9.00000E+100
-        194  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.332500E-12    0.000000E+00              9.00000E+100
-        195  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.253289E-12    0.000000E+00              9.00000E+100
-        196  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.083236E-12    0.000000E+00              9.00000E+100
-        197  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.838831E-12    0.000000E+00              9.00000E+100
-        198  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.538772E-12    0.000000E+00              9.00000E+100
-        199  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.205733E-12    0.000000E+00              9.00000E+100
-        200  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.888595E-12    0.000000E+00              9.00000E+100
-        201  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.645466E-12    0.000000E+00              9.00000E+100
-        202  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.472861E-12    0.000000E+00              9.00000E+100
-        203  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.454751E-12    0.000000E+00              9.00000E+100
-        204  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.414753E-12    0.000000E+00              9.00000E+100
-        205  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.354093E-12    0.000000E+00              9.00000E+100
-        206  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.255497E-12    0.000000E+00              9.00000E+100
-        207  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.143502E-12    0.000000E+00              9.00000E+100
-        208  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.018895E-12    0.000000E+00              9.00000E+100
-        209  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.908667E-12    0.000000E+00              9.00000E+100
-        210  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.818365E-12    0.000000E+00              9.00000E+100
-        211  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.776257E-12    0.000000E+00              9.00000E+100
-        212  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.743767E-12    0.000000E+00              9.00000E+100
-        213  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.718591E-12    0.000000E+00              9.00000E+100
-        214  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.645809E-12    0.000000E+00              9.00000E+100
-        215  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.527238E-12    0.000000E+00              9.00000E+100
-        216  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.407735E-12    0.000000E+00              9.00000E+100
-        217  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.262368E-12    0.000000E+00              9.00000E+100
-        218  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.137564E-12    0.000000E+00              9.00000E+100
-        219  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.027287E-12    0.000000E+00              9.00000E+100
-        220  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.801238E-13    0.000000E+00              9.00000E+100
-        221  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.542600E-13    0.000000E+00              9.00000E+100
-        222  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.742149E-13    0.000000E+00              9.00000E+100
-        223  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.588144E-13    0.000000E+00              9.00000E+100
-        224  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.776993E-13    0.000000E+00              9.00000E+100
-        225  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.429133E-14    0.000000E+00              9.00000E+100
-        226  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.398901E-13    0.000000E+00              9.00000E+100
-        227  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -4.872400E-13    0.000000E+00              9.00000E+100
-        228  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -6.879663E-13    0.000000E+00              9.00000E+100
-        229  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -7.938753E-13    0.000000E+00              9.00000E+100
-        230  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -8.360818E-13    0.000000E+00              9.00000E+100
-        231  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -8.951709E-13    0.000000E+00              9.00000E+100
-        232  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.012368E-12    0.000000E+00              9.00000E+100
-        233  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.190322E-12    0.000000E+00              9.00000E+100
-        234  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.395269E-12    0.000000E+00              9.00000E+100
-        235  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.559580E-12    0.000000E+00              9.00000E+100
-        236  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.706223E-12    0.000000E+00              9.00000E+100
-        237  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.794170E-12    0.000000E+00              9.00000E+100
-        238  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.912250E-12    0.000000E+00              9.00000E+100
-        239  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.795446E-12    0.000000E+00              9.00000E+100
-        240  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.896840E-12    0.000000E+00              9.00000E+100
-        241  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.915882E-12    0.000000E+00              9.00000E+100
-        242  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.948764E-12    0.000000E+00              9.00000E+100
-        243  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.934826E-12    0.000000E+00              9.00000E+100
-        244  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.870338E-12    0.000000E+00              9.00000E+100
-        245  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.781606E-12    0.000000E+00              9.00000E+100
-        246  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.725952E-12    0.000000E+00              9.00000E+100
-        247  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.651355E-12    0.000000E+00              9.00000E+100
-        248  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.629074E-12    0.000000E+00              9.00000E+100
-        249  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.605517E-12    0.000000E+00              9.00000E+100
-        250  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.496270E-12    0.000000E+00              9.00000E+100
-        251  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.321948E-12    0.000000E+00              9.00000E+100
-        252  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.088339E-12    0.000000E+00              9.00000E+100
-        253  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -7.912251E-13    0.000000E+00              9.00000E+100
-        254  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -5.092266E-13    0.000000E+00              9.00000E+100
-        255  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.475462E-13    0.000000E+00              9.00000E+100
-        256  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -6.684335E-14    0.000000E+00              9.00000E+100
+        120  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.243735E-11    0.000000E+00              9.00000E+100
+        121  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.222046E-11    0.000000E+00              9.00000E+100
+        122  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.216601E-11    0.000000E+00              9.00000E+100
+        123  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.203352E-11    0.000000E+00              9.00000E+100
+        124  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.173614E-11    0.000000E+00              9.00000E+100
+        125  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.131304E-11    0.000000E+00              9.00000E+100
+        126  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.081140E-11    0.000000E+00              9.00000E+100
+        127  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.029699E-11    0.000000E+00              9.00000E+100
+        128  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.826856E-12    0.000000E+00              9.00000E+100
+        129  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.460641E-12    0.000000E+00              9.00000E+100
+        130  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.240480E-12    0.000000E+00              9.00000E+100
+        131  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.186372E-12    0.000000E+00              9.00000E+100
+        132  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.085028E-12    0.000000E+00              9.00000E+100
+        133  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.854953E-12    0.000000E+00              9.00000E+100
+        134  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.544711E-12    0.000000E+00              9.00000E+100
+        135  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.197317E-12    0.000000E+00              9.00000E+100
+        136  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.860965E-12    0.000000E+00              9.00000E+100
+        137  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.574108E-12    0.000000E+00              9.00000E+100
+        138  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.364793E-12    0.000000E+00              9.00000E+100
+        139  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.244946E-12    0.000000E+00              9.00000E+100
+        140  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.209046E-12    0.000000E+00              9.00000E+100
+        141  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.147846E-12    0.000000E+00              9.00000E+100
+        142  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.993670E-12    0.000000E+00              9.00000E+100
+        143  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.792919E-12    0.000000E+00              9.00000E+100
+        144  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.569470E-12    0.000000E+00              9.00000E+100
+        145  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.367688E-12    0.000000E+00              9.00000E+100
+        146  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.203083E-12    0.000000E+00              9.00000E+100
+        147  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.086770E-12    0.000000E+00              9.00000E+100
+        148  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.020270E-12    0.000000E+00              9.00000E+100
+        149  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.004123E-12    0.000000E+00              9.00000E+100
+        150  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.921919E-12    0.000000E+00              9.00000E+100
+        151  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.744651E-12    0.000000E+00              9.00000E+100
+        152  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.513595E-12    0.000000E+00              9.00000E+100
+        153  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.283422E-12    0.000000E+00              9.00000E+100
+        154  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.082009E-12    0.000000E+00              9.00000E+100
+        155  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.939881E-12    0.000000E+00              9.00000E+100
+        156  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.843493E-12    0.000000E+00              9.00000E+100
+        157  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.814194E-12    0.000000E+00              9.00000E+100
+        158  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.800747E-12    0.000000E+00              9.00000E+100
+        159  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.781165E-12    0.000000E+00              9.00000E+100
+        160  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.742345E-12    0.000000E+00              9.00000E+100
+        161  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.714223E-12    0.000000E+00              9.00000E+100
+        162  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.715794E-12    0.000000E+00              9.00000E+100
+        163  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.763350E-12    0.000000E+00              9.00000E+100
+        164  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.844033E-12    0.000000E+00              9.00000E+100
+        165  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.928102E-12    0.000000E+00              9.00000E+100
+        166  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.993866E-12    0.000000E+00              9.00000E+100
+        167  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.012712E-12    0.000000E+00              9.00000E+100
+        168  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.082156E-12    0.000000E+00              9.00000E+100
+        169  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.237093E-12    0.000000E+00              9.00000E+100
+        170  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.431292E-12    0.000000E+00              9.00000E+100
+        171  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.632411E-12    0.000000E+00              9.00000E+100
+        172  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.799471E-12    0.000000E+00              9.00000E+100
+        173  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.908472E-12    0.000000E+00              9.00000E+100
+        174  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.979634E-12    0.000000E+00              9.00000E+100
+        175  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.008197E-12    0.000000E+00              9.00000E+100
+        176  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.038477E-12    0.000000E+00              9.00000E+100
+        177  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.026748E-12    0.000000E+00              9.00000E+100
+        178  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.049814E-12    0.000000E+00              9.00000E+100
+        179  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.056243E-12    0.000000E+00              9.00000E+100
+        180  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.032784E-12    0.000000E+00              9.00000E+100
+        181  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.968591E-12    0.000000E+00              9.00000E+100
+        182  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.873823E-12    0.000000E+00              9.00000E+100
+        183  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.772135E-12    0.000000E+00              9.00000E+100
+        184  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.713684E-12    0.000000E+00              9.00000E+100
+        185  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.681685E-12    0.000000E+00              9.00000E+100
+        186  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.635749E-12    0.000000E+00              9.00000E+100
+        187  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.529693E-12    0.000000E+00              9.00000E+100
+        188  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.350020E-12    0.000000E+00              9.00000E+100
+        189  phase1.collocation_constraint.defects:S                   e   0.000000E+00    5.133786E-12    0.000000E+00              9.00000E+100
+        190  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.891049E-12    0.000000E+00              9.00000E+100
+        191  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.656018E-12    0.000000E+00              9.00000E+100
+        192  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.469180E-12    0.000000E+00              9.00000E+100
+        193  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.358511E-12    0.000000E+00              9.00000E+100
+        194  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.310218E-12    0.000000E+00              9.00000E+100
+        195  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.255939E-12    0.000000E+00              9.00000E+100
+        196  phase1.collocation_constraint.defects:S                   e   0.000000E+00    4.080831E-12    0.000000E+00              9.00000E+100
+        197  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.840499E-12    0.000000E+00              9.00000E+100
+        198  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.534011E-12    0.000000E+00              9.00000E+100
+        199  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.203720E-12    0.000000E+00              9.00000E+100
+        200  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.891098E-12    0.000000E+00              9.00000E+100
+        201  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.624019E-12    0.000000E+00              9.00000E+100
+        202  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.476885E-12    0.000000E+00              9.00000E+100
+        203  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.441108E-12    0.000000E+00              9.00000E+100
+        204  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.417109E-12    0.000000E+00              9.00000E+100
+        205  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.346192E-12    0.000000E+00              9.00000E+100
+        206  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.256380E-12    0.000000E+00              9.00000E+100
+        207  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.140656E-12    0.000000E+00              9.00000E+100
+        208  phase1.collocation_constraint.defects:S                   e   0.000000E+00    2.020809E-12    0.000000E+00              9.00000E+100
+        209  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.901011E-12    0.000000E+00              9.00000E+100
+        210  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.820672E-12    0.000000E+00              9.00000E+100
+        211  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.778122E-12    0.000000E+00              9.00000E+100
+        212  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.766834E-12    0.000000E+00              9.00000E+100
+        213  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.711082E-12    0.000000E+00              9.00000E+100
+        214  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.646300E-12    0.000000E+00              9.00000E+100
+        215  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.544219E-12    0.000000E+00              9.00000E+100
+        216  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.405134E-12    0.000000E+00              9.00000E+100
+        217  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.264674E-12    0.000000E+00              9.00000E+100
+        218  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.141392E-12    0.000000E+00              9.00000E+100
+        219  phase1.collocation_constraint.defects:S                   e   0.000000E+00    1.039753E-12    0.000000E+00              9.00000E+100
+        220  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.701120E-13    0.000000E+00              9.00000E+100
+        221  phase1.collocation_constraint.defects:S                   e   0.000000E+00    9.722714E-13    0.000000E+00              9.00000E+100
+        222  phase1.collocation_constraint.defects:S                   e   0.000000E+00    8.719082E-13    0.000000E+00              9.00000E+100
+        223  phase1.collocation_constraint.defects:S                   e   0.000000E+00    6.688262E-13    0.000000E+00              9.00000E+100
+        224  phase1.collocation_constraint.defects:S                   e   0.000000E+00    3.778956E-13    0.000000E+00              9.00000E+100
+        225  phase1.collocation_constraint.defects:S                   e   0.000000E+00    7.351787E-14    0.000000E+00              9.00000E+100
+        226  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.373381E-13    0.000000E+00              9.00000E+100
+        227  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -4.806636E-13    0.000000E+00              9.00000E+100
+        228  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -6.873774E-13    0.000000E+00              9.00000E+100
+        229  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -8.087948E-13    0.000000E+00              9.00000E+100
+        230  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -7.944642E-13    0.000000E+00              9.00000E+100
+        231  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -8.755400E-13    0.000000E+00              9.00000E+100
+        232  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.019533E-12    0.000000E+00              9.00000E+100
+        233  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.191107E-12    0.000000E+00              9.00000E+100
+        234  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.392128E-12    0.000000E+00              9.00000E+100
+        235  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.557617E-12    0.000000E+00              9.00000E+100
+        236  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.703377E-12    0.000000E+00              9.00000E+100
+        237  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.804378E-12    0.000000E+00              9.00000E+100
+        238  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.859541E-12    0.000000E+00              9.00000E+100
+        239  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.864154E-12    0.000000E+00              9.00000E+100
+        240  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.887711E-12    0.000000E+00              9.00000E+100
+        241  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.916471E-12    0.000000E+00              9.00000E+100
+        242  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.936690E-12    0.000000E+00              9.00000E+100
+        243  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.919219E-12    0.000000E+00              9.00000E+100
+        244  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.877798E-12    0.000000E+00              9.00000E+100
+        245  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.797703E-12    0.000000E+00              9.00000E+100
+        246  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.704456E-12    0.000000E+00              9.00000E+100
+        247  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.637711E-12    0.000000E+00              9.00000E+100
+        248  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.615626E-12    0.000000E+00              9.00000E+100
+        249  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.596192E-12    0.000000E+00              9.00000E+100
+        250  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.491559E-12    0.000000E+00              9.00000E+100
+        251  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.311445E-12    0.000000E+00              9.00000E+100
+        252  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -1.086965E-12    0.000000E+00              9.00000E+100
+        253  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -8.060464E-13    0.000000E+00              9.00000E+100
+        254  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -5.042207E-13    0.000000E+00              9.00000E+100
+        255  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -2.510797E-13    0.000000E+00              9.00000E+100
+        256  phase1.collocation_constraint.defects:S                   e   0.000000E+00   -9.275620E-14    0.000000E+00              9.00000E+100
         257  phase1.continuity_comp.defect_states:S                    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         258  phase1.continuity_comp.defect_states:S                    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         259  phase1.continuity_comp.defect_states:S                    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100

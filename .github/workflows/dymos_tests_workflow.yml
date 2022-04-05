@@ -25,11 +25,14 @@ jobs:
         id: create-matrix
         run: |
           MATRIX_INCLUDE=$(cat << EOF
+
           include:
+
           EOF
           )
 
           MATRIX_BASELINE=$(cat << EOF
+
           # baseline versions
           - NAME: baseline
             PY: 3.8
@@ -67,10 +70,12 @@ jobs:
             OPENMDAO: 'latest'
             OPTIONAL: '[all]'
             DOCS: 1
+
           EOF
           )
 
           MATRIX_OLDEST=$(cat << EOF
+
           # oldest supported versions
           - NAME: oldest
             PY: 3.7
@@ -83,10 +88,12 @@ jobs:
             OPENMDAO: 3.13.0
             OPTIONAL: '[all]'
             DOCS: 0
+
           EOF
           )
 
           MATRIX_LATEST=$(cat << EOF
+
           # latest development version of OpenMDAO
           - NAME: latest
             PY: 3
@@ -99,6 +106,7 @@ jobs:
             OPENMDAO: 'dev'
             OPTIONAL: '[test]'
             JAX: True
+
           EOF
           )
 

@@ -28,7 +28,7 @@ jobs:
           EOF
           )
 
-          MATRIX_NORMAL=$(cat << EOF
+          MATRIX_BASELINE=$(cat << EOF
           # baseline versions
           - NAME: baseline
             PY: 3.8
@@ -66,7 +66,10 @@ jobs:
             OPENMDAO: 'latest'
             OPTIONAL: '[all]'
             DOCS: 1
+          EOF
+          )
 
+          MATRIX_OLDEST=$(cat << EOF
           # oldest supported versions
           - NAME: oldest
             PY: 3.7
@@ -79,7 +82,6 @@ jobs:
             OPENMDAO: 3.13.0
             OPTIONAL: '[all]'
             DOCS: 0
-
           EOF
           )
 
@@ -96,19 +98,17 @@ jobs:
             OPENMDAO: 'dev'
             OPTIONAL: '[test]'
             JAX: True
-
           EOF
           )
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             MATRIX="$MATRIX_INCLUDE $MATRIX_LATEST"
           else
-            MATRIX="$MATRIX_INCLUDE $MATRIX_NORMAL $MATRIX_LATEST"
+            MATRIX="$MATRIX_INCLUDE $MATRIX_BASELINE $MATRIX_OLDEST $MATRIX_LATEST"
           fi
 
-          echo "MATRIX<<EOF" >> $GITHUB_ENV
-          echo "$MATRIX" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "MATRIX:"
+          echo "$MATRIX"
 
           echo "::set-output name=matrix::$MATRIX"
 
@@ -120,10 +120,6 @@ jobs:
         run: |
           echo "matrix output:"
           echo ${{ needs.matrix.outputs.matrix }}
-
-          echo "matrix env var:"
-          matrix='${{ env.MATRIX }}'
-          echo $matrix
 
   test_ubuntu:
     runs-on: ubuntu-latest

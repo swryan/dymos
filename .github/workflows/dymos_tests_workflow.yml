@@ -16,6 +16,99 @@ on:
 
 jobs:
 
+  set_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: create matrix
+        run: |
+          MATRIX_INCLUDE=$(cat << EOF
+          include:
+          EOF
+          )
+
+          MATRIX_NORMAL=$(cat << EOF
+            # baseline versions
+            - NAME: baseline
+              PY: 3.8
+              NUMPY: 1.18
+              SCIPY: 1.4
+              PETSc: 3.12
+              PYOPTSPARSE: 'v2.1.5'
+              SNOPT: 7.7
+              MBI: 1
+              OPENMDAO: 'latest'
+              OPTIONAL: '[all]'
+              JAX: True
+              DOCS: 2
+
+            # baseline versions except no pyoptsparse or SNOPT
+            - NAME: no_pyoptsparse
+              PY: 3.8
+              NUMPY: 1.18
+              SCIPY: 1.4
+              PETSc: 3.12
+              MBI: 1
+              OPENMDAO: 'latest'
+              OPTIONAL: '[all]'
+              DOCS: 0
+
+            # baseline versions except with pyoptsparse but no SNOPT
+            # build docs to verify those that use pyoptsparse do not use SNOPT
+            - NAME: no_snopt
+              PY: 3.8
+              NUMPY: 1.18
+              SCIPY: 1.4
+              PETSc: 3.12
+              PYOPTSPARSE: 'v2.1.5'
+              MBI: 1
+              OPENMDAO: 'latest'
+              OPTIONAL: '[all]'
+              DOCS: 1
+
+            # oldest supported versions
+            - NAME: oldest
+              PY: 3.7
+              NUMPY: 1.16
+              SCIPY: 1.2
+              PETSc: 3.10.2
+              PYOPTSPARSE: 'v1.2'
+              SNOPT: 7.2
+              MBI: 1
+              OPENMDAO: 3.13.0
+              OPTIONAL: '[all]'
+              DOCS: 0
+            EOF
+            )
+
+            MATRIX_LATEST=$(cat << EOF
+            - NAME: latest
+              PY: 3
+              NUMPY: 1
+              SCIPY: 1
+              # PETSc: 3
+              PYOPTSPARSE: 'v2.1.5'
+              SNOPT: 7.7
+              MBI: 1
+              OPENMDAO: 'dev'
+              OPTIONAL: '[test]'
+              JAX: True
+            EOF
+            )
+
+            echo "MATRIX<<EOF" >> $GITHUB_ENV
+            echo "$MATRIX_INCLUDE" >> $GITHUB_ENV
+            if [[ "${{ github.event_name }}" != "workflow_dispatch" ]]; then
+              echo "$MATRIX_NORMAL" >> $GITHUB_ENV
+            fi
+            echo "$MATRIX_LATEST" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+
+      - name: display matrix
+        run: |
+          echo "The string is: ${{ env.MATRIX }}"
+
   test_ubuntu:
     runs-on: ubuntu-latest
 
@@ -23,72 +116,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          # baseline versions
-          - NAME: baseline
-            PY: 3.8
-            NUMPY: 1.18
-            SCIPY: 1.4
-            PETSc: 3.12
-            PYOPTSPARSE: 'v2.1.5'
-            SNOPT: 7.7
-            MBI: 1
-            OPENMDAO: 'latest'
-            OPTIONAL: '[all]'
-            JAX: True
-            DOCS: 2
-
-          # baseline versions except no pyoptsparse or SNOPT
-          - NAME: no_pyoptsparse
-            PY: 3.8
-            NUMPY: 1.18
-            SCIPY: 1.4
-            PETSc: 3.12
-            MBI: 1
-            OPENMDAO: 'latest'
-            OPTIONAL: '[all]'
-            DOCS: 0
-
-          # baseline versions except with pyoptsparse but no SNOPT
-          # build docs to verify those that use pyoptsparse do not use SNOPT
-          - NAME: no_snopt
-            PY: 3.8
-            NUMPY: 1.18
-            SCIPY: 1.4
-            PETSc: 3.12
-            PYOPTSPARSE: 'v2.1.5'
-            MBI: 1
-            OPENMDAO: 'latest'
-            OPTIONAL: '[all]'
-            DOCS: 1
-
-          # try latest versions
-          - NAME: latest
-            PY: 3
-            NUMPY: 1
-            SCIPY: 1
-            # PETSc: 3
-            PYOPTSPARSE: 'v2.1.5'
-            SNOPT: 7.7
-            MBI: 1
-            OPENMDAO: 'dev'
-            OPTIONAL: '[test]'
-            JAX: True
-            DOCS: 0
-
-          # oldest supported versions
-          - NAME: oldest
-            PY: 3.7
-            NUMPY: 1.16
-            SCIPY: 1.2
-            PETSc: 3.10.2
-            PYOPTSPARSE: 'v1.2'
-            SNOPT: 7.2
-            MBI: 1
-            OPENMDAO: 3.13.0
-            OPTIONAL: '[all]'
-            DOCS: 0
+      matrix: ${{ env.matrix }}
 
     steps:
       - name: Display run details

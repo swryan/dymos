@@ -104,9 +104,9 @@ jobs:
           )
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            MATRIX="$MATRIX_INCLUDE $MATRIX_LATEST"
+            MATRIX="include:\\n$MATRIX_LATEST"
           else
-            MATRIX="$MATRIX_INCLUDE $MATRIX_BASELINE $MATRIX_OLDEST $MATRIX_LATEST"
+            MATRIX="include:\\n$MATRIX_BASELINE\\n$MATRIX_OLDEST\\n$MATRIX_LATEST"
           fi
 
           echo "MATRIX:"

@@ -16,6 +16,23 @@ on:
 
 jobs:
 
+  steps:
+    - name: create string
+      run: |
+        MY_STRING=$(cat << EOF
+        first line
+        second line
+        third line
+        EOF
+        )
+        echo "MY_STRING<<EOF" >> $GITHUB_ENV
+        echo "$MY_STRING" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+      id: my_string
+    - name: display string
+      run: |
+        echo "The string is: ${{ env.MY_STRING }}"
+
   matrix:
     runs-on: ubuntu-latest
     outputs:

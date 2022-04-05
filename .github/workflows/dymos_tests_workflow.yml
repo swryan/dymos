@@ -24,12 +24,6 @@ jobs:
       - name: Create matrix
         id: create-matrix
         run: |
-          MATRIX_INCLUDE=$(cat << EOF
-          include:
-
-          EOF
-          )
-
           MATRIX_BASELINE=$(cat << EOF
           - NAME: baseline
             PY: 3.8
@@ -64,7 +58,6 @@ jobs:
             OPENMDAO: 'latest'
             OPTIONAL: '[all]'
             DOCS: 1
-
           EOF
           )
 
@@ -80,7 +73,6 @@ jobs:
             OPENMDAO: 3.13.0
             OPTIONAL: '[all]'
             DOCS: 0
-
           EOF
           )
 
@@ -96,14 +88,13 @@ jobs:
             OPENMDAO: 'dev'
             OPTIONAL: '[test]'
             JAX: True
-
           EOF
           )
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            MATRIX="$MATRIX_INCLUDE $MATRIX_LATEST"
+            MATRIX="include:\n $MATRIX_LATEST"
           else
-            MATRIX="$MATRIX_INCLUDE $MATRIX_BASELINE $MATRIX_OLDEST $MATRIX_LATEST"
+            MATRIX="include:\n $MATRIX_BASELINE\n $MATRIX_OLDEST\n $MATRIX_LATEST"
           fi
 
           echo "MATRIX:"

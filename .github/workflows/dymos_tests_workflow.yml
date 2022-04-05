@@ -21,7 +21,8 @@ jobs:
     outputs:
       matrix: ${{ steps.create-matrix.outputs.matrix }}
     steps:
-      - id: create-matrix
+      - name: Create matrix
+        id: create-matrix
         run: |
           MATRIX_INCLUDE=$(cat << EOF
           include:
@@ -109,6 +110,9 @@ jobs:
 
           echo "MATRIX:"
           echo "$MATRIX"
+
+          # output is single line string, need to encode newlines
+          MATRIX="${MATRIX//$'\n'/'%0A'}"
 
           echo "::set-output name=matrix::$MATRIX"
 

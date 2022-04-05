@@ -27,9 +27,10 @@ jobs:
           include:
           EOF
           )
-
           MATRIX_NORMAL=$(cat << EOF
+            #
             # baseline versions
+            #
             - NAME: baseline
               PY: 3.8
               NUMPY: 1.18
@@ -42,8 +43,9 @@ jobs:
               OPTIONAL: '[all]'
               JAX: True
               DOCS: 2
-
+            #
             # baseline versions except no pyoptsparse or SNOPT
+            #
             - NAME: no_pyoptsparse
               PY: 3.8
               NUMPY: 1.18
@@ -53,9 +55,10 @@ jobs:
               OPENMDAO: 'latest'
               OPTIONAL: '[all]'
               DOCS: 0
-
+            #
             # baseline versions except with pyoptsparse but no SNOPT
             # build docs to verify those that use pyoptsparse do not use SNOPT
+            #
             - NAME: no_snopt
               PY: 3.8
               NUMPY: 1.18
@@ -66,8 +69,9 @@ jobs:
               OPENMDAO: 'latest'
               OPTIONAL: '[all]'
               DOCS: 1
-
+            #
             # oldest supported versions
+            #
             - NAME: oldest
               PY: 3.7
               NUMPY: 1.16
@@ -81,8 +85,10 @@ jobs:
               DOCS: 0
             EOF
             )
-
             MATRIX_LATEST=$(cat << EOF
+            #
+            # latest development version of OpenMDAO
+            #
             - NAME: latest
               PY: 3
               NUMPY: 1
@@ -96,7 +102,6 @@ jobs:
               JAX: True
             EOF
             )
-
             echo "MATRIX<<EOF" >> $GITHUB_ENV
             echo "$MATRIX_INCLUDE" >> $GITHUB_ENV
             if [[ "${{ github.event_name }}" != "workflow_dispatch" ]]; then

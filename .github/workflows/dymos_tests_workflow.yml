@@ -30,6 +30,7 @@ jobs:
             PY: 3.8
             NUMPY: 1.18
             SCIPY: 1.4
+            OPENMPI: 4.0
             PETSc: 3.12
             PYOPTSPARSE: 'v2.1.5'
             SNOPT: 7.7
@@ -44,6 +45,7 @@ jobs:
             PY: 3.8
             NUMPY: 1.18
             SCIPY: 1.4
+            OPENMPI: 4.0
             PETSc: 3.12
             MBI: 1
             OPENMDAO: 'latest'
@@ -56,6 +58,7 @@ jobs:
             PY: 3.8
             NUMPY: 1.18
             SCIPY: 1.4
+            OPENMPI: 4.0
             PETSc: 3.12
             PYOPTSPARSE: 'v2.1.5'
             MBI: 1
@@ -170,7 +173,11 @@ jobs:
           echo "============================================================="
           echo "Install PETSc"
           echo "============================================================="
-          conda install -c conda-forge openmpi=4.0 mpi4py petsc=${{ matrix.PETSc }} petsc4py -q -y
+          if [[ "${{ matrix.OPENMPI }}" ]]; then
+            conda install -c conda-forge openmpi=${{ matrix.OPENMPI }} mpi4py petsc=${{ matrix.PETSc }} petsc4py -q -y
+          else
+            conda install -c conda-forge mpi4py petsc=${{ matrix.PETSc }} petsc4py -q -y
+          fi
           echo "OMPI_MCA_rmaps_base_oversubscribe=1" >> $GITHUB_ENV
 
       - name: Install pyOptSparse

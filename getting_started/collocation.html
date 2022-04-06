@@ -38,20 +38,22 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Modeling Dynamic Systems with Dymos" href="intro_to_dymos/intro_ivp.html" />
@@ -123,6 +125,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="defining_odes.html">
    Defining ODEs
   </a>
@@ -165,6 +172,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../examples/brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../examples/vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -172,6 +184,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../examples/balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -202,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../examples/min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -397,6 +424,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -461,7 +493,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -517,7 +549,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -562,7 +594,55 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>What is collocation?</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-simulating-the-fall-of-an-object">
+   Example:  Simulating the fall of an object
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-the-trajectory-using-high-order-legendre-gauss-lobatto-collocation">
+   Finding the trajectory using high-order Legendre-Gauss-Lobatto collocation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-the-trajectory-using-the-radau-pseudospectral-method">
+   Finding the trajectory using the Radau Pseudospectral Method
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-segments">
+   Multiple Segments
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lgl-vs-lgr-collocation">
+   LGL vs LGR Collocation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#satisfying-defects-with-a-nonlinear-solver">
+   Satisfying Defects with a Nonlinear Solver
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -593,13 +673,13 @@ This makes scaling the problem easier, and gives the implicit variables more int
 <h2>Example:  Simulating the fall of an object<a class="headerlink" href="#example-simulating-the-fall-of-an-object" title="Permalink to this headline">¶</a></h2>
 <p>As a “hello, world” problem for Dymos, consider the vertical fall of an object acting under gravity - like Galileo dropping cannonballs from the Tower of Pisa.
 Ignoring aerodynamics and treating the ball as a point mass in a rectilinear gravity field, the motion is governed by:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-55759d3a-9fa6-4e33-a577-19bd23275d25">
-<span class="eqno">(5)<a class="headerlink" href="#equation-55759d3a-9fa6-4e33-a577-19bd23275d25" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-11e04280-dfb3-4e1d-bf8b-b33643fa0d36">
+<span class="eqno">(5)<a class="headerlink" href="#equation-11e04280-dfb3-4e1d-bf8b-b33643fa0d36" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \ddot{y} = -g
 \end{align}\]</div>
 <p>The techniques in Dymos are generally centered around first-order dynamics, so we convert the above equation into the following system of ODEs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4096be53-4279-4a6c-a870-f3d3f71293f5">
-<span class="eqno">(6)<a class="headerlink" href="#equation-4096be53-4279-4a6c-a870-f3d3f71293f5" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d200135d-1462-4f00-84bc-6b477ebe4c43">
+<span class="eqno">(6)<a class="headerlink" href="#equation-d200135d-1462-4f00-84bc-6b477ebe4c43" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \dot{y} &amp;= v_y \\
     \dot{v_y} &amp;= -g
 \end{align}\]</div>
@@ -675,8 +755,8 @@ In LGL collocation, these points are chosen to be the LGL <em>nodes</em> in the 
 <p>To form 3rd-order polynomials for the states we need four pieces of information, but so far we only have the two endpoint values.
 We’ll use the state rates at the state discretization nodes to provide the other two values needed for interpolation.
 To obtain these, we evaluate our ODE at the state discretization nodes.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b4bb07c5-6a58-48a7-ae38-cbecc1460f71">
-<span class="eqno">(7)<a class="headerlink" href="#equation-b4bb07c5-6a58-48a7-ae38-cbecc1460f71" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-911d3895-569c-44e3-ad33-cc567f3324ff">
+<span class="eqno">(7)<a class="headerlink" href="#equation-911d3895-569c-44e3-ad33-cc567f3324ff" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \dot{y}_0 &amp;= 0 \\
     \dot{y}_f &amp;= -50 \\
     \dot{v}_{y0} &amp;= -9.80665 \\
@@ -690,21 +770,21 @@ We call this difference in slope the collocation <em>defect</em>.</p>
 <p>Having computed the ODE at the state discretization nodes, we can form interpolants for the values and the slope of the states at the collocation nodes.
 Dymos uses Lagrange interpolants, such that the inputs to the system are the values of the states and controls, rather than less intuitive coefficients.
 In this case, the state values at our single collocation node are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8675d331-b70b-4061-b141-0f9143292b2e">
-<span class="eqno">(8)<a class="headerlink" href="#equation-8675d331-b70b-4061-b141-0f9143292b2e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6d8f81de-2455-49a0-96de-93c832a430a5">
+<span class="eqno">(8)<a class="headerlink" href="#equation-6d8f81de-2455-49a0-96de-93c832a430a5" title="Permalink to this equation">¶</a></span>\[\begin{align}
     y_m &amp;= 50 \\
     v_{ym} &amp;= -25
 \end{align}\]</div>
 <p><img alt="Screenshot" src="../_images/lgl_animation_2.png" /></p>
 <p>The polynomial slopes at the collocation node are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e25bfafd-8b97-4a29-b6ae-7211468fbed1">
-<span class="eqno">(9)<a class="headerlink" href="#equation-e25bfafd-8b97-4a29-b6ae-7211468fbed1" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a3945eaa-c8a2-4af0-82a1-12b05b76d5cf">
+<span class="eqno">(9)<a class="headerlink" href="#equation-a3945eaa-c8a2-4af0-82a1-12b05b76d5cf" title="Permalink to this equation">¶</a></span>\[\begin{align}
     y'_m &amp;= 50 \\
     v'_{ym} &amp;= -25
 \end{align}\]</div>
 <p>Now, having the state and time values at the collocation nodes, we can again evaluate the ODE.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c6782c83-2491-479e-9c2a-d3b196101349">
-<span class="eqno">(10)<a class="headerlink" href="#equation-c6782c83-2491-479e-9c2a-d3b196101349" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2f389bc2-5467-471b-9cd9-ba6f2a207770">
+<span class="eqno">(10)<a class="headerlink" href="#equation-2f389bc2-5467-471b-9cd9-ba6f2a207770" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \dot{y}_m &amp;= -17 \\
     \dot{v}_{ym} &amp;= -9.80665
 \end{align}\]</div>
@@ -785,8 +865,8 @@ This <code class="docutils literal notranslate"><span class="pre">solve_segments
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="defining_odes.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -803,19 +883,17 @@ This <code class="docutils literal notranslate"><span class="pre">solve_segments
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

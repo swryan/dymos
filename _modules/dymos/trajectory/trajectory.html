@@ -38,11 +38,20 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -112,6 +121,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -154,6 +168,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../../examples/vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -161,6 +180,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../../examples/balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -191,6 +220,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../../examples/min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -386,6 +420,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -467,14 +506,24 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <h1>Source code for dymos.trajectory.trajectory</h1><div class="highlight"><pre>
@@ -499,8 +548,9 @@
 <span class="kn">from</span> <span class="nn">.options</span> <span class="kn">import</span> <span class="n">LinkageOptionsDictionary</span>
 <span class="kn">from</span> <span class="nn">.phase_linkage_comp</span> <span class="kn">import</span> <span class="n">PhaseLinkageComp</span>
 <span class="kn">from</span> <span class="nn">..phase.options</span> <span class="kn">import</span> <span class="n">TrajParameterOptionsDictionary</span>
+<span class="kn">from</span> <span class="nn">..transcriptions.common</span> <span class="kn">import</span> <span class="n">ParameterComp</span>
 <span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">get_rate_units</span><span class="p">,</span> <span class="n">_unspecified</span>
-<span class="kn">from</span> <span class="nn">..utils.introspection</span> <span class="kn">import</span> <span class="n">get_source_metadata</span>
+<span class="kn">from</span> <span class="nn">..utils.introspection</span> <span class="kn">import</span> <span class="n">get_promoted_vars</span><span class="p">,</span> <span class="n">get_source_metadata</span>
 
 
 <span class="k">class</span> <span class="nc">Trajectory</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
@@ -554,12 +604,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_phase_add_kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span>
         <span class="k">return</span> <span class="n">phase</span></div>
 
-<div class="viewcode-block" id="Trajectory.add_parameter"><a class="viewcode-back" href="../../../api/trajectory_api.html#dymos.Trajectory.add_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">add_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                      <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                      <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                      <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_target</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_parameter_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                              <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                              <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_target</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a parameter (static control) to the trajectory.</span>
+<span class="sd">        Set the options of an existing a parameter in the trajectory.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -597,7 +647,7 @@
 <span class="sd">            The shape of the parameter.</span>
 <span class="sd">        dynamic : bool</span>
 <span class="sd">            True if the targets in the ODE may be dynamic (if the inputs are sized to the number</span>
-<span class="sd">            of nodes) else False.</span>
+<span class="sd">            of nodes) else False. This argument is deprecated in favor of static_target.</span>
 <span class="sd">        static_target : bool or _unspecified</span>
 <span class="sd">            True if the targets in the ODE are not shaped with num_nodes as the first dimension</span>
 <span class="sd">            (meaning they cannot have a unique value at each node).  Otherwise False.</span>
@@ -654,7 +704,66 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both the deprecated &#39;dynamic&#39; option and option &#39;static_target&#39; were &quot;</span>
                              <span class="sa">f</span><span class="s2">&quot;specified for parameter &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
                              <span class="sa">f</span><span class="s2">&quot;Going forward, please use only option static_target.  Option &quot;</span>
-                             <span class="sa">f</span><span class="s2">&quot;&#39;dynamic&#39; will be removed in Dymos 2.0.0.&quot;</span><span class="p">)</span></div>
+                             <span class="sa">f</span><span class="s2">&quot;&#39;dynamic&#39; will be removed in Dymos 2.0.0.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Trajectory.add_parameter"><a class="viewcode-back" href="../../../api/trajectory_api.html#dymos.Trajectory.add_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">add_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                      <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                      <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_target</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a parameter (static control) to the trajectory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the parameter.</span>
+<span class="sd">        units : str or None or _unspecified</span>
+<span class="sd">            Units in which the parameter is defined.  If _unspecified, use the units declared</span>
+<span class="sd">            for the parameter in the ODE.</span>
+<span class="sd">        val : float or ndarray</span>
+<span class="sd">            Default value of the parameter at all nodes.</span>
+<span class="sd">        desc : str</span>
+<span class="sd">            A description of the parameter.</span>
+<span class="sd">        opt : bool</span>
+<span class="sd">            If True the value(s) of this parameter will be design variables in</span>
+<span class="sd">            the optimization problem. The default is False.</span>
+<span class="sd">        targets : dict or None</span>
+<span class="sd">            If None, then the parameter will be connected to the controllable parameter</span>
+<span class="sd">            in the ODE of each phase.  For each phase where no such controllable parameter exists,</span>
+<span class="sd">            a warning will be issued.  If targets is given as a dict, the dict should provide</span>
+<span class="sd">            the relevant phase names as keys, each associated with the respective controllable</span>
+<span class="sd">            parameter as a value.</span>
+<span class="sd">        lower : float or ndarray</span>
+<span class="sd">            The lower bound of the parameter value.</span>
+<span class="sd">        upper : float or ndarray</span>
+<span class="sd">            The upper bound of the parameter value.</span>
+<span class="sd">        scaler : float or ndarray</span>
+<span class="sd">            The scaler of the parameter value for the optimizer.</span>
+<span class="sd">        adder : float or ndarray</span>
+<span class="sd">            The adder of the parameter value for the optimizer.</span>
+<span class="sd">        ref0 : float or ndarray</span>
+<span class="sd">            The zero-reference value of the parameter for the optimizer.</span>
+<span class="sd">        ref : float or ndarray</span>
+<span class="sd">            The unit-reference value of the parameter for the optimizer.</span>
+<span class="sd">        shape : Sequence of int</span>
+<span class="sd">            The shape of the parameter.</span>
+<span class="sd">        dynamic : bool</span>
+<span class="sd">            True if the targets in the ODE may be dynamic (if the inputs are sized to the number</span>
+<span class="sd">            of nodes) else False. This argument is deprecated in favor of static_target.</span>
+<span class="sd">        static_target : bool or _unspecified</span>
+<span class="sd">            True if the targets in the ODE are not shaped with num_nodes as the first dimension</span>
+<span class="sd">            (meaning they cannot have a unique value at each node).  Otherwise False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">TrajParameterOptionsDictionary</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Attempted to add parameter &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; to trajectory but trajectory already has a parameter&#39;</span>
+                             <span class="s1">&#39;of that name.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_parameter_options</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">,</span>
+                                   <span class="n">upper</span><span class="o">=</span><span class="n">upper</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">adder</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">ref0</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                                   <span class="n">dynamic</span><span class="o">=</span><span class="n">dynamic</span><span class="p">,</span> <span class="n">static_target</span><span class="o">=</span><span class="n">static_target</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_setup_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -662,20 +771,10 @@
 <span class="sd">        on transcription.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">:</span>
+            <span class="n">param_comp</span> <span class="o">=</span> <span class="n">ParameterComp</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;param_comp&#39;</span><span class="p">,</span> <span class="n">subsys</span><span class="o">=</span><span class="n">param_comp</span><span class="p">,</span> <span class="n">promotes_inputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="n">promotes_outputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">])</span>
+
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;opt&#39;</span><span class="p">]:</span>
-                    <span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">INF_BOUND</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
-                    <span class="n">ub</span> <span class="o">=</span> <span class="n">INF_BOUND</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span>
-
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_design_var</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;parameters:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
-                                        <span class="n">lower</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
-                                        <span class="n">upper</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
-                                        <span class="n">scaler</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span>
-                                        <span class="n">adder</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;adder&#39;</span><span class="p">],</span>
-                                        <span class="n">ref0</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref0&#39;</span><span class="p">],</span>
-                                        <span class="n">ref</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref&#39;</span><span class="p">])</span>
-
                 <span class="n">tgts</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">]</span>
 
                 <span class="k">if</span> <span class="n">tgts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -763,13 +862,13 @@
         <span class="n">promoted_inputs</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="n">parameter_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">prom_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">promoted_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">targets</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">]</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
 
             <span class="c1"># For each phase, use introspection to get the units and shape.</span>
             <span class="c1"># If units do not match across all phases, require user to set them.</span>
             <span class="c1"># If shapes do not match across all phases, this is an error.</span>
+            <span class="n">tgts</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">tgt_units</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">tgt_shapes</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -804,9 +903,7 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unhandled target(s) (</span><span class="si">{</span><span class="n">targets</span><span class="p">[</span><span class="n">phase_name</span><span class="p">]</span><span class="si">}</span><span class="s1">) for parameter </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> in &#39;</span>
                                      <span class="sa">f</span><span class="s1">&#39;phase </span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s1">.  If connecting to ODE inputs in the phase, &#39;</span>
                                      <span class="sa">f</span><span class="s1">&#39;format the targets as a sequence of strings.&#39;</span><span class="p">)</span>
-
-                <span class="n">promoted_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tgt</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">promotes</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="n">tgt</span><span class="p">,</span> <span class="n">prom_name</span><span class="p">)])</span>
+                <span class="n">tgts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tgt</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tgt_shapes</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -825,19 +922,27 @@
                                <span class="sa">f</span><span class="s1">&#39;explicitly provide units for the parameter since they cannot be &#39;</span>
                                <span class="sa">f</span><span class="s1">&#39;inferred.&#39;</span><span class="p">)</span>
 
-            <span class="n">val</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-            <span class="n">_shape</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span>
-            <span class="n">shaped_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">_shape</span><span class="p">)</span>
+            <span class="n">param_comp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_subsystem</span><span class="p">(</span><span class="s1">&#39;param_comp&#39;</span><span class="p">)</span>
+            <span class="n">param_comp</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;opt&#39;</span><span class="p">]:</span>
+                <span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">INF_BOUND</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
+                <span class="n">ub</span> <span class="o">=</span> <span class="n">INF_BOUND</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_input_defaults</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">prom_name</span><span class="p">,</span>
-                                    <span class="n">val</span><span class="o">=</span><span class="n">shaped_val</span><span class="p">,</span>
-                                    <span class="n">units</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_design_var</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                    <span class="n">lower</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+                                    <span class="n">upper</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+                                    <span class="n">scaler</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span>
+                                    <span class="n">adder</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;adder&#39;</span><span class="p">],</span>
+                                    <span class="n">ref0</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref0&#39;</span><span class="p">],</span>
+                                    <span class="n">ref</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref&#39;</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameter_vals:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tgts</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">promoted_inputs</span>
 
     <span class="k">def</span> <span class="nf">_configure_phase_options_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Called during configure if we are under MPI. Loops over all phases and broacasts the shape</span>
+<span class="sd">        Called during configure if we are under MPI. Loops over all phases and broadcasts the shape</span>
 <span class="sd">        and units options to all procs for all dymos variables.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">phase</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1065,6 +1170,10 @@
     <span class="k">def</span> <span class="nf">_configure_linkages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">connected_linkage_inputs</span> <span class="o">=</span> <span class="p">[]</span>
 
+        <span class="k">def</span> <span class="nf">_print_on_rank</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="n">rank</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
         <span class="k">def</span> <span class="nf">_get_prefixed_var</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">phase</span><span class="p">):</span>
             <span class="n">class_var</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">classify_var</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
             <span class="n">prefixes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
@@ -1087,7 +1196,7 @@
         <span class="c1"># expand it out.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_expand_star_linkage_configure</span><span class="p">()</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--- Linkage Report [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">] ---&#39;</span><span class="p">)</span>
+        <span class="n">_print_on_rank</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--- Linkage Report [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">] ---&#39;</span><span class="p">)</span>
 
         <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;    &#39;</span>
 
@@ -1095,7 +1204,7 @@
 
         <span class="k">for</span> <span class="n">phase_pair</span><span class="p">,</span> <span class="n">var_dict</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span> <span class="o">=</span> <span class="n">phase_pair</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">--- </span><span class="si">{</span><span class="n">phase_name_a</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">phase_name_b</span><span class="si">}</span><span class="s1"> ---&#39;</span><span class="p">)</span>
+            <span class="n">_print_on_rank</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">--- </span><span class="si">{</span><span class="n">phase_name_a</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">phase_name_b</span><span class="si">}</span><span class="s1"> ---&#39;</span><span class="p">)</span>
 
             <span class="n">phase_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_subsystem</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;phases.</span><span class="si">{</span><span class="n">phase_name_a</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">phase_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_subsystem</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;phases.</span><span class="si">{</span><span class="n">phase_name_b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1164,8 +1273,8 @@
                               <span class="sa">f</span><span class="s1">&#39;state in the phase.</span><span class="se">\n</span><span class="s1">Either remove the linkage or specify &#39;</span> \
                               <span class="sa">f</span><span class="s1">&#39;`connected=False` to enforce it via an optimization constraint.&#39;</span>
                         <span class="k">raise</span> <span class="n">om</span><span class="o">.</span><span class="n">OpenMDAOWarning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span> <span class="o">*</span> <span class="mi">2</span><span class="si">}{</span><span class="n">prefixed_a</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_a</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_a</span><span class="si">}{</span><span class="n">str_fixed_a</span><span class="si">}</span><span class="s1">] -&gt;  &#39;</span>
-                          <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefixed_b</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_b</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_b</span><span class="si">}{</span><span class="n">str_fixed_b</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                    <span class="n">_print_on_rank</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span> <span class="o">*</span> <span class="mi">2</span><span class="si">}{</span><span class="n">prefixed_a</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_a</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_a</span><span class="si">}{</span><span class="n">str_fixed_a</span><span class="si">}</span><span class="s1">] -&gt;  &#39;</span>
+                                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefixed_b</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_b</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_b</span><span class="si">}{</span><span class="n">str_fixed_b</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">is_valid</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_linkage</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span>
                                                            <span class="n">loc_a</span><span class="p">,</span> <span class="n">loc_b</span><span class="p">,</span> <span class="n">var_a</span><span class="p">,</span> <span class="n">var_b</span><span class="p">)</span>
@@ -1187,10 +1296,10 @@
                                      <span class="n">src_indices</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">slicer</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">...</span><span class="p">])</span>
                         <span class="n">connected_linkage_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">_input_b</span><span class="p">)</span>
 
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span> <span class="o">*</span> <span class="mi">2</span><span class="si">}{</span><span class="n">prefixed_a</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_a</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_a</span><span class="si">}{</span><span class="n">str_fixed_a</span><span class="si">}</span><span class="s1">] ==  &#39;</span>
-                          <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefixed_b</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_b</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_b</span><span class="si">}{</span><span class="n">str_fixed_b</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                    <span class="n">_print_on_rank</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span> <span class="o">*</span> <span class="mi">2</span><span class="si">}{</span><span class="n">prefixed_a</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_a</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_a</span><span class="si">}{</span><span class="n">str_fixed_a</span><span class="si">}</span><span class="s1">] ==  &#39;</span>
+                                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefixed_b</span><span class="si">:</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">padding_b</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">loc_b</span><span class="si">}{</span><span class="n">str_fixed_b</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">* : This quantity is fixed or is an input.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">_print_on_rank</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">* : Value is fixed or is an input.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1200,19 +1309,18 @@
 <span class="sd">        setup has already been called on all children of the Trajectory, we can query them for</span>
 <span class="sd">        variables at this point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">promoted_parameter_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configure_parameters</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_parameters</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">MPI</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_configure_phase_options_dicts</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_configure_linkages</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_constraint_report</span><span class="p">(</span><span class="n">outstream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-        <span class="c1"># promote everything else out of phases that wasn&#39;t promoted as a parameter</span>
-        <span class="n">phases_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_subsystem</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">)</span>
-        <span class="n">inputs_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">opts</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="ow">in</span>
-                      <span class="n">phases_group</span><span class="o">.</span><span class="n">get_io_metadata</span><span class="p">(</span><span class="n">iotypes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,),</span> <span class="n">get_remote</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-        <span class="n">inputs_to_promote</span> <span class="o">=</span> <span class="n">inputs_set</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">promoted_parameter_inputs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">promotes</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">inputs_to_promote</span><span class="p">),</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">])</span>
+
+        <span class="c1"># promote everything else out of phases</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">promotes</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Trajectory.add_linkage_constraint"><a class="viewcode-back" href="../../../features/trajectories/trajectories.html#dymos.Trajectory.add_linkage_constraint">[docs]</a>    <span class="k">def</span> <span class="nf">add_linkage_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phase_a</span><span class="p">,</span> <span class="n">phase_b</span><span class="p">,</span> <span class="n">var_a</span><span class="p">,</span> <span class="n">var_b</span><span class="p">,</span> <span class="n">loc_a</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="n">loc_b</span><span class="o">=</span><span class="s1">&#39;initial&#39;</span><span class="p">,</span>
                                <span class="n">sign_a</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sign_b</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1418,23 +1526,33 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;sim_mode&#39;</span><span class="p">]:</span>
             <span class="k">return</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">printer</span> <span class="o">=</span> <span class="nb">print</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">printer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="k">pass</span>
+
         <span class="n">float_fmt</span> <span class="o">=</span> <span class="s1">&#39;6.4e&#39;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- Constraint Report [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">] ---&#39;</span><span class="p">)</span>
+        <span class="n">printer</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- Constraint Report [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">] ---&#39;</span><span class="p">)</span>
         <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;    &#39;</span>
 
-        <span class="k">def</span> <span class="nf">_print_constraints</span><span class="p">(</span><span class="n">phs</span><span class="p">,</span> <span class="n">outstream</span><span class="p">):</span>
-            <span class="n">ds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="n">phs</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span><span class="p">,</span>
-                  <span class="s1">&#39;final&#39;</span><span class="p">:</span> <span class="n">phs</span><span class="o">.</span><span class="n">_final_boundary_constraints</span><span class="p">,</span>
-                  <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">phs</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">}</span>
+        <span class="k">def</span> <span class="nf">_print_constraints</span><span class="p">(</span><span class="n">phase</span><span class="p">,</span> <span class="n">outstream</span><span class="p">):</span>
+            <span class="n">tx</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span>
+
+            <span class="n">ode_outputs</span> <span class="o">=</span> <span class="n">get_promoted_vars</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">_get_ode</span><span class="p">(</span><span class="n">phase</span><span class="p">),</span> <span class="s1">&#39;output&#39;</span><span class="p">)</span>
+
+            <span class="n">ds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="n">phase</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span><span class="p">,</span>
+                  <span class="s1">&#39;final&#39;</span><span class="p">:</span> <span class="n">phase</span><span class="o">.</span><span class="n">_final_boundary_constraints</span><span class="p">,</span>
+                  <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">phase</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">}</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
-                    <span class="n">phs</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="ow">or</span> <span class="n">phs</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="ow">or</span> <span class="n">phs</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mi">2</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}</span><span class="s1">None&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
+                    <span class="n">phase</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="ow">or</span> <span class="n">phase</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="ow">or</span> <span class="n">phase</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">):</span>
+                <span class="n">printer</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mi">2</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}</span><span class="s1">None&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">str_loc</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">loc</span><span class="si">}</span><span class="s1">]&#39;</span>
                 <span class="k">for</span> <span class="n">expr</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">_</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">linear</span> <span class="o">=</span> <span class="n">phs</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">_get_boundary_constraint_src</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">phs</span><span class="p">)</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">linear</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">_get_boundary_constraint_src</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">ode_outputs</span><span class="o">=</span><span class="n">ode_outputs</span><span class="p">)</span>
 
                     <span class="n">equals</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;equals&#39;</span><span class="p">]</span>
                     <span class="n">lower</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
@@ -1467,23 +1585,23 @@
                         <span class="n">str_upper</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
                     <span class="k">if</span> <span class="n">equals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mi">2</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}{</span><span class="n">str_loc</span><span class="si">:</span><span class="s1">&lt;10s</span><span class="si">}{</span><span class="n">str_equals</span><span class="si">}</span><span class="s1"> == </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">str_units</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span>
-                              <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
+                        <span class="n">printer</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mi">2</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}{</span><span class="n">str_loc</span><span class="si">:</span><span class="s1">&lt;10s</span><span class="si">}{</span><span class="n">str_equals</span><span class="si">}</span><span class="s1"> == </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">str_units</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span>
+                                <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span>
+                        <span class="n">printer</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mi">2</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}{</span><span class="n">str_loc</span><span class="si">:</span><span class="s1">&lt;10s</span><span class="si">}{</span><span class="n">str_lower</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">str_upper</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">str_units</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span>
                             <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">phase_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">--- </span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s1"> ---&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
-            <span class="n">phs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_subsystem</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;phases.</span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">phase_name</span><span class="p">,</span> <span class="n">phs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">printer</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">--- </span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s1"> ---&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">phs</span><span class="o">.</span><span class="n">_is_local</span><span class="p">:</span>
+                <span class="n">_print_constraints</span><span class="p">(</span><span class="n">phs</span><span class="p">,</span> <span class="n">outstream</span><span class="p">)</span>
 
-            <span class="n">_print_constraints</span><span class="p">(</span><span class="n">phs</span><span class="p">,</span> <span class="n">outstream</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
+        <span class="n">printer</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">outstream</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Trajectory.simulate"><a class="viewcode-back" href="../../../api/trajectory_api.html#dymos.Trajectory.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                 <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">record_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">record_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">case_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">reset_iter_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulate the Trajectory using scipy.integrate.solve_ivp.</span>
 
@@ -1505,6 +1623,10 @@
 <span class="sd">        record_file : str or None</span>
 <span class="sd">            If a string, the file to which the result of the simulation will be saved.</span>
 <span class="sd">            If None, no record of the simulation will be saved.</span>
+<span class="sd">        case_prefix : str or None</span>
+<span class="sd">            Prefix to prepend to coordinates when recording.</span>
+<span class="sd">        reset_iter_counts : bool</span>
+<span class="sd">            If True and model has been run previously, reset all iteration counters.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1566,10 +1688,11 @@
                                              <span class="n">skip_params</span><span class="o">=</span><span class="n">skip_params</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Simulating trajectory </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="p">))</span>
-        <span class="n">sim_prob</span><span class="o">.</span><span class="n">run_model</span><span class="p">()</span>
+        <span class="n">sim_prob</span><span class="o">.</span><span class="n">run_model</span><span class="p">(</span><span class="n">case_prefix</span><span class="o">=</span><span class="n">case_prefix</span><span class="p">,</span> <span class="n">reset_iter_counts</span><span class="o">=</span><span class="n">reset_iter_counts</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done simulating trajectory </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">record_file</span><span class="p">:</span>
-            <span class="n">sim_prob</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
+            <span class="n">_case_prefix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">case_prefix</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">case_prefix</span><span class="si">}</span><span class="s1">_&#39;</span>
+            <span class="n">sim_prob</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">_case_prefix</span><span class="si">}</span><span class="s1">final&#39;</span><span class="p">)</span>
         <span class="n">sim_prob</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">sim_prob</span></div>
@@ -1577,23 +1700,21 @@
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

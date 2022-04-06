@@ -38,17 +38,19 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -120,6 +122,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -162,6 +169,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="examples/brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="examples/vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -169,6 +181,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="examples/balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -199,6 +221,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="examples/min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -394,6 +421,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -458,7 +490,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -492,7 +524,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -527,7 +559,45 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Multidisciplinary Optimal Control Library</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-features">
+   Key Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-dymos">
+   Why Dymos?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#citation">
+   Citation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="multidisciplinary-optimal-control-library">
@@ -543,10 +613,10 @@ While normally this would significantly impair performance, Dymos can optimize s
 <div class="section" id="key-features">
 <h2>Key Features<a class="headerlink" href="#key-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Employ Gauss-Lobatto collocation <span id="id1">[<a class="reference internal" href="#id27">HC96</a>]</span> or the Radau Pseudospectral method <span id="id2">[<a class="reference internal" href="#id28">GPF+11</a>]</span> to find optimal control for a dynamic system.</p></li>
+<li><p>Employ Gauss-Lobatto collocation <span id="id1">[<a class="reference internal" href="#id28" title="Albert L Herman and Bruce A Conway. Direct optimization using collocation based on high-order gauss-lobatto quadrature rules. Journal of Guidance, Control, and Dynamics, 19(3):592–599, 1996.">HC96</a>]</span> or the Radau Pseudospectral method <span id="id2">[<a class="reference internal" href="#id29" title="Divya Garg, Michael A Patterson, Camila Francolin, Christopher L Darby, Geoffrey T Huntington, William W Hager, and Anil V Rao. Direct trajectory optimization and costate estimation of finite-horizon and infinite-horizon optimal control problems using a radau pseudospectral method. Computational Optimization and Applications, 49(2):335–358, 2011.">GPF+11</a>]</span> to find optimal control for a dynamic system.</p></li>
 <li><p>Find the optimal design of a system that can satisfy a variety of different trajectories.</p></li>
 <li><p>Embed nonlinear solvers within the system dynamics.</p></li>
-<li><p>Transform typical state variables into control variables (differential inclusion <span id="id3">[<a class="reference internal" href="#id21">Sey94</a>]</span>).</p></li>
+<li><p>Transform typical state variables into control variables (differential inclusion <span id="id3">[<a class="reference internal" href="#id21" title="Hans Seywald. Trajectory optimization based on differential inclusion (Revised). Journal of Guidance, Control, and Dynamics, 17(3):480–487, may 1994. URL: https://doi.org/10.2514/3.21224, doi:10.2514/3.21224.">Sey94</a>]</span>).</p></li>
 <li><p>Use nonlinear solvers to satisfy the collocation constraints.</p></li>
 <li><p>Single and multiple shooting within the same interface.</p></li>
 <li><p>Leverage multiprocessing capabilities to improve performance</p></li>
@@ -555,7 +625,7 @@ While normally this would significantly impair performance, Dymos can optimize s
 <div class="section" id="why-dymos">
 <h2>Why Dymos?<a class="headerlink" href="#why-dymos" title="Permalink to this headline">¶</a></h2>
 <p>There is no shortage of optimal control software based on pseudospectral approaches.
-There are a number of other optimal control libraries that tackle similar kinds of problems, such as OTIS4 <span id="id4">[<a class="reference internal" href="#id24">PRS06</a>]</span>, GPOPS-II <span id="id5">[<a class="reference internal" href="#id20">PR14</a>]</span>,and CASADI <span id="id6">[<a class="reference internal" href="#id54">AGH+19</a>]</span>.</p>
+There are a number of other optimal control libraries that tackle similar kinds of problems, such as OTIS4 <span id="id4">[<a class="reference internal" href="#id24" title="Stephen W Paris, John P Riehl, and Waldy K Sjauw. Enhanced Procedures for Direct Trajectory Optimization Using Nonlinear Programming and Implicit Integration. In Proceedings of the AIAA/AAS Astrodynamics Specialists Conference and Exhibit, number 2006–6309. American Institute of Aeronautics and Astronautics, 2006.">PRS06</a>]</span>, GPOPS-II <span id="id5">[<a class="reference internal" href="#id20" title="Michael A Patterson and Anil V Rao. Gpops-ii: a matlab software for solving multiple-phase optimal control problems using hp-adaptive gaussian quadrature collocation methods and sparse nonlinear programming. ACM Transactions on Mathematical Software (TOMS), 41(1):1, 2014.">PR14</a>]</span>,and CASADI <span id="id6">[<a class="reference internal" href="#id55" title="Joel A E Andersson, Joris Gillis, Greg Horn, James B Rawlings, and Moritz Diehl. CasADi – A software framework for nonlinear optimization and optimal control. Mathematical Programming Computation, 11:1–36, 2019.">AGH+19</a>]</span>.</p>
 <p>Given the amount of software existing in this space, why did we develop Dymos?</p>
 <p>We wanted to use optimal control in the context of multidisciplinary optimization.
 With existing state-of-the-art tools, this would mean wrapping one of these existing tools and passing between different disciplines.
@@ -567,17 +637,17 @@ The first objective, therefore, was to develop optimal control software that has
 This inherently couples the accuracy of the derivatives to the scaling of the problem.
 We’d like to use analytic derivative calculations to better decouple this interaction.
 Even those software packages which employ analytic derivatives generally use a forward-differentiation approach.
-The work of Hwang and Martins <span id="id7">[<a class="reference internal" href="#id17">HM18</a>]</span> demonstrated how to develop a framework for accurate derivative calculation, including analytic derivatives and both complex-step and finite-difference approximations as fallbacks.
+The work of Hwang and Martins <span id="id7">[<a class="reference internal" href="#id17" title="John T. Hwang and Joaquim R.R.A. Martins. A computational architecture for coupling heterogeneous numerical models and computing coupled derivatives. ACM Trans. Math. Softw., June 2018. URL: https://doi.org/10.1145/3182393, doi:10.1145/3182393.">HM18</a>]</span> demonstrated how to develop a framework for accurate derivative calculation, including analytic derivatives and both complex-step and finite-difference approximations as fallbacks.
 Their approach gives us a few key capabilities:</p>
 <ul class="simple">
 <li><p>Adjoint differentiation which can be more efficient for pure shooting-methods in optimal control, where the number of constraints/objectives is far fewer than the number of design variables.</p></li>
 <li><p>The ability to compute derivatives across complex iterative systems <em>without the need to reconverge the system</em>.</p></li>
-<li><p>The ability to provide a general, bidirectional derivative coloring system <span id="id8">[<a class="reference internal" href="#id55">GHN19</a>]</span> which can minimize the computational effort required to compute the sensitivies of the outputs with respect to the inputs.</p></li>
+<li><p>The ability to provide a general, bidirectional derivative coloring system <span id="id8">[<a class="reference internal" href="#id56" title="Justin S Gray, Tristan A Hearn, and Bret A Naylor. Using graph coloring to compute total derivatives more efficiently in openmdao. In AIAA Aviation 2019 Forum, 3108. 2019.">GHN19</a>]</span> which can minimize the computational effort required to compute the sensitivies of the outputs with respect to the inputs.</p></li>
 </ul>
 <p>In addition to making optimal control more performant for use in multidisciplinary optimization, we were keen to study what sort of work these capabilities could enable.
 Embedding iterative systems within the optimization, in particular, is generally avoided for performance reasons.
 But with the state-of-the-art differentiation approach of OpenMDAO, built upon the work of Martins and Hwang, we can embed complex implicit systems with minimal impact on performance.
-This enables more efficient optimization via differential inclusion <span id="id9">[<a class="reference internal" href="#id21">Sey94</a>]</span>, and allows us to employ shooting methods within the pseudospectral framework.</p>
+This enables more efficient optimization via differential inclusion <span id="id9">[<a class="reference internal" href="#id21" title="Hans Seywald. Trajectory optimization based on differential inclusion (Revised). Journal of Guidance, Control, and Dynamics, 17(3):480–487, may 1994. URL: https://doi.org/10.2514/3.21224, doi:10.2514/3.21224.">Sey94</a>]</span>, and allows us to employ shooting methods within the pseudospectral framework.</p>
 <p>Some developers involved in Dymos are involved with NASA’s legacy optimal control software, OTIS.
 The general approach used by Dymos is similar to that of OTIS (trajectories divided into time portions called Phases, dynamic controls and static parameters, and both bound constraints as well as nonlinear boundary constraints and path constraints are all notions carried over from OTIS.
 OTIS was pioneering software and offers some great capabilities, but it also lacks a lot of desirable modern features that have been developed by the community since its inception over thirty years ago.
@@ -605,16 +675,16 @@ Dymos features a more modular way for users to define their dynamics, additional
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="id10"><dl class="citation">
-<dt class="label" id="id54"><span class="brackets">AGH+19</span></dt>
+<dt class="label" id="id55"><span class="brackets">AGH+19</span></dt>
 <dd><p>Joel A E Andersson, Joris Gillis, Greg Horn, James B Rawlings, and Moritz Diehl. CasADi – A software framework for nonlinear optimization and optimal control. <em>Mathematical Programming Computation</em>, 11:1–36, 2019.</p>
 </dd>
-<dt class="label" id="id28"><span class="brackets">GPF+11</span></dt>
+<dt class="label" id="id29"><span class="brackets">GPF+11</span></dt>
 <dd><p>Divya Garg, Michael A Patterson, Camila Francolin, Christopher L Darby, Geoffrey T Huntington, William W Hager, and Anil V Rao. Direct trajectory optimization and costate estimation of finite-horizon and infinite-horizon optimal control problems using a radau pseudospectral method. <em>Computational Optimization and Applications</em>, 49(2):335–358, 2011.</p>
 </dd>
-<dt class="label" id="id55"><span class="brackets">GHN19</span></dt>
+<dt class="label" id="id56"><span class="brackets">GHN19</span></dt>
 <dd><p>Justin S Gray, Tristan A Hearn, and Bret A Naylor. Using graph coloring to compute total derivatives more efficiently in openmdao. In <em>AIAA Aviation 2019 Forum</em>, 3108. 2019.</p>
 </dd>
-<dt class="label" id="id27"><span class="brackets">HC96</span></dt>
+<dt class="label" id="id28"><span class="brackets">HC96</span></dt>
 <dd><p>Albert L Herman and Bruce A Conway. Direct optimization using collocation based on high-order gauss-lobatto quadrature rules. <em>Journal of Guidance, Control, and Dynamics</em>, 19(3):592–599, 1996.</p>
 </dd>
 <dt class="label" id="id17"><span class="brackets">HM18</span></dt>
@@ -670,8 +740,8 @@ Dymos features a more modular way for users to define their dynamics, additional
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='right-next' id="next-link" href="installation.html" title="next page">
     <div class="prev-next-info">
@@ -681,19 +751,17 @@ Dymos features a more modular way for users to define their dynamics, additional
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

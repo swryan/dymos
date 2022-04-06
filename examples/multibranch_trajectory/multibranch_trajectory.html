@@ -38,17 +38,19 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -121,6 +123,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -163,6 +170,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -170,6 +182,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -200,6 +222,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -395,6 +422,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -459,7 +491,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -515,7 +547,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -550,7 +582,45 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Multibranch Trajectory</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#battery-and-motor-models">
+   Battery and Motor models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-and-running-the-problem">
+   Building and running the problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -589,7 +659,7 @@ state of charge.</p>
 </div>
 <div class="section" id="battery-and-motor-models">
 <h2>Battery and Motor models<a class="headerlink" href="#battery-and-motor-models" title="Permalink to this headline">¶</a></h2>
-<p>The models are loosely based on the work done in Chin <span id="id1">[<a class="reference internal" href="#id24">CSM+19</a>]</span>.</p>
+<p>The models are loosely based on the work done in Chin <span id="id1">[<a class="reference internal" href="#id25" title="Jeff Chin, Sydney L Schnulo, Thomas Miller, Kevin Prokopius, and Justin S Gray. Battery performance modeling on sceptor x-57 subject to thermal and transient considerations. In AIAA Scitech 2019 Forum, 0784. 2019.">CSM+19</a>]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -959,21 +1029,7 @@ state of charge.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Linkage Report [traj] ---
-    --- phase0 - phase1 ---
-        states:state_of_charge   [final] ==  states:state_of_charge   [initial]
-        time                     [final*] ==  time                     [initial]
-    --- phase0 - phase1_bfail ---
-        states:state_of_charge   [final] ==  states:state_of_charge   [initial]
-        time                     [final*] ==  time                     [initial]
-    --- phase0 - phase1_mfail ---
-        states:state_of_charge   [final] ==  states:state_of_charge   [initial]
-        time                     [final*] ==  time                     [initial]
-
-* : This quantity is fixed or is an input.
-
-
---- Constraint Report [traj] ---
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
     --- phase1 ---
@@ -982,21 +1038,26 @@ state of charge.</p>
         None
     --- phase1_mfail ---
         None
-
-Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.066278 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.084552 seconds.
 Total jacobian shape: (107, 122) 
 
 
-Jacobian shape: (107, 122)  ( 4.63% nonzero)
+Jacobian shape: (107, 122)  ( 4.67% nonzero)
 FWD solves: 6   REV solves: 0
 Total colors vs. total size: 6 vs 122  (95.1% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.066278 sec.
-Time to compute coloring: 0.065241 sec.
+Time to compute sparsity: 0.084552 sec.
+Time to compute coloring: 0.092265 sec.
+Memory to compute coloring: 0.316406 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -1008,7 +1069,7 @@ Optimization Complete
 -----------------------------------
 </pre></div>
 </div>
-<img alt="../../_images/multibranch_trajectory_6_3.png" src="../../_images/multibranch_trajectory_6_3.png" />
+<img alt="../../_images/multibranch_trajectory_6_5.png" src="../../_images/multibranch_trajectory_6_5.png" />
 </div>
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">
@@ -1017,7 +1078,7 @@ Optimization Complete
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="id2"><dl class="citation">
-<dt class="label" id="id24"><span class="brackets">CSM+19</span></dt>
+<dt class="label" id="id25"><span class="brackets">CSM+19</span></dt>
 <dd><p>Jeff Chin, Sydney L Schnulo, Thomas Miller, Kevin Prokopius, and Justin S Gray. Battery performance modeling on sceptor x-57 subject to thermal and transient considerations. In <em>AIAA Scitech 2019 Forum</em>, 0784. 2019.</p>
 </dd>
 </dl>
@@ -1047,8 +1108,8 @@ Optimization Complete
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../multi_phase_cannonball/multi_phase_cannonball.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1065,19 +1126,17 @@ Optimization Complete
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

@@ -38,20 +38,22 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Hyper-Sensitive Problem" href="../hypersensitive/hypersensitive.html" />
@@ -123,6 +125,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -165,6 +172,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -172,6 +184,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -202,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -397,6 +424,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -461,7 +493,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -517,7 +549,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -542,7 +574,35 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Double Integrator</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-ode-system-double-integrator-ode-py">
+   The ODE System: double_integrator_ode.py
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-and-running-the-problem">
+   Building and running the problem
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -554,20 +614,20 @@ traveled by a block (that starts and ends at rest) sliding without
 friction along a horizontal surface, with acceleration as the control.</p>
 <p>We minimize the final time, <span class="math notranslate nohighlight">\(t_f\)</span>, by varying the dynamic control,
 <span class="math notranslate nohighlight">\(u\)</span>, subject to the dynamics:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-26740878-9414-4955-a046-4e3a360b5311">
-<span class="eqno">(39)<a class="headerlink" href="#equation-26740878-9414-4955-a046-4e3a360b5311" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8cea5015-d8dd-41ed-942a-8912b0b82331">
+<span class="eqno">(45)<a class="headerlink" href="#equation-8cea5015-d8dd-41ed-942a-8912b0b82331" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \frac{dx}{dt} &amp;= v \\
   \frac{dv}{dt} &amp;= u
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-be4fc079-a1f7-45f6-ac33-71ca384f85fd">
-<span class="eqno">(40)<a class="headerlink" href="#equation-be4fc079-a1f7-45f6-ac33-71ca384f85fd" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-47a99040-223c-44fa-987b-693a472bb08a">
+<span class="eqno">(46)<a class="headerlink" href="#equation-47a99040-223c-44fa-987b-693a472bb08a" title="Permalink to this equation">¶</a></span>\[\begin{align}
   x_0 &amp;= 0 \\
   v_0 &amp;= 0
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1ade40b5-eb6f-4149-9081-d738e53124e2">
-<span class="eqno">(41)<a class="headerlink" href="#equation-1ade40b5-eb6f-4149-9081-d738e53124e2" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d2acef14-9559-4804-80bf-5ded59dd9d75">
+<span class="eqno">(47)<a class="headerlink" href="#equation-d2acef14-9559-4804-80bf-5ded59dd9d75" title="Permalink to this equation">¶</a></span>\[\begin{align}
   x_f &amp;= \rm{free} \\
   v_f &amp;= 0
 \end{align}\]</div>
@@ -617,22 +677,22 @@ td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .output_html .hll { background-color: #ffffcc }
 .output_html { background: #f8f8f8; }
-.output_html .c { color: #408080; font-style: italic } /* Comment */
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
 .output_html .err { border: 1px solid #FF0000 } /* Error */
 .output_html .k { color: #008000; font-weight: bold } /* Keyword */
 .output_html .o { color: #666666 } /* Operator */
-.output_html .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.output_html .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.output_html .cp { color: #BC7A00 } /* Comment.Preproc */
-.output_html .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.output_html .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.output_html .cs { color: #408080; font-style: italic } /* Comment.Special */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
 .output_html .gd { color: #A00000 } /* Generic.Deleted */
 .output_html .ge { font-style: italic } /* Generic.Emph */
-.output_html .gr { color: #FF0000 } /* Generic.Error */
+.output_html .gr { color: #E40000 } /* Generic.Error */
 .output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.output_html .gi { color: #00A000 } /* Generic.Inserted */
-.output_html .go { color: #888888 } /* Generic.Output */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
 .output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
 .output_html .gs { font-weight: bold } /* Generic.Strong */
 .output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
@@ -645,15 +705,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .kt { color: #B00040 } /* Keyword.Type */
 .output_html .m { color: #666666 } /* Literal.Number */
 .output_html .s { color: #BA2121 } /* Literal.String */
-.output_html .na { color: #7D9029 } /* Name.Attribute */
+.output_html .na { color: #687822 } /* Name.Attribute */
 .output_html .nb { color: #008000 } /* Name.Builtin */
 .output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
 .output_html .no { color: #880000 } /* Name.Constant */
 .output_html .nd { color: #AA22FF } /* Name.Decorator */
-.output_html .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.output_html .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
 .output_html .nf { color: #0000FF } /* Name.Function */
-.output_html .nl { color: #A0A000 } /* Name.Label */
+.output_html .nl { color: #767600 } /* Name.Label */
 .output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
 .output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
 .output_html .nv { color: #19177C } /* Name.Variable */
@@ -670,11 +730,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .output_html .s2 { color: #BA2121 } /* Literal.String.Double */
-.output_html .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
 .output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.output_html .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
 .output_html .sx { color: #008000 } /* Literal.String.Other */
-.output_html .sr { color: #BB6688 } /* Literal.String.Regex */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
 .output_html .s1 { color: #BA2121 } /* Literal.String.Single */
 .output_html .ss { color: #19177C } /* Literal.String.Symbol */
 .output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
@@ -759,30 +819,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <span class="c1">#</span>
 <span class="c1"># Solve the problem.</span>
 <span class="c1">#</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># Verify that the results are correct.</span>
-<span class="c1">#</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:x&#39;</span><span class="p">)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:v&#39;</span><span class="p">)</span>
-
-
-<span class="c1">#</span>
-<span class="c1"># Simulate the explicit solution and plot the results.</span>
-<span class="c1">#</span>
-<span class="n">exp_out</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
-
-<span class="n">plot_results</span><span class="p">([(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.states:x&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;x $(m)$&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.states:v&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;v $(m/s)$&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.controls:u&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;u $(m/s^2)$&#39;</span><span class="p">)],</span>
-             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Double Integrator Solution</span><span class="se">\n</span><span class="s1">Radau Pseudospectral Method&#39;</span><span class="p">,</span>
-             <span class="n">p_sol</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">p_sim</span><span class="o">=</span><span class="n">exp_out</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">simulate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -822,6 +859,9 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/utils/options_dictionary.py:347: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
 INFO: checking out_of_order
 </pre></div>
@@ -854,7 +894,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.106002 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.138864 seconds.
 Total jacobian shape: (181, 327) 
 </pre></div>
 </div>
@@ -863,8 +903,9 @@ FWD solves: 0   REV solves: 6
 Total colors vs. total size: 6 vs 181  (96.7% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.106002 sec.
-Time to compute coloring: 0.141626 sec.
+Time to compute sparsity: 0.138864 sec.
+Time to compute coloring: 0.207496 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -873,11 +914,11 @@ Time to compute coloring: 0.141626 sec.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    2.6123
-       User Objective Time :       0.0269
-       User Sensitivity Time :     0.0890
-       Interface Time :            0.1624
-       Opt Solver Time:            2.3340
+    Total Time:                    2.7332
+       User Objective Time :       0.0398
+       User Sensitivity Time :     0.1346
+       Interface Time :            0.2111
+       Opt Solver Time:            2.3477
     Calls to Objective Function :      19
     Calls to Sens Function :           19
 
@@ -1461,10 +1502,36 @@ Time to compute coloring: 0.141626 sec.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/double_integrator_5_24.png" src="../../_images/double_integrator_5_24.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sol</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">CaseReader</span><span class="p">(</span><span class="s1">&#39;dymos_solution.db&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_case</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">CaseReader</span><span class="p">(</span><span class="s1">&#39;dymos_simulation.db&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_case</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
+
+<span class="n">plot_results</span><span class="p">([(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.states:x&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;x $(m)$&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.states:v&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;v $(m/s)$&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.controls:u&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;u $(m/s^2)$&#39;</span><span class="p">)],</span>
+             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Double Integrator Solution</span><span class="se">\n</span><span class="s1">Radau Pseudospectral Method&#39;</span><span class="p">,</span>
+             <span class="n">p_sol</span><span class="o">=</span><span class="n">sol</span><span class="p">,</span> <span class="n">p_sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/double_integrator_6_0.png" src="../../_images/double_integrator_6_0.png" />
 </div>
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">
@@ -1494,8 +1561,8 @@ Done simulating trajectory traj
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../commercial_aircraft/commercial_aircraft.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1512,19 +1579,17 @@ Done simulating trajectory traj
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

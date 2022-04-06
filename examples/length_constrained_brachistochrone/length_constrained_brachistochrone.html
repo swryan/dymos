@@ -38,20 +38,22 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Supersonic Interceptor Minimum Time Climb" href="../min_time_climb/min_time_climb.html" />
@@ -123,6 +125,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -165,6 +172,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -172,6 +184,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -202,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -397,6 +424,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -461,7 +493,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -517,14 +549,24 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>The Length-Constrained Brachistochrone</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -543,8 +585,8 @@ Now, we seek to find the minimum time brachistochrone trajectory subject to a up
 <p>The most efficient way to approach this problem would be to treat the arc-length <span class="math notranslate nohighlight">\(S\)</span> as an integrated state variable.
 In this case, as is often the case in real-world MDO analyses, the implementation of our arc-length function is not integrated into our pseudospectral approach.
 Rather than rewrite an analysis tool to accommodate the pseudospectral approach, the arc-length analysis simply takes the result of the trajectory in its entirety and computes the arc-length constraint via the trapezoidal rule:\</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e8b04e37-10b3-4efc-a5f0-17cda67e8a53">
-<span class="eqno">(50)<a class="headerlink" href="#equation-e8b04e37-10b3-4efc-a5f0-17cda67e8a53" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-646a45af-3bbc-45ac-9d97-ed084c62d192">
+<span class="eqno">(56)<a class="headerlink" href="#equation-646a45af-3bbc-45ac-9d97-ed084c62d192" title="Permalink to this equation">¶</a></span>\[\begin{align}
     S &amp;= \frac{1}{2} \left( \sum_{i=1}^{N-1} \sqrt{1 + \frac{1}{\tan{\theta_{i-1}}}} + \sqrt{1 + \frac{1}{\tan{\theta_{i}}}} \right) \left(x_{i-1} - x_i \right)
 \end{align}\]</div>
 <p>The OpenMDAO component used to compute the arclength is defined as follows:</p>
@@ -605,22 +647,22 @@ td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .output_html .hll { background-color: #ffffcc }
 .output_html { background: #f8f8f8; }
-.output_html .c { color: #408080; font-style: italic } /* Comment */
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
 .output_html .err { border: 1px solid #FF0000 } /* Error */
 .output_html .k { color: #008000; font-weight: bold } /* Keyword */
 .output_html .o { color: #666666 } /* Operator */
-.output_html .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.output_html .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.output_html .cp { color: #BC7A00 } /* Comment.Preproc */
-.output_html .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.output_html .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.output_html .cs { color: #408080; font-style: italic } /* Comment.Special */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
 .output_html .gd { color: #A00000 } /* Generic.Deleted */
 .output_html .ge { font-style: italic } /* Generic.Emph */
-.output_html .gr { color: #FF0000 } /* Generic.Error */
+.output_html .gr { color: #E40000 } /* Generic.Error */
 .output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.output_html .gi { color: #00A000 } /* Generic.Inserted */
-.output_html .go { color: #888888 } /* Generic.Output */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
 .output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
 .output_html .gs { font-weight: bold } /* Generic.Strong */
 .output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
@@ -633,15 +675,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .kt { color: #B00040 } /* Keyword.Type */
 .output_html .m { color: #666666 } /* Literal.Number */
 .output_html .s { color: #BA2121 } /* Literal.String */
-.output_html .na { color: #7D9029 } /* Name.Attribute */
+.output_html .na { color: #687822 } /* Name.Attribute */
 .output_html .nb { color: #008000 } /* Name.Builtin */
 .output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
 .output_html .no { color: #880000 } /* Name.Constant */
 .output_html .nd { color: #AA22FF } /* Name.Decorator */
-.output_html .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.output_html .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
 .output_html .nf { color: #0000FF } /* Name.Function */
-.output_html .nl { color: #A0A000 } /* Name.Label */
+.output_html .nl { color: #767600 } /* Name.Label */
 .output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
 .output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
 .output_html .nv { color: #19177C } /* Name.Variable */
@@ -658,11 +700,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .output_html .s2 { color: #BA2121 } /* Literal.String.Double */
-.output_html .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
 .output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.output_html .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
 .output_html .sx { color: #008000 } /* Literal.String.Other */
-.output_html .sr { color: #BB6688 } /* Literal.String.Regex */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
 .output_html .s1 { color: #BA2121 } /* Literal.String.Single */
 .output_html .ss { color: #19177C } /* Literal.String.Symbol */
 .output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
@@ -900,10 +942,35 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1918: PromotionWarning:&#39;traj.phases.phase0.continuity_comp&#39; &lt;class RadauPSContinuityComp&gt;: input variable &#39;t_duration&#39;, promoted using &#39;t_duration&#39;, was already promoted using &#39;t_duration&#39;.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+INFO: checking out_of_order
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.709148 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: The Problem has no recorder of any kind attached
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.236867 seconds.
 Total jacobian shape: (220, 296) 
 </pre></div>
 </div>
@@ -912,12 +979,13 @@ FWD solves: 1   REV solves: 11
 Total colors vs. total size: 12 vs 220  (94.5% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.709148 sec.
-Time to compute coloring: 0.246845 sec.
+Time to compute sparsity: 1.236867 sec.
+Time to compute coloring: 0.337933 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 1.808598520786357
+            Current function value: 1.8085985207863569
             Iterations: 5
             Function evaluations: 5
             Gradient evaluations: 5
@@ -926,10 +994,12 @@ Optimization Complete
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/length_constrained_brachistochrone_5_14.png" src="../../_images/length_constrained_brachistochrone_5_14.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<img alt="../../_images/length_constrained_brachistochrone_5_23.png" src="../../_images/length_constrained_brachistochrone_5_23.png" />
 </div>
 </div>
 </div>
@@ -956,8 +1026,8 @@ Done simulating trajectory traj
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../finite_burn_orbit_raise/finite_burn_orbit_raise.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -974,19 +1044,17 @@ Done simulating trajectory traj
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

@@ -38,17 +38,19 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -120,6 +122,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -162,6 +169,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../examples/brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../examples/vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -169,6 +181,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../examples/balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -199,6 +221,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../examples/min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -394,6 +421,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -458,7 +490,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -514,7 +546,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -566,7 +598,62 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Contributing to Dymos</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#found-a-bug-in-dymos">
+   Found a bug in Dymos?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fixed-a-bug-in-dymos">
+   Fixed a bug in Dymos?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#need-new-functionality-in-dymos">
+   Need new functionality in Dymos?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-new-examples">
+   Adding new examples
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#notebook-creation">
+   Notebook Creation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-tests">
+   Running Tests
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -623,22 +710,22 @@ td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .output_html .hll { background-color: #ffffcc }
 .output_html { background: #f8f8f8; }
-.output_html .c { color: #408080; font-style: italic } /* Comment */
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
 .output_html .err { border: 1px solid #FF0000 } /* Error */
 .output_html .k { color: #008000; font-weight: bold } /* Keyword */
 .output_html .o { color: #666666 } /* Operator */
-.output_html .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.output_html .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.output_html .cp { color: #BC7A00 } /* Comment.Preproc */
-.output_html .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.output_html .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.output_html .cs { color: #408080; font-style: italic } /* Comment.Special */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
 .output_html .gd { color: #A00000 } /* Generic.Deleted */
 .output_html .ge { font-style: italic } /* Generic.Emph */
-.output_html .gr { color: #FF0000 } /* Generic.Error */
+.output_html .gr { color: #E40000 } /* Generic.Error */
 .output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.output_html .gi { color: #00A000 } /* Generic.Inserted */
-.output_html .go { color: #888888 } /* Generic.Output */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
 .output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
 .output_html .gs { font-weight: bold } /* Generic.Strong */
 .output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
@@ -651,15 +738,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .kt { color: #B00040 } /* Keyword.Type */
 .output_html .m { color: #666666 } /* Literal.Number */
 .output_html .s { color: #BA2121 } /* Literal.String */
-.output_html .na { color: #7D9029 } /* Name.Attribute */
+.output_html .na { color: #687822 } /* Name.Attribute */
 .output_html .nb { color: #008000 } /* Name.Builtin */
 .output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
 .output_html .no { color: #880000 } /* Name.Constant */
 .output_html .nd { color: #AA22FF } /* Name.Decorator */
-.output_html .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.output_html .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
 .output_html .nf { color: #0000FF } /* Name.Function */
-.output_html .nl { color: #A0A000 } /* Name.Label */
+.output_html .nl { color: #767600 } /* Name.Label */
 .output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
 .output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
 .output_html .nv { color: #19177C } /* Name.Variable */
@@ -676,11 +763,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .output_html .s2 { color: #BA2121 } /* Literal.String.Double */
-.output_html .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
 .output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.output_html .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
 .output_html .sx { color: #008000 } /* Literal.String.Other */
-.output_html .sr { color: #BB6688 } /* Literal.String.Regex */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
 .output_html .s1 { color: #BA2121 } /* Literal.String.Single */
 .output_html .ss { color: #19177C } /* Literal.String.Symbol */
 .output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
@@ -801,21 +888,21 @@ Component: BrachistochroneODE &#39;ode&#39;
 &#39;&lt;output&gt;&#39; wrt &#39;&lt;variable&gt;&#39; | calc mag.  | check mag. | a(cal-chk) | r(cal-chk)
 -------------------------------------------------------------------------------
 
-&#39;check&#39;    wrt &#39;theta&#39;      | 5.9677e+00 | 5.9677e+00 | 1.6012e-15 | 2.6831e-16
-&#39;check&#39;    wrt &#39;v&#39;          | 3.0014e+00 | 3.0014e+00 | 2.2204e-16 | 7.3980e-17
-&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.7471e+01 | 1.7471e+01 | 8.8818e-16 | 5.0836e-17
+&#39;check&#39;    wrt &#39;theta&#39;      | 1.3129e+01 | 1.3129e+01 | 1.8842e-15 | 1.4351e-16
+&#39;check&#39;    wrt &#39;v&#39;          | 2.8945e+00 | 2.8945e+00 | 0.0000e+00 | 0.0000e+00
+&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.7931e+01 | 1.7931e+01 | 1.7764e-15 | 9.9068e-17
 &#39;vdot&#39;     wrt &#39;v&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;xdot&#39;     wrt &#39;theta&#39;      | 3.2362e+00 | 3.2362e+00 | 3.8459e-16 | 1.1884e-16
-&#39;xdot&#39;     wrt &#39;v&#39;          | 1.7816e+00 | 1.7816e+00 | 1.5701e-16 | 8.8128e-17
-&#39;ydot&#39;     wrt &#39;theta&#39;      | 5.1040e+00 | 5.1040e+00 | 2.4825e-16 | 4.8639e-17
-&#39;ydot&#39;     wrt &#39;v&#39;          | 1.3513e+00 | 1.3513e+00 | 0.0000e+00 | 0.0000e+00
+&#39;xdot&#39;     wrt &#39;theta&#39;      | 6.5402e+00 | 6.5402e+00 | 4.9651e-16 | 7.5916e-17
+&#39;xdot&#39;     wrt &#39;v&#39;          | 1.8284e+00 | 1.8284e+00 | 1.5701e-16 | 8.5872e-17
+&#39;ydot&#39;     wrt &#39;theta&#39;      | 1.0273e+01 | 1.0273e+01 | 4.9651e-16 | 4.8332e-17
+&#39;ydot&#39;     wrt &#39;v&#39;          | 1.2872e+00 | 1.2872e+00 | 0.0000e+00 | 0.0000e+00
 
 ##################################################################
 Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 ##################################################################
 &#39;&lt;output&gt;&#39; wrt &#39;&lt;variable&gt;&#39; | calc mag.  | check mag. | a(cal-chk) | r(cal-chk)
 -------------------------------------------------------------------------------
-&#39;check&#39;    wrt &#39;theta&#39;      | 5.9677e+00 | 5.9677e+00 | 1.6012e-15 | 2.6831e-16
+&#39;check&#39;    wrt &#39;theta&#39;      | 1.3129e+01 | 1.3129e+01 | 1.8842e-15 | 1.4351e-16
 </pre></div>
 </div>
 </div>
@@ -855,22 +942,22 @@ td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .output_html .hll { background-color: #ffffcc }
 .output_html { background: #f8f8f8; }
-.output_html .c { color: #408080; font-style: italic } /* Comment */
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
 .output_html .err { border: 1px solid #FF0000 } /* Error */
 .output_html .k { color: #008000; font-weight: bold } /* Keyword */
 .output_html .o { color: #666666 } /* Operator */
-.output_html .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.output_html .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.output_html .cp { color: #BC7A00 } /* Comment.Preproc */
-.output_html .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.output_html .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.output_html .cs { color: #408080; font-style: italic } /* Comment.Special */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
 .output_html .gd { color: #A00000 } /* Generic.Deleted */
 .output_html .ge { font-style: italic } /* Generic.Emph */
-.output_html .gr { color: #FF0000 } /* Generic.Error */
+.output_html .gr { color: #E40000 } /* Generic.Error */
 .output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.output_html .gi { color: #00A000 } /* Generic.Inserted */
-.output_html .go { color: #888888 } /* Generic.Output */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
 .output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
 .output_html .gs { font-weight: bold } /* Generic.Strong */
 .output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
@@ -883,15 +970,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .kt { color: #B00040 } /* Keyword.Type */
 .output_html .m { color: #666666 } /* Literal.Number */
 .output_html .s { color: #BA2121 } /* Literal.String */
-.output_html .na { color: #7D9029 } /* Name.Attribute */
+.output_html .na { color: #687822 } /* Name.Attribute */
 .output_html .nb { color: #008000 } /* Name.Builtin */
 .output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
 .output_html .no { color: #880000 } /* Name.Constant */
 .output_html .nd { color: #AA22FF } /* Name.Decorator */
-.output_html .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.output_html .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
 .output_html .nf { color: #0000FF } /* Name.Function */
-.output_html .nl { color: #A0A000 } /* Name.Label */
+.output_html .nl { color: #767600 } /* Name.Label */
 .output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
 .output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
 .output_html .nv { color: #19177C } /* Name.Variable */
@@ -908,11 +995,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .output_html .s2 { color: #BA2121 } /* Literal.String.Double */
-.output_html .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
 .output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.output_html .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
 .output_html .sx { color: #008000 } /* Literal.String.Other */
-.output_html .sr { color: #BB6688 } /* Literal.String.Regex */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
 .output_html .s1 { color: #BA2121 } /* Literal.String.Single */
 .output_html .ss { color: #19177C } /* Literal.String.Symbol */
 .output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
@@ -1022,7 +1109,7 @@ If you want to cite a journal, article, book, etc, simply add <code class="docut
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Grey <span id="id1">[<a class="reference internal" href="#id5">GMN10</a>]</span></p>
+<p>Grey <span id="id1">[<a class="reference internal" href="#id5" title="Justin Gray, Kenneth Moore, and Bret Naylor. Openmdao: an open source framework for multidisciplinary analysis and optimization. In 13th AIAA/ISSMO Multidisciplinary Analysis Optimization Conference, 9101. 2010.">GMN10</a>]</span></p>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <p id="id2"><dl class="citation">
@@ -1088,8 +1175,8 @@ The lack of MPI capability or pyoptsparse will cause additional tests to be skip
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../api/trajectory_api.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1099,19 +1186,17 @@ The lack of MPI capability or pyoptsparse will cause additional tests to be skip
         </div>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

@@ -38,20 +38,22 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="SSTO Earth Launch" href="../ssto_earth/ssto_earth.html" />
@@ -123,6 +125,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -165,6 +172,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../brachistochrone/brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -172,6 +184,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -202,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -397,6 +424,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -461,7 +493,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -517,7 +549,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -552,7 +584,45 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Single-Phase Space Shuttle Reentry</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#component-models">
+   Component Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-the-ode">
+   Defining the ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-and-running-the-problem">
+   Building and running the problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -562,10 +632,10 @@
 <p>The problem of the space shuttle reentering Earth’s atmosphere is an
 optimal control problem governed by six equations of motion and limited
 by the aerodynamic heating rate. For a detailed layout of this problem
-and other optimal control problems see Betts <span id="id1">[<a class="reference internal" href="#id18">Bet10</a>]</span>.
+and other optimal control problems see Betts <span id="id1">[<a class="reference internal" href="#id19" title="J. Betts. Practical Methods for Optimal Control and Estimation Using Nonlinear Programming. Society for Industrial and Applied Mathematics, second edition, 2010. URL: https://epubs.siam.org/doi/abs/10.1137/1.9780898718577, arXiv:https://epubs.siam.org/doi/pdf/10.1137/1.9780898718577, doi:10.1137/1.9780898718577.">Bet10</a>]</span>.
 The governing equations of motion for this problem are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6129a7ba-0c9b-409d-905e-62c4a0c4d4bb">
-<span class="eqno">(58)<a class="headerlink" href="#equation-6129a7ba-0c9b-409d-905e-62c4a0c4d4bb" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ad8d5b88-b0c7-4ed8-924b-69cca90ebd14">
+<span class="eqno">(69)<a class="headerlink" href="#equation-ad8d5b88-b0c7-4ed8-924b-69cca90ebd14" title="Permalink to this equation">¶</a></span>\[\begin{align}
   \frac{dh}{dt} &amp;= v \sin \gamma \\
   \frac{d\phi}{dt} &amp;= \frac{v}{r} \cos \gamma \frac{\sin \psi}{\cos \theta} \\
   \frac{d\theta}{dt} &amp;= \frac{v}{r} \cos \gamma \cos \psi  \\
@@ -588,8 +658,8 @@ final altitude, without exceding a maximum heat rate at the leading
 edges. This heat rate is constrained by <span class="math notranslate nohighlight">\(q \leq 70\)</span> where q
 <span class="math notranslate nohighlight">\([\frac{btu}{ft^2s}]\)</span> is the heating rate.</p>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d8da7f29-24ef-4f72-ad7d-b44eae0d9fb4">
-<span class="eqno">(59)<a class="headerlink" href="#equation-d8da7f29-24ef-4f72-ad7d-b44eae0d9fb4" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-efe68555-7e05-488f-aa09-939355d8fc6d">
+<span class="eqno">(70)<a class="headerlink" href="#equation-efe68555-7e05-488f-aa09-939355d8fc6d" title="Permalink to this equation">¶</a></span>\[\begin{align}
   h_0 &amp;= 26000 \\
   v_0 &amp;= 25600 \\
   \phi_0 &amp;= 0 \\
@@ -598,8 +668,8 @@ edges. This heat rate is constrained by <span class="math notranslate nohighligh
   \psi_0 &amp;= \frac{\pi}{2}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ff83b500-eb9a-4706-90d2-4e10702d683e">
-<span class="eqno">(60)<a class="headerlink" href="#equation-ff83b500-eb9a-4706-90d2-4e10702d683e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4e3c334a-faf4-42a7-88bd-512adc139cdb">
+<span class="eqno">(71)<a class="headerlink" href="#equation-4e3c334a-faf4-42a7-88bd-512adc139cdb" title="Permalink to this equation">¶</a></span>\[\begin{align}
   h_0 &amp;= 80000 \\
   v_0 &amp;= 2500 \\
   \gamma_0 &amp;= -0.08727 \\
@@ -617,13 +687,13 @@ second component computes the aerodynamic forces of lift and drag on the
 shuttle. The third component is where the heating rate on the leading
 edge of the shuttles wings is computed. The heating rate is given by
 <span class="math notranslate nohighlight">\(q = q_a q_r\)</span> where</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9e9c9381-d536-4708-9b29-b92af77374db">
-<span class="eqno">(61)<a class="headerlink" href="#equation-9e9c9381-d536-4708-9b29-b92af77374db" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-075a0655-a3cd-4341-8df4-7a9f0f86a314">
+<span class="eqno">(72)<a class="headerlink" href="#equation-075a0655-a3cd-4341-8df4-7a9f0f86a314" title="Permalink to this equation">¶</a></span>\[\begin{align}
   q_a &amp;= c_0 + c_1\alpha + c_2 \alpha^2 + c_3 \alpha^3
 \end{align}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e8134675-9058-45ec-97f1-6832d9b468a3">
-<span class="eqno">(62)<a class="headerlink" href="#equation-e8134675-9058-45ec-97f1-6832d9b468a3" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-93861c6d-d694-4482-b5e1-f4f6cb0c7519">
+<span class="eqno">(73)<a class="headerlink" href="#equation-93861c6d-d694-4482-b5e1-f4f6cb0c7519" title="Permalink to this equation">¶</a></span>\[\begin{align}
   q_r &amp;= 17700 \rho^.5 (.0001v)^{3.07}
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c_0, c_1, c_2,\)</span> and <span class="math notranslate nohighlight">\(c_3\)</span> are constants, <span class="math notranslate nohighlight">\(\alpha\)</span> <span class="math notranslate nohighlight">\([deg]\)</span> is the
@@ -1092,24 +1162,7 @@ The two controls are <span class="math notranslate nohighlight">\(\alpha\)</span
           <span class="n">phase0</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">75</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
 <span class="c1"># Run the driver</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-<span class="c1"># Run the simulation to check if the model is physically valid</span>
-<span class="n">sim_out</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
-
-<span class="c1"># Plot the results</span>
-
-<span class="n">plot_results</span><span class="p">([(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.controls:alpha&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha (rad)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.controls:beta&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;beta (rad)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.states:theta&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;theta (rad)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.q&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;q (btu/ft/ft/s&#39;</span><span class="p">)],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Reentry Solution&#39;</span><span class="p">,</span> <span class="n">p_sol</span><span class="o">=</span><span class="n">p</span><span class="p">,</span>
-             <span class="n">p_sim</span><span class="o">=</span><span class="n">sim_out</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">simulate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1139,6 +1192,9 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/utils/options_dictionary.py:347: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs
 </pre></div>
 </div>
@@ -1173,9 +1229,6 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1918: PromotionWarning:&#39;traj.phases.phase0.continuity_comp&#39; &lt;class RadauPSContinuityComp&gt;: input variable &#39;t_duration&#39;, promoted using &#39;t_duration&#39;, was already promoted using &#39;t_duration&#39;.
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
 INFO: checking out_of_order
 </pre></div>
@@ -1204,7 +1257,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.550932 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.728775 seconds.
 Total jacobian shape: (327, 358) 
 </pre></div>
 </div>
@@ -1213,8 +1266,9 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 358  (94.4% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 1.550932 sec.
-Time to compute coloring: 0.362115 sec.
+Time to compute sparsity: 2.728775 sec.
+Time to compute coloring: 0.447401 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1223,11 +1277,11 @@ Time to compute coloring: 0.362115 sec.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   43.5664
-       User Objective Time :       0.9539
-       User Sensitivity Time :     6.7836
-       Interface Time :            2.0991
-       Opt Solver Time:           33.7298
+    Total Time:                   54.1739
+       User Objective Time :       1.3504
+       User Sensitivity Time :    12.0808
+       Interface Time :            2.7918
+       Opt Solver Time:           37.9510
     Calls to Objective Function :     474
     Calls to Sens Function :          210
 
@@ -1935,7 +1989,32 @@ Time to compute coloring: 0.362115 sec.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/reentry_10_33.png" src="../../_images/reentry_10_33.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sol</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">CaseReader</span><span class="p">(</span><span class="s1">&#39;dymos_solution.db&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_case</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">CaseReader</span><span class="p">(</span><span class="s1">&#39;dymos_simulation.db&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_case</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
+
+<span class="n">plot_results</span><span class="p">([(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.controls:alpha&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha (rad)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.controls:beta&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;beta (rad)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.states:theta&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;theta (rad)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase0.timeseries.q&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;q (Btu/ft**2/s)&#39;</span><span class="p">)],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Reentry Solution&#39;</span><span class="p">,</span> <span class="n">p_sol</span><span class="o">=</span><span class="n">sol</span><span class="p">,</span>
+             <span class="n">p_sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/reentry_11_0.png" src="../../_images/reentry_11_0.png" />
 </div>
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">
@@ -1944,7 +2023,7 @@ Time to compute coloring: 0.362115 sec.
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="id2"><dl class="citation">
-<dt class="label" id="id18"><span class="brackets">Bet10</span></dt>
+<dt class="label" id="id19"><span class="brackets">Bet10</span></dt>
 <dd><p>J. Betts. <em>Practical Methods for Optimal Control and Estimation Using Nonlinear Programming</em>. Society for Industrial and Applied Mathematics, second edition, 2010. URL: <a class="reference external" href="https://epubs.siam.org/doi/abs/10.1137/1.9780898718577">https://epubs.siam.org/doi/abs/10.1137/1.9780898718577</a>, <a class="reference external" href="https://arxiv.org/abs/https://epubs.siam.org/doi/pdf/10.1137/1.9780898718577">arXiv:https://epubs.siam.org/doi/pdf/10.1137/1.9780898718577</a>, <a class="reference external" href="https://doi.org/10.1137/1.9780898718577">doi:10.1137/1.9780898718577</a>.</p>
 </dd>
 </dl>
@@ -1974,8 +2053,8 @@ Time to compute coloring: 0.362115 sec.
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../racecar/racecar.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1992,19 +2071,17 @@ Time to compute coloring: 0.362115 sec.
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

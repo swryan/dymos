@@ -38,23 +38,25 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="The Van der Pol Oscillator" href="../vanderpol/vanderpol.html" />
+    <link rel="next" title="The Brachistochrone with externally-sourced initial state values" href="brachistochrone_upstream_init_duration_states.html" />
     <link rel="prev" title="Dymos by Example" href="../examples.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -123,6 +125,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../getting_started/transcriptions.html">
+   Optimal Control Transcriptions
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../getting_started/defining_odes.html">
    Defining ODEs
   </a>
@@ -165,6 +172,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="brachistochrone_upstream_init_duration_states.html">
+     The Brachistochrone with externally-sourced initial state values
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../vanderpol/vanderpol.html">
      The Van der Pol Oscillator
     </a>
@@ -172,6 +184,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../balanced_field/balanced_field.html">
      Aircraft Balanced Field Length Calculation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">
+     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../bryson_denham/bryson_denham.html">
+     The Bryson-Denham Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -202,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../min_time_climb/min_time_climb.html">
      Supersonic Interceptor Minimum Time Climb
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mountain_car/mountain_car.html">
+     The Mountain Car Problem
     </a>
    </li>
    <li class="toctree-l2">
@@ -397,6 +424,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../api/transcriptions_api.html">
+     The Transcriptions API
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../api/trajectory_api.html">
      The Trajectory API
     </a>
@@ -461,7 +493,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -517,7 +549,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -572,7 +604,65 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>The Brachistochrone</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#state-variables">
+   State variables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#system-dynamics">
+   System dynamics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#control-variables">
+   Control variables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-initial-and-final-conditions">
+   The initial and final conditions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-the-ode-as-an-openmdao-system">
+   Defining the ODE as an OpenMDAO System
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-the-ode">
+   Testing the ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-problem-with-legendre-gauss-lobatto-collocation-in-dymos">
+   Solving the problem with Legendre-Gauss-Lobatto collocation in Dymos
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-problem-with-single-shooting-in-dymos">
+   Solving the problem with single shooting in Dymos
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
@@ -620,8 +710,8 @@ without friction along the wire moves from point A to point B in minimum time.</
 <div class="section" id="system-dynamics">
 <h2>System dynamics<a class="headerlink" href="#system-dynamics" title="Permalink to this headline">¶</a></h2>
 <p>From the free-body diagram above, the evolution of the state variables is given by the following ordinary differential equations (ODE).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0c404b98-5f75-4157-98ad-5cb35a2e99e4">
-<span class="eqno">(13)<a class="headerlink" href="#equation-0c404b98-5f75-4157-98ad-5cb35a2e99e4" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4207d944-3812-467e-94c3-97be43b4747b">
+<span class="eqno">(13)<a class="headerlink" href="#equation-4207d944-3812-467e-94c3-97be43b4747b" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \frac{d x}{d t} &amp;= v \sin(\theta) \\
     \frac{d y}{d t} &amp;= -v \cos(\theta) \\
     \frac{d v}{d t} &amp;= g \cos(\theta)
@@ -639,8 +729,8 @@ without friction along the wire moves from point A to point B in minimum time.</
 <p>In this case, starting point <strong>A</strong> is given as <em>(0, 10)</em>.
 The point moving along the curve will begin there with zero initial velocity.</p>
 <p>The initial conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d3b48ef6-0d1d-434d-85da-70cef096a96c">
-<span class="eqno">(14)<a class="headerlink" href="#equation-d3b48ef6-0d1d-434d-85da-70cef096a96c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7855dc19-728f-4c5d-9871-367a9845f844">
+<span class="eqno">(14)<a class="headerlink" href="#equation-7855dc19-728f-4c5d-9871-367a9845f844" title="Permalink to this equation">¶</a></span>\[\begin{align}
     x_0 &amp;= 0 \\
     y_0 &amp;= 10 \\
     v_0 &amp;= 0
@@ -648,8 +738,8 @@ The point moving along the curve will begin there with zero initial velocity.</p
 <p>The end point <strong>B</strong> is given as <em>(10, 5)</em>.
 The point will end there, but the velocity at that point is not constrained.</p>
 <p>The final conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9ecd9c0d-2ec3-4a99-ab6b-abff11b0e215">
-<span class="eqno">(15)<a class="headerlink" href="#equation-9ecd9c0d-2ec3-4a99-ab6b-abff11b0e215" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b507fce5-b15b-4e8e-b96a-a1c274b18d59">
+<span class="eqno">(15)<a class="headerlink" href="#equation-b507fce5-b15b-4e8e-b96a-a1c274b18d59" title="Permalink to this equation">¶</a></span>\[\begin{align}
     x_f &amp;= 10 \\
     y_f &amp;= 5 \\
     v_f &amp;= \mathrm{free}
@@ -813,24 +903,24 @@ Component: BrachistochroneODE &#39;ode&#39;
 -------------------------------------------------------------------------------
 
 &#39;check&#39;    wrt &#39;g&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;check&#39;    wrt &#39;theta&#39;      | 1.1377e+03 | 1.1377e+03 | 9.9466e-16 | 8.7424e-19
-&#39;check&#39;    wrt &#39;v&#39;          | 3.2338e+01 | 3.2338e+01 | 0.0000e+00 | 0.0000e+00
-&#39;vdot&#39;     wrt &#39;g&#39;          | 1.2031e+00 | 1.2031e+00 | 1.1104e-16 | 9.2292e-17
-&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.8484e+01 | 1.8484e+01 | 2.5128e-15 | 1.3594e-16
+&#39;check&#39;    wrt &#39;theta&#39;      | 1.1839e+02 | 1.1839e+02 | 1.7764e-15 | 1.5005e-17
+&#39;check&#39;    wrt &#39;v&#39;          | 1.8928e+01 | 1.8928e+01 | 2.2204e-16 | 1.1731e-17
+&#39;vdot&#39;     wrt &#39;g&#39;          | 1.7646e+00 | 1.7646e+00 | 1.5701e-16 | 8.8976e-17
+&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.3468e+01 | 1.3468e+01 | 8.9509e-16 | 6.6460e-17
 &#39;vdot&#39;     wrt &#39;v&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
 &#39;xdot&#39;     wrt &#39;g&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;xdot&#39;     wrt &#39;theta&#39;      | 5.6222e+00 | 5.6222e+00 | 5.5511e-17 | 9.8736e-18
-&#39;xdot&#39;     wrt &#39;v&#39;          | 1.8848e+00 | 1.8848e+00 | 1.1102e-16 | 5.8903e-17
+&#39;xdot&#39;     wrt &#39;theta&#39;      | 6.8765e+00 | 6.8765e+00 | 8.8991e-16 | 1.2941e-16
+&#39;xdot&#39;     wrt &#39;v&#39;          | 1.3734e+00 | 1.3734e+00 | 0.0000e+00 | 0.0000e+00
 &#39;ydot&#39;     wrt &#39;g&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;ydot&#39;     wrt &#39;theta&#39;      | 1.2086e+01 | 1.2086e+01 | 8.8818e-16 | 7.3491e-17
-&#39;ydot&#39;     wrt &#39;v&#39;          | 1.2031e+00 | 1.2031e+00 | 1.1104e-16 | 9.2292e-17
+&#39;ydot&#39;     wrt &#39;theta&#39;      | 7.2202e+00 | 7.2202e+00 | 6.6613e-16 | 9.2259e-17
+&#39;ydot&#39;     wrt &#39;v&#39;          | 1.7646e+00 | 1.7646e+00 | 1.5701e-16 | 8.8976e-17
 
 ##################################################################
 Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 ##################################################################
 &#39;&lt;output&gt;&#39; wrt &#39;&lt;variable&gt;&#39; | calc mag.  | check mag. | a(cal-chk) | r(cal-chk)
 -------------------------------------------------------------------------------
-&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.8484e+01 | 1.8484e+01 | 2.5128e-15 | 1.3594e-16
+&#39;xdot&#39;     wrt &#39;theta&#39;      | 6.8765e+00 | 6.8765e+00 | 8.8991e-16 | 1.2941e-16
 </pre></div>
 </div>
 </div>
@@ -918,24 +1008,23 @@ Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
-
-Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.029856 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.041604 seconds.
 Total jacobian shape: (40, 50) 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (40, 50)  (18.15% nonzero)
+
+
+Jacobian shape: (40, 50)  (19.85% nonzero)
 FWD solves: 13   REV solves: 0
 Total colors vs. total size: 13 vs 50  (74.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.029856 sec.
-Time to compute coloring: 0.036412 sec.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1918: PromotionWarning:&#39;traj.phases.phase0.continuity_comp&#39; &lt;class GaussLobattoContinuityComp&gt;: input variable &#39;t_duration&#39;, promoted using &#39;t_duration&#39;, was already promoted using &#39;t_duration&#39;.
+Time to compute sparsity: 0.041604 sec.
+Time to compute coloring: 0.050066 sec.
+Memory to compute coloring: 0.687500 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
@@ -945,9 +1034,7 @@ Time to compute coloring: 0.036412 sec.
             Gradient evaluations: 24
 Optimization Complete
 -----------------------------------
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.80161673]
+[1.80161673]
 </pre></div>
 </div>
 </div>
@@ -974,10 +1061,13 @@ Optimization Complete
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/brachistochrone_11_2.png" src="../../_images/brachistochrone_11_2.png" />
+<img alt="../../_images/brachistochrone_11_3.png" src="../../_images/brachistochrone_11_3.png" />
 </div>
 </div>
 </div>
@@ -1083,10 +1173,10 @@ Key differences are shown when defining the transcription, specifying how to con
 Model viewer data has already has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:223: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.010119 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.013703 seconds.
 Total jacobian shape: (12, 22) 
 
 
@@ -1095,15 +1185,33 @@ FWD solves: 0   REV solves: 12
 Total colors vs. total size: 12 vs 12  (0.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.010119 sec.
-Time to compute coloring: 0.015599 sec.
+Time to compute sparsity: 0.013703 sec.
+Time to compute coloring: 0.019348 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/drivers/scipy_optimizer.py:439: DerivativesWarning:ScipyOptimizeDriver: Coloring was deactivated.  Improvement of 0.0% was less than min allowed (5.0%).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/drivers/scipy_optimizer.py:438: DerivativesWarning:ScipyOptimizeDriver: Coloring was deactivated.  Improvement of 0.0% was less than min allowed (5.0%).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.011935 seconds.
+Total jacobian shape: (12, 22) 
+
+
+Jacobian shape: (12, 22)  (100.00% nonzero)
+FWD solves: 0   REV solves: 12
+Total colors vs. total size: 12 vs 12  (0.0% improvement)
+
+Sparsity computed using tolerance: 1e-25
+Time to compute sparsity: 0.011935 sec.
+Time to compute coloring: 0.018777 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 18.01647189439755
+            Current function value: 18.016471894397576
             Iterations: 11
             Function evaluations: 13
             Gradient evaluations: 11
@@ -1161,8 +1269,8 @@ Due to plans to enable variable step integration in the future, Dymos cannot pro
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../examples.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1171,27 +1279,25 @@ Due to plans to enable variable step integration in the future, Dymos cannot pro
             <p class="prev-next-title">Dymos by Example</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../vanderpol/vanderpol.html" title="next page">
+    <a class='right-next' id="next-link" href="brachistochrone_upstream_init_duration_states.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Van der Pol Oscillator</p>
+        <p class="prev-next-title">The Brachistochrone with externally-sourced initial state values</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By The Dymos Development Team<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By The Dymos Development Team<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

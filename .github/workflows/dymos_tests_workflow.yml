@@ -92,6 +92,7 @@ jobs:
 
     steps:
       - name: Display run details
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         run: |
           echo "============================================================="
           echo "Run #${GITHUB_RUN_NUMBER}"
@@ -102,6 +103,7 @@ jobs:
           echo "============================================================="
 
       - name: Create SSH key
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
@@ -113,13 +115,16 @@ jobs:
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
       - name: Checkout code
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         uses: actions/checkout@v2
 
       - name: Fetch tags
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         run: |
           git fetch --prune --unshallow --tags
 
       - name: Install miniconda
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: test
@@ -131,6 +136,7 @@ jobs:
           use-only-tar-bz2: true
 
       - name: Install Numpy/Scipy
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -139,7 +145,7 @@ jobs:
           conda install numpy=${{ matrix.NUMPY }} scipy=${{ matrix.SCIPY }} -q -y
 
       - name: Install jax
-        if: matrix.JAX
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest') && matrix.JAX
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -149,7 +155,7 @@ jobs:
           pip install jaxlib
 
       - name: Install libscotch
-        if: matrix.name == 'oldest'
+        if: (github.event_name != 'workflow_dispatch' && matrix.name == 'oldest')
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -158,7 +164,7 @@ jobs:
           sudo apt-get install -y libscotch-6.0
 
       - name: Install PETSc
-        if: matrix.PETSc
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest') && matrix.PETSc
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -168,7 +174,7 @@ jobs:
           echo "OMPI_MCA_rmaps_base_oversubscribe=1" >> $GITHUB_ENV
 
       - name: Install pyOptSparse
-        if: matrix.PYOPTSPARSE
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest') && matrix.PYOPTSPARSE
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -200,7 +206,7 @@ jobs:
           echo "LD_LIBRARY_PATH=$HOME/ipopt/lib" >> $GITHUB_ENV
 
       - name: Install MBI
-        if: matrix.MBI
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest') && matrix.MBI
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -211,7 +217,7 @@ jobs:
           pip install .
 
       - name: Install OpenMDAO
-        if: matrix.OPENMDAO
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest') && matrix.OPENMDAO
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -226,7 +232,7 @@ jobs:
           fi
 
       - name: Install optional dependencies
-        if: matrix.OPTIONAL == '[all]'
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest') && matrix.OPTIONAL == '[all]'
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -235,6 +241,7 @@ jobs:
           pip install bokeh
 
       - name: Install Dymos
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -243,12 +250,14 @@ jobs:
           pip install .${{ matrix.OPTIONAL }}
 
       - name: Display conda info
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         shell: bash -l {0}
         run: |
           conda info
           conda list
 
       - name: Run tests
+        if: (github.event_name != 'workflow_dispatch' || matrix.NAME == 'latest')
         env:
           DYMOS_CHECK_PARTIALS: True
         shell: bash -l {0}
@@ -265,6 +274,7 @@ jobs:
           testflo dymos -n 1 --pre_announce --show_skipped --coverage --coverpkg dymos
 
       - name: Submit coverage
+        if: (github.event_name != 'workflow_dispatch')
         shell: bash -l {0}
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -280,7 +290,7 @@ jobs:
           coveralls --basedir $SITE_DIR
 
       - name: Build docs
-        if: ${{ matrix.DOCS == '1' || matrix.DOCS == '2' }}
+        if: (github.event_name != 'workflow_dispatch') && (matrix.DOCS == '1' || matrix.DOCS == '2')
         id: build_docs
         shell: bash -l {0}
         run: |
@@ -294,7 +304,11 @@ jobs:
 
       - name: Display doc build reports
         continue-on-error: True
-        if: failure() && (matrix.DOCS == '1' || matrix.DOCS == '2') && steps.build_docs.outcome == 'failure'
+        if: |
+          github.event_name != 'workflow_dispatch' &&
+          failure() &&
+          (matrix.DOCS == '1' || matrix.DOCS == '2') &&
+          steps.build_docs.outcome == 'failure'
         run: |
           for f in /home/runner/work/dymos/dymos/docs/dymos_book/_build/html/reports/*; do
             echo "============================================================="
@@ -304,7 +318,9 @@ jobs:
           done
 
       - name: Publish docs
-        if: ${{ matrix.DOCS == '2' && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        if: |
+          github.event_name == 'push' && github.ref == 'refs/heads/master' &&
+          matrix.DOCS == '2'
         shell: bash -l {0}
         run: |
           echo "============================================================="
@@ -317,6 +333,7 @@ jobs:
 
   coveralls:
     name: Finish coveralls
+    if: (github.event_name != 'workflow_dispatch')
     needs: test_ubuntu
     runs-on: ubuntu-latest
     steps:

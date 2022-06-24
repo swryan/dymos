@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>The Van der Pol Oscillator &#8212; Dymos</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,21 +20,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -40,12 +38,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -65,7 +64,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -74,9 +87,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -94,14 +108,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Multidisciplinary Optimal Control Library
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Multidisciplinary Optimal Control Library
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Installation
  </span>
@@ -450,112 +465,227 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/examples/vanderpol/vanderpol.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/OpenMDAO/dymos"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/vanderpol/vanderpol.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/vanderpol/vanderpol.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/vanderpol/vanderpol.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/vanderpol/vanderpol.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/vanderpol/vanderpol.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OpenMDAO/dymos"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/vanderpol/vanderpol.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/examples/vanderpol/vanderpol.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#state-variables">
    State Variables
@@ -608,12 +738,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>The Van der Pol Oscillator</h1>
@@ -682,30 +811,31 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="the-van-der-pol-oscillator">
-<h1>The Van der Pol Oscillator<a class="headerlink" href="#the-van-der-pol-oscillator" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="the-van-der-pol-oscillator">
+<h1>The Van der Pol Oscillator<a class="headerlink" href="#the-van-der-pol-oscillator" title="Permalink to this headline">#</a></h1>
 <p>In dynamics, the Van Der Pol oscillator <span id="id1">[<a class="reference internal" href="#id23" title="Wikipedia contributors. Van der pol oscillator — Wikipedia, the free encyclopedia. 2020. [Online; accessed 12-June-2020]. URL: https://en.wikipedia.org/w/index.php?title=Van_der_Pol_oscillator&amp;oldid=953857769.">Wikipediacontributors20</a>]</span> is a non-conservative oscillator with non-linear damping. It evolves in time according to the second-order differential equation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-60e15f89-eead-4c31-89d5-dee584afa8ca">
-<span class="eqno">(16)<a class="headerlink" href="#equation-60e15f89-eead-4c31-89d5-dee584afa8ca" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3452271c-60cf-492c-9e7a-b6c2e78700e7">
+<span class="eqno">(16)<a class="headerlink" href="#equation-3452271c-60cf-492c-9e7a-b6c2e78700e7" title="Permalink to this equation">#</a></span>\[\begin{align}
     \frac{d^2x}{dt^2} - u (1 - x^2) \frac{dx}{dt} + x &amp;= 0
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x\)</span> is the position coordinate (a function of the time <span class="math notranslate nohighlight">\(t\)</span>), and <span class="math notranslate nohighlight">\(u\)</span> is a scalar parameter
 indicating the nonlinearity and the strength of the damping.</p>
 <p>To make this an optimal control problem, we want to find the smallest control that will dampen the oscillation
 (drive the state variables to zero). We can express this as an objective function <span class="math notranslate nohighlight">\(J\)</span> to minimize:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3071c683-0aa1-4cfa-8af8-05ad270e99ef">
-<span class="eqno">(17)<a class="headerlink" href="#equation-3071c683-0aa1-4cfa-8af8-05ad270e99ef" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5279fc61-163b-4732-98db-16eb53195b97">
+<span class="eqno">(17)<a class="headerlink" href="#equation-5279fc61-163b-4732-98db-16eb53195b97" title="Permalink to this equation">#</a></span>\[\begin{align}
     J &amp;= \int x^2_0 + x^2_1 + u^2
 \end{align}\]</div>
 <p>In other words, we want to find the optimal (smallest) trajectory of the control <span class="math notranslate nohighlight">\(u\)</span> such that the oscillation
 and the oscillation’s rate of change are driven to zero.</p>
-<div class="section" id="state-variables">
-<h2>State Variables<a class="headerlink" href="#state-variables" title="Permalink to this headline">¶</a></h2>
+<section id="state-variables">
+<h2>State Variables<a class="headerlink" href="#state-variables" title="Permalink to this headline">#</a></h2>
 <p>There are three <em>state</em> variables are used to define the configuration of the system at any given instant in time.</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(x_1\)</span>: The primary output of the oscillator.</p></li>
@@ -714,46 +844,46 @@ and the oscillation’s rate of change are driven to zero.</p>
 </ul>
 <p>The objective function is included as a state variable so that Dymos will do the integration.</p>
 <p>The <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> state variables are also inputs to the system, along with the control <span class="math notranslate nohighlight">\(u\)</span>.</p>
-</div>
-<div class="section" id="system-dynamics">
-<h2>System Dynamics<a class="headerlink" href="#system-dynamics" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="system-dynamics">
+<h2>System Dynamics<a class="headerlink" href="#system-dynamics" title="Permalink to this headline">#</a></h2>
 <p>The evolution of the state variables is given by the following ordinary differential equations (ODE):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2e74d867-7f72-406c-98ec-b1eb063565ca">
-<span class="eqno">(18)<a class="headerlink" href="#equation-2e74d867-7f72-406c-98ec-b1eb063565ca" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-92997908-9b27-44a9-9cf2-42c3995c5eb7">
+<span class="eqno">(18)<a class="headerlink" href="#equation-92997908-9b27-44a9-9cf2-42c3995c5eb7" title="Permalink to this equation">#</a></span>\[\begin{align}
     \frac{dx_0}{dt} &amp;= (1 - x^2_1) x_0 - x_1 + u \\
     \frac{dx_1}{dt} &amp;= x_0 \\
     \frac{dJ}{dt} &amp;= x^2_0 + x^2_1 + u^2
 \end{align}\]</div>
-</div>
-<div class="section" id="control-variables">
-<h2>Control Variables<a class="headerlink" href="#control-variables" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="control-variables">
+<h2>Control Variables<a class="headerlink" href="#control-variables" title="Permalink to this headline">#</a></h2>
 <p>This system has a single control variable:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(u\)</span>: The control input.</p></li>
 </ul>
 <p>The control variable has a constraint: <span class="math notranslate nohighlight">\(-0.75 \leq u \leq 1.0\)</span></p>
-</div>
-<div class="section" id="the-initial-and-final-conditions">
-<h2>The initial and final conditions<a class="headerlink" href="#the-initial-and-final-conditions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-initial-and-final-conditions">
+<h2>The initial and final conditions<a class="headerlink" href="#the-initial-and-final-conditions" title="Permalink to this headline">#</a></h2>
 <p>The initial conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b523e402-ed42-4077-9207-5e3a7c1444cd">
-<span class="eqno">(19)<a class="headerlink" href="#equation-b523e402-ed42-4077-9207-5e3a7c1444cd" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-052f2495-c244-47a0-9786-5d694e149bb9">
+<span class="eqno">(19)<a class="headerlink" href="#equation-052f2495-c244-47a0-9786-5d694e149bb9" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_i &amp;= 0 \\
     x_{0i} &amp;= 1 \\
     x_{1i} &amp;= 1 \\
       u_i &amp;= -0.75
 \end{align}\]</div>
 <p>The final conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ebbd7aa3-fa61-4228-a55c-d57fe9f36d36">
-<span class="eqno">(20)<a class="headerlink" href="#equation-ebbd7aa3-fa61-4228-a55c-d57fe9f36d36" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a59f7638-838b-4330-98f9-f68291631422">
+<span class="eqno">(20)<a class="headerlink" href="#equation-a59f7638-838b-4330-98f9-f68291631422" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_f &amp;= 10 \\
     x_{0f} &amp;= 0 \\
     x_{1f} &amp;= 0 \\
       u_f &amp;= 0
 \end{align}\]</div>
-</div>
-<div class="section" id="defining-the-ode-as-an-openmdao-system">
-<h2>Defining the ODE as an OpenMDAO System<a class="headerlink" href="#defining-the-ode-as-an-openmdao-system" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="defining-the-ode-as-an-openmdao-system">
+<h2>Defining the ODE as an OpenMDAO System<a class="headerlink" href="#defining-the-ode-as-an-openmdao-system" title="Permalink to this headline">#</a></h2>
 <p>In Dymos, the ODE is an OpenMDAO System (a Component, or a Group of components).
 The following <em>ExplicitComponent</em> computes the state rates for the Van der Pol problem.</p>
 <p>More detail on the workings of an <em>ExplicitComponent</em> can be found in the OpenMDAO documentation.  In summary:</p>
@@ -868,9 +998,9 @@ the <strong>compute_partials</strong> method. So although 7 partials are declare
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="defining-the-dymos-problem">
-<h2>Defining the Dymos Problem<a class="headerlink" href="#defining-the-dymos-problem" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="defining-the-dymos-problem">
+<h2>Defining the Dymos Problem<a class="headerlink" href="#defining-the-dymos-problem" title="Permalink to this headline">#</a></h2>
 <p>Once the ODEs are defined, they are used to create a Dymos <em>Problem</em> object that allows solution.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -969,9 +1099,9 @@ This is required so that the inputs are correctly calculated.</p></li>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="simulating-the-problem-without-control">
-<h2>Simulating the Problem (without control)<a class="headerlink" href="#simulating-the-problem-without-control" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="simulating-the-problem-without-control">
+<h2>Simulating the Problem (without control)<a class="headerlink" href="#simulating-the-problem-without-control" title="Permalink to this headline">#</a></h2>
 <p>The following script creates an instance of the Dymos vanderpol problem and simulates it.</p>
 <p>Since the problem was only simulated and not solved, the solution lines in the plots show only
 the initial guesses for <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, and <span class="math notranslate nohighlight">\(u\)</span>. The simulation lines shown in the plots are the
@@ -1018,7 +1148,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 INFO: checking out_of_order
 </pre></div>
 </div>
@@ -1046,10 +1176,13 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/utils/options_dictionary.py:347: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/options_dictionary.py:354: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
@@ -1109,9 +1242,9 @@ control variable <span class="math notranslate nohighlight">\(u\)</span> vs time
 <img alt="../../_images/vanderpol_8_0.png" src="../../_images/vanderpol_8_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="solving-the-optimal-control-problem">
-<h2>Solving the Optimal Control Problem<a class="headerlink" href="#solving-the-optimal-control-problem" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="solving-the-optimal-control-problem">
+<h2>Solving the Optimal Control Problem<a class="headerlink" href="#solving-the-optimal-control-problem" title="Permalink to this headline">#</a></h2>
 <p>The next example shows optimization followed by simulation.</p>
 <p>With a successful optimization, the resulting plots show a good match between the simulated (with varying control)
 and optimized results. The state variables <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> as well as the control variable <span class="math notranslate nohighlight">\(u\)</span> are all driven to zero.</p>
@@ -1163,7 +1296,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 INFO: checking out_of_order
 </pre></div>
 </div>
@@ -1191,11 +1324,10 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/utils/options_dictionary.py:347: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
-/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.171746 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.165485 seconds.
 Total jacobian shape: (60, 130) 
 
 
@@ -1204,20 +1336,22 @@ FWD solves: 0   REV solves: 5
 Total colors vs. total size: 5 vs 60  (91.7% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.171746 sec.
-Time to compute coloring: 0.049845 sec.
+Time to compute sparsity: 0.165485 sec.
+Time to compute coloring: 0.049080 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using option file &quot;IPOPT_options.opt&quot;.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of user-set options:
 
-
-******************************************************************************
-This program contains Ipopt, a library for large-scale nonlinear optimization.
- Ipopt is released as open source code under the Eclipse Public License (EPL).
-         For more information visit https://github.com/coin-or/Ipopt
-******************************************************************************
-
+                                    Name   Value                used
+                        file_print_level = 5                     yes
+                   hessian_approximation = limited-memory        yes
+                           linear_solver = mumps                 yes
+                      nlp_scaling_method = user-scaling          yes
+                             output_file = IPOPT.out             yes
+                             print_level = 4                     yes
+                      print_user_options = yes                   yes
+                                      sb = yes                   yes
 Total number of variables............................:      130
                      variables with only lower bounds:        0
                 variables with lower and upper bounds:       45
@@ -1226,31 +1360,32 @@ Total number of equality constraints.................:      115
 Total number of inequality constraints...............:        0
         inequality constraints with only lower bounds:        0
    inequality constraints with lower and upper bounds:        0
-        inequality constraints with only upper bounds:       
+        inequality constraints with only upper bounds:        0
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 0
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/pyoptsparse/pyOpt_optimization.py:234: UserWarning: The argument `type=` is deprecated. Use `varType` in the future.
+  warnings.warn(&quot;The argument `type=` is deprecated. Use `varType` in the future.&quot;)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Iterations....: 29
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Iterations....: 34
 
                                    (scaled)                 (unscaled)
-Objective...............:   2.8794729724132990e+00    2.8794729724132990e+00
-Dual infeasibility......:   9.0638803362987172e-07    9.0638803362987172e-07
-Constraint violation....:   1.0449449640486277e-12    1.0449449640486277e-12
-Complementarity.........:   9.0909090909090915e-08    9.0909090909090915e-08
-Overall NLP error.......:   9.0638803362987172e-07    9.0638803362987172e-07
+Objective...............:   2.8794727905908775e+00    2.8794727905908775e+00
+Dual infeasibility......:   3.5078178157316176e-09    3.5078178157316176e-09
+Constraint violation....:   7.3552275381416621e-15    7.3552275381416621e-15
+Complementarity.........:   1.0000000000000001e-11    1.0000000000000001e-11
+Overall NLP error.......:   3.5078178157316176e-09    3.5078178157316176e-09
 
 
-Number of objective function evaluations             = 31
-Number of objective gradient evaluations             = 30
-Number of equality constraint evaluations            = 31
+Number of objective function evaluations             = 35
+Number of objective gradient evaluations             = 35
+Number of equality constraint evaluations            = 35
 Number of inequality constraint evaluations          = 0
-Number of equality constraint Jacobian evaluations   = 30
+Number of equality constraint Jacobian evaluations   = 35
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.084
-Total CPU secs in NLP function evaluations           =      0.335
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.123
+Total CPU secs in NLP function evaluations           =      0.374
 
 EXIT: Optimal Solution Found.
 </pre></div>
@@ -1258,7 +1393,7 @@ EXIT: Optimal Solution Found.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_simulation.db, is being overwritten.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_simulation.db, is being overwritten.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
@@ -1279,9 +1414,9 @@ EXIT: Optimal Solution Found.
 <img alt="../../_images/vanderpol_11_0.png" src="../../_images/vanderpol_11_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="solving-the-optimal-control-problem-with-grid-refinement">
-<h2>Solving the Optimal Control Problem with Grid Refinement<a class="headerlink" href="#solving-the-optimal-control-problem-with-grid-refinement" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="solving-the-optimal-control-problem-with-grid-refinement">
+<h2>Solving the Optimal Control Problem with Grid Refinement<a class="headerlink" href="#solving-the-optimal-control-problem-with-grid-refinement" title="Permalink to this headline">#</a></h2>
 <p>Repeating the optimization with grid refinement enabled requires changing only two lines in the code. For the sake
 of grid refinement demonstration, the initial number of segments is also reduced by a factor of 5.</p>
 <p>Optimization with grid refinement gets results similar to the example without grid refinement, but runs faster
@@ -1331,7 +1466,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 INFO: checking out_of_order
 </pre></div>
 </div>
@@ -1359,25 +1494,22 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.159885 seconds.
+Total jacobian shape: (60, 74) 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.168594 seconds.
-Total jacobian shape: (60, 74) 
-
-
-Jacobian shape: (60, 74)  ( 8.74% nonzero)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (60, 74)  ( 8.74% nonzero)
 FWD solves: 9   REV solves: 0
 Total colors vs. total size: 9 vs 74  (87.8% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.168594 sec.
-Time to compute coloring: 0.038206 sec.
+Time to compute sparsity: 0.159885 sec.
+Time to compute coloring: 0.038877 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 2.879473423794179
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
+            Current function value: [2.87947342]
             Iterations: 33
             Function evaluations: 34
             Gradient evaluations: 33
@@ -1411,11 +1543,11 @@ Optimization Complete
     --- phase0 ---
         None
 
-Model viewer data has already has already been recorded for Driver.
-Model viewer data has already has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.323375 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.307646 seconds.
 Total jacobian shape: (105, 149) 
 
 
@@ -1424,13 +1556,13 @@ FWD solves: 14   REV solves: 0
 Total colors vs. total size: 14 vs 149  (90.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.323375 sec.
-Time to compute coloring: 0.076365 sec.
+Time to compute sparsity: 0.307646 sec.
+Time to compute coloring: 0.076448 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 2.873310943409342
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
+            Current function value: [2.87331094]
             Iterations: 20
             Function evaluations: 21
             Gradient evaluations: 20
@@ -1464,11 +1596,11 @@ Optimization Complete
     --- phase0 ---
         None
 
-Model viewer data has already has already been recorded for Driver.
-Model viewer data has already has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.466923 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.450320 seconds.
 Total jacobian shape: (147, 209) 
 
 
@@ -1477,13 +1609,13 @@ FWD solves: 14   REV solves: 0
 Total colors vs. total size: 14 vs 209  (93.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.466923 sec.
-Time to compute coloring: 0.106385 sec.
+Time to compute sparsity: 0.450320 sec.
+Time to compute coloring: 0.105767 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 2.873310974874254
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
+            Current function value: [2.87331097]
             Iterations: 11
             Function evaluations: 12
             Gradient evaluations: 11
@@ -1507,9 +1639,9 @@ Optimization Complete
             Error = [1.619e-05, 3.825e-06, 2.313e-06, 1.966e-05, 2.497e-05, 5.579e-06, 1.382e-07, 4.725e-07, 5.89e-07, 1.296e-07, 1.736e-07, 2.793e-07, 1.346e-05, 1.342e-06, 1.148e-06, 5.102e-07, 2.147e-07, 1.072e-07, 2.596e-08, 2.332e-07, 3.348e-07]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/dymos/grid_refinement/hp_adaptive/hp_adaptive.py:381: RuntimeWarning: divide by zero encountered in true_divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/grid_refinement/hp_adaptive/hp_adaptive.py:381: RuntimeWarning: divide by zero encountered in true_divide
   q_smooth = (np.log(self.error[phase_path][smooth_need_refine_idxs] /
-/usr/share/miniconda/envs/test/lib/python3.8/site-packages/dymos/grid_refinement/hp_adaptive/hp_adaptive.py:413: RuntimeWarning: divide by zero encountered in true_divide
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/grid_refinement/hp_adaptive/hp_adaptive.py:413: RuntimeWarning: divide by zero encountered in true_divide
   q_split = np.log((self.error[phase_path][split_seg_idxs] /
 </pre></div>
 </div>
@@ -1526,11 +1658,11 @@ Optimization Complete
         None
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
-Model viewer data has already has already been recorded for Driver.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.747795 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.724932 seconds.
 Total jacobian shape: (215, 314) 
 
 
@@ -1539,13 +1671,13 @@ FWD solves: 0   REV solves: 33
 Total colors vs. total size: 33 vs 215  (84.7% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.747795 sec.
-Time to compute coloring: 0.172790 sec.
+Time to compute sparsity: 0.724932 sec.
+Time to compute coloring: 0.173157 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 2.8733111266652474
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
+            Current function value: [2.87331113]
             Iterations: 5
             Function evaluations: 6
             Gradient evaluations: 5
@@ -1581,11 +1713,11 @@ Optimization Complete
     --- phase0 ---
         None
 
-Model viewer data has already has already been recorded for Driver.
-Model viewer data has already has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.946507 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.920499 seconds.
 Total jacobian shape: (258, 384) 
 </pre></div>
 </div>
@@ -1594,21 +1726,21 @@ FWD solves: 0   REV solves: 33
 Total colors vs. total size: 33 vs 258  (87.2% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.946507 sec.
-Time to compute coloring: 0.220971 sec.
+Time to compute sparsity: 0.920499 sec.
+Time to compute coloring: 0.220498 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 2.873311622391551
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
+            Current function value: [2.87331162]
             Iterations: 2
             Function evaluations: 3
             Gradient evaluations: 2
 Optimization Complete
 -----------------------------------
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+
+
+==================================================
           Grid Refinement - Iteration 5           
 --------------------------------------------------
     Phase: traj.phases.phase0
@@ -1622,23 +1754,25 @@ Optimization Complete
             Segment Ends = [-1.0, -0.9667, -0.9333, -0.8667, -0.8333, -0.8, -0.7667, -0.7333, -0.7, -0.6667, -0.6333, -0.6, -0.5333, -0.4667, -0.4, -0.3333, -0.2667, -0.2, -0.1333, -0.0667, 0.0667, 0.2, 0.3333, 0.4667, 0.6, 0.7333, 0.8667, 1.0]
             Segment Order = [5, 5, 13, 9, 9, 7, 5, 9, 9, 5, 5, 5, 5, 5, 5, 7, 11, 5, 7, 11, 9, 5, 5, 5, 5, 5, 5]
             Error = [1.02e-06, 4.302e-07, 8.674e-08, 6.22e-07, 7.625e-07, 2.013e-07, 5.558e-08, 3.517e-07, 1.383e-07, 1.936e-07, 2.45e-07, 2.435e-07, 4.368e-07, 2.104e-07, 5.198e-07, 3.064e-07, 5.049e-07, 1.66e-07, 2.793e-07, 4.327e-07, 1.777e-07, 1.886e-07, 1.793e-07, 4.019e-08, 2.256e-08, 4.069e-08, 3.824e-08]
-    Phase: traj.phases.phase0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Phase: traj.phases.phase0
         New Grid:
             Number of Segments = 27
             Segment Ends = [-1.0, -0.9667, -0.9333, -0.8667, -0.8333, -0.8, -0.7667, -0.7333, -0.7, -0.6667, -0.6333, -0.6, -0.5333, -0.4667, -0.4, -0.3333, -0.2667, -0.2, -0.1333, -0.0667, 0.0667, 0.2, 0.3333, 0.4667, 0.6, 0.7333, 0.8667, 1.0]
             Segment Order = [7, 5, 13, 9, 9, 7, 5, 9, 9, 5, 5, 5, 5, 5, 5, 7, 11, 5, 7, 11, 9, 5, 5, 5, 5, 5, 5]
         Refined: True
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
+
+
+--- Constraint Report [traj] ---
     --- phase0 ---
         None
 
-Model viewer data has already has already been recorded for Driver.
-Model viewer data has already has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.960106 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.939338 seconds.
 Total jacobian shape: (261, 389) 
 </pre></div>
 </div>
@@ -1647,13 +1781,13 @@ FWD solves: 0   REV solves: 33
 Total colors vs. total size: 33 vs 261  (87.4% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.960106 sec.
-Time to compute coloring: 0.223726 sec.
+Time to compute sparsity: 0.939338 sec.
+Time to compute coloring: 0.224328 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
-            Current function value: 2.8733117330420246
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
+            Current function value: [2.87331173]
             Iterations: 2
             Function evaluations: 3
             Gradient evaluations: 2
@@ -1664,9 +1798,6 @@ Successfully completed grid refinement.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_simulation.db, is being overwritten.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
@@ -1687,17 +1818,18 @@ Successfully completed grid refinement.
 <img alt="../../_images/vanderpol_14_0.png" src="../../_images/vanderpol_14_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p id="id2"><dl class="citation">
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<div class="docutils container" id="id2">
+<dl class="citation">
 <dt class="label" id="id23"><span class="brackets">Wikipediacontributors20</span></dt>
 <dd><p>Wikipedia contributors. Van der pol oscillator — Wikipedia, the free encyclopedia. 2020. [Online; accessed 12-June-2020]. URL: <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Van_der_Pol_oscillator&amp;oldid=953857769">https://en.wikipedia.org/w/index.php?title=Van_der_Pol_oscillator&amp;oldid=953857769</a>.</p>
 </dd>
 </dl>
-</p>
 </div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1721,9 +1853,11 @@ Successfully completed grid refinement.
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="../brachistochrone/brachistochrone_upstream_init_duration_states.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1739,24 +1873,28 @@ Successfully completed grid refinement.
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Dymos Development Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By The Dymos Development Team<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

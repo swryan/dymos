@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Balanced Field Length using OpenMDAO’s Function Wrapping Components. &#8212; Dymos</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,21 +20,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -40,12 +38,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -63,7 +62,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -72,9 +85,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -92,14 +106,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Multidisciplinary Optimal Control Library
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Multidisciplinary Optimal Control Library
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Installation
  </span>
@@ -448,112 +463,227 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/examples/balanced_field/balanced_field_funccomp.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/OpenMDAO/dymos"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/balanced_field/balanced_field_funccomp.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/balanced_field/balanced_field_funccomp.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/balanced_field/balanced_field_funccomp.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/balanced_field/balanced_field_funccomp.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/balanced_field/balanced_field_funccomp.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OpenMDAO/dymos"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/balanced_field/balanced_field_funccomp.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/examples/balanced_field/balanced_field_funccomp.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#why-use-the-function-wrapping-capability">
    Why use the function wrapping capability?
@@ -593,12 +723,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Balanced Field Length using OpenMDAO’s Function Wrapping Components.</h1>
@@ -654,13 +783,14 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="balanced-field-length-using-openmdao-s-function-wrapping-components">
-<h1>Balanced Field Length using OpenMDAO’s Function Wrapping Components.<a class="headerlink" href="#balanced-field-length-using-openmdao-s-function-wrapping-components" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="balanced-field-length-using-openmdao-s-function-wrapping-components">
+<h1>Balanced Field Length using OpenMDAO’s Function Wrapping Components.<a class="headerlink" href="#balanced-field-length-using-openmdao-s-function-wrapping-components" title="Permalink to this headline">#</a></h1>
 <div class="admonition-things-you-ll-learn-through-this-example admonition">
 <p class="admonition-title">Things you’ll learn through this example</p>
 <ul class="simple">
@@ -669,14 +799,14 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>This example performs the same balanced field length optimization as the example found <a class="reference internal" href="balanced_field.html#examples-balanced-field"><span class="std std-ref">here</span></a>.
 The purpose of this example is to demonstrate the ability of OpenMDAO to wrap existing user-defined functions that was introduced with OpenMDAO 3.14.0.</p>
-<div class="section" id="why-use-the-function-wrapping-capability">
-<h2>Why use the function wrapping capability?<a class="headerlink" href="#why-use-the-function-wrapping-capability" title="Permalink to this headline">¶</a></h2>
+<section id="why-use-the-function-wrapping-capability">
+<h2>Why use the function wrapping capability?<a class="headerlink" href="#why-use-the-function-wrapping-capability" title="Permalink to this headline">#</a></h2>
 <p>In many cases, users are likely to have existing code that performs their calculations.
 Rather than forcing them to rewrite this code in the form of OpenMDAO components, the function wrapping components make it easier to get models up and running in OpenMDAO.</p>
 <p>Also, doing so gives users another option for differentiating their models by providing a format that can be used by Google’s <a class="reference external" href="https://github.com/google/jax">jax package</a>, which is a python-based automatic differentiation (AD) tool that provides another option, in addition to complex-step, for providing derivatives across the user’s model.</p>
 <p>In our case, we have two functions to wrap: the runway ODE and the climb ODE.</p>
-<div class="section" id="runway-ode-function">
-<h3>Runway ODE function<a class="headerlink" href="#runway-ode-function" title="Permalink to this headline">¶</a></h3>
+<section id="runway-ode-function">
+<h3>Runway ODE function<a class="headerlink" href="#runway-ode-function" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">runway_ode</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">CD0</span><span class="p">,</span> <span class="n">CL0</span><span class="p">,</span> <span class="n">CL_max</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">,</span> <span class="n">h_w</span><span class="p">,</span> <span class="n">AR</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">mu_r</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
@@ -711,9 +841,9 @@ Rather than forcing them to rewrite this code in the form of OpenMDAO components
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="climb-ode-function">
-<h3>Climb ODE function<a class="headerlink" href="#climb-ode-function" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="climb-ode-function">
+<h3>Climb ODE function<a class="headerlink" href="#climb-ode-function" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">climb_ode</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">CD0</span><span class="p">,</span> <span class="n">CL0</span><span class="p">,</span> <span class="n">CL_max</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">,</span> <span class="n">h_w</span><span class="p">,</span> <span class="n">AR</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">gam</span><span class="p">):</span>
@@ -752,9 +882,9 @@ Rather than forcing them to rewrite this code in the form of OpenMDAO components
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="a-component-creating-function">
-<h3>A component creating function<a class="headerlink" href="#a-component-creating-function" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="a-component-creating-function">
+<h3>A component creating function<a class="headerlink" href="#a-component-creating-function" title="Permalink to this headline">#</a></h3>
 <p>This function accepts num_nodes and returns a component that wraps the above functions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -822,15 +952,15 @@ Rather than forcing them to rewrite this code in the form of OpenMDAO components
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="the-function-wrapping-component">
-<h3>The Function Wrapping Component<a class="headerlink" href="#the-function-wrapping-component" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-function-wrapping-component">
+<h3>The Function Wrapping Component<a class="headerlink" href="#the-function-wrapping-component" title="Permalink to this headline">#</a></h3>
 <p>The following component wraps one of the above ODE functions depending on its ‘mode’.
 This allows us to declare a single ODE component for use in the problem regardless of whether the given phase models the ground roll or the climb.</p>
-</div>
-</div>
-<div class="section" id="building-and-running-the-problem">
-<h2>Building and running the problem<a class="headerlink" href="#building-and-running-the-problem" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="building-and-running-the-problem">
+<h2>Building and running the problem<a class="headerlink" href="#building-and-running-the-problem" title="Permalink to this headline">#</a></h2>
 <p>This code is identical to that in the previous <a class="reference internal" href="balanced_field.html#examples-balanced-field"><span class="std std-ref">balanced field example</span></a>.</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
@@ -1020,7 +1150,7 @@ This allows us to declare a single ODE component for use in the problem regardle
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/utils/options_dictionary.py:347: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/options_dictionary.py:354: OMDeprecationWarning:&#39;gradient method&#39; is not a valid python name and will become an invalid option name in a future release. You can prevent this warning (and future exceptions) by declaring this option using a valid python name.
 WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
 </pre></div>
 </div>
@@ -1043,7 +1173,7 @@ WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 INFO:check_config:checking out_of_order
 </pre></div>
 </div>
@@ -1095,7 +1225,7 @@ INFO:check_config:checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already has already been recorded for Driver.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 INFO: checking out_of_order
 </pre></div>
 </div>
@@ -1150,22 +1280,22 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.br_to_v1.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1138: DerivativesWarning:&#39;traj.phases.br_to_v1.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.br_to_v1.rhs_all&#39; (class ExplicitFuncComp)
 
-Jacobian shape: (132, 60)  ( 9.80% nonzero)
+Jacobian shape: (132, 60)  ( 9.81% nonzero)
 FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.306238 sec.
-Time to compute coloring: 0.063474 sec.
+Time to compute sparsity: 0.326781 sec.
+Time to compute coloring: 0.067957 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.rto.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1138: DerivativesWarning:&#39;traj.phases.rto.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.rto.rhs_all&#39; (class ExplicitFuncComp)
@@ -1175,12 +1305,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.284966 sec.
-Time to compute coloring: 0.062856 sec.
+Time to compute sparsity: 0.304984 sec.
+Time to compute coloring: 0.067959 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.v1_to_vr.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1138: DerivativesWarning:&#39;traj.phases.v1_to_vr.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.v1_to_vr.rhs_all&#39; (class ExplicitFuncComp)
@@ -1190,12 +1320,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.287617 sec.
-Time to compute coloring: 0.063945 sec.
+Time to compute sparsity: 0.307484 sec.
+Time to compute coloring: 0.069148 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.rotate.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1138: DerivativesWarning:&#39;traj.phases.rotate.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.rotate.rhs_all&#39; (class ExplicitFuncComp)
@@ -1205,12 +1335,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.288263 sec.
-Time to compute coloring: 0.064602 sec.
-Memory to compute coloring: 0.007812 MB.
+Time to compute sparsity: 0.309277 sec.
+Time to compute coloring: 0.069237 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.climb.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1138: DerivativesWarning:&#39;traj.phases.climb.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.climb.rhs_all&#39; (class ExplicitFuncComp)
@@ -1220,39 +1350,48 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 111  (85.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.427485 sec.
-Time to compute coloring: 0.142324 sec.
+Time to compute sparsity: 0.455624 sec.
+Time to compute coloring: 0.154587 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 4.446552 seconds.
-Total jacobian shape: (179, 166) 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 4.679932 seconds.
+Total jacobian shape: (178, 166) 
 
 
-Jacobian shape: (179, 166)  ( 3.14% nonzero)
+Jacobian shape: (178, 166)  ( 3.20% nonzero)
 FWD solves: 12   REV solves: 0
 Total colors vs. total size: 12 vs 166  (92.8% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 4.446552 sec.
-Time to compute coloring: 0.094447 sec.
+Time to compute sparsity: 4.679932 sec.
+Time to compute coloring: 0.099837 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using option file &quot;IPOPT_options.opt&quot;.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/pyoptsparse/pyOpt_optimization.py:234: UserWarning: The argument `type=` is deprecated. Use `varType` in the future.
+  warnings.warn(&quot;The argument `type=` is deprecated. Use `varType` in the future.&quot;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of user-set options:
 
-
-******************************************************************************
-This program contains Ipopt, a library for large-scale nonlinear optimization.
- Ipopt is released as open source code under the Eclipse Public License (EPL).
-         For more information visit https://github.com/coin-or/Ipopt
-******************************************************************************
-
+                                    Name   Value                used
+                  bound_mult_init_method = mu-based              yes
+                        file_print_level = 5                     yes
+                   hessian_approximation = limited-memory        yes
+                           linear_solver = mumps                 yes
+                                 mu_init = 0.01                  yes
+                             mu_strategy = adaptive              yes
+                      nlp_scaling_method = gradient-based        yes
+                             output_file = IPOPT.out             yes
+                             print_level = 5                     yes
+                      print_user_options = yes                   yes
+                                      sb = yes                   yes
 This is Ipopt version 3.13.5, running with linear solver mumps.
 NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
 
-Number of nonzeros in equality constraint Jacobian...:     1010
-Number of nonzeros in inequality constraint Jacobian.:       21
+Number of nonzeros in equality constraint Jacobian...:     1076
+Number of nonzeros in inequality constraint Jacobian.:     1602
 Number of nonzeros in Lagrangian Hessian.............:        0
 
 Total number of variables............................:      166
@@ -1260,110 +1399,113 @@ Total number of variables............................:      166
                 variables with lower and upper bounds:       77
                      variables with only upper bounds:        0
 Total number of equality constraints.................:      159
-Total number of inequality constraints...............:       22
+Total number of inequality constraints...............:       21
         inequality constraints with only lower bounds:        2
-   inequality constraints with lower and upper bounds:       20
+   inequality constraints with lower and upper bounds:       19
         inequality constraints with only upper bounds:        0
 
 iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
    0  5.0000000e+00 1.45e+03 1.34e-01   0.0 0.00e+00    -  0.00e+00 0.00e+00   0
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/core/total_jac.py:1568: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb.path_constraints.path:gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1569: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb.timeseries.states:gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   1  4.7292571e+00 6.78e+02 5.02e+01   0.0 2.23e+01    -  3.03e-02 5.32e-01f  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   2  4.7451746e+00 5.28e+02 3.73e+01  -0.2 8.45e+00    -  7.82e-01 2.21e-01f  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   2  4.7453576e+00 5.28e+02 3.73e+01  -0.2 8.45e+00    -  7.80e-01 2.21e-01f  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   3  4.8749479e+00 1.41e+02 4.23e+01   0.2 7.80e+00    -  8.13e-01 7.34e-01f  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   3  4.8766377e+00 1.42e+02 4.80e+01   0.2 7.83e+00    -  8.23e-01 7.32e-01f  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   4  4.9905354e+00 1.40e+00 6.13e+01  -0.1 1.67e+00    -  9.20e-01 9.90e-01h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   4  4.9939984e+00 1.41e+00 5.96e+01  -0.1 1.68e+00    -  9.23e-01 9.90e-01h  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   5  5.0353788e+00 1.26e-02 5.64e+02  -0.2 3.23e-01    -  1.00e+00 9.91e-01h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   5  5.0387272e+00 1.27e-02 5.19e+02  -0.2 3.19e-01    -  9.99e-01 9.91e-01h  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   6  5.0304440e+00 4.71e-06 1.56e+00  -1.9 3.47e-02    -  1.00e+00 1.00e+00h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   6  5.0337905e+00 4.70e-06 7.89e+00  -1.9 3.46e-02    -  1.00e+00 1.00e+00h  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   7  5.0237532e+00 1.28e-05 4.07e-02  -3.6 4.07e-02    -  1.00e+00 1.00e+00f  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   7  5.0270967e+00 1.28e-05 4.07e-02  -3.6 4.07e-02    -  1.00e+00 1.00e+00f  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   8  4.4683333e+00 5.48e-02 1.31e+05  -1.9 1.66e+02    -  1.23e-01 2.43e-02f  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   8  4.4670648e+00 5.56e-02 1.29e+05  -1.9 1.66e+02    -  1.22e-01 2.45e-02f  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   9  3.2048484e+00 3.59e-01 1.06e+06  -1.9 5.70e+01    -  1.00e+00 1.71e-01f  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  10  2.0239845e+00 8.29e-01 4.41e+05  -1.6 1.38e+01    -  1.00e+00 7.85e-01f  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  11  2.2691373e+00 2.60e-02 6.80e-02  -2.2 1.13e+00    -  1.00e+00 1.00e+00h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  12  2.2128772e+00 9.07e-03 2.22e+05  -3.1 7.11e-01    -  9.97e-01 6.47e-01h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  13  2.2032583e+00 6.20e-02 1.09e-02  -3.2 5.36e-01    -  1.00e+00 1.00e+00h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  14  2.1967482e+00 6.30e-02 4.40e+02  -3.6 9.89e-01    -  9.86e-01 1.00e+00h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  15  2.1978656e+00 5.55e-04 5.69e-03  -3.7 3.28e-01    -  1.00e+00 1.00e+00h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  16  2.1982705e+00 7.19e-05 5.96e+01  -4.5 1.38e-01    -  9.96e-01 1.00e+00H  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  17  2.1977119e+00 1.66e-03 8.93e-04  -5.4 9.07e-02    -  1.00e+00 1.00e+00h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  18  2.1977458e+00 1.99e-04 1.93e-02  -5.6 3.78e-02    -  1.00e+00 1.00e+00h  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  19  2.1977175e+00 2.47e-04 1.32e+02  -5.3 1.22e-01    -  1.00e+00 3.48e-01h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   9  3.2034127e+00 3.60e-01 1.05e+06  -1.9 5.71e+01    -  1.00e+00 1.71e-01f  1
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  20  2.1977185e+00 4.43e-06 4.73e-05  -6.0 7.94e-03    -  1.00e+00 1.00e+00h  1
+  10  2.0222073e+00 8.31e-01 4.67e+05  -1.6 1.40e+01    -  1.00e+00 7.70e-01f  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  21  2.1977143e+00 3.86e-06 1.42e-02  -7.0 4.30e-03    -  1.00e+00 1.00e+00h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  11  2.2668245e+00 2.56e-02 6.69e-02  -2.2 1.10e+00    -  1.00e+00 1.00e+00h  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  22  2.1977138e+00 3.26e-07 1.51e-05  -7.5 2.37e-03    -  1.00e+00 1.00e+00h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  12  2.2128648e+00 8.91e-03 2.17e+05  -3.1 6.75e-01    -  9.97e-01 6.48e-01h  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  23  2.1977136e+00 6.11e-08 1.20e-02  -9.5 9.64e-04    -  1.00e+00 9.96e-01h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  13  2.2029190e+00 6.47e-02 1.07e-02  -3.3 5.47e-01    -  1.00e+00 1.00e+00h  1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  24  2.1977136e+00 4.37e-11 3.53e-07  -9.8 4.11e-05    -  1.00e+00 1.00e+00h  1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  14  2.1966620e+00 6.07e-02 2.82e+02  -3.6 9.92e-01    -  9.91e-01 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  15  2.1978934e+00 2.58e-04 5.69e-03  -3.7 3.17e-01    -  1.00e+00 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  16  2.1982797e+00 6.98e-05 3.84e+01  -4.5 1.45e-01    -  9.97e-01 1.00e+00H  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  17  2.1977229e+00 1.62e-03 8.73e-04  -5.3 8.94e-02    -  1.00e+00 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  18  2.1977492e+00 2.09e-04 2.92e-01  -5.6 3.75e-02    -  1.00e+00 9.99e-01h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  19  2.1977185e+00 2.71e-04 2.01e+02  -5.3 1.43e-01    -  1.00e+00 3.25e-01h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20  2.1977176e+00 8.28e-06 5.71e-05  -6.0 1.06e-02    -  1.00e+00 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  21  2.1977142e+00 3.65e-06 2.91e-05  -7.0 4.42e-03    -  1.00e+00 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  22  2.1977138e+00 3.15e-07 1.42e-05  -7.6 2.37e-03    -  1.00e+00 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  23  2.1977136e+00 5.69e-08 3.49e-07  -9.6 9.20e-04    -  1.00e+00 9.95e-01h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  24  2.1977136e+00 5.26e-11 5.21e-08 -11.0 4.09e-05    -  1.00e+00 1.00e+00h  1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  25  2.1977136e+00 2.92e-13 6.55e-10 -11.0 2.48e-06    -  1.00e+00 1.00e+00h  1
 
-Number of Iterations....: 24
+Number of Iterations....: 25
 
                                    (scaled)                 (unscaled)
-Objective...............:   2.1977135643215111e+00    2.1977135643215111e+00
-Dual infeasibility......:   3.5294686548912956e-07    3.5294686548912956e-07
-Constraint violation....:   4.3724837676543539e-11    4.3724837676543539e-11
-Complementarity.........:   1.8147075135721220e-10    1.8147075135721220e-10
-Overall NLP error.......:   3.5294686548912956e-07    3.5294686548912956e-07
+Objective...............:   2.1977135635051934e+00    2.1977135635051934e+00
+Dual infeasibility......:   6.5461615531094463e-10    6.5461615531094463e-10
+Constraint violation....:   2.9225422562293224e-13    2.9225422562293224e-13
+Complementarity.........:   1.0001319429127834e-11    1.0001319429127834e-11
+Overall NLP error.......:   6.5461615531094463e-10    6.5461615531094463e-10
 
 
-Number of objective function evaluations             = 26
-Number of objective gradient evaluations             = 25
-Number of equality constraint evaluations            = 26
-Number of inequality constraint evaluations          = 26
-Number of equality constraint Jacobian evaluations   = 25
-Number of inequality constraint Jacobian evaluations = 25
+Number of objective function evaluations             = 27
+Number of objective gradient evaluations             = 26
+Number of equality constraint evaluations            = 27
+Number of inequality constraint evaluations          = 27
+Number of equality constraint Jacobian evaluations   = 26
+Number of inequality constraint Jacobian evaluations = 26
 Number of Lagrangian Hessian evaluations             = 0
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.211
-Total CPU secs in NLP function evaluations           =      3.471
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.218
+Total CPU secs in NLP function evaluations           =      3.251
 
 EXIT: Optimal Solution Found.
 </pre></div>
@@ -1371,11 +1513,11 @@ EXIT: Optimal Solution Found.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.8/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_simulation.db, is being overwritten.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_simulation.db, is being overwritten.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
-[2197.71356432]
+[2197.71356351]
 </pre></div>
 </div>
 </div>
@@ -1429,11 +1571,11 @@ EXIT: Optimal Solution Found.
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">
 </div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="id1"></span></div>
-</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<span class="target" id="id1"></span></section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1457,9 +1599,11 @@ EXIT: Optimal Solution Found.
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="balanced_field.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1475,24 +1619,28 @@ EXIT: Optimal Solution Found.
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Dymos Development Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By The Dymos Development Team<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

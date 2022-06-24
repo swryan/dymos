@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Variables &#8212; Dymos</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,21 +20,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -40,12 +38,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -63,7 +62,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -72,9 +85,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -92,14 +106,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Multidisciplinary Optimal Control Library
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Multidisciplinary Optimal Control Library
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Installation
  </span>
@@ -448,112 +463,227 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/features/phases/variables.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/OpenMDAO/dymos"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Ffeatures/phases/variables.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/features/phases/variables.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/features/phases/variables.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/features/phases/variables.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/features/phases/variables.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OpenMDAO/dymos"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Ffeatures/phases/variables.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/features/phases/variables.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#time">
    Time
@@ -616,12 +746,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Variables</h1>
@@ -700,16 +829,17 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="variables">
-<h1>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="variables">
+<h1>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">#</a></h1>
 <p>An Optimal Control problem in Dymos consists of the following variable types.</p>
-<div class="section" id="time">
-<h2>Time<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h2>
+<section id="time">
+<h2>Time<a class="headerlink" href="#time" title="Permalink to this headline">#</a></h2>
 <p>Optimal control problems in Dymos assume a system that is evolving in time.  State variables
 typically obey some ordinary differential equation that provides the derivative of the states
 w.r.t. time.</p>
@@ -732,8 +862,8 @@ Dymos computes the following time values, which can be used inside the ODE:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">t_initial</span></code> - The initial time of the current phase (this value is the same at all nodes within the phase).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">t_duration</span></code> - The phase time duration of the current phase (this value is the same at all nodes within the phase).</p></li>
 </ul>
-<div class="section" id="options-for-time-variables">
-<h3>Options for Time Variables<a class="headerlink" href="#options-for-time-variables" title="Permalink to this headline">¶</a></h3>
+<section id="options-for-time-variables">
+<h3>Options for Time Variables<a class="headerlink" href="#options-for-time-variables" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">om</span><span class="o">.</span><span class="n">show_options_table</span><span class="p">(</span><span class="s2">&quot;dymos.phase.options.TimeOptionsDictionary&quot;</span><span class="p">)</span>
@@ -743,37 +873,37 @@ Dymos computes the following time values, which can be used inside the ODE:</p>
 <div class="cell_output docutils container">
 <div class="output text_html"><table>
 <thead>
-<tr><th>Option            </th><th>Default     </th><th>Acceptable Values  </th><th>Acceptable Types  </th><th>Description                                                                                             </th></tr>
+<tr><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Option            </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Default     </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Values  </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Types  </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Description                                                                                             </th></tr>
 </thead>
 <tbody>
-<tr><td>duration_adder    </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Adder for the duration of the integration variable across the phase.                                    </td></tr>
-<tr><td>duration_bounds   </td><td>(None, None)</td><td>N/A                </td><td>[&#x27;Iterable&#x27;]      </td><td>Tuple of (lower, upper) bounds for the duration of the integration variable across the phase.           </td></tr>
-<tr><td>duration_ref      </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Unit-reference value for the duration of the integration variable across the phase.                     </td></tr>
-<tr><td>duration_ref0     </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Zero-reference value for the duration of the integration variable across the phase.                     </td></tr>
-<tr><td>duration_scaler   </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Scalar for the duration of the integration variable across the phase.                                   </td></tr>
-<tr><td>duration_val      </td><td>1.0         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Value of the duration of the integration variable across the phase.                                     </td></tr>
-<tr><td>fix_duration      </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]          </td><td>If True, the  phase duration is not a design variable.                                                  </td></tr>
-<tr><td>fix_initial       </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]          </td><td>If True, the initial value of time is not a design variable.                                            </td></tr>
-<tr><td>initial_adder     </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Adder for the initial value of the integration variable.                                                </td></tr>
-<tr><td>initial_bounds    </td><td>(None, None)</td><td>N/A                </td><td>[&#x27;Iterable&#x27;]      </td><td>Tuple of (lower, upper) bounds for the integration variable at the start of the phase.                  </td></tr>
-<tr><td>initial_ref       </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Unit-reference value for the initial value of the integration variable.                                 </td></tr>
-<tr><td>initial_ref0      </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Zero-reference value for the initial value of the integration variable.                                 </td></tr>
-<tr><td>initial_scaler    </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Scalar for the initial value of the integration variable.                                               </td></tr>
-<tr><td>initial_val       </td><td>0.0         </td><td>N/A                </td><td>[&#x27;Number&#x27;]        </td><td>Value of the integration variable at the start of the phase.                                            </td></tr>
-<tr><td>input_duration    </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]          </td><td>If True, the phase duration (t_duration) is expected to be connected to an external output source.      </td></tr>
-<tr><td>input_initial     </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]          </td><td>If True, the initial value of time (t_initial) is expected to be connected to an external output source.</td></tr>
-<tr><td>t_duration_targets</td><td>[]          </td><td>N/A                </td><td>[&#x27;Iterable&#x27;]      </td><td>targets in the ODE to which the total duration of the phase is connected                                </td></tr>
-<tr><td>t_initial_targets </td><td>[]          </td><td>N/A                </td><td>[&#x27;Iterable&#x27;]      </td><td>targets in the ODE to which the initial time of the phase is connected                                  </td></tr>
-<tr><td>targets           </td><td>[]          </td><td>N/A                </td><td>[&#x27;Iterable&#x27;]      </td><td>targets in the ODE to which the integration variable is connected                                       </td></tr>
-<tr><td>time_phase_targets</td><td>[]          </td><td>N/A                </td><td>[&#x27;Iterable&#x27;]      </td><td>targets in the ODE to which the elapsed duration of the phase is connected                              </td></tr>
-<tr><td>units             </td><td>s           </td><td>N/A                </td><td>[&#x27;str&#x27;]           </td><td>Units for the integration variable                                                                      </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">duration_adder    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Adder for the duration of the integration variable across the phase.                                    </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">duration_bounds   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">(None, None)</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Tuple of (lower, upper) bounds for the duration of the integration variable across the phase.           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">duration_ref      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Unit-reference value for the duration of the integration variable across the phase.                     </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">duration_ref0     </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Zero-reference value for the duration of the integration variable across the phase.                     </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">duration_scaler   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Scalar for the duration of the integration variable across the phase.                                   </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">duration_val      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">1.0         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Value of the duration of the integration variable across the phase.                                     </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_duration      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the  phase duration is not a design variable.                                                  </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_initial       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the initial value of time is not a design variable.                                            </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_adder     </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Adder for the initial value of the integration variable.                                                </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_bounds    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">(None, None)</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Tuple of (lower, upper) bounds for the integration variable at the start of the phase.                  </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_ref       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Unit-reference value for the initial value of the integration variable.                                 </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_ref0      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Zero-reference value for the initial value of the integration variable.                                 </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_scaler    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Scalar for the initial value of the integration variable.                                               </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_val       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">0.0         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Value of the integration variable at the start of the phase.                                            </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">input_duration    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the phase duration (t_duration) is expected to be connected to an external output source.      </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">input_initial     </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the initial value of time (t_initial) is expected to be connected to an external output source.</td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">t_duration_targets</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets in the ODE to which the total duration of the phase is connected                                </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">t_initial_targets </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets in the ODE to which the initial time of the phase is connected                                  </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets in the ODE to which the integration variable is connected                                       </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">time_phase_targets</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets in the ODE to which the elapsed duration of the phase is connected                              </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">units             </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">s           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Units for the integration variable                                                                      </td></tr>
 </tbody>
 </table></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="states">
-<h2>States<a class="headerlink" href="#states" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="states">
+<h2>States<a class="headerlink" href="#states" title="Permalink to this headline">#</a></h2>
 <p>States are variables that define the current condition of the system.  For instance, in trajectory
 optimization they are typically coordinates that define the position and velocity of the vehicle.
 They can also be things like component bulk temperatures or battery state-of-charge.  In most
@@ -794,8 +924,8 @@ what is defined in the rate source. There are two exceptions:</p>
 </ul>
 <p>Settings on a previously-added state variable may be changed using the <code class="docutils literal notranslate"><span class="pre">set_state_options</span></code> method.
 The following options are valid:</p>
-<div class="section" id="options-for-state-variables">
-<h3>Options for State Variables<a class="headerlink" href="#options-for-state-variables" title="Permalink to this headline">¶</a></h3>
+<section id="options-for-state-variables">
+<h3>Options for State Variables<a class="headerlink" href="#options-for-state-variables" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">om</span><span class="o">.</span><span class="n">show_options_table</span><span class="p">(</span><span class="s2">&quot;dymos.phase.options.StateOptionsDictionary&quot;</span><span class="p">)</span>
@@ -805,32 +935,32 @@ The following options are valid:</p>
 <div class="cell_output docutils container">
 <div class="output text_html"><table>
 <thead>
-<tr><th>Option           </th><th>Default     </th><th>Acceptable Values             </th><th>Acceptable Types      </th><th>Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </th></tr>
+<tr><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Option           </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Default     </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Values             </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Types      </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </th></tr>
 </thead>
 <tbody>
-<tr><td>adder            </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Adder of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </td></tr>
-<tr><td>connected_initial</td><td>False       </td><td>[True, False]                 </td><td>[&#x27;bool&#x27;]              </td><td>Whether an input is created to pass in the initial state. This may be set by a trajectory that links phases.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
-<tr><td>continuity       </td><td>True        </td><td>N/A                           </td><td>[&#x27;bool&#x27;, &#x27;dict&#x27;]      </td><td>Enforce continuity of state values at segment boundaries. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td></tr>
-<tr><td>defect_ref       </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Unit-reference value of the state defects at the collocation nodes. This option is invalid if opt=False.  If provided, this option overrides defect_scaler. If defect_scaler and defect_ref are both None but the state scaler or ref are provided, use those values as the defect scaler or ref.                                                                                                                                                                                                                                                                                         </td></tr>
-<tr><td>defect_scaler    </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Scaler of the state variable defects at the collocation nodes. If defect_scaler and defect_ref are both None but the state scaler or ref are provided, use those values as the defect scaler or ref. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                 </td></tr>
-<tr><td>desc             </td><td>            </td><td>N/A                           </td><td>[&#x27;str&#x27;]               </td><td>description of the state variable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </td></tr>
-<tr><td>final_bounds     </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;]          </td><td>Bounds on the value of the state at the end of the phase. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td></tr>
-<tr><td>fix_final        </td><td>False       </td><td>N/A                           </td><td>[&#x27;bool&#x27;, &#x27;Iterable&#x27;]  </td><td>If True, the final value of this state is fixed and not a design variable. If the state variable has a non-scalar shape, this may be an iterable of bool for each index. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                             </td></tr>
-<tr><td>fix_initial      </td><td>False       </td><td>N/A                           </td><td>[&#x27;bool&#x27;, &#x27;Iterable&#x27;]  </td><td>If True, the initial value of this state is fixed and not a design variable. If the state variable has a non-scalar shape, this may be an iterable of bool for each index. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                           </td></tr>
-<tr><td>initial_bounds   </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;]          </td><td>Bounds on the value of the state at the start of the phase. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </td></tr>
-<tr><td>lower            </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Lower bound of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </td></tr>
-<tr><td>name             </td><td>**Required**</td><td>N/A                           </td><td>[&#x27;str&#x27;]               </td><td>name of ODE state variable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </td></tr>
-<tr><td>opt              </td><td>True        </td><td>[True, False]                 </td><td>[&#x27;bool&#x27;]              </td><td>If true, the values of this state are a design variable for the optimizer.  Otherwise it exists as an unconnected input.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </td></tr>
-<tr><td>rate_source      </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;str&#x27;]               </td><td>ODE-path to the derivative of the state variable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </td></tr>
-<tr><td>ref              </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Unit-reference value of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
-<tr><td>ref0             </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Zero-reference value of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
-<tr><td>scaler           </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Scaler of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td></tr>
-<tr><td>shape            </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;]          </td><td>shape of the state variable, as determined by introspection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </td></tr>
-<tr><td>solve_segments   </td><td>N/A         </td><td>[False, &#x27;forward&#x27;, &#x27;backward&#x27;]</td><td>N/A                   </td><td>If &#x27;forward&#x27;, collocation defects within eachsegment are solved with a Newton solver by fixing the initial value in thephase (if using compressed transcription) or segment (if not using compressed transcription). This provides a forward shooting (or multiple shooting)method.  If &#x27;backward&#x27;, the final value in the phase or segment is fixedand a solver finds the other ones to mimic reverse propagation. If None, (the default) use the value of solve_segments in the transcription. Set to False to explicitly disable the use of a solver to converge the statetime history.</td></tr>
-<tr><td>targets          </td><td>unspecified </td><td>N/A                           </td><td>N/A                   </td><td>Targets in the ODE to which the state is connected                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </td></tr>
-<tr><td>units            </td><td>unspecified </td><td>N/A                           </td><td>N/A                   </td><td>units in which the state variable is defined                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
-<tr><td>upper            </td><td>N/A         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Upper bound of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </td></tr>
-<tr><td>val              </td><td>1.0         </td><td>N/A                           </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td>Default value of the state variable at the discretization nodes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">adder            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Adder of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">connected_initial</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]                 </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Whether an input is created to pass in the initial state. This may be set by a trajectory that links phases.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">continuity       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;, &#x27;dict&#x27;]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Enforce continuity of state values at segment boundaries. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">defect_ref       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Unit-reference value of the state defects at the collocation nodes. This option is invalid if opt=False.  If provided, this option overrides defect_scaler. If defect_scaler and defect_ref are both None but the state scaler or ref are provided, use those values as the defect scaler or ref.                                                                                                                                                                                                                                                                                         </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">defect_scaler    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Scaler of the state variable defects at the collocation nodes. If defect_scaler and defect_ref are both None but the state scaler or ref are provided, use those values as the defect scaler or ref. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                 </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">desc             </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]               </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">description of the state variable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">final_bounds     </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Bounds on the value of the state at the end of the phase. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_final        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;, &#x27;Iterable&#x27;]  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the final value of this state is fixed and not a design variable. If the state variable has a non-scalar shape, this may be an iterable of bool for each index. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                             </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_initial      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;, &#x27;Iterable&#x27;]  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the initial value of this state is fixed and not a design variable. If the state variable has a non-scalar shape, this may be an iterable of bool for each index. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">initial_bounds   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Bounds on the value of the state at the start of the phase. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">lower            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Lower bound of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">name             </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">**Required**</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]               </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">name of ODE state variable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">opt              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]                 </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If true, the values of this state are a design variable for the optimizer.  Otherwise it exists as an unconnected input.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate_source      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]               </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ODE-path to the derivative of the state variable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ref              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Unit-reference value of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ref0             </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Zero-reference value of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">scaler           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Scaler of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">shape            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">shape of the state variable, as determined by introspection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">solve_segments   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[False, &#x27;forward&#x27;, &#x27;backward&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If &#x27;forward&#x27;, collocation defects within eachsegment are solved with a Newton solver by fixing the initial value in thephase (if using compressed transcription) or segment (if not using compressed transcription). This provides a forward shooting (or multiple shooting)method.  If &#x27;backward&#x27;, the final value in the phase or segment is fixedand a solver finds the other ones to mimic reverse propagation. If None, (the default) use the value of solve_segments in the transcription. Set to False to explicitly disable the use of a solver to converge the statetime history.</td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Targets in the ODE to which the state is connected                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">units            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">units in which the state variable is defined                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">upper            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Upper bound of the state variable at the discretization nodes. This option is invalid if opt=False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">val              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">1.0         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Default value of the state variable at the discretization nodes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           </td></tr>
 </tbody>
 </table></div></div>
 </div>
@@ -854,10 +984,10 @@ The state values are connected to inputs of the given name or names in the ODE.
 These targets are specified by their path relative to the top level of the ODE.</p></li>
 </ul>
 <p>To simplify state specifications, using the first option (not specifying targets) and promoting targets of the state to inputs of the same name at the top-level of the ODE.</p>
-</div>
-</div>
-<div class="section" id="controls">
-<h2>Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="controls">
+<h2>Controls<a class="headerlink" href="#controls" title="Permalink to this headline">#</a></h2>
 <p>Typically, an ODE will have inputs that impact its values but, unlike states, don’t define the
 system itself.  Such inputs include things like throttle level, elevator deflection angle,
 or spring constants.  In Dymos, dynamic inputs are referred to as controls, while
@@ -872,8 +1002,8 @@ be represented by a second-order polynomial.
 </pre></div>
 </div>
 </div>
-<div class="section" id="options-for-control-variables">
-<h3>Options for Control Variables<a class="headerlink" href="#options-for-control-variables" title="Permalink to this headline">¶</a></h3>
+<section id="options-for-control-variables">
+<h3>Options for Control Variables<a class="headerlink" href="#options-for-control-variables" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">om</span><span class="o">.</span><span class="n">show_options_table</span><span class="p">(</span><span class="s2">&quot;dymos.phase.options.ControlOptionsDictionary&quot;</span><span class="p">)</span>
@@ -883,31 +1013,31 @@ be represented by a second-order polynomial.
 <div class="cell_output docutils container">
 <div class="output text_html"><table>
 <thead>
-<tr><th>Option                 </th><th>Default     </th><th>Acceptable Values  </th><th>Acceptable Types                 </th><th>Description                                                                                                                                </th></tr>
+<tr><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Option                 </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Default     </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Values  </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Types                 </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Description                                                                                                                                </th></tr>
 </thead>
 <tbody>
-<tr><td>adder                  </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The adder of the control variable at the nodes. This option is invalid if opt=False.                                                       </td></tr>
-<tr><td>continuity             </td><td>True        </td><td>N/A                </td><td>[&#x27;bool&#x27;, &#x27;dict&#x27;]                 </td><td>Enforce continuity of control values at segment boundaries. This option is invalid if opt=False.                                           </td></tr>
-<tr><td>desc                   </td><td>            </td><td>N/A                </td><td>[&#x27;str&#x27;]                          </td><td>The description of the control variable.                                                                                                   </td></tr>
-<tr><td>fix_final              </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the final value of this control is fixed and not a design variable. This option is invalid if opt=False.                          </td></tr>
-<tr><td>fix_initial            </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the initial value of this control is fixed and not a design variable. This option is invalid if opt=False.                        </td></tr>
-<tr><td>lower                  </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The lower bound of the control variable at the nodes. This option is invalid if opt=False.                                                 </td></tr>
-<tr><td>name                   </td><td>**Required**</td><td>N/A                </td><td>[&#x27;str&#x27;]                          </td><td>The name of ODE system parameter to be controlled.                                                                                         </td></tr>
-<tr><td>opt                    </td><td>True        </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the control value will be a design variable for the optimization problem.  If False, allow the control to be connected externally.</td></tr>
-<tr><td>rate2_continuity       </td><td>False       </td><td>N/A                </td><td>[&#x27;bool&#x27;, &#x27;dict&#x27;]                 </td><td>Enforce continuity of control second derivatives at segment boundaries. This option is invalid if opt=False.                               </td></tr>
-<tr><td>rate2_continuity_scaler</td><td>1.0         </td><td>N/A                </td><td>[&#x27;Number&#x27;]                       </td><td>Scaler of the dimensionless rate continuity constraint at segment boundaries. This option is invalid if opt=False.                         </td></tr>
-<tr><td>rate2_targets          </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>The targets in the ODE to which the control 2nd derivative is connected                                                                    </td></tr>
-<tr><td>rate_continuity        </td><td>True        </td><td>N/A                </td><td>[&#x27;bool&#x27;, &#x27;dict&#x27;]                 </td><td>Enforce continuity of control first derivatives in dimensionless time at segment boundaries. This option is invalid if opt=False.          </td></tr>
-<tr><td>rate_continuity_scaler </td><td>1.0         </td><td>N/A                </td><td>[&#x27;Number&#x27;]                       </td><td>Scaler of the dimensionless rate continuity constraint at segment boundaries. This option is invalid if opt=False.                         </td></tr>
-<tr><td>rate_targets           </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>The targets in the ODE to which the control rate is connected                                                                              </td></tr>
-<tr><td>ref                    </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The unit-reference value of the control variable at the nodes. This option is invalid if opt=False.                                        </td></tr>
-<tr><td>ref0                   </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The zero-reference value of the control variable at the nodes. This option is invalid if opt=False.                                        </td></tr>
-<tr><td>scaler                 </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The scaler of the control variable at the nodes. This option is invalid if opt=False.                                                      </td></tr>
-<tr><td>shape                  </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;]                     </td><td>The shape of the control variable at each point in time.                                                                                   </td></tr>
-<tr><td>targets                </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>Targets in the ODE to which the state is connected                                                                                         </td></tr>
-<tr><td>units                  </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>The units in which the control variable is defined.                                                                                        </td></tr>
-<tr><td>upper                  </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The upper bound of the control variable at the nodes. This option is invalid if opt=False.                                                 </td></tr>
-<tr><td>val                    </td><td>[0.]        </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;ndarray&#x27;, &#x27;Number&#x27;]</td><td>The default value of the control variable at the control discretization nodes.                                                             </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">adder                  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The adder of the control variable at the nodes. This option is invalid if opt=False.                                                       </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">continuity             </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;, &#x27;dict&#x27;]                 </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Enforce continuity of control values at segment boundaries. This option is invalid if opt=False.                                           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">desc                   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]                          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The description of the control variable.                                                                                                   </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_final              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the final value of this control is fixed and not a design variable. This option is invalid if opt=False.                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_initial            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the initial value of this control is fixed and not a design variable. This option is invalid if opt=False.                        </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">lower                  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The lower bound of the control variable at the nodes. This option is invalid if opt=False.                                                 </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">name                   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">**Required**</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]                          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The name of ODE system parameter to be controlled.                                                                                         </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">opt                    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the control value will be a design variable for the optimization problem.  If False, allow the control to be connected externally.</td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate2_continuity       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;, &#x27;dict&#x27;]                 </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Enforce continuity of control second derivatives at segment boundaries. This option is invalid if opt=False.                               </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate2_continuity_scaler</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">1.0         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]                       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Scaler of the dimensionless rate continuity constraint at segment boundaries. This option is invalid if opt=False.                         </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate2_targets          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The targets in the ODE to which the control 2nd derivative is connected                                                                    </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate_continuity        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;, &#x27;dict&#x27;]                 </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Enforce continuity of control first derivatives in dimensionless time at segment boundaries. This option is invalid if opt=False.          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate_continuity_scaler </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">1.0         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Number&#x27;]                       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Scaler of the dimensionless rate continuity constraint at segment boundaries. This option is invalid if opt=False.                         </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate_targets           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The targets in the ODE to which the control rate is connected                                                                              </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ref                    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The unit-reference value of the control variable at the nodes. This option is invalid if opt=False.                                        </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ref0                   </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The zero-reference value of the control variable at the nodes. This option is invalid if opt=False.                                        </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">scaler                 </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The scaler of the control variable at the nodes. This option is invalid if opt=False.                                                      </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">shape                  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]                     </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The shape of the control variable at each point in time.                                                                                   </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Targets in the ODE to which the state is connected                                                                                         </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">units                  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The units in which the control variable is defined.                                                                                        </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">upper                  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The upper bound of the control variable at the nodes. This option is invalid if opt=False.                                                 </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">val                    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[0.]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;ndarray&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The default value of the control variable at the control discretization nodes.                                                             </td></tr>
 </tbody>
 </table></div></div>
 </div>
@@ -918,16 +1048,16 @@ First derivatives of controls in Dymos assume the name <code class="docutils lit
 Second derivatives of controls in Dymos assume the name <code class="docutils literal notranslate"><span class="pre">&lt;control_name&gt;_rate2</span></code>.
 Control rates are automatically connected if a top-level input of the ODE is named <code class="docutils literal notranslate"><span class="pre">&lt;control_name&gt;_rate</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;control_name&gt;_rate2</span></code>.
 These variables are available in the timeseries output as <code class="docutils literal notranslate"><span class="pre">timeseries.control_rates.&lt;control_name&gt;_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">timeseries.control_rates.&lt;control_name&gt;_rate2</span></code>, respectively.</p>
-</div>
-</div>
-<div class="section" id="polynomial-controls">
-<h2>Polynomial Controls<a class="headerlink" href="#polynomial-controls" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="polynomial-controls">
+<h2>Polynomial Controls<a class="headerlink" href="#polynomial-controls" title="Permalink to this headline">#</a></h2>
 <p>Sometimes it can be easier to optimize a problem by reducing the freedom in the controls.
 For instance, one might want the control to be linearly or quadratically varying throughout a phase, rather than having a different value specified at each node.
 In Dymos, this role is filled by the PolynomialControl.
 Polynomial controls are specified at some limited number of points throughout a <em>phase</em>, and then have their values interpolated to each node in each segment.</p>
-<div class="section" id="options-for-polynomial-control-variables">
-<h3>Options for Polynomial Control Variables<a class="headerlink" href="#options-for-polynomial-control-variables" title="Permalink to this headline">¶</a></h3>
+<section id="options-for-polynomial-control-variables">
+<h3>Options for Polynomial Control Variables<a class="headerlink" href="#options-for-polynomial-control-variables" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">om</span><span class="o">.</span><span class="n">show_options_table</span><span class="p">(</span><span class="s2">&quot;dymos.phase.options.PolynomialControlOptionsDictionary&quot;</span><span class="p">)</span>
@@ -937,27 +1067,27 @@ Polynomial controls are specified at some limited number of points throughout a 
 <div class="cell_output docutils container">
 <div class="output text_html"><table>
 <thead>
-<tr><th>Option       </th><th>Default     </th><th>Acceptable Values  </th><th>Acceptable Types                 </th><th>Description                                                                                                                                                                  </th></tr>
+<tr><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Option       </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Default     </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Values  </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Acceptable Types                 </th><th style="text-align:center; max-width:600px; overflow-wrap:break-word;">Description                                                                                                                                                                  </th></tr>
 </thead>
 <tbody>
-<tr><td>adder        </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The adder of the control variable at the nodes. Thisoption is invalid if opt=False.                                                                                          </td></tr>
-<tr><td>desc         </td><td>            </td><td>N/A                </td><td>[&#x27;str&#x27;]                          </td><td>The description of the control variable.                                                                                                                                     </td></tr>
-<tr><td>fix_final    </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the final value of this control is fixed and not a design variable. This option is invalid if opt=False.                                                            </td></tr>
-<tr><td>fix_initial  </td><td>False       </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the initial value of this control is fixed and not a design variable. This option is invalid if opt=False.                                                          </td></tr>
-<tr><td>lower        </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The lower bound of the control variable at the nodes. This option is invalid if opt=False.                                                                                   </td></tr>
-<tr><td>name         </td><td>**Required**</td><td>N/A                </td><td>[&#x27;str&#x27;]                          </td><td>The name of ODE system parameter to be controlled.                                                                                                                           </td></tr>
-<tr><td>opt          </td><td>True        </td><td>[True, False]      </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the control value will be a design variable for the optimization problem.  If False, allow the control to be connected externally.                                  </td></tr>
-<tr><td>order        </td><td>N/A         </td><td>N/A                </td><td>[&#x27;int&#x27;]                          </td><td>A integer that provides the interpolation order when the control is to assume a single polynomial basis across the entire phase, or None to use the default control behavior.</td></tr>
-<tr><td>rate2_targets</td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>The targets in the ODE to which the polynomial control 2nd derivative is connected                                                                                           </td></tr>
-<tr><td>rate_targets </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>The targets in the ODE to which the polynomial control rate is connected                                                                                                     </td></tr>
-<tr><td>ref          </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The unit-reference value of the control variable at the nodes. This option is invalid if opt=False.                                                                          </td></tr>
-<tr><td>ref0         </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The zero-reference value of the control variable at the nodes. This option is invalid if opt=False.                                                                          </td></tr>
-<tr><td>scaler       </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The scaler of the control variable at the nodes. This option is invalid if opt=False.                                                                                        </td></tr>
-<tr><td>shape        </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;]                     </td><td>The shape of the control variable at each point in time.                                                                                                                     </td></tr>
-<tr><td>targets      </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>Targets in the ODE to which the state is connected                                                                                                                           </td></tr>
-<tr><td>units        </td><td>unspecified </td><td>N/A                </td><td>N/A                              </td><td>The units in which the control variable is defined.                                                                                                                          </td></tr>
-<tr><td>upper        </td><td>N/A         </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The upper bound of the control variable at the nodes. This option is invalid if opt=False.                                                                                   </td></tr>
-<tr><td>val          </td><td>[0.]        </td><td>N/A                </td><td>[&#x27;Iterable&#x27;, &#x27;ndarray&#x27;, &#x27;Number&#x27;]</td><td>The default value of the control variable at the control discretization nodes.                                                                                               </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">adder        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The adder of the control variable at the nodes. Thisoption is invalid if opt=False.                                                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">desc         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">            </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]                          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The description of the control variable.                                                                                                                                     </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_final    </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the final value of this control is fixed and not a design variable. This option is invalid if opt=False.                                                            </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">fix_initial  </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">False       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the initial value of this control is fixed and not a design variable. This option is invalid if opt=False.                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">lower        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The lower bound of the control variable at the nodes. This option is invalid if opt=False.                                                                                   </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">name         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">**Required**</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;str&#x27;]                          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The name of ODE system parameter to be controlled.                                                                                                                           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">opt          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[True, False]      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">If True, the control value will be a design variable for the optimization problem.  If False, allow the control to be connected externally.                                  </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">order        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;int&#x27;]                          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">A integer that provides the interpolation order when the control is to assume a single polynomial basis across the entire phase, or None to use the default control behavior.</td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate2_targets</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The targets in the ODE to which the polynomial control 2nd derivative is connected                                                                                           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">rate_targets </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The targets in the ODE to which the polynomial control rate is connected                                                                                                     </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ref          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The unit-reference value of the control variable at the nodes. This option is invalid if opt=False.                                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">ref0         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The zero-reference value of the control variable at the nodes. This option is invalid if opt=False.                                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">scaler       </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The scaler of the control variable at the nodes. This option is invalid if opt=False.                                                                                        </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">shape        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;]                     </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The shape of the control variable at each point in time.                                                                                                                     </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">targets      </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">Targets in the ODE to which the state is connected                                                                                                                           </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">units        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The units in which the control variable is defined.                                                                                                                          </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">upper        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The upper bound of the control variable at the nodes. This option is invalid if opt=False.                                                                                   </td></tr>
+<tr><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">val          </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[0.]        </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">N/A                </td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;ndarray&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:600px; overflow-wrap:break-word;">The default value of the control variable at the control discretization nodes.                                                                                               </td></tr>
 </tbody>
 </table></div></div>
 </div>
@@ -968,17 +1098,17 @@ First derivatives of controls in Dymos assume the name <code class="docutils lit
 Second derivatives of controls in Dymos assume the name <code class="docutils literal notranslate"><span class="pre">&lt;control_name&gt;_rate2</span></code>.
 Control rates are automatically connected if a top-level input of the ODE is named <code class="docutils literal notranslate"><span class="pre">&lt;control_name&gt;_rate</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;control_name&gt;_rate2</span></code>.
 These variables are available in the timeseries output as <code class="docutils literal notranslate"><span class="pre">timeseries.polynomial_control_rates.&lt;control_name&gt;_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">timeseries.polynomial_control_rates.&lt;control_name&gt;_rate2</span></code>, respectively.</p>
-</div>
-</div>
-<div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">#</a></h2>
 <p>Some inputs impact the system but have one set value throughout the trajectory.
 We refer to these non-time-varying inputs as <em>parameters</em>, since they typically involve parameters which define a system.
 Parameters could include things like the wingspan of a vehicle or the mass of a heatsink.
 In Dymos, parameters can be optimized (by providing argument <code class="docutils literal notranslate"><span class="pre">opt</span> <span class="pre">=</span> <span class="pre">True</span></code>).
 If not optimized they can be targets for connections from outside of the Phase or Trajectory.</p>
-<div class="section" id="options-for-parameters">
-<h3>Options for Parameters<a class="headerlink" href="#options-for-parameters" title="Permalink to this headline">¶</a></h3>
+<section id="options-for-parameters">
+<h3>Options for Parameters<a class="headerlink" href="#options-for-parameters" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">om</span><span class="o">.</span><span class="n">show_options_table</span><span class="p">(</span><span class="s2">&quot;dymos.phase.options.ParameterOptionsDictionary&quot;</span><span class="p">)</span>
@@ -988,26 +1118,26 @@ If not optimized they can be targets for connections from outside of the Phase o
 <div class="cell_output docutils container">
 <div class="output text_html"><table>
 <thead>
-<tr><th>Option            </th><th>Default     </th><th>Acceptable Values         </th><th>Acceptable Types                 </th><th>Description                                                                                                                                           </th><th>Deprecation  </th></tr>
+<tr><th style="text-align:center; max-width:300px; overflow-wrap:break-word;">Option            </th><th style="text-align:center; max-width:300px; overflow-wrap:break-word;">Default     </th><th style="text-align:center; max-width:300px; overflow-wrap:break-word;">Acceptable Values         </th><th style="text-align:center; max-width:300px; overflow-wrap:break-word;">Acceptable Types                 </th><th style="text-align:center; max-width:300px; overflow-wrap:break-word;">Description                                                                                                                                           </th><th style="text-align:center; max-width:300px; overflow-wrap:break-word;">Deprecation  </th></tr>
 </thead>
 <tbody>
-<tr><td>adder             </td><td>N/A         </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The adder of the parameter. This option is invalid if opt=False.                                                                                      </td><td>N/A          </td></tr>
-<tr><td>desc              </td><td>            </td><td>N/A                       </td><td>[&#x27;str&#x27;]                          </td><td>The description of the parameter.                                                                                                                     </td><td>N/A          </td></tr>
-<tr><td>dynamic           </td><td>unspecified </td><td>[True, False, unspecified]</td><td>N/A                              </td><td>True if this parameter can be used as a dynamic control, else False.If _unspecified, attempt to determine through introspection.                      </td><td>Option dynamic has been replaced by option &#x27;static_target&#x27; and will be removed in Dymos 2.0.0.
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">adder             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The adder of the parameter. This option is invalid if opt=False.                                                                                      </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">desc              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">            </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;str&#x27;]                          </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The description of the parameter.                                                                                                                     </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">dynamic           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[True, False, unspecified]</td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">True if this parameter can be used as a dynamic control, else False.If _unspecified, attempt to determine through introspection.                      </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">Option dynamic has been replaced by option &#x27;static_target&#x27; and will be removed in Dymos 2.0.0.
 Note that &#x27;static_target&#x27; has the opposite meaning of option &#x27;dynamic&#x27;, so parameters with option &#x27;dynamic&#x27; set to False should now use &#x27;static_target&#x27; set to True.              </td></tr>
-<tr><td>include_timeseries</td><td>True        </td><td>[True, False]             </td><td>[&#x27;bool&#x27;]                         </td><td>True if the static parameters should be included in output timeseries, else False                                                                     </td><td>N/A          </td></tr>
-<tr><td>lower             </td><td>N/A         </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The lower bound of the parameter. This option is invalid if opt=False.                                                                                </td><td>N/A          </td></tr>
-<tr><td>name              </td><td>**Required**</td><td>N/A                       </td><td>[&#x27;str&#x27;]                          </td><td>The name of ODE system parameter to be set via parameter.                                                                                             </td><td>N/A          </td></tr>
-<tr><td>opt               </td><td>True        </td><td>[True, False]             </td><td>[&#x27;bool&#x27;]                         </td><td>If True, the control value will be a design variable for the optimization problem.  If False, allow the control to be connected externally.           </td><td>N/A          </td></tr>
-<tr><td>ref               </td><td>N/A         </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The unit-reference value of the parameter. This option is invalid if opt=False.                                                                       </td><td>N/A          </td></tr>
-<tr><td>ref0              </td><td>N/A         </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The zero-reference value of the parameter. This option is invalid if opt=False.                                                                       </td><td>N/A          </td></tr>
-<tr><td>scaler            </td><td>N/A         </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The scaler of the parameter. This option is invalid if opt=False.                                                                                     </td><td>N/A          </td></tr>
-<tr><td>shape             </td><td>unspecified </td><td>N/A                       </td><td>N/A                              </td><td>The shape of the parameter.                                                                                                                           </td><td>N/A          </td></tr>
-<tr><td>static_target     </td><td>unspecified </td><td>[True, False, unspecified]</td><td>N/A                              </td><td>True if the target of this parameter does NOT have a unique value at each node in the ODE.If _unspecified, attempt to determine through introspection.</td><td>N/A          </td></tr>
-<tr><td>targets           </td><td>unspecified </td><td>N/A                       </td><td>N/A                              </td><td>Targets in the ODE to which the state is connected                                                                                                    </td><td>N/A          </td></tr>
-<tr><td>units             </td><td>unspecified </td><td>N/A                       </td><td>N/A                              </td><td>The units in which the parameter is defined.                                                                                                          </td><td>N/A          </td></tr>
-<tr><td>upper             </td><td>N/A         </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td>The upper bound of the parameter. This option is invalid if opt=False.                                                                                </td><td>N/A          </td></tr>
-<tr><td>val               </td><td>[0.]        </td><td>N/A                       </td><td>[&#x27;Iterable&#x27;, &#x27;ndarray&#x27;, &#x27;Number&#x27;]</td><td>The default value of the parameter in the phase.                                                                                                      </td><td>N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">include_timeseries</td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[True, False]             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">True if the static parameters should be included in output timeseries, else False                                                                     </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">lower             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The lower bound of the parameter. This option is invalid if opt=False.                                                                                </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">name              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">**Required**</td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;str&#x27;]                          </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The name of ODE system parameter to be set via parameter.                                                                                             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">opt               </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">True        </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[True, False]             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;bool&#x27;]                         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">If True, the control value will be a design variable for the optimization problem.  If False, allow the control to be connected externally.           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">ref               </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The unit-reference value of the parameter. This option is invalid if opt=False.                                                                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">ref0              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The zero-reference value of the parameter. This option is invalid if opt=False.                                                                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">scaler            </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The scaler of the parameter. This option is invalid if opt=False.                                                                                     </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">shape             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The shape of the parameter.                                                                                                                           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">static_target     </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[True, False, unspecified]</td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">True if the target of this parameter does NOT have a unique value at each node in the ODE.If _unspecified, attempt to determine through introspection.</td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">targets           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">Targets in the ODE to which the state is connected                                                                                                    </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">units             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">unspecified </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                              </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The units in which the parameter is defined.                                                                                                          </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">upper             </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A         </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;Number&#x27;]           </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The upper bound of the parameter. This option is invalid if opt=False.                                                                                </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
+<tr><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">val               </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[0.]        </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A                       </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">[&#x27;Iterable&#x27;, &#x27;ndarray&#x27;, &#x27;Number&#x27;]</td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">The default value of the parameter in the phase.                                                                                                      </td><td style="text-align:left; max-width:300px; overflow-wrap:break-word;">N/A          </td></tr>
 </tbody>
 </table></div></div>
 </div>
@@ -1016,9 +1146,9 @@ Note that &#x27;static_target&#x27; has the opposite meaning of option &#x27;dyn
 <p>Parameters are available in the timeseries output as <code class="docutils literal notranslate"><span class="pre">timeseries.parameters.&lt;parameter_name&gt;</span></code>.
 Since parameters are constant throughout a trajectory, some users may want to prevent them from inclusion in the timeseries.
 This can be done by specifying <code class="docutils literal notranslate"><span class="pre">include_timeseries</span> <span class="pre">=</span> <span class="pre">False</span></code> in the parameter options.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1042,9 +1172,11 @@ This can be done by specifying <code class="docutils literal notranslate"><span 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="segments.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1060,24 +1192,28 @@ This can be done by specifying <code class="docutils literal notranslate"><span 
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Dymos Development Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By The Dymos Development Team<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

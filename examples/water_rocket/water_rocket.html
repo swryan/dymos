@@ -1009,8 +1009,8 @@ The design of a water rocket is somewhat constrained by the soda bottle used as 
 This means that the volume available for water and air is fixed, the initial launch pressure is limited by the bottle’s strength (since the pressure is directly related to the energy available for the rocket, it is easy to see that it should be as high as possible) and the nozzle throat area is also fixed.
 Given these manufacturing constraints, the design variables we are left with are the empty mass (it can be easily changed through adding ballast), the water volume at the launch, and the launch angle.
 With this considerations in mind, a natural formulation for the water rocket problem is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-900bb0f2-7dc6-4fd6-9410-69edb04ad7af">
-<span class="eqno">(79)<a class="headerlink" href="#equation-900bb0f2-7dc6-4fd6-9410-69edb04ad7af" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9672c80b-1c60-4b6a-9439-d6795b60d953">
+<span class="eqno">(79)<a class="headerlink" href="#equation-9672c80b-1c60-4b6a-9439-d6795b60d953" title="Permalink to this equation">#</a></span>\[\begin{align}
     \text{maximize}   &amp;\quad \text{range or height} \\
     \text{w.r.t.}     &amp;\quad \text{empty mass, initial water volume, launch angle, trajectory} \\
     \text{subject to} &amp;\quad \text{flight dynamics} \\
@@ -1597,8 +1597,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">_MassAdder</span></code> component calculates the rocket’s instantaneous mass by
 summing the water mass with the rockets empty mass, i.e.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bc77b0ce-4f41-4878-9180-dd6449ca7262">
-<span class="eqno">(80)<a class="headerlink" href="#equation-bc77b0ce-4f41-4878-9180-dd6449ca7262" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f2bc4b10-fa91-41fa-af0e-23b1646790c7">
+<span class="eqno">(80)<a class="headerlink" href="#equation-f2bc4b10-fa91-41fa-af0e-23b1646790c7" title="Permalink to this equation">#</a></span>\[\begin{align}
     m = m_\text{empty}+\rho_w V_w
 \end{align}\]</div>
 <div class="cell tag_remove-input docutils container">
@@ -2609,7 +2609,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.834419 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.718690 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -2618,9 +2618,9 @@ FWD solves: 19   REV solves: 0
 Total colors vs. total size: 19 vs 1153  (98.4% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity: 2.834419 sec.
-Time to compute coloring: 2.280969 sec.
-Memory to compute coloring: -20.195312 MB.
+Time to compute sparsity: 2.718690 sec.
+Time to compute coloring: 2.378115 sec.
+Memory to compute coloring: -20.187500 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of user-set options:
@@ -2670,8 +2670,8 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 72
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.769
-Total CPU secs in NLP function evaluations           =      8.475
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.798
+Total CPU secs in NLP function evaluations           =      7.936
 
 EXIT: Optimal Solution Found.
 </pre></div>
@@ -2680,9 +2680,7 @@ EXIT: Optimal Solution Found.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Launch angle: 85.0000 deg
+Launch angle: 85.0000 deg
 Flight angle at end of propulsion: 84.0889 deg
 Empty mass: 0.1449 kg
 Water volume: 0.9835 L
@@ -2691,7 +2689,7 @@ Maximum height: 53.4100 m
 Maximum velocity: 46.1550 m/s
 </pre></div>
 </div>
-<img alt="../../_images/water_rocket_26_11.png" src="../../_images/water_rocket_26_11.png" />
+<img alt="../../_images/water_rocket_26_10.png" src="../../_images/water_rocket_26_10.png" />
 </div>
 </div>
 <section id="maximum-height-solution-propulsive-phase">
@@ -2789,7 +2787,7 @@ Maximum velocity: 46.1550 m/s
 Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.823558 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 2.716432 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -2798,8 +2796,8 @@ FWD solves: 19   REV solves: 0
 Total colors vs. total size: 19 vs 1153  (98.4% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity: 2.823558 sec.
-Time to compute coloring: 2.352290 sec.
+Time to compute sparsity: 2.716432 sec.
+Time to compute coloring: 2.389238 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
@@ -2846,8 +2844,8 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 59
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.642
-Total CPU secs in NLP function evaluations           =      7.566
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.648
+Total CPU secs in NLP function evaluations           =      6.973
 
 EXIT: Optimal Solution Found.
 
@@ -2858,11 +2856,11 @@ Optimization Problem -- Optimization using pyOpt_sparse
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    8.2930
-       User Objective Time :       0.3422
-       User Sensitivity Time :     5.8496
-       Interface Time :            1.4200
-       Opt Solver Time:            0.6812
+    Total Time:                    7.7019
+       User Objective Time :       0.3098
+       User Sensitivity Time :     5.2419
+       Interface Time :            1.4583
+       Opt Solver Time:            0.6919
     Calls to Objective Function :      75
     Calls to Sens Function :           59
 
@@ -5190,9 +5188,7 @@ Optimization Problem -- Optimization using pyOpt_sparse
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Launch angle: 46.0906 deg
+Launch angle: 46.0906 deg
 Flight angle at end of propulsion: 38.3884 deg
 Empty mass: 0.1891 kg
 Water volume: 1.0264 L
@@ -5201,7 +5197,7 @@ Maximum height: 23.0872 m
 Maximum velocity: 41.3132 m/s
 </pre></div>
 </div>
-<img alt="../../_images/water_rocket_35_12.png" src="../../_images/water_rocket_35_12.png" />
+<img alt="../../_images/water_rocket_35_11.png" src="../../_images/water_rocket_35_11.png" />
 </div>
 </div>
 <section id="maximum-range-solution-propulsive-phase">

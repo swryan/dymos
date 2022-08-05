@@ -21,7 +21,7 @@
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -38,7 +38,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -386,12 +386,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../faq/upstream_analysis.html">
-     How do connect the outputs of an upstream analysis as inputs to Dymos?
+     How do I connect the outputs of an upstream analysis as inputs to Dymos?
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../faq/downstream_analysis.html">
-     How do connect the outputs of Dymos to a downstream analysis?
+     How do I connect the outputs of Dymos to a downstream analysis?
     </a>
    </li>
    <li class="toctree-l2">
@@ -725,8 +725,8 @@ of a trajectory in which the <em>states</em> of the system evolve with time.  Th
 <span class="math notranslate nohighlight">\(\left(\bar{x}\right)\)</span> are typically governed by an ordinary differential equation (ODE) or
 a differential algebraic equation (DAE).  In Dymos we characterize all dynamics as an (ODE),
 although solving systems of DAEs is also possible.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-11514116-6a31-440f-bef4-b476a07ee098">
-<span class="eqno">(1)<a class="headerlink" href="#equation-11514116-6a31-440f-bef4-b476a07ee098" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-722eff5a-8098-4100-9916-e660ee63501b">
+<span class="eqno">(1)<a class="headerlink" href="#equation-722eff5a-8098-4100-9916-e660ee63501b" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{\bar{x}} = f_{ode}(\bar{x},t,\bar{u},\bar{d})
 \end{align}\]</div>
 </section>
@@ -745,8 +745,8 @@ In Dymos, we discretize these variables in time to convert a continuous-time opt
 <p>When optimizing problems there will always be constraints on the system.
 Some of these constraints can be characterized as bounds on our independent variables.
 For instance, fixing the initial conditions of a trajectory can be accomplished by bounding the initial states and time to the desired value.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c3ae5994-9ecd-4e15-9780-710d3ac51b80">
-<span class="eqno">(2)<a class="headerlink" href="#equation-c3ae5994-9ecd-4e15-9780-710d3ac51b80" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-db634d17-2acc-4cd6-be62-476f49ad5372">
+<span class="eqno">(2)<a class="headerlink" href="#equation-db634d17-2acc-4cd6-be62-476f49ad5372" title="Permalink to this equation">#</a></span>\[\begin{align}
   \mathrm{Time:}&amp; \qquad {t}_{lb} \leq t \leq {t}_{ub} \\
   \mathrm{State \, Variables:}&amp; \qquad \bar{x}_{lb} \leq \bar{x} \leq \bar{x}_{ub} \\
   \mathrm{Dynamic \, Controls:}&amp; \qquad \bar{u}_{lb} \leq \bar{u} \leq \bar{u}_{ub} \\
@@ -754,8 +754,8 @@ For instance, fixing the initial conditions of a trajectory can be accomplished 
 \end{align}\]</div>
 <p>Other times we may want to constrain an output of our system at a specific point along the trajectory (boundary constraints) or along the entire trajectory (path constraints).
 These are so-called nonlinear constraints because they <em>may</em> be nonlinear functions of our independent variables.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ea7ce94c-5c13-45dd-91b2-f5a6fe29294a">
-<span class="eqno">(3)<a class="headerlink" href="#equation-ea7ce94c-5c13-45dd-91b2-f5a6fe29294a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6afcbd45-acdf-495d-9615-e2203d8de9d3">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6afcbd45-acdf-495d-9615-e2203d8de9d3" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathrm{Initial \, Boundary \, Constraints:}&amp; \qquad \bar{g}_{0,lb} \leq g_{0}(\bar{x}_0,t_0,\bar{u}_0, \bar{d}) \leq \bar{g}_{0,ub} \\
 \mathrm{Final \, Boundary \, Constraints:}&amp; \qquad \bar{g}_{f,lb} \leq g_{f}(\bar{x}_f,t_f,\bar{u}_f, \bar{d}) \leq \bar{g}_{f,ub} \\
 \mathrm{Path \, Constraints:}&amp; \qquad \bar{p}_{f,lb} \leq p_{f}(\bar{x},t,\bar{u},\bar{d}) \leq \bar{p}_{f,ub} \\

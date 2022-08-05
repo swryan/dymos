@@ -20,7 +20,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -381,12 +381,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../faq/upstream_analysis.html">
-     How do connect the outputs of an upstream analysis as inputs to Dymos?
+     How do I connect the outputs of an upstream analysis as inputs to Dymos?
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../faq/downstream_analysis.html">
-     How do connect the outputs of Dymos to a downstream analysis?
+     How do I connect the outputs of Dymos to a downstream analysis?
     </a>
    </li>
    <li class="toctree-l2">
@@ -628,14 +628,27 @@ title="Open an issue"
 <span class="sd">    ----------</span>
 <span class="sd">    **kwargs : dict</span>
 <span class="sd">        Dictionary of optional arguments.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parameter_options : dict</span>
+<span class="sd">        A dictionary of parameter names and their associated TrajectoryParameterOptionsDictionary</span>
+<span class="sd">    phases : om.Group or om.ParallelGroup</span>
+<span class="sd">        The Group which contains phases for this Trajectory.</span>
+
+<span class="sd">    _linkages : OrderedDict</span>
+<span class="sd">        A dictionary containing phase linkage information for the Trajectory.</span>
+<span class="sd">    _phases : dict</span>
+<span class="sd">        A dictionary of phase names as keys with the Phase objects being their associated values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Trajectory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span> <span class="o">=</span> <span class="p">{}</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_phase_add_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">ParallelGroup</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -664,8 +677,7 @@ title="Open an issue"
 <span class="sd">        PhaseBase</span>
 <span class="sd">            The Phase object added to the trajectory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">phase</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_phase_add_kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">phase</span></div>
 
     <span class="k">def</span> <span class="nf">set_parameter_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -866,6 +878,14 @@ title="Open an issue"
                         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;static_target&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;static_target&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;ref0&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref0&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;adder&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;adder&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;scaler&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;opt&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;opt&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span>
+                                  <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="n">tgts</span><span class="p">[</span><span class="n">phase_name</span><span class="p">]}</span>
 
                         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;sim_mode&#39;</span><span class="p">]:</span>
@@ -909,10 +929,8 @@ title="Open an issue"
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_setup_parameters</span><span class="p">()</span>
 
-        <span class="n">phases_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">subsys</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">ParallelGroup</span><span class="p">())</span>
-
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">phs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">phases_group</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">phs</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_phase_add_kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+        <span class="c1"># This will override the existing phases attribute with the same thing.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">subsys</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_setup_linkages</span><span class="p">()</span>

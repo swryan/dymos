@@ -21,7 +21,7 @@
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -38,7 +38,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -386,12 +386,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../faq/upstream_analysis.html">
-     How do connect the outputs of an upstream analysis as inputs to Dymos?
+     How do I connect the outputs of an upstream analysis as inputs to Dymos?
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../faq/downstream_analysis.html">
-     How do connect the outputs of Dymos to a downstream analysis?
+     How do I connect the outputs of Dymos to a downstream analysis?
     </a>
    </li>
    <li class="toctree-l2">
@@ -802,13 +802,13 @@ Dynamic systems are typically defined by some set of ordinary
 differential equations (the ODE) which governs their behavior.</p>
 <p>Consider a simple damped harmonic oscillator.</p>
 <p><img alt="Damped harmonic oscillator free-body diagram" src="../../_images/spring_mass_damper.png" /></p>
-<div class="amsmath math notranslate nohighlight" id="equation-f1e94530-62fc-4b17-bc47-8c281dfa15d1">
-<span class="eqno">(11)<a class="headerlink" href="#equation-f1e94530-62fc-4b17-bc47-8c281dfa15d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1b396d22-d982-4437-8469-2754b9da4cd7">
+<span class="eqno">(11)<a class="headerlink" href="#equation-1b396d22-d982-4437-8469-2754b9da4cd7" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ddot{x} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
 <p>Converting this to a first order system results in an ODE system with two states:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dcee6a97-5474-4b8a-8dba-e032bb167484">
-<span class="eqno">(12)<a class="headerlink" href="#equation-dcee6a97-5474-4b8a-8dba-e032bb167484" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2cbc76c3-3e02-4085-9cb0-34de7f7d9103">
+<span class="eqno">(12)<a class="headerlink" href="#equation-2cbc76c3-3e02-4085-9cb0-34de7f7d9103" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{x} &amp;= v \\
     \dot{v} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
@@ -889,7 +889,7 @@ Some elements of this code will be explained later, but we’ll hit the highligh
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="c1"># plt.switch_backend(&#39;Agg&#39;)  # disable plotting to the screen</span>
 
-<span class="kn">from</span> <span class="nn">dymos.examples.oscillator.doc.oscillator_ode</span> <span class="kn">import</span> <span class="n">OscillatorODE</span>
+<span class="kn">from</span> <span class="nn">dymos.examples.oscillator.oscillator_ode</span> <span class="kn">import</span> <span class="n">OscillatorODE</span>
 
 <span class="c1"># Instantiate an OpenMDAO Problem instance.</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">()</span>
@@ -957,10 +957,12 @@ Some elements of this code will be explained later, but we’ll hit the highligh
 
 
 Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/intro_ivp_5_1.png" src="../../_images/intro_ivp_5_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<img alt="../../_images/intro_ivp_5_2.png" src="../../_images/intro_ivp_5_2.png" />
 </div>
 </div>
 </section>
@@ -1029,7 +1031,7 @@ Otherwise, we can pass it only to certain states as an argument to <code class="
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>  <span class="c1"># disable plotting to the screen</span>
 
-<span class="kn">from</span> <span class="nn">dymos.examples.oscillator.doc.oscillator_ode</span> <span class="kn">import</span> <span class="n">OscillatorODE</span>
+<span class="kn">from</span> <span class="nn">dymos.examples.oscillator.oscillator_ode</span> <span class="kn">import</span> <span class="n">OscillatorODE</span>
 
 <span class="c1"># Instantiate an OpenMDAO Problem instance.</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">()</span>
@@ -1105,10 +1107,12 @@ NL: Newton 2 ; 6.67418801e-15 1.02755846e-16
 NL: Newton Converged
 
 Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/intro_ivp_7_1.png" src="../../_images/intro_ivp_7_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<img alt="../../_images/intro_ivp_7_2.png" src="../../_images/intro_ivp_7_2.png" />
 </div>
 </div>
 </section>
@@ -1126,7 +1130,7 @@ Even though the initial time and duration of the phase are fixed, we provide the
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>  <span class="c1"># disable plotting to the screen</span>
 
-<span class="kn">from</span> <span class="nn">dymos.examples.oscillator.doc.oscillator_ode</span> <span class="kn">import</span> <span class="n">OscillatorODE</span>
+<span class="kn">from</span> <span class="nn">dymos.examples.oscillator.oscillator_ode</span> <span class="kn">import</span> <span class="n">OscillatorODE</span>
 
 <span class="c1"># Instantiate an OpenMDAO Problem instance.</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">()</span>
@@ -1212,13 +1216,15 @@ Optimization Complete
 -----------------------------------
 
 Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1567: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.phase0.time.time&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
-<img alt="../../_images/intro_ivp_10_3.png" src="../../_images/intro_ivp_10_3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<img alt="../../_images/intro_ivp_10_4.png" src="../../_images/intro_ivp_10_4.png" />
 </div>
 </div>
 </section>

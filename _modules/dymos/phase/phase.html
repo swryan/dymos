@@ -20,7 +20,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -381,12 +381,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../faq/upstream_analysis.html">
-     How do connect the outputs of an upstream analysis as inputs to Dymos?
+     How do I connect the outputs of an upstream analysis as inputs to Dymos?
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../faq/downstream_analysis.html">
-     How do connect the outputs of Dymos to a downstream analysis?
+     How do I connect the outputs of Dymos to a downstream analysis?
     </a>
    </li>
    <li class="toctree-l2">
@@ -668,7 +668,7 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;timeseries&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;transcription&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                                                <span class="s1">&#39;subset&#39;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-                                               <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="p">[]}}</span>
+                                               <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_objectives</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">from_phase</span><span class="o">.</span><span class="n">time_options</span><span class="p">)</span>
@@ -1206,7 +1206,7 @@ title="Open an issue"
 <span class="sd">        name : str</span>
 <span class="sd">            Name of the controllable parameter in the ODE.</span>
 <span class="sd">        order : int</span>
-<span class="sd">            The order of the interpolating polynomial used to represent the control valeu in</span>
+<span class="sd">            The order of the interpolating polynomial used to represent the control value in</span>
 <span class="sd">            phase tau space.</span>
 <span class="sd">        desc : str</span>
 <span class="sd">            A description of the polynomial control.</span>
@@ -1643,8 +1643,7 @@ title="Open an issue"
         <span class="c1"># Automatically add the requested variable to the timeseries outputs if it&#39;s an ODE output.</span>
         <span class="n">var_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classify_var</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">var_type</span> <span class="o">==</span> <span class="s1">&#39;ode&#39;</span><span class="p">:</span>
-            <span class="n">current_output_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">op</span><span class="p">[</span><span class="s1">&#39;output_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="s1">&#39;timeseries&#39;</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]]</span>
-            <span class="k">if</span> <span class="n">constraint_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_output_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">constraint_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="s1">&#39;timeseries&#39;</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">constraint_name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Phase.add_path_constraint"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.add_path_constraint">[docs]</a>    <span class="k">def</span> <span class="nf">add_path_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">constraint_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1728,8 +1727,7 @@ title="Open an issue"
         <span class="c1"># Automatically add the requested variable to the timeseries outputs if it&#39;s an ODE output.</span>
         <span class="n">var_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classify_var</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">var_type</span> <span class="o">==</span> <span class="s1">&#39;ode&#39;</span><span class="p">:</span>
-            <span class="n">current_output_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">op</span><span class="p">[</span><span class="s1">&#39;output_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="s1">&#39;timeseries&#39;</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]]</span>
-            <span class="k">if</span> <span class="n">constraint_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_output_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">constraint_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="s1">&#39;timeseries&#39;</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">constraint_name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Phase.add_timeseries_output"><a class="viewcode-back" href="../../../features/phases/timeseries.html#dymos.Phase.add_timeseries_output">[docs]</a>    <span class="k">def</span> <span class="nf">add_timeseries_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
@@ -1742,7 +1740,8 @@ title="Open an issue"
 <span class="sd">        name : str, or list of str</span>
 <span class="sd">            The name(s) of the variable to be used as a timeseries output.  Must be one of</span>
 <span class="sd">            &#39;time&#39;, &#39;time_phase&#39;, one of the states, controls, control rates, or parameters,</span>
-<span class="sd">            in the phase, or the path to an output variable in the ODE.</span>
+<span class="sd">            in the phase, the path to an output variable in the ODE, or a glob pattern</span>
+<span class="sd">            matching some outputs in the ODE.</span>
 <span class="sd">        output_name : str or None or list or dict</span>
 <span class="sd">            The name of the variable as listed in the phase timeseries outputs.  By</span>
 <span class="sd">            default this is the last element in `name` when split by dots.  The user may</span>
@@ -1767,27 +1766,83 @@ title="Open an issue"
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">unit</span> <span class="o">=</span> <span class="n">units</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_timeseries_output</span><span class="p">(</span><span class="n">name_i</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">output_name</span><span class="p">,</span>
-                                            <span class="n">units</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
-                                            <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
-                                            <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">)</span>
+                <span class="n">oname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_timeseries_output</span><span class="p">(</span><span class="n">name_i</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">output_name</span><span class="p">,</span>
+                                                    <span class="n">units</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                                                    <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                                                    <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
+                                                    <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
                 <span class="c1"># Handle specific units for wildcard names.</span>
-                <span class="k">if</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name_i</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;wildcard_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+                <span class="k">if</span> <span class="n">oname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name_i</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">][</span><span class="n">oname</span><span class="p">][</span><span class="s1">&#39;wildcard_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">output_name</span><span class="p">,</span>
                                         <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
                                         <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
-                                        <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">)</span></div>
+                                        <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
+                                        <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">add_timeseries_rate_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                                   <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the rate of a variable to the timeseries outputs of the phase.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str, or list of str</span>
+<span class="sd">            The name(s) of the variable to be used as a timeseries output.  Must be one of</span>
+<span class="sd">            &#39;time&#39;, &#39;time_phase&#39;, one of the states, controls, control rates, or parameters,</span>
+<span class="sd">            in the phase, the path to an output variable in the ODE, or a glob pattern</span>
+<span class="sd">            matching some outputs in the ODE.</span>
+<span class="sd">        output_name : str or None or list or dict</span>
+<span class="sd">            The name of the variable as listed in the phase timeseries outputs.  By</span>
+<span class="sd">            default this is the last element in `name` when split by dots.  The user may</span>
+<span class="sd">            override the constraint name if splitting the path causes name collisions.</span>
+<span class="sd">        units : str or None or _unspecified</span>
+<span class="sd">            The units to express the timeseries output.  If None, use the</span>
+<span class="sd">            units associated with the target.  If provided, must be compatible with</span>
+<span class="sd">            the target units.</span>
+<span class="sd">            If a list of names is provided, units can be a matching list or dictionary.</span>
+<span class="sd">        shape : tuple or _unspecified</span>
+<span class="sd">            The shape of the timeseries output variable.  This must be provided (if not scalar)</span>
+<span class="sd">            since Dymos doesn&#39;t necessarily know the shape of ODE outputs until setup time.</span>
+<span class="sd">        timeseries : str or None</span>
+<span class="sd">            The name of the timeseries to which the output is being added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># accept dict for units when using array of name</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name_i</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># allow matching list for units</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">units</span>
+
+                <span class="n">oname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_timeseries_output</span><span class="p">(</span><span class="n">name_i</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">output_name</span><span class="p">,</span>
+                                                    <span class="n">units</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                                                    <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                                                    <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
+                                                    <span class="n">rate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="c1"># Handle specific units for wildcard names.</span>
+                <span class="k">if</span> <span class="n">oname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name_i</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">][</span><span class="n">oname</span><span class="p">][</span><span class="s1">&#39;wildcard_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">output_name</span><span class="p">,</span>
+                                        <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
+                                        <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                                        <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
+                                        <span class="n">rate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_timeseries_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                               <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">):</span>
+                               <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a single variable to the timeseries outputs of the phase.</span>
+<span class="sd">        Add a single variable or rate to the timeseries outputs of the phase.</span>
 
-<span class="sd">        This is called by add_timeseries_output for each variable that is added.</span>
+<span class="sd">        This is called by add_timeseries_output or add_timeseries_rate_output for each variable or rate</span>
+<span class="sd">        that is added.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1798,7 +1853,8 @@ title="Open an issue"
 <span class="sd">        output_name : str or None</span>
 <span class="sd">            The name of the variable as listed in the phase timeseries outputs.  By</span>
 <span class="sd">            default this is the last element in `name` when split by dots.  The user may</span>
-<span class="sd">            override the constraint name if splitting the path causes name collisions.</span>
+<span class="sd">            override the constraint name if splitting the path causes name collisions.  If rate</span>
+<span class="sd">            is True, the rate name will be this name + _rate.</span>
 <span class="sd">        units : str or None</span>
 <span class="sd">            The units to express the timeseries output.  If None, use the</span>
 <span class="sd">            units associated with the target.  If provided, must be compatible with</span>
@@ -1808,27 +1864,39 @@ title="Open an issue"
 <span class="sd">            since Dymos doesn&#39;t necessarily know the shape of ODE outputs until setup time.</span>
 <span class="sd">        timeseries : str or None</span>
 <span class="sd">            The name of the timeseries to which the output is being added.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="sd">        rate : bool</span>
+<span class="sd">            If True, add the rate of change of the named variable to the timeseries outputs of the</span>
+<span class="sd">            phase.  The rate variable will be named f&#39;{name}_rate&#39;.  Defaults to False.</span>
 
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or None</span>
+<span class="sd">           Name of output that was added to the timeseries or None if nothing was added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">timeseries</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timeseries </span><span class="si">{</span><span class="n">timeseries</span><span class="si">}</span><span class="s1"> does not exist in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="n">current_output_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">op</span><span class="p">[</span><span class="s1">&#39;output_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">output_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_output_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rate</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;_rate&#39;</span>
+
+        <span class="k">if</span> <span class="n">output_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]:</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output name `</span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s1">` is already in timeseries `</span><span class="si">{</span><span class="n">timeseries</span><span class="si">}</span><span class="s1">`. &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;New output ignored.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">ts_output</span> <span class="o">=</span> <span class="n">TimeseriesOutputOptionsDictionary</span><span class="p">()</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;output_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">output_name</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;wildcard_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape</span>
+            <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;is_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rate</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ts_output</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output name `</span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s1">` is already in timeseries `</span><span class="si">{</span><span class="n">timeseries</span><span class="si">}</span><span class="s1">`. &#39;</span>
-                             <span class="sa">f</span><span class="s1">&#39;New output ignored.&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">][</span><span class="n">output_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts_output</span>
+
+            <span class="k">return</span> <span class="n">output_name</span>
 
 <div class="viewcode-block" id="Phase.add_timeseries"><a class="viewcode-back" href="../../../features/phases/timeseries.html#dymos.Phase.add_timeseries">[docs]</a>    <span class="k">def</span> <span class="nf">add_timeseries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">transcription</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -1847,7 +1915,7 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transcription&#39;</span><span class="p">:</span> <span class="n">transcription</span><span class="p">,</span>
                                   <span class="s1">&#39;subset&#39;</span><span class="p">:</span> <span class="n">subset</span><span class="p">,</span>
-                                  <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="p">[]}</span></div>
+                                  <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="p">{}}</span></div>
 
     <span class="k">def</span> <span class="nf">add_objective</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">adder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel_deriv_color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -2178,13 +2246,11 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transcription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span>
         <span class="n">state_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span>
-        <span class="n">out_meta</span> <span class="o">=</span> <span class="n">get_promoted_vars</span><span class="p">(</span><span class="n">transcription</span><span class="o">.</span><span class="n">_get_ode</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="s1">&#39;output&#39;</span><span class="p">)</span>
+        <span class="n">out_meta</span> <span class="o">=</span> <span class="n">get_promoted_vars</span><span class="p">(</span><span class="n">transcription</span><span class="o">.</span><span class="n">_get_ode</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">metadata_keys</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">,))</span>
 
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">out_meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]</span>
-            <span class="n">prom_name</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">prom_name</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">out_meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tags</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]):</span>
 
                 <span class="c1"># Declared as rate_source.</span>
                 <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dymos.state_rate_source:&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;state_rate_source:&#39;</span><span class="p">):</span>
@@ -2200,7 +2266,7 @@ title="Open an issue"
                     <span class="k">if</span> <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">prom_name</span><span class="p">:</span>
                             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rate_source has been declared twice for state &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&#39; which is tagged on &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+                                             <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&#39; which is tagged on &#39;</span><span class="si">{</span><span class="n">prom_name</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
 
                     <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prom_name</span>
 
@@ -2868,7 +2934,6 @@ title="Open an issue"
 <span class="sd">        all_flat_idxs : set</span>
 <span class="sd">            A C-order flattened set of indices that apply to the constraint.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="s1">&#39;initial boundary&#39;</span><span class="p">,</span> <span class="s1">&#39;final&#39;</span><span class="p">:</span> <span class="s1">&#39;final boundary&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;path&#39;</span><span class="p">}</span>
         <span class="n">cons</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span><span class="p">,</span>
                 <span class="s1">&#39;final&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_boundary_constraints</span><span class="p">,</span>
                 <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">}</span>
@@ -2878,12 +2943,15 @@ title="Open an issue"
         <span class="k">for</span> <span class="n">con</span> <span class="ow">in</span> <span class="n">cons</span><span class="p">[</span><span class="n">loc</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">con</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
                 <span class="k">continue</span>
+
             <span class="n">flat_idxs</span> <span class="o">=</span> <span class="n">get_constraint_flat_idxs</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
             <span class="n">duplicate_idxs</span> <span class="o">=</span> <span class="n">all_flat_idxs</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">flat_idxs</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">duplicate_idxs</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="s1">&#39;initial boundary&#39;</span><span class="p">,</span> <span class="s1">&#39;final&#39;</span><span class="p">:</span> <span class="s1">&#39;final boundary&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;path&#39;</span><span class="p">}</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Duplicate constraint in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">. &#39;</span>
                                  <span class="sa">f</span><span class="s1">&#39;The following indices of `</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">` are used in &#39;</span>
                                  <span class="sa">f</span><span class="s1">&#39;multiple </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="n">loc</span><span class="p">]</span><span class="si">}</span><span class="s1"> constraints:</span><span class="se">\n</span><span class="si">{</span><span class="n">duplicate_idxs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
             <span class="n">all_flat_idxs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">flat_idxs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">all_flat_idxs</span>

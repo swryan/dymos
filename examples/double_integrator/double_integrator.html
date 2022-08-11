@@ -429,8 +429,8 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api/run_problem.html">
-     The Dymos run_problem function
+    <a class="reference internal" href="../../api/run_problem_function.html">
+     The run_problem function
     </a>
    </li>
    <li class="toctree-l2">
@@ -744,20 +744,20 @@ traveled by a block (that starts and ends at rest) sliding without
 friction along a horizontal surface, with acceleration as the control.</p>
 <p>We minimize the final time, <span class="math notranslate nohighlight">\(t_f\)</span>, by varying the dynamic control,
 <span class="math notranslate nohighlight">\(u\)</span>, subject to the dynamics:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e3fce514-cfe8-4901-983a-4bc93d29e8f8">
-<span class="eqno">(45)<a class="headerlink" href="#equation-e3fce514-cfe8-4901-983a-4bc93d29e8f8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0cb2c395-333a-4c86-b7d0-363dd8264644">
+<span class="eqno">(45)<a class="headerlink" href="#equation-0cb2c395-333a-4c86-b7d0-363dd8264644" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dx}{dt} &amp;= v \\
   \frac{dv}{dt} &amp;= u
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fc1ec3b6-60b0-470a-aeea-1c148ddb9279">
-<span class="eqno">(46)<a class="headerlink" href="#equation-fc1ec3b6-60b0-470a-aeea-1c148ddb9279" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f8a2ca52-85ae-4a90-a355-754a4882a609">
+<span class="eqno">(46)<a class="headerlink" href="#equation-f8a2ca52-85ae-4a90-a355-754a4882a609" title="Permalink to this equation">#</a></span>\[\begin{align}
   x_0 &amp;= 0 \\
   v_0 &amp;= 0
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-70d3bcc5-d06d-4a39-b8d6-ab4b847e28f4">
-<span class="eqno">(47)<a class="headerlink" href="#equation-70d3bcc5-d06d-4a39-b8d6-ab4b847e28f4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-85fec58f-b6aa-47ef-9c66-e0e7b68b7c5a">
+<span class="eqno">(47)<a class="headerlink" href="#equation-85fec58f-b6aa-47ef-9c66-e0e7b68b7c5a" title="Permalink to this equation">#</a></span>\[\begin{align}
   x_f &amp;= \rm{free} \\
   v_f &amp;= 0
 \end{align}\]</div>
@@ -1083,7 +1083,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.105467 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.106647 seconds.
 Total jacobian shape: (181, 327) 
 </pre></div>
 </div>
@@ -1092,8 +1092,8 @@ FWD solves: 0   REV solves: 6
 Total colors vs. total size: 6 vs 181  (96.7% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.105467 sec.
-Time to compute coloring: 0.131333 sec.
+Time to compute sparsity: 0.106647 sec.
+Time to compute coloring: 0.127844 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
@@ -1107,11 +1107,11 @@ Memory to compute coloring: 0.000000 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    2.4800
-       User Objective Time :       0.0310
-       User Sensitivity Time :     0.0907
-       Interface Time :            0.1469
-       Opt Solver Time:            2.2114
+    Total Time:                    2.6900
+       User Objective Time :       0.0313
+       User Sensitivity Time :     0.0920
+       Interface Time :            0.1492
+       Opt Solver Time:            2.4176
     Calls to Objective Function :      19
     Calls to Sens Function :           19
 
@@ -1694,6 +1694,10 @@ Memory to compute coloring: 0.000000 MB.
 --------------------------------------------------------------------------------
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:666: UserWarning: Attempting to set identical bottom == top == 0.0 results in singular transformations; automatically expanding.
+  ax.set_ylim([ymin_plot, ymax_plot])
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
@@ -1703,7 +1707,6 @@ Memory to compute coloring: 0.000000 MB.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
 </pre></div>
 </div>
-<img alt="../../_images/double_integrator_5_47.png" src="../../_images/double_integrator_5_47.png" />
 </div>
 </div>
 <div class="cell docutils container">

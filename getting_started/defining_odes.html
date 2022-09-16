@@ -291,6 +291,16 @@ const thebe_selector_output = ".output, .cell_output"
      Water Rocket
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/cart_pole/cart_pole.html">
+     Cart-Pole Optimal Control
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/brachistochrone/brachistochrone_tandem_phases.html">
+     Brachistochrone with tandem phases
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -847,8 +857,8 @@ title="Print to PDF"
 Typically this evolution occurs in time, and the ODE represents equations of motion (EOM).
 The equations of motion can define a variety of systems, not just mechanical ones.
 In other fields they are sometimes referred to as <em>process equations</em>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cd2ffa83-c24d-484a-aeff-872f4c2e156f">
-<span class="eqno">(4)<a class="headerlink" href="#equation-cd2ffa83-c24d-484a-aeff-872f4c2e156f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-31f0a527-e4fe-4222-8f3e-60244df0b94e">
+<span class="eqno">(4)<a class="headerlink" href="#equation-31f0a527-e4fe-4222-8f3e-60244df0b94e" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{\bar{x}} = f_{ode}(\bar{x},t,\bar{u},\bar{d})
 \end{align}\]</div>
 <p>To represent EOM, Dymos uses a standard OpenMDAO System (a Group or Component).
@@ -1028,25 +1038,30 @@ This is normally accomplished with the ‘static_target=True’ option when call
 To avoid repetitive use of this option, users can add the tag ‘dymos.static_target’ to any input which should always be considered static.
 When connecting to multiple targets, a ‘dymos.static_target’ tag on one of them will result in all of them being considered static.
 Inputs tagged with ‘dymos.static_target’ cannot be used as controls or polynomial controls.</p>
+<p>Similarly, the tag ‘dymos.static_output’ is used to convey that an output of the ODE is not sized with <code class="docutils literal notranslate"><span class="pre">num_nodes</span></code> as its first dimension. These outputs may not be used as timeseries outputs, nor may they be used as boundary or path constraints. The general OpenMDAO <code class="docutils literal notranslate"><span class="pre">add_constraint</span></code> method can still be applied to them by using the full path to the output in the ODE.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Tag</p></th>
-<th class="head"><p>Applies to</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Tag</p></th>
+<th class="text-align:center head"><p>Applies to</p></th>
+<th class="text-align:left head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>dymos.state_rate_source:{state_name}</p></td>
-<td><p>Outputs</p></td>
-<td><p>Specifies that the tagged output provides the rate used to integrate the state of the given name.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>dymos.state_rate_source:{state_name}</p></td>
+<td class="text-align:center"><p>Outputs</p></td>
+<td class="text-align:left"><p>Specifies that the tagged output provides the rate used to integrate the state of the given name.</p></td>
 </tr>
-<tr class="row-odd"><td><p>dymos.state_units:{units}</p></td>
-<td><p>Outputs</p></td>
-<td><p>Specifies the default units to be used for the state whose rate is provided by the tagged output. May only be used on outputs also tagged with ‘dymos.state_rate_source:{state_name}’.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>dymos.state_units:{units}</p></td>
+<td class="text-align:center"><p>Outputs</p></td>
+<td class="text-align:left"><p>Specifies the default units to be used for the state whose rate is provided by the tagged output. May only be used on outputs also tagged with ‘dymos.state_rate_source:{state_name}’.</p></td>
 </tr>
-<tr class="row-even"><td><p>dymos.static_target</p></td>
-<td><p>Inputs</p></td>
-<td><p>Specifies that the input is <em>not</em> shaped with num_nodes as the first dimension. This effects the way in which parameters are connected to the input. Inputs tagged with ‘dymos.static_target’ cannot be used as controls.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>dymos.static_target</p></td>
+<td class="text-align:center"><p>Inputs</p></td>
+<td class="text-align:left"><p>Specifies that the input is <em>not</em> shaped with num_nodes as the first dimension. This effects the way in which parameters are connected to the input. Inputs tagged with ‘dymos.static_target’ cannot be used as controls.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>dymos.static_output</p></td>
+<td class="text-align:center"><p>Outputs</p></td>
+<td class="text-align:left"><p>Specifies that the output is <em>not</em> shaped with num_nodes as the first dimension, and may not be used as a timeseries output, boundary constraint, or path constraint.</p></td>
 </tr>
 </tbody>
 </table>

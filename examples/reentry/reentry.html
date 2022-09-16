@@ -291,6 +291,16 @@ const thebe_selector_output = ".output, .cell_output"
      Water Rocket
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cart_pole/cart_pole.html">
+     Cart-Pole Optimal Control
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../brachistochrone/brachistochrone_tandem_phases.html">
+     Brachistochrone with tandem phases
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -764,8 +774,8 @@ optimal control problem governed by six equations of motion and limited
 by the aerodynamic heating rate. For a detailed layout of this problem
 and other optimal control problems see Betts <span id="id1">[<a class="reference internal" href="#id19" title="J. Betts. Practical Methods for Optimal Control and Estimation Using Nonlinear Programming. Society for Industrial and Applied Mathematics, second edition, 2010. URL: https://epubs.siam.org/doi/abs/10.1137/1.9780898718577, arXiv:https://epubs.siam.org/doi/pdf/10.1137/1.9780898718577, doi:10.1137/1.9780898718577.">Bet10</a>]</span>.
 The governing equations of motion for this problem are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-688a00e8-4f46-4b0c-a8f9-4c3d41496df4">
-<span class="eqno">(69)<a class="headerlink" href="#equation-688a00e8-4f46-4b0c-a8f9-4c3d41496df4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9e8330eb-5933-4257-a19e-8047d890d0f0">
+<span class="eqno">(69)<a class="headerlink" href="#equation-9e8330eb-5933-4257-a19e-8047d890d0f0" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dh}{dt} &amp;= v \sin \gamma \\
   \frac{d\phi}{dt} &amp;= \frac{v}{r} \cos \gamma \frac{\sin \psi}{\cos \theta} \\
   \frac{d\theta}{dt} &amp;= \frac{v}{r} \cos \gamma \cos \psi  \\
@@ -788,8 +798,8 @@ final altitude, without exceding a maximum heat rate at the leading
 edges. This heat rate is constrained by <span class="math notranslate nohighlight">\(q \leq 70\)</span> where q
 <span class="math notranslate nohighlight">\([\frac{btu}{ft^2s}]\)</span> is the heating rate.</p>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e7ab7cd8-16d1-44ba-b869-b10e59e5443e">
-<span class="eqno">(70)<a class="headerlink" href="#equation-e7ab7cd8-16d1-44ba-b869-b10e59e5443e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-626c3ad7-e8b0-44c7-af76-5c85b4e7f333">
+<span class="eqno">(70)<a class="headerlink" href="#equation-626c3ad7-e8b0-44c7-af76-5c85b4e7f333" title="Permalink to this equation">#</a></span>\[\begin{align}
   h_0 &amp;= 26000 \\
   v_0 &amp;= 25600 \\
   \phi_0 &amp;= 0 \\
@@ -798,8 +808,8 @@ edges. This heat rate is constrained by <span class="math notranslate nohighligh
   \psi_0 &amp;= \frac{\pi}{2}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ac429f35-20cd-4fd4-9d75-6bdd6d404309">
-<span class="eqno">(71)<a class="headerlink" href="#equation-ac429f35-20cd-4fd4-9d75-6bdd6d404309" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c5961f25-7b42-4816-8c15-50f972466dae">
+<span class="eqno">(71)<a class="headerlink" href="#equation-c5961f25-7b42-4816-8c15-50f972466dae" title="Permalink to this equation">#</a></span>\[\begin{align}
   h_0 &amp;= 80000 \\
   v_0 &amp;= 2500 \\
   \gamma_0 &amp;= -0.08727 \\
@@ -817,13 +827,13 @@ second component computes the aerodynamic forces of lift and drag on the
 shuttle. The third component is where the heating rate on the leading
 edge of the shuttles wings is computed. The heating rate is given by
 <span class="math notranslate nohighlight">\(q = q_a q_r\)</span> where</p>
-<div class="amsmath math notranslate nohighlight" id="equation-89bc20af-e4a0-41a0-87dd-3dc9d0de2d19">
-<span class="eqno">(72)<a class="headerlink" href="#equation-89bc20af-e4a0-41a0-87dd-3dc9d0de2d19" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4903045e-2c91-4b46-835d-a4b9c73594bc">
+<span class="eqno">(72)<a class="headerlink" href="#equation-4903045e-2c91-4b46-835d-a4b9c73594bc" title="Permalink to this equation">#</a></span>\[\begin{align}
   q_a &amp;= c_0 + c_1\alpha + c_2 \alpha^2 + c_3 \alpha^3
 \end{align}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6fad7c2f-8540-4bd3-98f6-e73394f7f240">
-<span class="eqno">(73)<a class="headerlink" href="#equation-6fad7c2f-8540-4bd3-98f6-e73394f7f240" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0e161c44-ce48-45ef-ac96-45b276294683">
+<span class="eqno">(73)<a class="headerlink" href="#equation-0e161c44-ce48-45ef-ac96-45b276294683" title="Permalink to this equation">#</a></span>\[\begin{align}
   q_r &amp;= 17700 \rho^.5 (.0001v)^{3.07}
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c_0, c_1, c_2,\)</span> and <span class="math notranslate nohighlight">\(c_3\)</span> are constants, <span class="math notranslate nohighlight">\(\alpha\)</span> <span class="math notranslate nohighlight">\([deg]\)</span> is the
@@ -1300,8 +1310,9 @@ The two controls are <span class="math notranslate nohighlight">\(\alpha\)</span
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
-
-INFO: checking out_of_order
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking out_of_order
@@ -1465,7 +1476,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.369397 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.264028 seconds.
 Total jacobian shape: (327, 358) 
 </pre></div>
 </div>
@@ -1474,9 +1485,9 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 358  (94.4% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 1.369397 sec.
-Time to compute coloring: 0.360334 sec.
-Memory to compute coloring: 0.000000 MB.
+Time to compute sparsity: 1.264028 sec.
+Time to compute coloring: 0.371345 sec.
+Memory to compute coloring: 0.304688 MB.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/pyoptsparse/pyOpt_optimization.py:234: UserWarning: The argument `type=` is deprecated. Use `varType` in the future.
@@ -1489,11 +1500,11 @@ Memory to compute coloring: 0.000000 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   68.9054
-       User Objective Time :       1.6683
-       User Sensitivity Time :     9.3347
-       Interface Time :            2.8657
-       Opt Solver Time:           55.0367
+    Total Time:                   64.6500
+       User Objective Time :       1.4882
+       User Sensitivity Time :     8.5235
+       Interface Time :            2.7506
+       Opt Solver Time:           51.8877
     Calls to Objective Function :     747
     Calls to Sens Function :          318
 

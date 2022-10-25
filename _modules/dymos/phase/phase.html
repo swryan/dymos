@@ -321,6 +321,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../../features/phases/analytic_phases.html">
+     Analytic Phases in Dymos
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../../features/phases/segments.html">
      Segments
     </a>
@@ -624,7 +629,7 @@ title="Open an issue"
 <span class="kn">from</span> <span class="nn">..transcriptions.transcription_base</span> <span class="kn">import</span> <span class="n">TranscriptionBase</span>
 <span class="kn">from</span> <span class="nn">..utils.indexing</span> <span class="kn">import</span> <span class="n">get_constraint_flat_idxs</span>
 <span class="kn">from</span> <span class="nn">..utils.introspection</span> <span class="kn">import</span> <span class="n">configure_time_introspection</span><span class="p">,</span> <span class="n">_configure_constraint_introspection</span><span class="p">,</span> \
-    <span class="n">configure_controls_introspection</span><span class="p">,</span> <span class="n">configure_parameters_introspection</span><span class="p">,</span> <span class="n">configure_states_introspection</span><span class="p">,</span> \
+    <span class="n">configure_controls_introspection</span><span class="p">,</span> <span class="n">configure_parameters_introspection</span><span class="p">,</span> \
     <span class="n">configure_timeseries_output_introspection</span><span class="p">,</span> <span class="n">classify_var</span><span class="p">,</span> <span class="n">get_promoted_vars</span>
 <span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">_unspecified</span>
 <span class="kn">from</span> <span class="nn">..utils.lgl</span> <span class="kn">import</span> <span class="n">lgl</span>
@@ -718,7 +723,9 @@ title="Open an issue"
                   <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">fix_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">fix_final</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                   <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                   <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">defect_scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                  <span class="n">defect_ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">solve_segments</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">connected_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+                  <span class="n">defect_ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">solve_segments</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">connected_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                  <span class="n">source</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">input_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">initial_targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                  <span class="n">opt</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">initial_bounds</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">final_bounds</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a state variable to be integrated by the phase.</span>
 
@@ -773,7 +780,21 @@ title="Open an issue"
 <span class="sd">            handled by the optimizer.</span>
 <span class="sd">        connected_initial : bool</span>
 <span class="sd">            If True, then the initial value for this state comes from an externally connected</span>
-<span class="sd">            source.</span>
+<span class="sd">            source. Deprecated - use input_initial.</span>
+<span class="sd">        source : str</span>
+<span class="sd">            The path to the ODE output which provides the solution for this state variable when using an</span>
+<span class="sd">            Analytic transcription.</span>
+<span class="sd">        input_initial : bool</span>
+<span class="sd">            If True, then the initial value for this state comes is an input.</span>
+<span class="sd">        initial_targets : str</span>
+<span class="sd">            The path to the ODE inputs to which the initial value of this state should be connected.</span>
+<span class="sd">        opt : bool</span>
+<span class="sd">            If True, state values are fixed at the input values and the optimizer resolves defect constraints by</span>
+<span class="sd">            varying the other design variables in the phase.</span>
+<span class="sd">        initial_bounds : tuple</span>
+<span class="sd">            The bounds (lower, upper) of the state variable at the initial point in the phase.</span>
+<span class="sd">        final_bounds : tuple</span>
+<span class="sd">            The bounds (lower, upper) of the state variable at the final point in the phase.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">StateOptionsDictionary</span><span class="p">()</span>
@@ -784,14 +805,18 @@ title="Open an issue"
                                <span class="n">fix_final</span><span class="o">=</span><span class="n">fix_final</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">upper</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span>
                                <span class="n">adder</span><span class="o">=</span><span class="n">adder</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">ref0</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">defect_scaler</span><span class="o">=</span><span class="n">defect_scaler</span><span class="p">,</span>
                                <span class="n">defect_ref</span><span class="o">=</span><span class="n">defect_ref</span><span class="p">,</span> <span class="n">solve_segments</span><span class="o">=</span><span class="n">solve_segments</span><span class="p">,</span>
-                               <span class="n">connected_initial</span><span class="o">=</span><span class="n">connected_initial</span><span class="p">)</span></div>
+                               <span class="n">connected_initial</span><span class="o">=</span><span class="n">connected_initial</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">input_initial</span><span class="o">=</span><span class="n">input_initial</span><span class="p">,</span>
+                               <span class="n">initial_targets</span><span class="o">=</span><span class="n">initial_targets</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">initial_bounds</span><span class="o">=</span><span class="n">initial_bounds</span><span class="p">,</span>
+                               <span class="n">final_bounds</span><span class="o">=</span><span class="n">final_bounds</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Phase.set_state_options"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_state_options">[docs]</a>    <span class="k">def</span> <span class="nf">set_state_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                           <span class="n">rate_source</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                           <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">fix_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">fix_final</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                           <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                           <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">defect_scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                          <span class="n">defect_ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">solve_segments</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">connected_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+                          <span class="n">defect_ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">solve_segments</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">connected_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                          <span class="n">source</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">input_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">initial_targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                          <span class="n">opt</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">initial_bounds</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">final_bounds</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set options that apply the EOM state variable of the given name.</span>
 
@@ -846,7 +871,21 @@ title="Open an issue"
 <span class="sd">            handled by the optimizer.</span>
 <span class="sd">        connected_initial : bool</span>
 <span class="sd">            If True, then the initial value for this state comes from an externally connected</span>
-<span class="sd">            source.</span>
+<span class="sd">            source. Deprecated - use input_initial.</span>
+<span class="sd">        source : str</span>
+<span class="sd">            The path to the ODE output which provides the solution for this state variable when using an</span>
+<span class="sd">            Analytic transcription.</span>
+<span class="sd">        input_initial : bool</span>
+<span class="sd">            If True, then the initial value for this state comes is an input.</span>
+<span class="sd">        initial_targets : str or Sequence of str</span>
+<span class="sd">            The path to the ODE inputs to which the initial value of this state should be connected.</span>
+<span class="sd">        opt : bool</span>
+<span class="sd">            If True, state values are fixed at the input values and the optimizer resolves defect constraints by</span>
+<span class="sd">            varying the other design variables in the phase.</span>
+<span class="sd">        initial_bounds : tuple</span>
+<span class="sd">            The bounds (lower, upper) of the state variable at the initial point in the phase.</span>
+<span class="sd">        final_bounds : tuple</span>
+<span class="sd">            The bounds (lower, upper) of the state variable at the final point in the phase.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">:</span>
             <span class="c1"># This state option will be picked up automatically from tags.</span>
@@ -905,7 +944,25 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;solve_segments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">solve_segments</span>
 
         <span class="k">if</span> <span class="n">connected_initial</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;connected_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">connected_initial</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;connected_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">connected_initial</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">: State option `connected_initial` is deprecated. Use input_initial&#39;</span><span class="p">,</span>
+                             <span class="n">om</span><span class="o">.</span><span class="n">OMDeprecationWarning</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;input_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">connected_initial</span>
+
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+
+        <span class="k">if</span> <span class="n">input_initial</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;input_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_initial</span>
+
+        <span class="k">if</span> <span class="n">opt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;opt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt</span>
+
+        <span class="k">if</span> <span class="n">initial_bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;initial_bounds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_bounds</span>
+
+        <span class="k">if</span> <span class="n">final_bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;final_bounds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_bounds</span></div>
 
     <span class="k">def</span> <span class="nf">check_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1271,7 +1328,7 @@ title="Open an issue"
                                             <span class="n">scaler</span><span class="p">,</span> <span class="n">adder</span><span class="p">,</span> <span class="n">ref0</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span>
                                             <span class="n">targets</span><span class="p">,</span> <span class="n">rate_targets</span><span class="p">,</span> <span class="n">rate2_targets</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Phase.set_polynomial_control_options"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_polynomial_control_options">[docs]</a>    <span class="k">def</span> <span class="nf">set_polynomial_control_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+<div class="viewcode-block" id="Phase.set_polynomial_control_options"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_polynomial_control_options">[docs]</a>    <span class="k">def</span> <span class="nf">set_polynomial_control_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                                        <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">fix_initial</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                                        <span class="n">fix_final</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                                        <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
@@ -2156,7 +2213,7 @@ title="Open an issue"
 <span class="sd">            ValueError is raised if the ODE does not meet one of the the requirements above.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ode_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span>
+        <span class="n">ode_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;rhs_class&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">ode_class</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ode_class</span><span class="p">,</span> <span class="n">Callable</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;ode_class must be given as a callable object that returns an &#39;</span>
@@ -2221,15 +2278,8 @@ title="Open an issue"
             <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid parameter in phase `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">`.</span><span class="se">\n</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">configure_state_discovery</span><span class="p">()</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">configure_states_introspection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">,</span>
-                                           <span class="n">ode</span><span class="p">)</span>
-        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error during configure_states_introspection in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-
+        <span class="n">transcription</span><span class="o">.</span><span class="n">configure_states_discovery</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">transcription</span><span class="o">.</span><span class="n">configure_states_introspection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_controls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_polynomial_controls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -2257,54 +2307,6 @@ title="Open an issue"
 
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_solvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">configure_state_discovery</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Searches phase output metadata for any declared states and adds them.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">transcription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span>
-        <span class="n">state_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span>
-        <span class="n">out_meta</span> <span class="o">=</span> <span class="n">get_promoted_vars</span><span class="p">(</span><span class="n">transcription</span><span class="o">.</span><span class="n">_get_ode</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">metadata_keys</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">,))</span>
-
-        <span class="k">for</span> <span class="n">prom_name</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">out_meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]):</span>
-
-                <span class="c1"># Declared as rate_source.</span>
-                <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dymos.state_rate_source:&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;state_rate_source:&#39;</span><span class="p">):</span>
-                    <span class="n">state</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;state_rate_source:&#39;</span><span class="p">):</span>
-                        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The tag &#39;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&#39; has a deprecated format and will no longer work in &quot;</span> \
-                              <span class="sa">f</span><span class="s2">&quot;dymos version 2.0.0. Use &#39;dymos.state_rate_source:</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&#39; instead.&quot;</span>
-                        <span class="n">om</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">OMDeprecationWarning</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state_options</span><span class="p">:</span>
-                        <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">StateOptionsDictionary</span><span class="p">()</span>
-                        <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span>
-
-                    <span class="k">if</span> <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">prom_name</span><span class="p">:</span>
-                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rate_source has been declared twice for state &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&#39; which is tagged on &#39;</span><span class="si">{</span><span class="n">prom_name</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
-
-                    <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prom_name</span>
-
-                <span class="c1"># Declares units for state.</span>
-                <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dymos.state_units:&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;state_units:&#39;</span><span class="p">):</span>
-                    <span class="n">tagged_state_units</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;state_units:&#39;</span><span class="p">):</span>
-                        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The tag &#39;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&#39; has a deprecated format and will no longer work in &quot;</span> \
-                              <span class="sa">f</span><span class="s2">&quot;dymos version 2.0.0. Use &#39;dymos.</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&#39; instead.&quot;</span>
-                        <span class="n">om</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">OMDeprecationWarning</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&#39; tag declared on &#39;</span><span class="si">{</span><span class="n">prom_name</span><span class="si">}</span><span class="s2">&#39; also requires &quot;</span>
-                                         <span class="sa">f</span><span class="s2">&quot;that the &#39;dymos.state_rate_source:</span><span class="si">{</span><span class="n">tagged_state_units</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
-                                         <span class="sa">f</span><span class="s2">&quot;tag be declared.&quot;</span><span class="p">)</span>
-                    <span class="n">state_options</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tagged_state_units</span>
-
-        <span class="c1"># Check over all existing states and make sure we aren&#39;t missing any rate sources.</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="n">state_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;rate_source&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;State &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; is missing a rate_source.&quot;</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">check_time_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that time options are valid and issue warnings if invalid options are provided.</span>
@@ -2329,11 +2331,11 @@ title="Open an issue"
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Phase time options have no effect because fix_initial=True &#39;</span>
                               <span class="sa">f</span><span class="s1">&#39;or input_initial=True for phase </span><span class="se">\&#39;</span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">{</span><span class="n">str_invalid_opts</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_initial&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_initial&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_initial&#39;</span><span class="p">]:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Phase </span><span class="se">\&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1"> initial time is an externally-connected input, &#39;</span>
                           <span class="s1">&#39;therefore fix_initial has no effect.&#39;</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_duration&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_initial&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_duration&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_duration&#39;</span><span class="p">]:</span>
             <span class="n">invalid_options</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">duration_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;duration_bounds&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">duration_bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">duration_bounds</span> <span class="o">!=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
@@ -2346,7 +2348,7 @@ title="Open an issue"
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Phase time options have no effect because fix_duration=True &#39;</span>
                               <span class="sa">f</span><span class="s1">&#39;or input_duration=True for phase </span><span class="se">\&#39;</span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">{</span><span class="n">str_invalid_opts</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_duration&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_duration&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_duration&#39;</span><span class="p">]:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Phase </span><span class="se">\&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1"> time duration is an externally-connected input, &#39;</span>
                           <span class="s1">&#39;therefore fix_duration has no effect.&#39;</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
 

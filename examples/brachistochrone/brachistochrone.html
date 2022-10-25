@@ -326,6 +326,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../features/phases/analytic_phases.html">
+     Analytic Phases in Dymos
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../features/phases/segments.html">
      Segments
     </a>
@@ -850,8 +855,8 @@ without friction along the wire moves from point A to point B in minimum time.</
 <section id="system-dynamics">
 <h2>System dynamics<a class="headerlink" href="#system-dynamics" title="Permalink to this headline">#</a></h2>
 <p>From the free-body diagram above, the evolution of the state variables is given by the following ordinary differential equations (ODE).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2a8ffe79-f742-4024-8d9e-ea6122d217bd">
-<span class="eqno">(13)<a class="headerlink" href="#equation-2a8ffe79-f742-4024-8d9e-ea6122d217bd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6d1e3965-3671-4644-abc6-4e32c573eded">
+<span class="eqno">(13)<a class="headerlink" href="#equation-6d1e3965-3671-4644-abc6-4e32c573eded" title="Permalink to this equation">#</a></span>\[\begin{align}
     \frac{d x}{d t} &amp;= v \sin(\theta) \\
     \frac{d y}{d t} &amp;= -v \cos(\theta) \\
     \frac{d v}{d t} &amp;= g \cos(\theta)
@@ -869,8 +874,8 @@ without friction along the wire moves from point A to point B in minimum time.</
 <p>In this case, starting point <strong>A</strong> is given as <em>(0, 10)</em>.
 The point moving along the curve will begin there with zero initial velocity.</p>
 <p>The initial conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9804985b-3b53-4dd5-b49a-54745fbfd3a2">
-<span class="eqno">(14)<a class="headerlink" href="#equation-9804985b-3b53-4dd5-b49a-54745fbfd3a2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bbe36846-1496-4e99-bf04-04d9ae478246">
+<span class="eqno">(14)<a class="headerlink" href="#equation-bbe36846-1496-4e99-bf04-04d9ae478246" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_0 &amp;= 0 \\
     y_0 &amp;= 10 \\
     v_0 &amp;= 0
@@ -878,8 +883,8 @@ The point moving along the curve will begin there with zero initial velocity.</p
 <p>The end point <strong>B</strong> is given as <em>(10, 5)</em>.
 The point will end there, but the velocity at that point is not constrained.</p>
 <p>The final conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b0be123b-f947-4b12-9df5-cf3544cb2683">
-<span class="eqno">(15)<a class="headerlink" href="#equation-b0be123b-f947-4b12-9df5-cf3544cb2683" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-352b6371-b5ab-40dd-99f0-8952440b30e7">
+<span class="eqno">(15)<a class="headerlink" href="#equation-352b6371-b5ab-40dd-99f0-8952440b30e7" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_f &amp;= 10 \\
     y_f &amp;= 5 \\
     v_f &amp;= \mathrm{free}
@@ -1044,17 +1049,17 @@ Component: BrachistochroneODE &#39;ode&#39;
 -------------------------------------------------------------------------------
 
 &#39;check&#39;    wrt &#39;g&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;check&#39;    wrt &#39;theta&#39;      | 3.0320e+03 | 3.0320e+03 | 1.7772e-15 | 5.8617e-19
-&#39;check&#39;    wrt &#39;v&#39;          | 1.8590e+01 | 1.8590e+01 | 0.0000e+00 | 0.0000e+00
-&#39;vdot&#39;     wrt &#39;g&#39;          | 1.6643e+00 | 1.6643e+00 | 1.1102e-16 | 6.6708e-17
-&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.4645e+01 | 1.4645e+01 | 1.9860e-15 | 1.3561e-16
+&#39;check&#39;    wrt &#39;theta&#39;      | 1.3713e+01 | 1.3713e+01 | 3.6078e-15 | 2.6310e-16
+&#39;check&#39;    wrt &#39;v&#39;          | 3.0748e+00 | 3.0748e+00 | 4.9651e-16 | 1.6148e-16
+&#39;vdot&#39;     wrt &#39;g&#39;          | 1.4700e+00 | 1.4700e+00 | 3.5108e-16 | 2.3883e-16
+&#39;vdot&#39;     wrt &#39;theta&#39;      | 1.6524e+01 | 1.6524e+01 | 2.9458e-15 | 1.7827e-16
 &#39;vdot&#39;     wrt &#39;v&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
 &#39;xdot&#39;     wrt &#39;g&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;xdot&#39;     wrt &#39;theta&#39;      | 1.2027e+01 | 1.2027e+01 | 1.9860e-15 | 1.6513e-16
-&#39;xdot&#39;     wrt &#39;v&#39;          | 1.4933e+00 | 1.4933e+00 | 1.1124e-16 | 7.4490e-17
+&#39;xdot&#39;     wrt &#39;theta&#39;      | 7.4095e+00 | 7.4095e+00 | 1.8971e-15 | 2.5604e-16
+&#39;xdot&#39;     wrt &#39;v&#39;          | 1.6850e+00 | 1.6850e+00 | 2.4825e-16 | 1.4734e-16
 &#39;ydot&#39;     wrt &#39;g&#39;          | 0.0000e+00 | 0.0000e+00 | 0.0000e+00 | nan
-&#39;ydot&#39;     wrt &#39;theta&#39;      | 9.1136e+00 | 9.1136e+00 | 1.8310e-15 | 2.0091e-16
-&#39;ydot&#39;     wrt &#39;v&#39;          | 1.6643e+00 | 1.6643e+00 | 1.1102e-16 | 6.6708e-17
+&#39;ydot&#39;     wrt &#39;theta&#39;      | 9.0516e+00 | 9.0516e+00 | 1.6021e-15 | 1.7700e-16
+&#39;ydot&#39;     wrt &#39;v&#39;          | 1.4700e+00 | 1.4700e+00 | 3.5108e-16 | 2.3883e-16
 
 ##################################################################
 Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
@@ -1062,7 +1067,7 @@ Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 
 &#39;&lt;output&gt;&#39; wrt &#39;&lt;variable&gt;&#39; | calc mag.  | check mag. | a(cal-chk) | r(cal-chk)
 -------------------------------------------------------------------------------
-&#39;ydot&#39;     wrt &#39;theta&#39;      | 9.1136e+00 | 9.1136e+00 | 1.8310e-15 | 2.0091e-16
+&#39;check&#39;    wrt &#39;theta&#39;      | 1.3713e+01 | 1.3713e+01 | 3.6078e-15 | 2.6310e-16
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/problem.py:2565: DerivativesWarning:No derivative data found for Component &#39;_auto_ivc&#39;.
@@ -1154,22 +1159,21 @@ Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
+
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.043046 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.032105 seconds.
 Total jacobian shape: (40, 50) 
-
-
-Jacobian shape: (40, 50)  (19.85% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (40, 50)  (19.85% nonzero)
 FWD solves: 13   REV solves: 0
 Total colors vs. total size: 13 vs 50  (74.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.043046 sec.
-Time to compute coloring: 0.047765 sec.
+Time to compute sparsity: 0.032105 sec.
+Time to compute coloring: 0.036082 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
@@ -1325,7 +1329,7 @@ Model viewer data has already been recorded for Driver.
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:227: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.019976 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.009820 seconds.
 Total jacobian shape: (12, 22) 
 
 
@@ -1334,15 +1338,15 @@ FWD solves: 0   REV solves: 12
 Total colors vs. total size: 12 vs 12  (0.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.019976 sec.
-Time to compute coloring: 0.020513 sec.
+Time to compute sparsity: 0.009820 sec.
+Time to compute coloring: 0.015130 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/driver.py:1301: DerivativesWarning:ScipyOptimizeDriver: Coloring was deactivated.  Improvement of 0.0% was less than min allowed (5.0%).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.013895 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.007890 seconds.
 Total jacobian shape: (12, 22) 
 
 
@@ -1351,8 +1355,8 @@ FWD solves: 0   REV solves: 12
 Total colors vs. total size: 12 vs 12  (0.0% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.013895 sec.
-Time to compute coloring: 0.020395 sec.
+Time to compute sparsity: 0.007890 sec.
+Time to compute coloring: 0.014838 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>

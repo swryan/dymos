@@ -1592,14 +1592,16 @@ are to be provided.</p>
 <blockquote>
 <div><dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">Phase.</span></span><span class="sig-name descname"><span class="pre">add_timeseries_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeseries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'timeseries'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dymos/phase/phase.html#Phase.add_timeseries_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Phase.</span></span><span class="sig-name descname"><span class="pre">add_timeseries_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeseries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'timeseries'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dymos/phase/phase.html#Phase.add_timeseries_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Add a variable to the timeseries outputs of the phase.</p>
+<p>If name is given as an expression, this expression will be passed to an OpenMDAO ExecComp and the result
+computed and stored in the timeseries output under the variable name to the left of the equal sign.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>name</strong><span class="classifier">str, or list of str</span></dt><dd><p>The name(s) of the variable to be used as a timeseries output.  Must be one of
-‘time’, ‘time_phase’, one of the states, controls, control rates, or parameters,
-in the phase, the path to an output variable in the ODE, or a glob pattern
+<dt><strong>name</strong><span class="classifier">str, or list of str</span></dt><dd><p>The name(s) of the variable to be used as a timeseries output, or a mathematical expression to be used
+as a timeseries output. If a name, it be one of ‘time’, ‘time_phase’, one of the states, controls,
+control rates, or parameters, in the phase, the path to an output variable in the ODE, or a glob pattern
 matching some outputs in the ODE.</p>
 </dd>
 <dt><strong>output_name</strong><span class="classifier">str or None or list or dict</span></dt><dd><p>The name of the variable as listed in the phase timeseries outputs.  By
@@ -1615,6 +1617,8 @@ If a list of names is provided, units can be a matching list or dictionary.</p>
 since Dymos doesn’t necessarily know the shape of ODE outputs until setup time.</p>
 </dd>
 <dt><strong>timeseries</strong><span class="classifier">str or None</span></dt><dd><p>The name of the timeseries to which the output is being added.</p>
+</dd>
+<dt><strong>**kwargs</strong></dt><dd><p>Additional arguments passed to the exec comp.</p>
 </dd>
 </dl>
 </dd>

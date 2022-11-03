@@ -674,6 +674,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span> <span class="o">=</span> <span class="n">GridRefinementOptionsDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span> <span class="o">=</span> <span class="n">SimulateOptionsDictionary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeseries_ec_vars</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># Dictionaries of variable options that are set by the user via the API</span>
         <span class="c1"># These will be applied over any defaults specified by decorators on the ODE</span>
@@ -1798,16 +1799,19 @@ title="Open an issue"
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">constraint_name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Phase.add_timeseries_output"><a class="viewcode-back" href="../../../features/phases/timeseries.html#dymos.Phase.add_timeseries_output">[docs]</a>    <span class="k">def</span> <span class="nf">add_timeseries_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                              <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">):</span>
+                              <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a variable to the timeseries outputs of the phase.</span>
+
+<span class="sd">        If name is given as an expression, this expression will be passed to an OpenMDAO ExecComp and the result</span>
+<span class="sd">        computed and stored in the timeseries output under the variable name to the left of the equal sign.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str, or list of str</span>
-<span class="sd">            The name(s) of the variable to be used as a timeseries output.  Must be one of</span>
-<span class="sd">            &#39;time&#39;, &#39;time_phase&#39;, one of the states, controls, control rates, or parameters,</span>
-<span class="sd">            in the phase, the path to an output variable in the ODE, or a glob pattern</span>
+<span class="sd">            The name(s) of the variable to be used as a timeseries output, or a mathematical expression to be used</span>
+<span class="sd">            as a timeseries output. If a name, it be one of &#39;time&#39;, &#39;time_phase&#39;, one of the states, controls,</span>
+<span class="sd">            control rates, or parameters, in the phase, the path to an output variable in the ODE, or a glob pattern</span>
 <span class="sd">            matching some outputs in the ODE.</span>
 <span class="sd">        output_name : str or None or list or dict</span>
 <span class="sd">            The name of the variable as listed in the phase timeseries outputs.  By</span>
@@ -1823,9 +1827,12 @@ title="Open an issue"
 <span class="sd">            since Dymos doesn&#39;t necessarily know the shape of ODE outputs until setup time.</span>
 <span class="sd">        timeseries : str or None</span>
 <span class="sd">            The name of the timeseries to which the output is being added.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional arguments passed to the exec comp.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">name_i</span> <span class="k">else</span> <span class="kc">False</span>
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># accept dict for units when using array of name</span>
                     <span class="n">unit</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name_i</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># allow matching list for units</span>
@@ -1837,18 +1844,22 @@ title="Open an issue"
                                                     <span class="n">units</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
                                                     <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
                                                     <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
-                                                    <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                                    <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                    <span class="n">expr</span><span class="o">=</span><span class="n">expr</span><span class="p">)</span>
 
                 <span class="c1"># Handle specific units for wildcard names.</span>
                 <span class="k">if</span> <span class="n">oname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name_i</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">][</span><span class="n">oname</span><span class="p">][</span><span class="s1">&#39;wildcard_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
 
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">else</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">output_name</span><span class="p">,</span>
                                         <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
                                         <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
                                         <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
-                                        <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+                                        <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                        <span class="n">expr</span><span class="o">=</span><span class="n">expr</span><span class="p">,</span>
+                                        <span class="n">expr_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">add_timeseries_rate_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                                    <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">):</span>
@@ -1879,6 +1890,7 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">name_i</span> <span class="k">else</span> <span class="kc">False</span>
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># accept dict for units when using array of name</span>
                     <span class="n">unit</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name_i</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># allow matching list for units</span>
@@ -1890,7 +1902,8 @@ title="Open an issue"
                                                     <span class="n">units</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
                                                     <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
                                                     <span class="n">timeseries</span><span class="o">=</span><span class="n">timeseries</span><span class="p">,</span>
-                                                    <span class="n">rate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                                    <span class="n">rate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                    <span class="n">expr</span><span class="o">=</span><span class="n">expr</span><span class="p">)</span>
 
                 <span class="c1"># Handle specific units for wildcard names.</span>
                 <span class="k">if</span> <span class="n">oname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name_i</span><span class="p">:</span>
@@ -1904,7 +1917,7 @@ title="Open an issue"
                                         <span class="n">rate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_timeseries_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                               <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                               <span class="n">timeseries</span><span class="o">=</span><span class="s1">&#39;timeseries&#39;</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">expr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">expr_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a single variable or rate to the timeseries outputs of the phase.</span>
 
@@ -1934,6 +1947,7 @@ title="Open an issue"
 <span class="sd">        rate : bool</span>
 <span class="sd">            If True, add the rate of change of the named variable to the timeseries outputs of the</span>
 <span class="sd">            phase.  The rate variable will be named f&#39;{name}_rate&#39;.  Defaults to False.</span>
+<span class="sd">        expr :</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1943,7 +1957,9 @@ title="Open an issue"
         <span class="k">if</span> <span class="n">timeseries</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timeseries </span><span class="si">{</span><span class="n">timeseries</span><span class="si">}</span><span class="s1"> does not exist in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">expr</span><span class="p">:</span>
+            <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
             <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="k">elif</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1962,6 +1978,8 @@ title="Open an issue"
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape</span>
             <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;is_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rate</span>
+            <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;is_expr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr</span>
+            <span class="n">ts_output</span><span class="p">[</span><span class="s1">&#39;expr_kwargs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr_kwargs</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">][</span><span class="n">output_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts_output</span>
 
@@ -2197,7 +2215,8 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">classify_var</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">state_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">,</span>
                             <span class="n">parameter_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">,</span>
                             <span class="n">control_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">control_options</span><span class="p">,</span>
-                            <span class="n">polynomial_control_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">)</span>
+                            <span class="n">polynomial_control_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">,</span>
+                            <span class="n">timeseries_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_check_ode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2301,7 +2320,8 @@ title="Open an issue"
         <span class="k">try</span><span class="p">:</span>
             <span class="n">configure_timeseries_output_introspection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">val_err</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error during configure_timeseries_output_introspection in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">val_err</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error during configure_timeseries_output_introspection in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>\
+                <span class="kn">from</span> <span class="nn">val_err</span>
 
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_timeseries_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -2667,13 +2687,13 @@ title="Open an issue"
             <span class="n">op_dict</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">op_dict</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># Set the integration times</span>
-        <span class="n">op</span> <span class="o">=</span> <span class="n">op_dict</span><span class="p">[</span><span class="s1">&#39;timeseries.time&#39;</span><span class="p">]</span>
+        <span class="n">op</span> <span class="o">=</span> <span class="n">op_dict</span><span class="p">[</span><span class="s1">&#39;timeseries.timeseries_comp.time&#39;</span><span class="p">]</span>
         <span class="n">prob</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">self_path</span><span class="si">}</span><span class="s1">t_initial&#39;</span><span class="p">,</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
         <span class="n">prob</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">self_path</span><span class="si">}</span><span class="s1">t_duration&#39;</span><span class="p">,</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">-</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
 
         <span class="c1"># Assign initial state values</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">phs</span><span class="o">.</span><span class="n">state_options</span><span class="p">:</span>
-            <span class="n">op</span> <span class="o">=</span> <span class="n">op_dict</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;timeseries.states:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+            <span class="n">op</span> <span class="o">=</span> <span class="n">op_dict</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;timeseries.timeseries_comp.states:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
             <span class="n">prob</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">self_path</span><span class="si">}</span><span class="s1">initial_states:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 
         <span class="c1"># Assign control values</span>

@@ -805,8 +805,8 @@ Such phases are avaialble in dymos through the <code class="docutils literal not
 Compared to implicit approaches this reduces the size of the optimization problem by removing some design variables and corresponding defect constraints.
 Compared to explicit approaches it removes the need to numerically propagate the ODE, which is generally a performance bottleneck.</p>
 <p>For analytic phases, the OpenMDAO system we provide to the phase provides the <em>solution</em> to the ODE, not the ODE itself.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-be984028-085f-46af-b277-20bdf6db4999">
-<span class="eqno">(88)<a class="headerlink" href="#equation-be984028-085f-46af-b277-20bdf6db4999" title="Permalink to this equation">#</a></span>\[\begin{align}  
+<div class="amsmath math notranslate nohighlight" id="equation-dd4bc100-7127-4679-918f-f5e8d6a13464">
+<span class="eqno">(88)<a class="headerlink" href="#equation-dd4bc100-7127-4679-918f-f5e8d6a13464" title="Permalink to this equation">#</a></span>\[\begin{align}  
     \textbf x = \textbf f(t, \textbf p)
 \end{align}\]</div>
 <p>where
@@ -857,26 +857,26 @@ a shape of (3,).</p>
 <section id="a-basic-example">
 <h2>A basic example<a class="headerlink" href="#a-basic-example" title="Permalink to this headline">#</a></h2>
 <p>Suppose we want to use Dymos to solve the ODE</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f178bfa9-b2fd-49cf-b8de-6d1265e95766">
-<span class="eqno">(89)<a class="headerlink" href="#equation-f178bfa9-b2fd-49cf-b8de-6d1265e95766" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3fed3116-1e96-455b-b2a4-4efe2cafd55a">
+<span class="eqno">(89)<a class="headerlink" href="#equation-3fed3116-1e96-455b-b2a4-4efe2cafd55a" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dx}{dt} = x - t^2 + 1
 \end{align}\]</div>
 <p>subject to:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ad16c39a-18ed-4ce0-804d-70b6f4cc0857">
-<span class="eqno">(90)<a class="headerlink" href="#equation-ad16c39a-18ed-4ce0-804d-70b6f4cc0857" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2661b3d1-09f3-4283-9f5d-9c5c14388aba">
+<span class="eqno">(90)<a class="headerlink" href="#equation-2661b3d1-09f3-4283-9f5d-9c5c14388aba" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) = 0.5
 \end{align}\]</div>
 <p>Here we want to find the value of <em>x</em> at t=2.</p>
 <p>We can absolutely use a pseudospectral method or explicit shooting in Dymos to find the value of <em>x</em> on a given interval using this information.
 But in this case, the solution is known analytically.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-90cc3bd2-c22e-44ab-925d-2986e63d6418">
-<span class="eqno">(91)<a class="headerlink" href="#equation-90cc3bd2-c22e-44ab-925d-2986e63d6418" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8fb962a0-b31b-4733-8a07-67fb2212d809">
+<span class="eqno">(91)<a class="headerlink" href="#equation-8fb962a0-b31b-4733-8a07-67fb2212d809" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(t) &amp;= t^2 + 2t + 1 - c_1e^t
 \end{align}\]</div>
 <p>We need to find the value of constant <span class="math notranslate nohighlight">\(c_1\)</span> to find our particular solution.
 Applying the given initial condition gives c_1 as 0.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2956bfcd-6b92-4434-b384-1c8d142dae7a">
-<span class="eqno">(92)<a class="headerlink" href="#equation-2956bfcd-6b92-4434-b384-1c8d142dae7a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-436afe93-99db-4956-8226-b5213f4aabfa">
+<span class="eqno">(92)<a class="headerlink" href="#equation-436afe93-99db-4956-8226-b5213f4aabfa" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) &amp;= 1 - c_1 = 0.5 \\
   c_1 &amp;\equiv y_0 = 0.5
 \end{align}\]</div>

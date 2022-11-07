@@ -817,13 +817,13 @@ Dynamic systems are typically defined by some set of ordinary
 differential equations (the ODE) which governs their behavior.</p>
 <p>Consider a simple damped harmonic oscillator.</p>
 <p><img alt="Damped harmonic oscillator free-body diagram" src="../../_images/spring_mass_damper.png" /></p>
-<div class="amsmath math notranslate nohighlight" id="equation-44692df4-f9ce-4279-88aa-3034631cc59d">
-<span class="eqno">(11)<a class="headerlink" href="#equation-44692df4-f9ce-4279-88aa-3034631cc59d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f8b79327-9669-44c6-ae47-e3ca51c549dc">
+<span class="eqno">(11)<a class="headerlink" href="#equation-f8b79327-9669-44c6-ae47-e3ca51c549dc" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ddot{x} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
 <p>Converting this to a first order system results in an ODE system with two states:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-26e46b7b-ad78-4eb6-9135-147fa80568fe">
-<span class="eqno">(12)<a class="headerlink" href="#equation-26e46b7b-ad78-4eb6-9135-147fa80568fe" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3226027b-345e-4574-bef3-b701cdd31111">
+<span class="eqno">(12)<a class="headerlink" href="#equation-3226027b-345e-4574-bef3-b701cdd31111" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{x} &amp;= v \\
     \dot{v} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
@@ -969,13 +969,15 @@ Some elements of this code will be explained later, but we’ll hit the highligh
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
+
+
+Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9046/1136298122.py:61: MatplotlibDeprecationWarning: Passing the loc parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_8860/1136298122.py:61: MatplotlibDeprecationWarning: Passing the loc parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
   fig.legend((sol[0], sim[0]), (&#39;solution&#39;, &#39;simulation&#39;), &#39;lower right&#39;, ncol=2)
 </pre></div>
 </div>
@@ -1113,22 +1115,23 @@ Otherwise, we can pass it only to certain states as an argument to <code class="
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
-
-
-==================
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================
 traj.phases.phase0
 ==================
 NL: Newton 0 ; 64.9519053 1
-NL: Newton 1 ; 5.0296009e-08 7.74357715e-10
-NL: Newton 2 ; 8.48981893e-15 1.30709313e-16
+NL: Newton 1 ; 5.02959876e-08 7.74357386e-10
+NL: Newton 2 ; 4.83213257e-15 7.43955478e-17
 NL: Newton Converged
+
+Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9046/2581959376.py:61: MatplotlibDeprecationWarning: Passing the loc parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_8860/2581959376.py:61: MatplotlibDeprecationWarning: Passing the loc parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
   fig.legend((sol[0], sim[0]), (&#39;solution&#39;, &#39;simulation&#39;), &#39;lower right&#39;, ncol=2)
 </pre></div>
 </div>
@@ -1226,6 +1229,11 @@ Even though the initial time and duration of the phase are fixed, we provide the
         None
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1567: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.phase0.time.time&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
             Current function value: [15.]
             Iterations: 1
@@ -1235,16 +1243,11 @@ Optimization Complete
 -----------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1567: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.phase0.time.time&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9046/1344483348.py:71: MatplotlibDeprecationWarning: Passing the loc parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_8860/1344483348.py:71: MatplotlibDeprecationWarning: Passing the loc parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
   fig.legend((sol[0], sim[0]), (&#39;solution&#39;, &#39;simulation&#39;), &#39;lower right&#39;, ncol=2)
 </pre></div>
 </div>

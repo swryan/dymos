@@ -222,6 +222,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -536,7 +541,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/reentry/reentry.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/reentry/reentry.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -554,7 +559,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/reentry/reentry.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/reentry/reentry.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -779,8 +784,8 @@ optimal control problem governed by six equations of motion and limited
 by the aerodynamic heating rate. For a detailed layout of this problem
 and other optimal control problems see Betts <span id="id1">[<a class="reference internal" href="#id19" title="J. Betts. Practical Methods for Optimal Control and Estimation Using Nonlinear Programming. Society for Industrial and Applied Mathematics, second edition, 2010. URL: https://epubs.siam.org/doi/abs/10.1137/1.9780898718577, arXiv:https://epubs.siam.org/doi/pdf/10.1137/1.9780898718577, doi:10.1137/1.9780898718577.">Bet10</a>]</span>.
 The governing equations of motion for this problem are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5467fca9-ddcb-413e-9feb-6982df54ca08">
-<span class="eqno">(69)<a class="headerlink" href="#equation-5467fca9-ddcb-413e-9feb-6982df54ca08" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-845e31de-b67d-438f-a082-30c07df4b1f8">
+<span class="eqno">(74)<a class="headerlink" href="#equation-845e31de-b67d-438f-a082-30c07df4b1f8" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dh}{dt} &amp;= v \sin \gamma \\
   \frac{d\phi}{dt} &amp;= \frac{v}{r} \cos \gamma \frac{\sin \psi}{\cos \theta} \\
   \frac{d\theta}{dt} &amp;= \frac{v}{r} \cos \gamma \cos \psi  \\
@@ -803,8 +808,8 @@ final altitude, without exceding a maximum heat rate at the leading
 edges. This heat rate is constrained by <span class="math notranslate nohighlight">\(q \leq 70\)</span> where q
 <span class="math notranslate nohighlight">\([\frac{btu}{ft^2s}]\)</span> is the heating rate.</p>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-234f44a6-6949-4aeb-bea0-924d4091c19b">
-<span class="eqno">(70)<a class="headerlink" href="#equation-234f44a6-6949-4aeb-bea0-924d4091c19b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2871f09a-eaae-46a0-b8db-b79802f606c9">
+<span class="eqno">(75)<a class="headerlink" href="#equation-2871f09a-eaae-46a0-b8db-b79802f606c9" title="Permalink to this equation">#</a></span>\[\begin{align}
   h_0 &amp;= 26000 \\
   v_0 &amp;= 25600 \\
   \phi_0 &amp;= 0 \\
@@ -813,8 +818,8 @@ edges. This heat rate is constrained by <span class="math notranslate nohighligh
   \psi_0 &amp;= \frac{\pi}{2}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-50cc03f9-63e6-43a7-8557-acf62260fb15">
-<span class="eqno">(71)<a class="headerlink" href="#equation-50cc03f9-63e6-43a7-8557-acf62260fb15" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4e740459-8ced-441c-904c-d1ff84026043">
+<span class="eqno">(76)<a class="headerlink" href="#equation-4e740459-8ced-441c-904c-d1ff84026043" title="Permalink to this equation">#</a></span>\[\begin{align}
   h_0 &amp;= 80000 \\
   v_0 &amp;= 2500 \\
   \gamma_0 &amp;= -0.08727 \\
@@ -832,13 +837,13 @@ second component computes the aerodynamic forces of lift and drag on the
 shuttle. The third component is where the heating rate on the leading
 edge of the shuttles wings is computed. The heating rate is given by
 <span class="math notranslate nohighlight">\(q = q_a q_r\)</span> where</p>
-<div class="amsmath math notranslate nohighlight" id="equation-18842ad4-e435-4c67-a220-3396a4866c8e">
-<span class="eqno">(72)<a class="headerlink" href="#equation-18842ad4-e435-4c67-a220-3396a4866c8e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-41b127a7-be66-4200-b61c-0a6f297cca58">
+<span class="eqno">(77)<a class="headerlink" href="#equation-41b127a7-be66-4200-b61c-0a6f297cca58" title="Permalink to this equation">#</a></span>\[\begin{align}
   q_a &amp;= c_0 + c_1\alpha + c_2 \alpha^2 + c_3 \alpha^3
 \end{align}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4d7fb285-9ec9-4d1a-894a-2b305bb5e6d9">
-<span class="eqno">(73)<a class="headerlink" href="#equation-4d7fb285-9ec9-4d1a-894a-2b305bb5e6d9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae83272c-5296-4a45-bbf2-5e347028bf25">
+<span class="eqno">(78)<a class="headerlink" href="#equation-ae83272c-5296-4a45-bbf2-5e347028bf25" title="Permalink to this equation">#</a></span>\[\begin{align}
   q_r &amp;= 17700 \rho^.5 (.0001v)^{3.07}
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c_0, c_1, c_2,\)</span> and <span class="math notranslate nohighlight">\(c_3\)</span> are constants, <span class="math notranslate nohighlight">\(\alpha\)</span> <span class="math notranslate nohighlight">\([deg]\)</span> is the
@@ -857,7 +862,7 @@ dymos model sees.</p>
 
 
 <span class="k">class</span> <span class="nc">Aerodynamics</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Defines the aerodynamics for the shuttle reentry problem.</span>
 
 <span class="sd">    References</span>
@@ -941,7 +946,7 @@ dymos model sees.</p>
 
 
 <span class="k">class</span> <span class="nc">AerodynamicHeating</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Defines the Aerodynamic heating equations for the shuttle reentry problem.</span>
 
 <span class="sd">    References</span>
@@ -1019,7 +1024,7 @@ dymos model sees.</p>
 
 
 <span class="k">class</span> <span class="nc">FlightDynamics</span><span class="p">(</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Defines the flight dynamics for the shuttle reentry problem.</span>
 
 <span class="sd">    References</span>
@@ -1193,7 +1198,7 @@ dymos model sees.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openmdao.api</span> <span class="kn">import</span> <span class="n">Group</span>
 
 <span class="k">class</span> <span class="nc">ShuttleODE</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The ODE for the Shuttle reentry problem.</span>
 
 <span class="sd">    References</span>
@@ -1313,7 +1318,9 @@ The two controls are <span class="math notranslate nohighlight">\(\alpha\)</span
 INFO: checking out_of_order
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking out_of_order
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._compute_totals.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._get_coloring.
+INFO:check_config:checking out_of_order
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
@@ -1474,7 +1481,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.730152 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.210180 seconds.
 Total jacobian shape: (327, 358) 
 </pre></div>
 </div>
@@ -1483,9 +1490,9 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 358  (94.4% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 1.730152 sec.
-Time to compute coloring: 0.466982 sec.
-Memory to compute coloring: 0.308594 MB.
+Time to compute sparsity: 1.210180 sec.
+Time to compute coloring: 0.365631 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/examples/shuttle_reentry/heating_comp.py:45: RuntimeWarning: invalid value encountered in power
@@ -1498,11 +1505,11 @@ Memory to compute coloring: 0.308594 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   36.1753
-       User Objective Time :       0.6783
-       User Sensitivity Time :     4.9395
-       Interface Time :            1.5042
-       Opt Solver Time:           29.0534
+    Total Time:                   29.3262
+       User Objective Time :       0.5561
+       User Sensitivity Time :     3.9821
+       Interface Time :            1.2104
+       Opt Solver Time:           23.5776
     Calls to Objective Function :     274
     Calls to Sens Function :          141
 
@@ -2202,10 +2209,6 @@ Memory to compute coloring: 0.308594 MB.
         325  traj.phases.phase0.continuity_comp.defect_control_rates:beta_rate     e   0.000000E+00   -8.709547E-16    0.000000E+00              9.00000E+100
 
 --------------------------------------------------------------------------------
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj

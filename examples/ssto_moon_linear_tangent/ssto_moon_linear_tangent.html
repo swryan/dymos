@@ -222,6 +222,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -536,7 +541,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/ssto_moon_linear_tangent/ssto_moon_linear_tangent.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/ssto_moon_linear_tangent/ssto_moon_linear_tangent.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -554,7 +559,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/ssto_moon_linear_tangent/ssto_moon_linear_tangent.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/ssto_moon_linear_tangent/ssto_moon_linear_tangent.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -799,7 +804,7 @@ only significant change is that we have a new component,
 <span class="n">g</span> <span class="o">=</span> <span class="mf">1.61544</span>  <span class="c1"># lunar gravity, m/s**2</span>
 
 <span class="k">class</span> <span class="nc">LaunchVehicle2DEOM</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple 2D Cartesian Equations of Motion for a launch vehicle subject to thrust and drag.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -922,7 +927,7 @@ only significant change is that we have a new component,
         <span class="n">jacobian</span><span class="p">[</span><span class="s1">&#39;mdot&#39;</span><span class="p">,</span> <span class="s1">&#39;Isp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F_T</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="n">Isp</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">LinearTangentGuidanceComp</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Compute pitch angle from static controls governing linear expression for</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute pitch angle from static controls governing linear expression for</span>
 <span class="sd">        pitch angle tangent as function of time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -978,7 +983,7 @@ only significant change is that we have a new component,
         <span class="n">jacobian</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;time_phase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">denom</span>
 
 <span class="k">class</span> <span class="nc">LaunchVehicleLinearTangentODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The LaunchVehicleLinearTangentODE for this case consists of a guidance component and</span>
 <span class="sd">    the EOM.  Guidance is simply an OpenMDAO ExecComp which computes the arctangent of the</span>
 <span class="sd">    tan_theta variable.</span>
@@ -1059,7 +1064,9 @@ only significant change is that we have a new component,
 INFO: checking out_of_order
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking out_of_order
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._compute_totals.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._get_coloring.
+INFO:check_config:checking out_of_order
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
@@ -1165,18 +1172,18 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.121474 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.095442 seconds.
 Total jacobian shape: (103, 103) 
-
-
-Jacobian shape: (103, 103)  (14.09% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (103, 103)  (14.09% nonzero)
 FWD solves: 18   REV solves: 0
 Total colors vs. total size: 18 vs 103  (82.5% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.121474 sec.
-Time to compute coloring: 0.124563 sec.
-Memory to compute coloring: 0.000000 MB.
+Time to compute sparsity: 0.095442 sec.
+Time to compute coloring: 0.099401 sec.
+Memory to compute coloring: 0.304688 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1185,18 +1192,18 @@ Memory to compute coloring: 0.000000 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.1241
-       User Objective Time :       0.0148
-       User Sensitivity Time :     0.0549
-       Interface Time :            0.0286
-       Opt Solver Time:            0.0258
+    Total Time:                    0.0904
+       User Objective Time :       0.0111
+       User Sensitivity Time :     0.0409
+       Interface Time :            0.0188
+       Opt Solver Time:            0.0196
     Calls to Objective Function :       6
     Calls to Sens Function :            5
 
 
    Objectives
-      Index  Name                                    Value
-          0  traj.phases.phase0.time.time     4.817168E+00
+      Index  Name                                 Value
+          0  traj.phases.phase0.time.t     4.817168E+00
 
    Variables (c - continuous, i - integer, d - discrete)
       Index  Name                                           Type      Lower Bound            Value      Upper Bound     Status
@@ -1413,10 +1420,6 @@ Memory to compute coloring: 0.000000 MB.
 --------------------------------------------------------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 </pre></div>
 </div>
@@ -1469,12 +1472,12 @@ Memory to compute coloring: 0.000000 MB.
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.parameters:a_ctrl&#39;</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.parameters:b_ctrl&#39;</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.time_phase&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time_phase&#39;</span><span class="p">)</span>
 <span class="n">tan_theta_sol</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">t</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.parameters:a_ctrl&#39;</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.parameters:b_ctrl&#39;</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.time_phase&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time_phase&#39;</span><span class="p">)</span>
 <span class="n">tan_theta_sim</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">t</span>
 
 <span class="n">param_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">),</span>

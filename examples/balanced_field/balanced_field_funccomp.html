@@ -220,6 +220,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -534,7 +539,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/balanced_field/balanced_field_funccomp.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/balanced_field/balanced_field_funccomp.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -552,7 +557,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/balanced_field/balanced_field_funccomp.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/balanced_field/balanced_field_funccomp.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -907,7 +912,7 @@ Rather than forcing them to rewrite this code in the form of OpenMDAO components
 <span class="kn">import</span> <span class="nn">openmdao.func_api</span> <span class="k">as</span> <span class="nn">omf</span>
 
 <span class="k">def</span> <span class="nf">wrap_ode_func</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">flight_mode</span><span class="p">,</span> <span class="n">grad_method</span><span class="o">=</span><span class="s1">&#39;jax&#39;</span><span class="p">,</span> <span class="n">jax_jit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the metadata from omf needed to create a new ExplciitFuncComp.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nn</span> <span class="o">=</span> <span class="n">num_nodes</span>
@@ -1165,7 +1170,9 @@ This allows us to declare a single ODE component for use in the problem regardle
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:jax._src.lib.xla_bridge:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._compute_totals.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._get_coloring.
+WARNING:jax._src.lib.xla_bridge:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
@@ -1294,22 +1301,22 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.br_to_v1.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1195: DerivativesWarning:&#39;traj.phases.br_to_v1.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.br_to_v1.rhs_all&#39; (class ExplicitFuncComp)
 
-Jacobian shape: (132, 60)  ( 9.80% nonzero)
+Jacobian shape: (132, 60)  ( 9.81% nonzero)
 FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.432004 sec.
-Time to compute coloring: 0.085175 sec.
+Time to compute sparsity: 0.342265 sec.
+Time to compute coloring: 0.068978 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.rto.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1195: DerivativesWarning:&#39;traj.phases.rto.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.rto.rhs_all&#39; (class ExplicitFuncComp)
@@ -1319,12 +1326,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.414305 sec.
-Time to compute coloring: 0.085563 sec.
+Time to compute sparsity: 0.323715 sec.
+Time to compute coloring: 0.068626 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.v1_to_vr.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1195: DerivativesWarning:&#39;traj.phases.v1_to_vr.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.v1_to_vr.rhs_all&#39; (class ExplicitFuncComp)
@@ -1334,12 +1341,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.401434 sec.
-Time to compute coloring: 0.086311 sec.
+Time to compute sparsity: 0.323657 sec.
+Time to compute coloring: 0.071916 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.rotate.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1195: DerivativesWarning:&#39;traj.phases.rotate.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.rotate.rhs_all&#39; (class ExplicitFuncComp)
@@ -1349,12 +1356,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.3% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.409335 sec.
-Time to compute coloring: 0.094953 sec.
+Time to compute sparsity: 0.324494 sec.
+Time to compute coloring: 0.070073 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1140: DerivativesWarning:&#39;traj.phases.climb.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/system.py:1195: DerivativesWarning:&#39;traj.phases.climb.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.climb.rhs_all&#39; (class ExplicitFuncComp)
@@ -1364,12 +1371,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 111  (85.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.549782 sec.
-Time to compute coloring: 0.199436 sec.
-Memory to compute coloring: 0.832031 MB.
+Time to compute sparsity: 0.428210 sec.
+Time to compute coloring: 0.157064 sec.
+Memory to compute coloring: 1.347656 MB.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 6.099130 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 4.708308 seconds.
 Total jacobian shape: (178, 166) 
 
 
@@ -1378,16 +1385,12 @@ FWD solves: 12   REV solves: 0
 Total colors vs. total size: 12 vs 166  (92.8% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 6.099130 sec.
-Time to compute coloring: 0.129042 sec.
+Time to compute sparsity: 4.708308 sec.
+Time to compute coloring: 0.100396 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1567: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb.timeseries.timeseries_comp.states:gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1585: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb.timeseries.timeseries_comp.states:gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
@@ -1426,7 +1429,7 @@ Memory to compute coloring: 0.000000 MB.
 <span class="n">tf_rto</span> <span class="o">=</span> <span class="n">sim_case</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.timeseries.time&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">rf_rto</span> <span class="o">=</span> <span class="n">sim_case</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.timeseries.states:r&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;field length = </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">5.1f</span><span class="si">}</span><span class="s1"> ft&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;field length = </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">5.1f</span><span class="si">}</span><span class="s1"> ft&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
                  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
                  <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">),</span>
                  <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>

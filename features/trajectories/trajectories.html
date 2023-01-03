@@ -222,6 +222,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../examples/hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -536,7 +541,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/features/trajectories/trajectories.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/features/trajectories/trajectories.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -554,7 +559,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/features/trajectories/trajectories.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/features/trajectories/trajectories.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -887,8 +892,8 @@ In order to enforce continuity among certain variables across phases, the user m
 There are two methods in dymos which provide this functionality.
 The <code class="docutils literal notranslate"><span class="pre">add_linkage_constraint</span></code> method provides a very general way of coupling two phases together.
 It does so by generating a constraint of the following form:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d892bf48-241b-4203-be88-1d28f80e2c1a">
-<span class="eqno">(94)<a class="headerlink" href="#equation-d892bf48-241b-4203-be88-1d28f80e2c1a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2ae7d651-45a3-47e6-83bb-15ac7efc2764">
+<span class="eqno">(100)<a class="headerlink" href="#equation-2ae7d651-45a3-47e6-83bb-15ac7efc2764" title="Permalink to this equation">#</a></span>\[\begin{align}
     c = \mathrm{sign}_a \mathrm{var}_a + \mathrm{sign}_b \mathrm{var}_b
 \end{align}\]</div>
 <p>Method <code class="docutils literal notranslate"><span class="pre">add_linkage_constraint</span></code> lets the user specify the variables and phases to be compared for this constraint, as well as the location of the variable in each phase (either ‘initial’ or ‘final’)
@@ -966,8 +971,8 @@ a certain magnitude between two phases:</p>
 </dd>
 <dt><strong>sign_b</strong><span class="classifier">float</span></dt><dd><p>The sign applied to the variable from the second phase in the linkage constraint.</p>
 </dd>
-<dt><strong>units</strong><span class="classifier">str or None or _unspecified</span></dt><dd><p>Units of the linkage.  If _unspecified, dymos will use the units from the variable
-in the first phase of the linkage.  Units of the two specified variables must be
+<dt><strong>units</strong><span class="classifier">str or None or _unspecified</span></dt><dd><p>Units of the linkage. If _unspecified, dymos will use the units from the variable
+in the first phase of the linkage. Units of the two specified variables must be
 compatible.</p>
 </dd>
 <dt><strong>lower</strong><span class="classifier">float or array or None</span></dt><dd><p>The lower bound applied as a constraint on the linkage equation.</p>
@@ -984,12 +989,12 @@ compatible.</p>
 </dd>
 <dt><strong>ref</strong><span class="classifier">float or array or None</span></dt><dd><p>The unit-reference value of the linkage constraint.</p>
 </dd>
-<dt><strong>linear</strong><span class="classifier">bool</span></dt><dd><p>If True, treat this variable as a linear constraint, otherwise False.  Linear
+<dt><strong>linear</strong><span class="classifier">bool</span></dt><dd><p>If True, treat this variable as a linear constraint, otherwise False. Linear
 constraints should only be applied if the variable on each end of the linkage is a
 design variable or a linear function of one.</p>
 </dd>
 <dt><strong>connected</strong><span class="classifier">bool</span></dt><dd><p>If True, this constraint is enforced by direct connection rather than a constraint
-for the optimizer.  This is only valid for states and time.</p>
+for the optimizer. This is only valid for states and time.</p>
 </dd>
 </dl>
 </dd>
@@ -1003,7 +1008,7 @@ for the optimizer.  This is only valid for states and time.</p>
 <blockquote>
 <div><dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">Trajectory.</span></span><span class="sig-name descname"><span class="pre">link_phases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('final',</span> <span class="pre">'initial')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dymos/trajectory/trajectory.html#Trajectory.link_phases"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Trajectory.</span></span><span class="sig-name descname"><span class="pre">link_phases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('final',</span> <span class="pre">'initial')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dymos/trajectory/trajectory.html#Trajectory.link_phases"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Specify that phases in the given sequence are to be assume continuity of the given variables.</p>
 <p>This method caches the phase linkages, and may be called multiple times to express more
 complex behavior (branching phases, phases only continuous in some variables, etc).</p>
@@ -1029,6 +1034,22 @@ in separate calls to link_phases.</p>
 </dd>
 <dt><strong>connected</strong><span class="classifier">bool</span></dt><dd><p>Set to True to directly connect the phases being linked. Otherwise, create constraints
 for the optimizer to solve.</p>
+</dd>
+<dt><strong>units</strong><span class="classifier">str or None or _unspecified</span></dt><dd><p>Units of the linkage.  If _unspecified, dymos will use the units from the variable
+in the first phase of the linkage.  Units of the two specified variables must be
+compatible.</p>
+</dd>
+<dt><strong>scaler</strong><span class="classifier">float or array or None</span></dt><dd><p>The scaler of the linkage constraint.</p>
+</dd>
+<dt><strong>adder</strong><span class="classifier">float or array or None</span></dt><dd><p>The adder of the linkage constraint.</p>
+</dd>
+<dt><strong>ref0</strong><span class="classifier">float or array or None</span></dt><dd><p>The zero-reference value of the linkage constraint.</p>
+</dd>
+<dt><strong>ref</strong><span class="classifier">float or array or None</span></dt><dd><p>The unit-reference value of the linkage constraint.</p>
+</dd>
+<dt><strong>linear</strong><span class="classifier">bool</span></dt><dd><p>If True, treat this variable as a linear constraint, otherwise False.  Linear
+constraints should only be applied if the variable on each end of the linkage is a
+design variable or a linear function of one.</p>
 </dd>
 </dl>
 </dd>

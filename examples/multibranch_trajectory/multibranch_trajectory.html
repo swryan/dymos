@@ -220,6 +220,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -534,7 +539,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/multibranch_trajectory/multibranch_trajectory.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/multibranch_trajectory/multibranch_trajectory.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -552,7 +557,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/multibranch_trajectory/multibranch_trajectory.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/multibranch_trajectory/multibranch_trajectory.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -820,7 +825,7 @@ state of charge.</p>
 
 
 <span class="k">class</span> <span class="nc">Battery</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Model of a Lithium Ion battery.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -943,7 +948,7 @@ state of charge.</p>
 
 
 <span class="k">class</span> <span class="nc">Motors</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Model for motors in parallel.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1141,10 +1146,10 @@ state of charge.</p>
 <span class="n">soc1m</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phase1_mfail.states:state_of_charge&#39;</span><span class="p">]</span>
 
 <span class="c1"># Plot Results</span>
-<span class="n">t0</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase0.time.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase1.time.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
-<span class="n">t1b</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase1_bfail.time.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
-<span class="n">t1m</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase1_mfail.time.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase0.timeseries.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase1.timeseries.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
+<span class="n">t1b</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase1_bfail.timeseries.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
+<span class="n">t1m</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="s1">&#39;traj.phases.phase1_mfail.timeseries.time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">soc0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
@@ -1174,6 +1179,10 @@ state of charge.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._get_coloring.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._compute_totals.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
@@ -1188,7 +1197,7 @@ state of charge.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.084994 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.073190 seconds.
 Total jacobian shape: (107, 122) 
 
 
@@ -1197,8 +1206,8 @@ FWD solves: 6   REV solves: 0
 Total colors vs. total size: 6 vs 122  (95.1% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.084994 sec.
-Time to compute coloring: 0.090801 sec.
+Time to compute sparsity: 0.073190 sec.
+Time to compute coloring: 0.059777 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
@@ -1211,11 +1220,7 @@ Optimization Complete
 -----------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:666: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:633: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
   ax.set_ylim([ymin_plot, ymax_plot])
 </pre></div>
 </div>

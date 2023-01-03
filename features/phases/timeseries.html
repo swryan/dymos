@@ -220,6 +220,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../examples/hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -534,7 +539,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/features/phases/timeseries.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/features/phases/timeseries.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -552,7 +557,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/features/phases/timeseries.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/features/phases/timeseries.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -832,11 +837,11 @@ computed and stored in the timeseries output under the variable name to the left
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>name</strong><span class="classifier">str, or list of str</span></dt><dd><p>The name(s) of the variable to be used as a timeseries output, or a mathematical expression to be used
-as a timeseries output. If a name, it be one of ‘time’, ‘time_phase’, one of the states, controls,
-control rates, or parameters, in the phase, the path to an output variable in the ODE, or a glob pattern
-matching some outputs in the ODE.</p>
+as a timeseries output. If a name, it must be one of the integration variable, the phase-relative value
+of the integration variable (e.g. ‘time_phase’, one of the states, controls, control rates, or parameters,
+in the phase, the path to an output variable in the ODE, or a glob pattern matching some outputs in the ODE.</p>
 </dd>
-<dt><strong>output_name</strong><span class="classifier">str or None or list or dict</span></dt><dd><p>The name of the variable as listed in the phase timeseries outputs.  By
+<dt><strong>output_name</strong><span class="classifier">str or None or list or dict</span></dt><dd><p>The name of the variable as listed in the phase timeseries outputs. By
 default this is the last element in <cite>name</cite> when split by dots.  The user may
 override the constraint name if splitting the path causes name collisions.</p>
 </dd>

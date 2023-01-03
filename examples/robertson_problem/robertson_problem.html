@@ -222,6 +222,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -536,7 +541,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/robertson_problem/robertson_problem.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/robertson_problem/robertson_problem.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -554,7 +559,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/robertson_problem/robertson_problem.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/robertson_problem/robertson_problem.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -758,15 +763,15 @@ title="Print to PDF"
 <section id="the-ode-system">
 <h2>The ODE system<a class="headerlink" href="#the-ode-system" title="Permalink to this headline">#</a></h2>
 <p>The ODE of the Robertson Problem is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b784f203-b5a3-4d0a-bc8b-be4a09840926">
-<span class="eqno">(77)<a class="headerlink" href="#equation-b784f203-b5a3-4d0a-bc8b-be4a09840926" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1c495d69-1a5d-4fda-892e-8f16c2fe4d31">
+<span class="eqno">(82)<a class="headerlink" href="#equation-1c495d69-1a5d-4fda-892e-8f16c2fe4d31" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot x = &amp;        - 0.04 x + 10^4 y \cdot z &amp;                          \\
     \dot y = &amp; \;\;\;\: 0.04 x - 10^4 y \cdot z &amp;        - 3\cdot 10^7 y^2 \\
     \dot z = &amp;                                  &amp; \;\;\;\: 3\cdot 10^7 y^2 \\
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> are arbitrary states. The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-03ccecf6-d7f8-4d4a-8971-e9af1d62049f">
-<span class="eqno">(78)<a class="headerlink" href="#equation-03ccecf6-d7f8-4d4a-8971-e9af1d62049f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1787c3d9-7d3f-4f65-8c59-f593b6ee3098">
+<span class="eqno">(83)<a class="headerlink" href="#equation-1787c3d9-7d3f-4f65-8c59-f593b6ee3098" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_0 &amp;= 1 \\
     y_0 &amp;= z_0 = 0.
 \end{align}\]</div>
@@ -777,7 +782,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
 
 <span class="k">class</span> <span class="nc">RobertsonODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;example for a stiff ODE from Robertson.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;example for a stiff ODE from Robertson.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

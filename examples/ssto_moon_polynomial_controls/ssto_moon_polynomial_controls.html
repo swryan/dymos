@@ -222,6 +222,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -536,7 +541,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/examples/ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -554,7 +559,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/examples/ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -779,7 +784,7 @@ current value of the polynomial controls.</p>
 <span class="n">g</span> <span class="o">=</span> <span class="mf">1.61544</span>  <span class="c1"># lunar gravity, m/s**2</span>
 
 <span class="k">class</span> <span class="nc">LaunchVehicle2DEOM</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple 2D Cartesian Equations of Motion for a launch vehicle subject to thrust and drag.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -902,7 +907,7 @@ current value of the polynomial controls.</p>
         <span class="n">jacobian</span><span class="p">[</span><span class="s1">&#39;mdot&#39;</span><span class="p">,</span> <span class="s1">&#39;Isp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F_T</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="n">Isp</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">LaunchVehicleLinearTangentODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The LaunchVehicleLinearTangentODE for this case consists of a guidance component and</span>
 <span class="sd">    the EOM.  Guidance is simply an OpenMDAO ExecComp which computes the arctangent of the</span>
 <span class="sd">    tan_theta variable.</span>
@@ -1026,7 +1031,9 @@ current value of the polynomial controls.</p>
 INFO: checking out_of_order
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking out_of_order
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._get_coloring.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/utils/hooks.py:266: OpenMDAOWarning:Couldn&#39;t find the given &#39;post&#39; function in the post hooks for Driver._compute_totals.
+INFO:check_config:checking out_of_order
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
@@ -1132,7 +1139,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.314999 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.240624 seconds.
 Total jacobian shape: (303, 398) 
 </pre></div>
 </div>
@@ -1141,9 +1148,9 @@ FWD solves: 11   REV solves: 0
 Total colors vs. total size: 11 vs 398  (97.2% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.314999 sec.
-Time to compute coloring: 0.505401 sec.
-Memory to compute coloring: 0.757812 MB.
+Time to compute sparsity: 0.240624 sec.
+Time to compute coloring: 0.351258 sec.
+Memory to compute coloring: 1.250000 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1152,18 +1159,18 @@ Memory to compute coloring: 0.757812 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.7939
-       User Objective Time :       0.0169
-       User Sensitivity Time :     0.0848
-       Interface Time :            0.1344
-       Opt Solver Time:            1.5578
+    Total Time:                    1.3063
+       User Objective Time :       0.0123
+       User Sensitivity Time :     0.0625
+       Interface Time :            0.1006
+       Opt Solver Time:            1.1309
     Calls to Objective Function :       6
     Calls to Sens Function :            5
 
 
    Objectives
-      Index  Name                                    Value
-          0  traj.phases.phase0.time.time     4.817168E+00
+      Index  Name                                 Value
+          0  traj.phases.phase0.time.t     4.817168E+00
 
    Variables (c - continuous, i - integer, d - discrete)
       Index  Name                                                                                                    Type      Lower Bound            Value      Upper Bound     Status
@@ -1970,11 +1977,7 @@ Memory to compute coloring: 0.757812 MB.
 --------------------------------------------------------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/tabulate/__init__.py:108: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  or (len(row) &gt;= 2 and row[1] == SEPARATING_LINE)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:666: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:633: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
   ax.set_ylim([ymin_plot, ymax_plot])
 </pre></div>
 </div>

@@ -222,6 +222,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/hull/hull_problem.html">
+     The Hull Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../examples/hypersensitive/hypersensitive.html">
      Hyper-Sensitive Problem
     </a>
@@ -536,7 +541,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/features/phases/constraints.ipynb"
+        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/features/phases/constraints.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -554,7 +559,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/features/phases/constraints.ipynb"
+        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/features/phases/constraints.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -712,6 +717,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#constraining-expressions">
+   Constraining Expressions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#implementation-detail-constraint-aliasing">
    Implementation Detail - Constraint Aliasing
   </a>
@@ -751,6 +761,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#constraining-expressions">
+   Constraining Expressions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#implementation-detail-constraint-aliasing">
    Implementation Detail - Constraint Aliasing
   </a>
@@ -785,8 +800,8 @@ are a few different ways to impose these in Dymos, each with slightly different 
 <p>Let’s consider that we want to solve for the elevation angle that results in the maximum possible
 range flown by a cannonball.  In this situation we have some set of initial conditions that are
 fixed.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-45394101-ab79-4421-8e42-813c2970c6ca">
-<span class="eqno">(93)<a class="headerlink" href="#equation-45394101-ab79-4421-8e42-813c2970c6ca" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5fc4c63d-bfa2-46ea-b727-a00d8bb3c5db">
+<span class="eqno">(98)<a class="headerlink" href="#equation-5fc4c63d-bfa2-46ea-b727-a00d8bb3c5db" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_0 &amp;= 0 \, \mathrm{s} \\
     x_0 &amp;= 0 \, \mathrm{m} \\
     y_0 &amp;= 0 \, \mathrm{m} \\
@@ -844,6 +859,19 @@ Therefore, the bounds will have no impact on these interpolated values which the
 <p>Phases also support the <code class="docutils literal notranslate"><span class="pre">add_path_constraint</span></code> method, which imposes path constraints as constraints in the NLP problem.
 As with <code class="docutils literal notranslate"><span class="pre">add_boundary_constraint</span></code>, the <code class="docutils literal notranslate"><span class="pre">add_path_constraint</span></code> method is the only option for path constraining an output of the ODE.</p>
 <p>The downside of path constraints is that they add a considerable number of constraints to the NLP problem and thus may negatively impact performance, although this is generally minor for many problems.</p>
+</section>
+<section id="constraining-expressions">
+<h2>Constraining Expressions<a class="headerlink" href="#constraining-expressions" title="Permalink to this headline">#</a></h2>
+<p>Constraints may be defined using mathematical expressions of the form <code class="docutils literal notranslate"><span class="pre">y=f(x)</span></code> to be evaluated. Here <code class="docutils literal notranslate"><span class="pre">x</span></code> may be vector combination of time, states, controls, parameters, or any outputs of the ODE. The variable <code class="docutils literal notranslate"><span class="pre">y</span></code> is added to the timeseries outputs of the phase and the desired constraint is applied to it.</p>
+<p>Consider, again, the example of maximizing the range flown by a cannonball. But now, rather than a constraint on the initial velocity, we wish to apply a constraint to the initial normalized kinetic energy.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cb2a0c8f-e322-4a43-9c13-2e2a1ab20dbb">
+<span class="eqno">(99)<a class="headerlink" href="#equation-cb2a0c8f-e322-4a43-9c13-2e2a1ab20dbb" title="Permalink to this equation">#</a></span>\[\begin{align}
+    ke &amp;= 0.5 * v^2 \\
+    ke_0 &amp;= 5000 \, \frac{\mathrm{m^2}}{\mathrm{s^2}}
+\end{align}\]</div>
+<p>The first way to achieve this is to add kinetic energy as a state in the model. This state may then be constrained either using <code class="docutils literal notranslate"><span class="pre">fix_initial=True</span></code> or <code class="docutils literal notranslate"><span class="pre">add_boundary_constraint(‘ke’,</span> <span class="pre">loc=’initial’</span> <span class="pre">,</span> <span class="pre">equals=5000)</span></code>.</p>
+<p>The second method to add this constraint is to add the constraint using an expression. This may be done as <code class="docutils literal notranslate"><span class="pre">add_boundary_constraint(‘ke=0.5*v**2,</span> <span class="pre">loc=’initial’,</span> <span class="pre">equals=5000)</span></code>.</p>
+<p>The advantage to the latter method is that no changes are required to the previous model, simply modifying the <code class="docutils literal notranslate"><span class="pre">add_boundary_constraint</span></code> statement is sufficient. The disadvantage is that the derivatives of the constraints are evaluated using complex step rather than analytical expressions. This may negatively impact performance, but the effect should be minor for most problems.</p>
 </section>
 <section id="implementation-detail-constraint-aliasing">
 <h2>Implementation Detail - Constraint Aliasing<a class="headerlink" href="#implementation-detail-constraint-aliasing" title="Permalink to this headline">#</a></h2>

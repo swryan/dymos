@@ -617,6 +617,9 @@ title="Open an issue"
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">openmdao.utils.om_warnings</span> <span class="kn">import</span> <span class="n">warn_deprecation</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">izip</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -1238,14 +1241,14 @@ title="Open an issue"
                     <span class="n">options</span> <span class="o">=</span> <span class="n">var_dict</span><span class="p">[</span><span class="n">var_pair</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_linkage_constraint</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span> <span class="n">var_a</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
                                                 <span class="n">var_b</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">loc_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">],</span>
-                                                <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span> <span class="n">sign_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;sign_a&#39;</span><span class="p">],</span>
-                                                <span class="n">sign_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;sign_b&#39;</span><span class="p">])</span>
+                                                <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span> <span class="n">mult_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">],</span>
+                                                <span class="n">mult_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">])</span>
                     <span class="k">for</span> <span class="n">state_name</span> <span class="ow">in</span> <span class="n">phase_b</span><span class="o">.</span><span class="n">state_options</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">add_linkage_constraint</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span> <span class="n">var_a</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span>
                                                     <span class="n">var_b</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span> <span class="n">loc_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">],</span>
                                                     <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span>
-                                                    <span class="n">sign_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;sign_a&#39;</span><span class="p">],</span>
-                                                    <span class="n">sign_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;sign_b&#39;</span><span class="p">])</span>
+                                                    <span class="n">mult_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">],</span>
+                                                    <span class="n">mult_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">])</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span><span class="p">[</span><span class="n">phase_pair</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">var_pair</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_is_valid_linkage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span> <span class="n">loc_a</span><span class="p">,</span> <span class="n">loc_b</span><span class="p">,</span> <span class="n">var_a</span><span class="p">,</span> <span class="n">var_b</span><span class="p">,</span> <span class="n">fixed_a</span><span class="p">,</span> <span class="n">fixed_b</span><span class="p">):</span>
@@ -1482,7 +1485,9 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">promotes</span><span class="p">(</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Trajectory.add_linkage_constraint"><a class="viewcode-back" href="../../../features/trajectories/trajectories.html#dymos.Trajectory.add_linkage_constraint">[docs]</a>    <span class="k">def</span> <span class="nf">add_linkage_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phase_a</span><span class="p">,</span> <span class="n">phase_b</span><span class="p">,</span> <span class="n">var_a</span><span class="p">,</span> <span class="n">var_b</span><span class="p">,</span> <span class="n">loc_a</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="n">loc_b</span><span class="o">=</span><span class="s1">&#39;initial&#39;</span><span class="p">,</span>
-                               <span class="n">sign_a</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sign_b</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                               <span class="n">sign_a</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">sign_b</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                               <span class="n">mult_a</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">mult_b</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+                               <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                <span class="n">equals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">connected</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1490,7 +1495,7 @@ title="Open an issue"
 
 <span class="sd">        Phase linkage constraints are enforced by constraining the following equation:</span>
 
-<span class="sd">        sign_a * var_a + sign_b * var_b</span>
+<span class="sd">        mult_a * var_a + mult_b * var_b</span>
 
 <span class="sd">        The resulting value of this equation is constrained.  This can satisfy &#39;coupling&#39; or</span>
 <span class="sd">        &#39;linkage&#39; conditions across phase boundaries:  enforcing continuity,</span>
@@ -1547,9 +1552,15 @@ title="Open an issue"
 <span class="sd">            The location of the variable in the second phase of the linkage constraint (one of</span>
 <span class="sd">            &#39;initial&#39; or &#39;final&#39;).</span>
 <span class="sd">        sign_a : float</span>
-<span class="sd">            The sign applied to the variable from the first phase in the linkage constraint.</span>
+<span class="sd">            The multiplier applied to the variable from the first phase in the linkage constraint.</span>
+<span class="sd">            This argument is deprecated in favor of mult_a.</span>
 <span class="sd">        sign_b : float</span>
-<span class="sd">            The sign applied to the variable from the second phase in the linkage constraint.</span>
+<span class="sd">            The multiplier applied to the variable from the second phase in the linkage constraint.</span>
+<span class="sd">            This argument is deprecated in favor of mult_b.</span>
+<span class="sd">        mult_a : float</span>
+<span class="sd">            The multiplier applied to the variable from the first phase in the linkage constraint.</span>
+<span class="sd">        mult_b : float</span>
+<span class="sd">            The multiplier applied to the variable from the second phase in the linkage constraint.</span>
 <span class="sd">        units : str or None or _unspecified</span>
 <span class="sd">            Units of the linkage. If _unspecified, dymos will use the units from the variable</span>
 <span class="sd">            in the first phase of the linkage. Units of the two specified variables must be</span>
@@ -1576,6 +1587,28 @@ title="Open an issue"
 <span class="sd">            If True, this constraint is enforced by direct connection rather than a constraint</span>
 <span class="sd">            for the optimizer. This is only valid for states and time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sign_a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mult_a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Both the deprecated &#39;sign_a&#39; option and option &#39;mult_a&#39; were specified.&quot;</span>
+                    <span class="s2">&quot;Going forward, please use only option mult_a.&quot;</span><span class="p">)</span>
+            <span class="n">warn_deprecation</span><span class="p">(</span><span class="s2">&quot;&#39;sign_a&#39; has been deprecated. Use &#39;mult_a&#39; instead.&quot;</span><span class="p">)</span>
+            <span class="n">mult_a</span> <span class="o">=</span> <span class="n">sign_a</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># sign_a is _unspecified</span>
+            <span class="k">if</span> <span class="n">mult_a</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
+                <span class="n">mult_a</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="k">if</span> <span class="n">sign_b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mult_b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Both the deprecated &#39;sign_b&#39; option and option &#39;mult_b&#39; were specified.&quot;</span>
+                    <span class="s2">&quot;Going forward, please use only option mult_b.&quot;</span><span class="p">)</span>
+            <span class="n">warn_deprecation</span><span class="p">(</span><span class="s2">&quot;&#39;sign_b&#39; has been deprecated. Use &#39;mult_b&#39; instead.&quot;</span><span class="p">)</span>
+            <span class="n">mult_b</span> <span class="o">=</span> <span class="n">sign_b</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># sign_a is _unspecified</span>
+            <span class="k">if</span> <span class="n">mult_b</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
+                <span class="n">mult_b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+
         <span class="k">if</span> <span class="n">connected</span><span class="p">:</span>
             <span class="n">invalid_options</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="s1">&#39;adder&#39;</span><span class="p">,</span> <span class="s1">&#39;ref0&#39;</span><span class="p">,</span> <span class="s1">&#39;ref&#39;</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">]:</span>
@@ -1600,8 +1633,8 @@ title="Open an issue"
         <span class="n">d</span><span class="p">[</span><span class="s1">&#39;var_b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">var_b</span>
         <span class="n">d</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loc_a</span>
         <span class="n">d</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loc_b</span>
-        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;sign_a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sign_a</span>
-        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;sign_b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sign_b</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mult_a</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mult_b</span>
         <span class="n">d</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
         <span class="n">d</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lower</span>
         <span class="n">d</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper</span>

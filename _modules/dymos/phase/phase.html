@@ -630,8 +630,9 @@ title="Open an issue"
     <span class="n">PolynomialControlOptionsDictionary</span><span class="p">,</span> <span class="n">GridRefinementOptionsDictionary</span><span class="p">,</span> <span class="n">SimulateOptionsDictionary</span><span class="p">,</span> \
     <span class="n">TimeseriesOutputOptionsDictionary</span>
 
-
 <span class="kn">from</span> <span class="nn">..transcriptions.transcription_base</span> <span class="kn">import</span> <span class="n">TranscriptionBase</span>
+<span class="kn">from</span> <span class="nn">..transcriptions.grid_data</span> <span class="kn">import</span> <span class="n">GaussLobattoGrid</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">,</span> <span class="n">UniformGrid</span>
+<span class="kn">from</span> <span class="nn">..transcriptions</span> <span class="kn">import</span> <span class="n">ExplicitShooting</span><span class="p">,</span> <span class="n">GaussLobatto</span><span class="p">,</span> <span class="n">Radau</span>
 <span class="kn">from</span> <span class="nn">..utils.indexing</span> <span class="kn">import</span> <span class="n">get_constraint_flat_idxs</span>
 <span class="kn">from</span> <span class="nn">..utils.introspection</span> <span class="kn">import</span> <span class="n">configure_time_introspection</span><span class="p">,</span> <span class="n">_configure_constraint_introspection</span><span class="p">,</span> \
     <span class="n">configure_controls_introspection</span><span class="p">,</span> <span class="n">configure_parameters_introspection</span><span class="p">,</span> \
@@ -2728,7 +2729,7 @@ title="Open an issue"
                              <span class="n">rtol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                              <span class="n">reports</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a SolveIVPPhase instance.</span>
+<span class="sd">        Return a SimulationPhase instance that is essentially a copy of this Phase.</span>
 
 <span class="sd">        This instance is initialized based on data from this Phase instance and</span>
 <span class="sd">        the given simulation times.</span>
@@ -2760,21 +2761,9 @@ title="Open an issue"
 <span class="sd">            An instance of SimulationPhase initialized based on data from this Phase and the given</span>
 <span class="sd">            times.  This instance has not yet been setup.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..transcriptions</span> <span class="kn">import</span> <span class="n">SolveIVP</span>
-
-        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span>
-
-        <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">Phase</span><span class="p">(</span><span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-                             <span class="n">transcription</span><span class="o">=</span><span class="n">SolveIVP</span><span class="p">(</span><span class="n">grid_data</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">grid_data</span><span class="p">,</span>
-                                                    <span class="n">output_nodes_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span>
-                                                    <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">))</span>
-
-        <span class="c1"># Copy over any simulation options from the simulate call.  The fallback will be to</span>
-        <span class="c1"># phase.simulate_options, which are copied from the original phase.</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s1">&#39;atol&#39;</span><span class="p">:</span> <span class="n">atol</span><span class="p">,</span> <span class="s1">&#39;rtol&#39;</span><span class="p">:</span> <span class="n">rtol</span><span class="p">,</span> <span class="s1">&#39;first_step&#39;</span><span class="p">:</span> <span class="n">first_step</span><span class="p">,</span>
-                         <span class="s1">&#39;max_step&#39;</span><span class="p">:</span> <span class="n">max_step</span><span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
-                <span class="n">sim_phase</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="kn">from</span> <span class="nn">.simulation_phase</span> <span class="kn">import</span> <span class="n">SimulationPhase</span>
+        <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">SimulationPhase</span><span class="p">(</span><span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+                                    <span class="n">first_step</span><span class="o">=</span><span class="n">first_step</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span> <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">sim_phase</span>
 
@@ -2886,7 +2875,6 @@ title="Open an issue"
 <span class="sd">            can be interrogated to obtain timeseries outputs in the same manner as other Phases</span>
 <span class="sd">            to obtain results at the requested times.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">sim_prob</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">())</span>
 
         <span class="n">sim_phase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simulation_phase</span><span class="p">(</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
@@ -2899,13 +2887,14 @@ title="Open an issue"
             <span class="n">sim_prob</span><span class="o">.</span><span class="n">add_recorder</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
 
         <span class="n">sim_prob</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">sim_phase</span><span class="o">.</span><span class="n">initialize_values_from_phase</span><span class="p">(</span><span class="n">sim_prob</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># sim_phase.set_val_from_phase(from_phase=self)  # TODO: use this for OpenMDAO &gt;= 3.25.1</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">initialize_values_from_phase</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="n">sim_prob</span><span class="p">,</span> <span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Simulating phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">sim_prob</span><span class="o">.</span><span class="n">run_model</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Done simulating phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">sim_prob</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
-
         <span class="n">sim_prob</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">sim_prob</span></div>
@@ -3165,6 +3154,39 @@ title="Open an issue"
             <span class="n">all_flat_idxs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">flat_idxs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">all_flat_idxs</span>
+
+    <span class="k">def</span> <span class="nf">_is_fixed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">var_type</span><span class="p">,</span> <span class="n">loc</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine whether a variable is fixed or not.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        var_name : str</span>
+<span class="sd">            Identifier of the variable as known to the phase.</span>
+<span class="sd">        var_type : str</span>
+<span class="sd">            The type of variable.</span>
+<span class="sd">        loc : str</span>
+<span class="sd">            Either &#39;initial&#39; or &#39;final&#39; for non-parameters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the variable is fixed, otherwise False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">var_type</span> <span class="o">==</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_time_fixed</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_type</span> <span class="o">==</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_state_fixed</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_type</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;input_control&#39;</span><span class="p">,</span> <span class="s1">&#39;indep_control&#39;</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_control_fixed</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_type</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;input_polynomial_control&#39;</span><span class="p">,</span> <span class="s1">&#39;indep_polynomial_control&#39;</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_polynomial_control_fixed</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_type</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;control_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;control_rate2&#39;</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_control_rate_fixed</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_type</span> <span class="o">==</span> <span class="s1">&#39;parameter&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">var_name</span><span class="p">][</span><span class="s1">&#39;opt&#39;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># No way to know so we allow these to go through</span>
 </pre></div>
 
               </div>

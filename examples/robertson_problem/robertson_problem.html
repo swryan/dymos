@@ -763,15 +763,15 @@ title="Print to PDF"
 <section id="the-ode-system">
 <h2>The ODE system<a class="headerlink" href="#the-ode-system" title="Permalink to this headline">#</a></h2>
 <p>The ODE of the Robertson Problem is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f3dc225-a712-408b-a818-a57d0225590c">
-<span class="eqno">(82)<a class="headerlink" href="#equation-3f3dc225-a712-408b-a818-a57d0225590c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e448b0db-b31f-445e-bb7d-9a9b73d7ae30">
+<span class="eqno">(82)<a class="headerlink" href="#equation-e448b0db-b31f-445e-bb7d-9a9b73d7ae30" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot x = &amp;        - 0.04 x + 10^4 y \cdot z &amp;                          \\
     \dot y = &amp; \;\;\;\: 0.04 x - 10^4 y \cdot z &amp;        - 3\cdot 10^7 y^2 \\
     \dot z = &amp;                                  &amp; \;\;\;\: 3\cdot 10^7 y^2 \\
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> are arbitrary states. The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0ea79e56-6542-40f0-805e-29b15194f558">
-<span class="eqno">(83)<a class="headerlink" href="#equation-0ea79e56-6542-40f0-805e-29b15194f558" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ad1e5d3e-0d22-42ad-9ce6-f7fa44d7a72d">
+<span class="eqno">(83)<a class="headerlink" href="#equation-ad1e5d3e-0d22-42ad-9ce6-f7fa44d7a72d" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_0 &amp;= 1 \\
     y_0 &amp;= z_0 = 0.
 \end{align}\]</div>
@@ -859,6 +859,11 @@ title="Print to PDF"
 </section>
 <section id="building-and-running-the-problem">
 <h2>Building and running the problem<a class="headerlink" href="#building-and-running-the-problem" title="Permalink to this headline">#</a></h2>
+<p>Here we’re using the ExplicitShooting transcription in Dymos.
+The ExplicitShooting transcription explicit integrates the given ODE using the <code class="docutils literal notranslate"><span class="pre">solve_ivp</span></code> method of <a class="reference external" href="https://scipy.org/">scipy</a>.</p>
+<p>Since this is purely an integration with no controls to be determined, a single call to <code class="docutils literal notranslate"><span class="pre">run_model</span></code> will propagate the solution for us. There’s no need to run a driver. Even the typical follow-up call to <code class="docutils literal notranslate"><span class="pre">traj.simulate</span></code> is unnecessary.</p>
+<p>Technically, we could even solve this using a single segment since segment spacing in the explicit shooting transcription determines the density of the control nodes, and there are no controls for this simulation.
+Providing more segments in this case (or a higher segment order) increases the number of nodes at which the outputs are provided.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
@@ -874,11 +879,11 @@ title="Print to PDF"
     <span class="c1"># Create a trajectory and add a phase to it</span>
     <span class="c1">#</span>
     <span class="n">traj</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;traj&#39;</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">())</span>
+    
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">ExplicitShooting</span><span class="p">(</span><span class="n">num_segments</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;LSODA&#39;</span><span class="p">)</span>
 
     <span class="n">phase</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">add_phase</span><span class="p">(</span><span class="s1">&#39;phase0&#39;</span><span class="p">,</span>
-                           <span class="n">dm</span><span class="o">.</span><span class="n">Phase</span><span class="p">(</span><span class="n">ode_class</span><span class="o">=</span><span class="n">RobertsonODE</span><span class="p">,</span>
-                                    <span class="n">transcription</span><span class="o">=</span><span class="n">dm</span><span class="o">.</span><span class="n">GaussLobatto</span><span class="p">(</span><span class="n">num_segments</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-                                   <span class="p">))</span>
+                           <span class="n">dm</span><span class="o">.</span><span class="n">Phase</span><span class="p">(</span><span class="n">ode_class</span><span class="o">=</span><span class="n">RobertsonODE</span><span class="p">,</span> <span class="n">transcription</span><span class="o">=</span><span class="n">tx</span><span class="p">))</span>
 
     <span class="c1">#</span>
     <span class="c1"># Set the variables</span>
@@ -915,8 +920,6 @@ title="Print to PDF"
 <span class="n">p</span> <span class="o">=</span> <span class="n">robertson_problem</span><span class="p">(</span><span class="n">t_final</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 
 <span class="n">p</span><span class="o">.</span><span class="n">run_model</span><span class="p">()</span>
-
-<span class="n">p_sim</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">traj</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;LSODA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -979,12 +982,6 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
-</pre></div>
-</div>
 </div>
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">
@@ -997,12 +994,12 @@ INFO: checking out_of_order
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">t_sim</span> <span class="o">=</span> <span class="n">p_sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">)</span>
 
 <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="s1">&#39;y0&#39;</span><span class="p">,</span> <span class="s1">&#39;z0&#39;</span><span class="p">]</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_sim</span><span class="p">,</span> <span class="n">p_sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.phase0.timeseries.states:</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.phase0.timeseries.states:</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -1029,7 +1026,7 @@ INFO: checking out_of_order
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./examples/robertson_problem"
         },
         predefinedOutput: true

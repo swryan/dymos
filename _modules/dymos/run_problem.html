@@ -694,6 +694,9 @@ title="Open an issue"
     <span class="k">if</span> <span class="n">restart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">load_case</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">case</span><span class="p">)</span>
 
+    <span class="k">for</span> <span class="n">traj</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">system_iter</span><span class="p">(</span><span class="n">include_self</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recurse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="n">Trajectory</span><span class="p">):</span>
+        <span class="n">traj</span><span class="o">.</span><span class="n">_check_phase_graph</span><span class="p">()</span>
+
     <span class="k">if</span> <span class="n">run_driver</span><span class="p">:</span>
         <span class="n">failed</span> <span class="o">=</span> <span class="n">_refine_iter</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">refine_iteration_limit</span><span class="p">,</span> <span class="n">refine_method</span><span class="p">,</span> <span class="n">case_prefix</span><span class="o">=</span><span class="n">case_prefix</span><span class="p">,</span>
                               <span class="n">reset_iter_counts</span><span class="o">=</span><span class="n">reset_iter_counts</span><span class="p">)</span>

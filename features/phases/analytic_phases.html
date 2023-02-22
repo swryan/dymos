@@ -810,8 +810,8 @@ Such phases are avaialble in dymos through the <code class="docutils literal not
 Compared to implicit approaches this reduces the size of the optimization problem by removing some design variables and corresponding defect constraints.
 Compared to explicit approaches it removes the need to numerically propagate the ODE, which is generally a performance bottleneck.</p>
 <p>For analytic phases, the OpenMDAO system we provide to the phase provides the <em>solution</em> to the ODE, not the ODE itself.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5bc7e7d6-d058-4131-aaac-29e6e5c1f20a">
-<span class="eqno">(93)<a class="headerlink" href="#equation-5bc7e7d6-d058-4131-aaac-29e6e5c1f20a" title="Permalink to this equation">#</a></span>\[\begin{align}  
+<div class="amsmath math notranslate nohighlight" id="equation-1edaae5e-8b0b-4bb7-8fc6-8165c85e98b9">
+<span class="eqno">(93)<a class="headerlink" href="#equation-1edaae5e-8b0b-4bb7-8fc6-8165c85e98b9" title="Permalink to this equation">#</a></span>\[\begin{align}  
     \textbf x = \textbf f(t, \textbf p)
 \end{align}\]</div>
 <p>where
@@ -830,7 +830,7 @@ It is an error to provide these options to a state in an analytic phase.</p>
 All outputs of the ODE must be based on the values of static parameters and the independent variable (generally time).</p>
 <p>AnalyticPhase has the notion of <em>states</em> but they are generally just “special” outputs of the ODE solution system.  They are automatically added to the timeseries output with the name <code class="docutils literal notranslate"><span class="pre">{path.to.phase}.states:{state_name}</span></code>.</p>
 <p>Finally, AnalyticPhase doesn’t have the notion of a multi-segment <em>grid</em> on which the solution is calculated.
-To keep things as simple as possible, the use provides the phase with a number of nodes at which the solution is requested (lets call it <em>N</em> for now).
+To keep things as simple as possible, the user provides the phase with a number of nodes at which the solution is requested (lets call it <em>N</em> for now).
 Dymos then provides the solution at <em>N</em> Legendre-Gauss-Lobatto (LGL) nodes.
 This design decision was made because phase types use the LGL nodes to define the input times of polynomial control variables.
 This means that values of an output of an <code class="docutils literal notranslate"><span class="pre">AnalyticPhase</span></code> can be fed into another phase as a polynomial control.</p>
@@ -862,26 +862,26 @@ a shape of (3,).</p>
 <section id="a-basic-example">
 <h2>A basic example<a class="headerlink" href="#a-basic-example" title="Permalink to this headline">#</a></h2>
 <p>Suppose we want to use Dymos to solve the ODE</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7c6ed795-14d0-4ec7-86ce-6a35c8e6904a">
-<span class="eqno">(94)<a class="headerlink" href="#equation-7c6ed795-14d0-4ec7-86ce-6a35c8e6904a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ab812c74-1550-481d-aec5-7cb533ff4f0a">
+<span class="eqno">(94)<a class="headerlink" href="#equation-ab812c74-1550-481d-aec5-7cb533ff4f0a" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dx}{dt} = x - t^2 + 1
 \end{align}\]</div>
 <p>subject to:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-56a358f9-0e40-4a34-a934-3c8bbabacb40">
-<span class="eqno">(95)<a class="headerlink" href="#equation-56a358f9-0e40-4a34-a934-3c8bbabacb40" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ff9e9eba-5290-4e8d-83a5-146b6cde2483">
+<span class="eqno">(95)<a class="headerlink" href="#equation-ff9e9eba-5290-4e8d-83a5-146b6cde2483" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) = 0.5
 \end{align}\]</div>
 <p>Here we want to find the value of <em>x</em> at t=2.</p>
 <p>We can absolutely use a pseudospectral method or explicit shooting in Dymos to find the value of <em>x</em> on a given interval using this information.
 But in this case, the solution is known analytically.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-480e5c76-a8c2-4e68-9eef-56690516f844">
-<span class="eqno">(96)<a class="headerlink" href="#equation-480e5c76-a8c2-4e68-9eef-56690516f844" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f2f8c69f-edd2-48a7-8b67-e41db3a9c7c6">
+<span class="eqno">(96)<a class="headerlink" href="#equation-f2f8c69f-edd2-48a7-8b67-e41db3a9c7c6" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(t) &amp;= t^2 + 2t + 1 - c_1e^t
 \end{align}\]</div>
 <p>We need to find the value of constant <span class="math notranslate nohighlight">\(c_1\)</span> to find our particular solution.
 Applying the given initial condition gives c_1 as 0.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d2f26956-2824-44ab-bad2-a3180f67f87e">
-<span class="eqno">(97)<a class="headerlink" href="#equation-d2f26956-2824-44ab-bad2-a3180f67f87e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b123fb6a-5388-4c66-bb45-456c4fb8eb36">
+<span class="eqno">(97)<a class="headerlink" href="#equation-b123fb6a-5388-4c66-bb45-456c4fb8eb36" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) &amp;= 1 - c_1 = 0.5 \\
   c_1 &amp;\equiv y_0 = 0.5
 \end{align}\]</div>
@@ -996,7 +996,7 @@ In these cases, using a generic parameter felt like the more flexible way of doi
 <p>Since AnalyticPhases only output state values, there is no notion of a target of state variable in an <code class="docutils literal notranslate"><span class="pre">AnalyticPhase</span></code>.
 In an <code class="docutils literal notranslate"><span class="pre">AnalyticPhase</span></code>, states need a <em>source</em>.
 Much like timeseries outputs, when we add a state to the <code class="docutils literal notranslate"><span class="pre">AnalyticPhase</span></code> we can specify the entire path, and the last bit of the path (after the last period) will be used for the name of the state.
-Any just as <code class="docutils literal notranslate"><span class="pre">add_timeseries_output</span></code> uses argument <code class="docutils literal notranslate"><span class="pre">output_name</span></code> to disambiguate the name of the timeseries output if necessary, <code class="docutils literal notranslate"><span class="pre">add_state</span></code> will accept <code class="docutils literal notranslate"><span class="pre">state_name</span></code> if the last portion of the path is ambiguous.</p>
+And just as <code class="docutils literal notranslate"><span class="pre">add_timeseries_output</span></code> uses argument <code class="docutils literal notranslate"><span class="pre">output_name</span></code> to disambiguate the name of the timeseries output if necessary, <code class="docutils literal notranslate"><span class="pre">add_state</span></code> will accept <code class="docutils literal notranslate"><span class="pre">state_name</span></code> if the last portion of the path is ambiguous.</p>
 </section>
 <section id="linking-analytic-phases">
 <h2>Linking Analytic Phases<a class="headerlink" href="#linking-analytic-phases" title="Permalink to this headline">#</a></h2>
@@ -1040,11 +1040,11 @@ Changing the <code class="docutils literal notranslate"><span class="pre">connec
 <section id="different-ways-to-handle-the-phase-linkage-for-state-continuity">
 <h2>Different ways to handle the phase linkage for state continuity<a class="headerlink" href="#different-ways-to-handle-the-phase-linkage-for-state-continuity" title="Permalink to this headline">#</a></h2>
 <p>At this point we need to choose how to enforce state continuity.
-The we cannot simply use <code class="docutils literal notranslate"><span class="pre">traj.link_phases(['first_phase',</span> <span class="pre">'second_phase'],</span> <span class="pre">['x'],</span> <span class="pre">connected=True)</span></code> because <strong>the initial value of state <code class="docutils literal notranslate"><span class="pre">x</span></code> is not an input to the phase</strong>.</p>
+We cannot simply use <code class="docutils literal notranslate"><span class="pre">traj.link_phases(['first_phase',</span> <span class="pre">'second_phase'],</span> <span class="pre">['x'],</span> <span class="pre">connected=True)</span></code> because <strong>the initial value of state <code class="docutils literal notranslate"><span class="pre">x</span></code> is not an input to the phase</strong>.</p>
 <p>One might think to link state <code class="docutils literal notranslate"><span class="pre">x</span></code> from <code class="docutils literal notranslate"><span class="pre">first_phase</span></code> to parameter <code class="docutils literal notranslate"><span class="pre">x0</span></code> from second phase, but that is also not correct, because <code class="docutils literal notranslate"><span class="pre">x0</span></code> is not the initial value of <code class="docutils literal notranslate"><span class="pre">x</span></code> in the phase but the value of <code class="docutils literal notranslate"><span class="pre">x</span></code> at <code class="docutils literal notranslate"><span class="pre">t=0</span></code>.
 We could redefine <code class="docutils literal notranslate"><span class="pre">x0</span></code> to be the value at the initial time, however.</p>
 <p>Valid options here would be to link the states together with unconnected phases, using a constraint:</p>
-<p><code class="docutils literal notranslate"><span class="pre">traj.link_phases(['first_phase',</span> <span class="pre">'second_phase'],</span> <span class="pre">['x'],</span> <span class="pre">connected=True)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">traj.link_phases(['first_phase',</span> <span class="pre">'second_phase'],</span> <span class="pre">['x'],</span> <span class="pre">connected=False)</span></code></p>
 <p>Alternatively, we could either link parameters <code class="docutils literal notranslate"><span class="pre">x0</span></code> together in both phases (a connection would be fine) or use a trajectory-level parameter to pass a single value of <code class="docutils literal notranslate"><span class="pre">x0</span></code> to both phases.</p>
 <p>In the example below, trajectory parameter <code class="docutils literal notranslate"><span class="pre">x0</span></code> is fed to the parameter of the same name in the phases.
 You’ll need to make sure that both of the target parameters are not designated as design variables (<code class="docutils literal notranslate"><span class="pre">opt</span> <span class="pre">=</span> <span class="pre">False</span></code>).</p>
@@ -1102,13 +1102,11 @@ You’ll need to make sure that both of the target parameters are not designated
             Gradient evaluations: 4
 Optimization Complete
 -----------------------------------
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x(0.533871279941519) = 1.5000000542207101
+x(0.533871279941519) = 1.5000000542207101
 x(2.0) = 5.305471950534675
 </pre></div>
 </div>
-<img alt="../../_images/analytic_phases_14_3.png" src="../../_images/analytic_phases_14_3.png" />
+<img alt="../../_images/analytic_phases_14_2.png" src="../../_images/analytic_phases_14_2.png" />
 </div>
 </div>
 <div class="cell tag_remove-input tag_remove-output docutils container">

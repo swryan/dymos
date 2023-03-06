@@ -1,49 +1,57 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Brachistochrone with tandem phases &#8212; Dymos</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -51,61 +59,438 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/brachistochrone/brachistochrone_tandem_phases';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Phases" href="../../features/phases/phases_list.html" />
     <link rel="prev" title="Cart-Pole Optimal Control" href="../cart_pole/cart_pole.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/dymos_logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/dymos_logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
         
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../installation.html">
+                        Installing Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/optimal_control.html">
+                        Optimal Control
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/transcriptions.html">
+                        Optimal Control Transcriptions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/defining_odes.html">
+                        Defining ODEs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/collocation.html">
+                        What is collocation?
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_ivp.html">
+                        Modeling Dynamic Systems with Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_segments.html">
+                        Segments of Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../examples.html">
+                        Dymos by Example
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/phases/phases_list.html">
+                        Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/trajectories/trajectories.html">
+                        Organizing Phases into Trajectories
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/exploiting_sparsity.html">
+                        Exploiting Sparsity for Faster Derivative Calculation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/plotting.html">
+                        Plotting Timeseries
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq/faq.html">
+                        Frequently Asked Questions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/api.html">
+                        Dymos Reference API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing/contributing.html">
+                        Contributing to Dymos
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
       
       
-      <img src="../../_static/dymos_logo.png" class="logo" alt="logo">
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
       
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
       
-      <h1 class="site-logo" id="site-title">Dymos</h1>
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../installation.html">
+                        Installing Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/optimal_control.html">
+                        Optimal Control
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/transcriptions.html">
+                        Optimal Control Transcriptions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/defining_odes.html">
+                        Defining ODEs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/collocation.html">
+                        What is collocation?
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_ivp.html">
+                        Modeling Dynamic Systems with Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_segments.html">
+                        Segments of Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../examples.html">
+                        Dymos by Example
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/phases/phases_list.html">
+                        Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/trajectories/trajectories.html">
+                        Organizing Phases into Trajectories
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/exploiting_sparsity.html">
+                        Exploiting Sparsity for Faster Derivative Calculation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/plotting.html">
+                        Plotting Timeseries
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq/faq.html">
+                        Frequently Asked Questions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/api.html">
+                        Dymos Reference API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing/contributing.html">
+                        Contributing to Dymos
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/dymos_logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/dymos_logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    </div>
+    <div class="sidebar-start-items__item">
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,679 +499,312 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Installation
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../installation.html">
-   Installing Dymos
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installing Dymos</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../getting_started/optimal_control.html">
-   Optimal Control
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../getting_started/transcriptions.html">
-   Optimal Control Transcriptions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../getting_started/defining_odes.html">
-   Defining ODEs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../getting_started/collocation.html">
-   What is collocation?
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../getting_started/intro_to_dymos/intro_ivp.html">
-   Modeling Dynamic Systems with Dymos
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../getting_started/intro_to_dymos/intro_segments.html">
-   Segments of Phases
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/optimal_control.html">Optimal Control</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/transcriptions.html">Optimal Control Transcriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/defining_odes.html">Defining ODEs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/collocation.html">What is collocation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/intro_to_dymos/intro_ivp.html">Modeling Dynamic Systems with Dymos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/intro_to_dymos/intro_segments.html">Segments of Phases</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Examples and Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../examples.html">
-   Dymos by Example
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="brachistochrone.html">
-     The Brachistochrone
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="brachistochrone_upstream_init_duration_states.html">
-     The Brachistochrone with externally-sourced initial state values
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../vanderpol/vanderpol.html">
-     The Van der Pol Oscillator
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../balanced_field/balanced_field.html">
-     Aircraft Balanced Field Length Calculation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">
-     Balanced Field Length using OpenMDAO’s Function Wrapping Components.
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../bryson_denham/bryson_denham.html">
-     The Bryson-Denham Problem
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../commercial_aircraft/commercial_aircraft.html">
-     Commercial Aircraft Range Maximization by Differential Inclusion
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../double_integrator/double_integrator.html">
-     Double Integrator
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../hull/hull_problem.html">
-     The Hull Problem
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../hypersensitive/hypersensitive.html">
-     Hyper-Sensitive Problem
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../finite_burn_orbit_raise/finite_burn_orbit_raise.html">
-     Two-Burn Orbit Raise
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../length_constrained_brachistochrone/length_constrained_brachistochrone.html">
-     The Length-Constrained Brachistochrone
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../min_time_climb/min_time_climb.html">
-     Supersonic Interceptor Minimum Time Climb
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../mountain_car/mountain_car.html">
-     The Mountain Car Problem
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../multi_phase_cannonball/multi_phase_cannonball.html">
-     Multi-Phase Cannonball
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../multibranch_trajectory/multibranch_trajectory.html">
-     Multibranch Trajectory
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../racecar/racecar.html">
-     Race car Lap Simulation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../reentry/reentry.html">
-     Single-Phase Space Shuttle Reentry
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../ssto_earth/ssto_earth.html">
-     SSTO Earth Launch
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../ssto_moon_linear_tangent/ssto_moon_linear_tangent.html">
-     SSTO Lunar Ascent with Linear Tangent Guidance
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.html">
-     SSTO Lunar Ascent with Polynomial Controls
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../robertson_problem/robertson_problem.html">
-     The Robertson Problem
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../water_rocket/water_rocket.html">
-     Water Rocket
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../cart_pole/cart_pole.html">
-     Cart-Pole Optimal Control
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Brachistochrone with tandem phases
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../examples.html">Dymos by Example</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="brachistochrone.html">The Brachistochrone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brachistochrone_upstream_init_duration_states.html">The Brachistochrone with externally-sourced initial state values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vanderpol/vanderpol.html">The Van der Pol Oscillator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../balanced_field/balanced_field.html">Aircraft Balanced Field Length Calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../balanced_field/balanced_field_funccomp.html">Balanced Field Length using OpenMDAO’s Function Wrapping Components.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bryson_denham/bryson_denham.html">The Bryson-Denham Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commercial_aircraft/commercial_aircraft.html">Commercial Aircraft Range Maximization by Differential Inclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../double_integrator/double_integrator.html">Double Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hull/hull_problem.html">The Hull Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hypersensitive/hypersensitive.html">Hyper-Sensitive Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../finite_burn_orbit_raise/finite_burn_orbit_raise.html">Two-Burn Orbit Raise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../length_constrained_brachistochrone/length_constrained_brachistochrone.html">The Length-Constrained Brachistochrone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../min_time_climb/min_time_climb.html">Supersonic Interceptor Minimum Time Climb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mountain_car/mountain_car.html">The Mountain Car Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multi_phase_cannonball/multi_phase_cannonball.html">Multi-Phase Cannonball</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multibranch_trajectory/multibranch_trajectory.html">Multibranch Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../racecar/racecar.html">Race car Lap Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reentry/reentry.html">Single-Phase Space Shuttle Reentry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssto_earth/ssto_earth.html">SSTO Earth Launch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssto_moon_linear_tangent/ssto_moon_linear_tangent.html">SSTO Lunar Ascent with Linear Tangent Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.html">SSTO Lunar Ascent with Polynomial Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../robertson_problem/robertson_problem.html">The Robertson Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../water_rocket/water_rocket.html">Water Rocket</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Brachistochrone with tandem phases</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Feature Reference
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../features/phases/phases_list.html">
-   Phases
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/phases.html">
-     Phases of a Trajectory
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/analytic_phases.html">
-     Analytic Phases in Dymos
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/segments.html">
-     Segments
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/variables.html">
-     Variables
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/constraints.html">
-     Constraints
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/objective.html">
-     Objective
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../features/phases/timeseries.html">
-     Timeseries Outputs
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../features/trajectories/trajectories.html">
-   Organizing Phases into Trajectories
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../features/exploiting_sparsity.html">
-   Exploiting Sparsity for Faster Derivative Calculation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../features/plotting.html">
-   Plotting Timeseries
-  </a>
- </li>
+</li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Frequently Asked Questions
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Feature Reference</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../faq/faq.html">
-   Frequently Asked Questions
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/add_ode_output_to_timeseries.html">
-     How do I add an ODE output to the timeseries outputs?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/connect_scalar_parameters_to_ode.html">
-     How do I connect a scalar input to the ODE?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/upstream_analysis.html">
-     How do I connect the outputs of an upstream analysis as inputs to Dymos?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/downstream_analysis.html">
-     How do I connect the outputs of Dymos to a downstream analysis?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/tandem_phases.html">
-     How do I run two phases parallel-in-time?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/use_partial_coloring.html">
-     How can I more efficiently use finite-differenced components in the ODE?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../faq/debugging.html">
-     How can I debug models when things go wrong?
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../features/phases/phases_list.html">Phases</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/phases.html">Phases of a Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/analytic_phases.html">Analytic Phases in Dymos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/segments.html">Segments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/constraints.html">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/objective.html">Objective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/phases/timeseries.html">Timeseries Outputs</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Dymos API Reference
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api/api.html">
-   Dymos Reference API
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/run_problem_function.html">
-     The run_problem function
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/phase_api.html">
-     The Phase API
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/transcriptions_api.html">
-     The Transcriptions API
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/trajectory_api.html">
-     The Trajectory API
-    </a>
-   </li>
-  </ul>
- </li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../features/trajectories/trajectories.html">Organizing Phases into Trajectories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features/exploiting_sparsity.html">Exploiting Sparsity for Faster Derivative Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features/plotting.html">Plotting Timeseries</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Contributing
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Frequently Asked Questions</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../contributing/contributing.html">
-   Contributing to Dymos
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../faq/faq.html">Frequently Asked Questions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/add_ode_output_to_timeseries.html">How do I add an ODE output to the timeseries outputs?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/connect_scalar_parameters_to_ode.html">How do I connect a scalar input to the ODE?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/upstream_analysis.html">How do I connect the outputs of an upstream analysis as inputs to Dymos?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/downstream_analysis.html">How do I connect the outputs of Dymos to a downstream analysis?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/tandem_phases.html">How do I run two phases parallel-in-time?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/use_partial_coloring.html">How can I more efficiently use finite-differenced components in the ODE?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/debugging.html">How can I debug models when things go wrong?</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dymos API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">Dymos Reference API</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/run_problem_function.html">The run_problem function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/phase_api.html">The Phase API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/transcriptions_api.html">The Transcriptions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/trajectory_api.html">The Trajectory API</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Contributing to Dymos</a></li>
 </ul>
 
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
+</nav>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  </div>
+  
 
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
 
-          
+  
+  <div id="rtd-footer-container"></div>
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
+      </div>
+      <main id="main-content" class="bd-main">
         
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
 
 
 
 <div class="col py-1 d-flex header-article-main">
     <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+        <label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" data-toggle="tooltip" data-placement="right" title="Toggle primary sidebar">
+            <span class="fa-solid fa-bars"></span>
+        </label>
     </div>
     <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/OpenMDAO/dymos/master?urlpath=tree/docs/dymos_book/examples/brachistochrone/brachistochrone_tandem_phases.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/brachistochrone/brachistochrone_tandem_phases.ipynb"
-   class="headerbtn"
+  <ul class="dropdown-menu">
+      <li><a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/brachistochrone/brachistochrone_tandem_phases.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Launch on Colab"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</a>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
+  class="btn btn-sm"
   data-toggle="tooltip"
 data-placement="bottom"
 title="Fullscreen mode"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<div class="dropdown dropdown-repository-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/OpenMDAO/dymos"
-   class="headerbtn"
+  <ul class="dropdown-menu">
+      <li><a href="https://github.com/OpenMDAO/dymos" target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Source repository"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-<span class="headerbtn__text-container">repository</span>
+<span class="btn__text-container">repository</span>
 </a>
-
-      </li>
+</a>
       
-      <li>
-        <a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/brachistochrone/brachistochrone_tandem_phases.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
+      <li><a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/brachistochrone/brachistochrone_tandem_phases.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Open an issue"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-lightbulb"></i>
   </span>
-<span class="headerbtn__text-container">open issue</span>
+<span class="btn__text-container">open issue</span>
 </a>
-
-      </li>
+</a>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../_sources/examples/brachistochrone/brachistochrone_tandem_phases.ipynb"
-   class="headerbtn"
+  <ul class="dropdown-menu">
+      <li><a href="../../_sources/examples/brachistochrone/brachistochrone_tandem_phases.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Download source file"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</a>
       
       <li>
-        
 <button onclick="printPdf(this)"
-  class="headerbtn"
+  class="btn btn-sm dropdown-item"
   data-toggle="tooltip"
 data-placement="left"
 title="Print to PDF"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</a>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary" data-toggle="tooltip" data-placement="left" title="Toggle secondary sidebar">
+            <span class="fa-solid fa-list"></span>
+        </label>
     </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">
-   The first phase to integrate the standard brachistochrone ODE
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">
-   The ODE for integrating the arc-length of the wire
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">
-   The second phase to integrate the arclength of the wire.
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup-and-run">
-   Setup and run
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plots">
-   Plots
-  </a>
- </li>
-</ul>
-
-    </nav>
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Brachistochrone with tandem phases</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">
-   The first phase to integrate the standard brachistochrone ODE
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">
-   The ODE for integrating the arc-length of the wire
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">
-   The second phase to integrate the arclength of the wire.
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup-and-run">
-   Setup and run
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plots">
-   Plots
-  </a>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
             </div>
-            <main id="main-content" role="main">
-                
-              <div>
-                
-  <div class="cell tag_active-ipynb tag_remove-input tag_remove-output docutils container">
+            
+            
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Brachistochrone with tandem phases</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">
+   The first phase to integrate the standard brachistochrone ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">
+   The ODE for integrating the arc-length of the wire
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">
+   The second phase to integrate the arclength of the wire.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-and-run">
+   Setup and run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plots">
+   Plots
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="brachistochrone-with-tandem-phases">
-<span id="examples-brachistochrone-tandem-phases"></span><h1>Brachistochrone with tandem phases<a class="headerlink" href="#brachistochrone-with-tandem-phases" title="Permalink to this headline">#</a></h1>
+
+            <article class="bd-article" role="main">
+              
+  <section class="tex2jax_ignore mathjax_ignore" id="brachistochrone-with-tandem-phases">
+<span id="examples-brachistochrone-tandem-phases"></span><h1>Brachistochrone with tandem phases<a class="headerlink" href="#brachistochrone-with-tandem-phases" title="Permalink to this heading">#</a></h1>
 <div class="admonition-things-you-ll-learn-through-this-example admonition">
 <p class="admonition-title">Things you’ll learn through this example</p>
 <ul class="simple">
@@ -800,7 +818,7 @@ Or perhaps one phase has relatively rapid dynamics compared to the other one.  F
 <p>In this example we’ll evaulate the standard brachistochrone problem, but limit the arclength of the wire along which the bead travels.
 The arclength is integrated as a state variable, and can be done so along with the typical states <em>x</em>, <em>y</em>, and <em>v</em>, but for the purposes of this contrive example we’ll perform this integration in a separate phase that occurs at the same time.</p>
 <section id="the-first-phase-to-integrate-the-standard-brachistochrone-ode">
-<h2>The first phase to integrate the standard brachistochrone ODE<a class="headerlink" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode" title="Permalink to this headline">#</a></h2>
+<h2>The first phase to integrate the standard brachistochrone ODE<a class="headerlink" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode" title="Permalink to this heading">#</a></h2>
 <div class="admonition-things-to-note-about-this-phase admonition">
 <p class="admonition-title">Things to note about this phase</p>
 <ul class="simple">
@@ -863,7 +881,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </section>
 <section id="the-ode-for-integrating-the-arc-length-of-the-wire">
-<h2>The ODE for integrating the arc-length of the wire<a class="headerlink" href="#the-ode-for-integrating-the-arc-length-of-the-wire" title="Permalink to this headline">#</a></h2>
+<h2>The ODE for integrating the arc-length of the wire<a class="headerlink" href="#the-ode-for-integrating-the-arc-length-of-the-wire" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BrachistochroneArclengthODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
@@ -908,7 +926,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </section>
 <section id="the-second-phase-to-integrate-the-arclength-of-the-wire">
-<h2>The second phase to integrate the arclength of the wire.<a class="headerlink" href="#the-second-phase-to-integrate-the-arclength-of-the-wire" title="Permalink to this headline">#</a></h2>
+<h2>The second phase to integrate the arclength of the wire.<a class="headerlink" href="#the-second-phase-to-integrate-the-arclength-of-the-wire" title="Permalink to this heading">#</a></h2>
 <div class="admonition-things-to-note-about-this-phase admonition">
 <p class="admonition-title">Things to note about this phase</p>
 <ul class="simple">
@@ -949,7 +967,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </section>
 <section id="setup-and-run">
-<h2>Setup and run<a class="headerlink" href="#setup-and-run" title="Permalink to this headline">#</a></h2>
+<h2>Setup and run<a class="headerlink" href="#setup-and-run" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">linear_solver</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">DirectSolver</span><span class="p">()</span>
@@ -978,7 +996,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.379404 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.419151 seconds.
 Total jacobian shape: (223, 287) 
 </pre></div>
 </div>
@@ -987,9 +1005,9 @@ FWD solves: 32   REV solves: 0
 Total colors vs. total size: 32 vs 287  (88.9% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.379404 sec.
-Time to compute coloring: 0.396643 sec.
-Memory to compute coloring: 3.054688 MB.
+Time to compute sparsity: 0.419151 sec.
+Time to compute coloring: 0.408637 sec.
+Memory to compute coloring: 3.062500 MB.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:639: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
@@ -998,13 +1016,16 @@ Memory to compute coloring: 3.054688 MB.
 </div>
 </div>
 </div>
-<div class="cell tag_remove-input tag_remove-output docutils container">
-</div>
 </section>
 <section id="plots">
-<h2>Plots<a class="headerlink" href="#plots" title="Permalink to this headline">#</a></h2>
+<h2>Plots<a class="headerlink" href="#plots" title="Permalink to this heading">#</a></h2>
 <p>The following plots show the trajectory of the x, y, and v states (the top plot) and the trajectory of the arclength state (the bottom plot).  Note that these plots are linked, but use different grid spacings - the arclength is integrated on a significantly more dense grid.  This is enabled by the secondary timeseries output <code class="docutils literal notranslate"><span class="pre">timeseries2</span></code> in the first phase.</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">output_notebook</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">save</span>
 
@@ -1052,6 +1073,7 @@ Memory to compute coloring: 3.054688 MB.
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><!DOCTYPE html>
 <html lang="en">
@@ -1757,10 +1779,10 @@ function _(e,t,n,s,o){var r;s();const i=e(434),a=e(14),l=e(56),c=e(40);class p e
     </script>
   </head>
   <body>
-    <div id="1d99e680-66c9-4449-b10a-cdfc3659481a" data-root-id="p1001" style="display: contents;"></div>
-
+    <div id="aafe816a-6fa6-4afe-aaec-0bc3f7df0fb9" data-root-id="p1001" style="display: contents;"></div>
+  
     <script type="application/json" id="p1789">
-      {"6ac53dd2-e471-45dc-9b04-ad513dc04caa":{"version":"3.0.3","title":"Bokeh Application","defs":[],"roots":[{"type":"object","name":"Figure","id":"p1001","attributes":{"width":800,"height":300,"x_range":{"type":"object","name":"DataRange1d","id":"p1003"},"y_range":{"type":"object","name":"DataRange1d","id":"p1002"},"x_scale":{"type":"object","name":"LinearScale","id":"p1014"},"y_scale":{"type":"object","name":"LinearScale","id":"p1016"},"title":{"type":"object","name":"Title","id":"p1004"},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1053","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1047","attributes":{"selected":{"type":"object","name":"Selection","id":"p1049","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1048"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAZVA0h0La3PxlUDSHQtsc/GVQNIdC2xz8V/8kYHMnRPxtUDSHQttc/G1QNIdC21z8hqVAphKTdPxX/yRgcyeE/Ff/JGBzJ4T+Yqesc9r/kPxtUDSHQtuc/G1QNIdC25z+e/i4lqq3qPyGpUCmEpO0/IalQKYSk7T/TKbkWr03wPxX/yRgcyfE/Ff/JGBzJ8T9X1NoaiUTzP5ip6xz2v/Q/mKnrHPa/9D/ZfvweYzv2PxtUDSHQtvc/G1QNIdC29z9dKR4jPTL5P57+LiWqrfo/nv4uJaqt+j/f0z8nFyn8PyGpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAG5e7Q0EGDPxBzKejdpqk/EXMp6N2mqT/m8irQkL3BP5Q+NrUcP9I/lD42tRw/0j/8/fw6INHfP2GDGdlS0eg/YYMZ2VLR6D9ZNsVAiujxP+ndKWyPbfg/6d0pbI9t+D/PBCGeB+7/P8iOYeQ9KgRAyI5h5D0qBECVVY+cjMYIQA1Q9ksHyA1ADVD2SwfIDUAQLbSR/pMRQKx6wNeZahRArHrA15lqFECrRWOPTmIXQJ4ei0TafxpAnh6LRNp/GkB492MJPsIdQKPxkgpmiyBAo/GSCmaLIED98zYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1054","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1055"}}},"glyph":{"type":"object","name":"Circle","id":"p1050","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"fill_color":{"type":"value","value":"#1f77b4"},"hatch_color":{"type":"value","value":"#1f77b4"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1051","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1052","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1062","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1056","attributes":{"selected":{"type":"object","name":"Selection","id":"p1058","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1057"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAZVA0h0La3PxlUDSHQtsc/GVQNIdC2xz8V/8kYHMnRPxtUDSHQttc/G1QNIdC21z8hqVAphKTdPxX/yRgcyeE/Ff/JGBzJ4T+Yqesc9r/kPxtUDSHQtuc/G1QNIdC25z+e/i4lqq3qPyGpUCmEpO0/IalQKYSk7T/TKbkWr03wPxX/yRgcyfE/Ff/JGBzJ8T9X1NoaiUTzP5ip6xz2v/Q/mKnrHPa/9D/ZfvweYzv2PxtUDSHQtvc/G1QNIdC29z9dKR4jPTL5P57+LiWqrfo/nv4uJaqt+j/f0z8nFyn8PyGpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAG5e7Q0EGDPxBzKejdpqk/EXMp6N2mqT/m8irQkL3BP5Q+NrUcP9I/lD42tRw/0j/8/fw6INHfP2GDGdlS0eg/YYMZ2VLR6D9ZNsVAiujxP+ndKWyPbfg/6d0pbI9t+D/PBCGeB+7/P8iOYeQ9KgRAyI5h5D0qBECVVY+cjMYIQA1Q9ksHyA1ADVD2SwfIDUAQLbSR/pMRQKx6wNeZahRArHrA15lqFECrRWOPTmIXQJ4ei0TafxpAnh6LRNp/GkB492MJPsIdQKPxkgpmiyBAo/GSCmaLIED98zYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1063","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1064"}}},"glyph":{"type":"object","name":"Line","id":"p1059","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1060","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1061","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1071","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1065","attributes":{"selected":{"type":"object","name":"Selection","id":"p1067","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1066"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAZVA0h0La3PxlUDSHQtsc/GVQNIdC2xz8V/8kYHMnRPxtUDSHQttc/G1QNIdC21z8hqVAphKTdPxX/yRgcyeE/Ff/JGBzJ4T+Yqesc9r/kPxtUDSHQtuc/G1QNIdC25z+e/i4lqq3qPyGpUCmEpO0/IalQKYSk7T/TKbkWr03wPxX/yRgcyfE/Ff/JGBzJ8T9X1NoaiUTzP5ip6xz2v/Q/mKnrHPa/9D/ZfvweYzv2PxtUDSHQtvc/G1QNIdC29z9dKR4jPTL5P57+LiWqrfo/nv4uJaqt+j/f0z8nFyn8PyGpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDWFfpxP+sjQCTzdA9HsCNAJPN0D0ewI0Di+Du8blQjQFhi/q9m3iJAWGL+r2beIkBDZyRTHVUiQN0h9D8qviFA3SH0Pyq+IUCxUb3yPx4hQP/k/yPfeSBA/+T/I995IEBHJx2EZaofQEC46Fq9Yx5AQLjoWr1jHkAfwuTXMiIdQJfGvytO7RtAl8a/K07tG0BeDggyM8saQCaXchH+sRlAJpdyEf6xGUB/Xr7CrJkYQOL19NOamhdA4vX005qaF0DCRh7FGMYWQIBNnPdH4hVAgE2c90fiFUDKh6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1072","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1073"}}},"glyph":{"type":"object","name":"Circle","id":"p1068","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"fill_color":{"type":"value","value":"#ff7f0e"},"hatch_color":{"type":"value","value":"#ff7f0e"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1069","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1070","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1080","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1074","attributes":{"selected":{"type":"object","name":"Selection","id":"p1076","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1075"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAZVA0h0La3PxlUDSHQtsc/GVQNIdC2xz8V/8kYHMnRPxtUDSHQttc/G1QNIdC21z8hqVAphKTdPxX/yRgcyeE/Ff/JGBzJ4T+Yqesc9r/kPxtUDSHQtuc/G1QNIdC25z+e/i4lqq3qPyGpUCmEpO0/IalQKYSk7T/TKbkWr03wPxX/yRgcyfE/Ff/JGBzJ8T9X1NoaiUTzP5ip6xz2v/Q/mKnrHPa/9D/ZfvweYzv2PxtUDSHQtvc/G1QNIdC29z9dKR4jPTL5P57+LiWqrfo/nv4uJaqt+j/f0z8nFyn8PyGpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDWFfpxP+sjQCTzdA9HsCNAJPN0D0ewI0Di+Du8blQjQFhi/q9m3iJAWGL+r2beIkBDZyRTHVUiQN0h9D8qviFA3SH0Pyq+IUCxUb3yPx4hQP/k/yPfeSBA/+T/I995IEBHJx2EZaofQEC46Fq9Yx5AQLjoWr1jHkAfwuTXMiIdQJfGvytO7RtAl8a/K07tG0BeDggyM8saQCaXchH+sRlAJpdyEf6xGUB/Xr7CrJkYQOL19NOamhdA4vX005qaF0DCRh7FGMYWQIBNnPdH4hVAgE2c90fiFUDKh6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1081","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1082"}}},"glyph":{"type":"object","name":"Line","id":"p1077","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1078","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1079","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1089","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1083","attributes":{"selected":{"type":"object","name":"Selection","id":"p1085","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1084"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAZVA0h0La3PxlUDSHQtsc/GVQNIdC2xz8V/8kYHMnRPxtUDSHQttc/G1QNIdC21z8hqVAphKTdPxX/yRgcyeE/Ff/JGBzJ4T+Yqesc9r/kPxtUDSHQtuc/G1QNIdC25z+e/i4lqq3qPyGpUCmEpO0/IalQKYSk7T/TKbkWr03wPxX/yRgcyfE/Ff/JGBzJ8T9X1NoaiUTzP5ip6xz2v/Q/mKnrHPa/9D/ZfvweYzv2PxtUDSHQtvc/G1QNIdC29z9dKR4jPTL5P57+LiWqrfo/nv4uJaqt+j/f0z8nFyn8PyGpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAABEc+TzkXnsP9TwtGji9fs/1PC0aOL1+z9Nwj70yoEEQIZLx8dGpQpAhkvHx0alCkBWDuOiFC0QQEVc5+m20RJARVzn6bbREkB/4ETpvkMVQGYwCCCvgxdAZjAIIK+DF0AbSmWbN5IZQMhH31hbdRtAyEffWFt1G0D2MCaykzIdQEZDCtmrxh5ARkMK2avGHkCtIi4dJxggQKyyO38AwCBArLI7fwDAIEA918a3AGEhQF19P2PC7iFAXX0/Y8LuIUB7IQ5UtWEiQCvmoL+L2SJAK+agv4vZIkDRuKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1090","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1091"}}},"glyph":{"type":"object","name":"Circle","id":"p1086","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"fill_color":{"type":"value","value":"#2ca02c"},"hatch_color":{"type":"value","value":"#2ca02c"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1087","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1088","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1098","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1092","attributes":{"selected":{"type":"object","name":"Selection","id":"p1094","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1093"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAZVA0h0La3PxlUDSHQtsc/GVQNIdC2xz8V/8kYHMnRPxtUDSHQttc/G1QNIdC21z8hqVAphKTdPxX/yRgcyeE/Ff/JGBzJ4T+Yqesc9r/kPxtUDSHQtuc/G1QNIdC25z+e/i4lqq3qPyGpUCmEpO0/IalQKYSk7T/TKbkWr03wPxX/yRgcyfE/Ff/JGBzJ8T9X1NoaiUTzP5ip6xz2v/Q/mKnrHPa/9D/ZfvweYzv2PxtUDSHQtvc/G1QNIdC29z9dKR4jPTL5P57+LiWqrfo/nv4uJaqt+j/f0z8nFyn8PyGpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAABEc+TzkXnsP9TwtGji9fs/1PC0aOL1+z9Nwj70yoEEQIZLx8dGpQpAhkvHx0alCkBWDuOiFC0QQEVc5+m20RJARVzn6bbREkB/4ETpvkMVQGYwCCCvgxdAZjAIIK+DF0AbSmWbN5IZQMhH31hbdRtAyEffWFt1G0D2MCaykzIdQEZDCtmrxh5ARkMK2avGHkCtIi4dJxggQKyyO38AwCBArLI7fwDAIEA918a3AGEhQF19P2PC7iFAXX0/Y8LuIUB7IQ5UtWEiQCvmoL+L2SJAK+agv4vZIkDRuKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1099","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1100"}}},"glyph":{"type":"object","name":"Line","id":"p1095","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1096","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1097","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1107","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1101","attributes":{"selected":{"type":"object","name":"Selection","id":"p1103","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1102"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1108","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1109"}}},"glyph":{"type":"object","name":"Circle","id":"p1104","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"fill_color":{"type":"value","value":"#d62728"},"hatch_color":{"type":"value","value":"#d62728"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1105","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1106","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1116","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1110","attributes":{"selected":{"type":"object","name":"Selection","id":"p1112","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1111"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAACyMLgqbu9wPyE3p0ldY4s/yS1csQk1mz+T6lFVLJKlP3por8fDya0/31oAS8mhsj/rcY2KZ4y1P35449zfSrc/GVQNIdC2tz8ZVA0h0La3PyTXuAPHxbg//TpCyjsjuz+LX2SNEoS+P7Ek2yXzP8E/K4RyAtlNwz981wa2TCzFPwJjzdWbocY/S2b4/teAxz8ZVA0h0LbHPxlUDSHQtsc/nhVjkks+yD+Lx6f1BW3JP9LZOFdxHcs/wc5hNlsbzT83LvkSQSnPP8bARmPag9A/iQYq84E+0T8uiL8HIK7RPxX/yRgcydE/Ff/JGBzJ0T/X33TR2QzSP844FwM3pNI/8cHfs2x80z9nPHSjYXvUPyTsv5FUgtU/zBWKa45x1j+PW237NSzXPzTdAhDUm9c/G1QNIdC21z8bVA0h0LbXP940uNmN+tc/1I1aC+uR2D/3FiO8IGrZP22Rt6sVado/KkEDmghw2z/Sas1zQl/cP5awsAPqGd0/OjJGGIiJ3T8hqVAphKTdPyGpUCmEpN0/5In74UHo3T/a4p0Tn3/eP/5rZsTUV98/O3P92WQr4D8YSyNR3q7gP+1fCD57JuE/zwL6Bc+D4T+hw0QQnrvhPxX/yRgcyeE/Ff/JGBzJ4T92bx/1+urhP/Gb8I2pNuI/g+BUZsSi4j+/HR/ePiLjP5z1RFW4peM/cAoqQlUd5D9SrRsKqXrkPyRuZhR4suQ/mKnrHPa/5D+Yqesc9r/kP/kZQfnU4eQ/dEYSkoMt5T8Gi3ZqnpnlP0HIQOIYGeY/HqBmWZKc5j/ztEtGLxTnP9VXPQ6Dcec/pxiIGFKp5z8bVA0h0LbnPxtUDSHQtuc/fMRi/a7Y5z/38DOWXSToP4k1mG54kOg/xXJi5vIP6T+iSohdbJPpP3dfbUoJC+o/WAJfEl1o6j8rw6kcLKDqP57+LiWqreo/nv4uJaqt6j//boQBic/qP3qbVZo3G+s/DOC5clKH6z9HHYTqzAbsPyX1qWFGiuw/+gmPTuMB7T/brIAWN1/tP65tyyAGl+0/IalQKYSk7T8hqVAphKTtP4IZpgVjxu0//kV3nhES7j+Pitt2LH7uP8vHpe6m/e4/qZ/LZSCB7z9+tLBSvfjvP7ArUY0IK/A/GYx2EvBG8D/TKbkWr03wP9MpuRavTfA/A+LjhJ5e8D9BeEzRdYTwP4qafj2DuvA/KLljeUD68D8WpfY0/TvxP4EvaavLd/E/8gBij3Wm8T9bYYcUXcLxPxX/yRgcyfE/Ff/JGBzJ8T9Ft/SGC9rxP4NNXdPi//E/zG+PP/A18j9pjnR7rXXyP1d6Bzdqt/I/wgR6rTjz8j8z1nKR4iHzP5s2mBbKPfM/VtTaGolE8z9W1NoaiUTzP4aMBYl4VfM/xCJu1U978z8NRaBBXbHzP6tjhX0a8fM/mU8YOdcy9D8E2oqvpW70P3Wrg5NPnfQ/3gupGDe59D+Yqesc9r/0P5ip6xz2v/Q/yGEWi+XQ9D8G+H7XvPb0P08asUPKLPU/7TiWf4ds9T/bJCk7RK71P0Wvm7ES6vU/toCUlbwY9j8g4bkapDT2P9l+/B5jO/Y/2X78HmM79j8JNyeNUkz2P0fNj9kpcvY/kO/BRTeo9j8uDqeB9Of2Px36OT2xKfc/h4Sss39l9z/4VaWXKZT3P2K2yhwRsPc/G1QNIdC29z8bVA0h0Lb3P0sMOI+/x/c/iaKg25bt9z/SxNJHpCP4P3Djt4NhY/g/X89KPx6l+D/JWb217OD4PzortpmWD/k/pIvbHn4r+T9dKR4jPTL5P10pHiM9Mvk/jeFIkSxD+T/Ld7HdA2n5PxSa40kRn/k/sbjIhc7e+T+gpFtBiyD6PwovzrdZXPo/ewDHmwOL+j/kYOwg66b6P57+LiWqrfo/nv4uJaqt+j/PtlmTmb76PwxNwt9w5Po/VW/0S34a+z/zjdmHO1r7P+J5bEP4m/s/TATfucbX+z+91dedcAb8PyY2/SJYIvw/4NM/Jxcp/D/g0z8nFyn8PxGMapUGOvw/TiLT4d1f/D+XRAVO65X8PzVj6omo1fw/JE99RWUX/T+N2e+7M1P9P/6q6J/dgf0/aAsOJcWd/T8hqVAphKT9Pw=="},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1117","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1118"}}},"glyph":{"type":"object","name":"Line","id":"p1113","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1114","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1115","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1007","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1032"},{"type":"object","name":"WheelZoomTool","id":"p1033"},{"type":"object","name":"BoxZoomTool","id":"p1034","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1035","attributes":{"syncable":false,"level":"overlay","visible":false,"left_units":"canvas","right_units":"canvas","bottom_units":"canvas","top_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"SaveTool","id":"p1036"},{"type":"object","name":"ResetTool","id":"p1037"},{"type":"object","name":"HelpTool","id":"p1038"}]}},"left":[{"type":"object","name":"LinearAxis","id":"p1025","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1028","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1027"},"axis_label":"state value","major_label_policy":{"type":"object","name":"AllLabels","id":"p1026"}}}],"right":[{"type":"object","name":"Legend","id":"p1119","attributes":{"location":"bottom_right","items":[{"type":"object","name":"LegendItem","id":"p1120","attributes":{"label":{"type":"value","value":"x (m)"},"renderers":[{"id":"p1053"},{"id":"p1062"}]}},{"type":"object","name":"LegendItem","id":"p1121","attributes":{"label":{"type":"value","value":"y (m)"},"renderers":[{"id":"p1071"},{"id":"p1080"}]}},{"type":"object","name":"LegendItem","id":"p1122","attributes":{"label":{"type":"value","value":"v"},"renderers":[{"id":"p1089"},{"id":"p1098"}]}},{"type":"object","name":"LegendItem","id":"p1123","attributes":{"label":{"type":"value","value":"arclength"},"renderers":[{"id":"p1107"},{"id":"p1116"}]}}]}}],"below":[{"type":"object","name":"LinearAxis","id":"p1018","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1021","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1020"},"axis_label":"time (s)","major_label_policy":{"type":"object","name":"AllLabels","id":"p1019"}}}],"center":[{"type":"object","name":"Grid","id":"p1024","attributes":{"axis":{"id":"p1018"}}},{"type":"object","name":"Grid","id":"p1031","attributes":{"dimension":1,"axis":{"id":"p1025"}}}]}}]}}
+      {"a0f05758-50b2-4754-8a9c-dfff370670e1":{"version":"3.0.3","title":"Bokeh Application","defs":[],"roots":[{"type":"object","name":"Figure","id":"p1001","attributes":{"width":800,"height":300,"x_range":{"type":"object","name":"DataRange1d","id":"p1002"},"y_range":{"type":"object","name":"DataRange1d","id":"p1003"},"x_scale":{"type":"object","name":"LinearScale","id":"p1014"},"y_scale":{"type":"object","name":"LinearScale","id":"p1016"},"title":{"type":"object","name":"Title","id":"p1008"},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1053","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1047","attributes":{"selected":{"type":"object","name":"Selection","id":"p1049","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1048"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAjVA0h0La3PyNUDSHQtsc/I1QNIdC2xz8c/8kYHMnRPyVUDSHQttc/JVQNIdC21z8uqVAphKTdPxz/yRgcyeE/HP/JGBzJ4T+hqesc9r/kPyVUDSHQtuc/JVQNIdC25z+q/i4lqq3qPy6pUCmEpO0/LqlQKYSk7T/aKbkWr03wPxz/yRgcyfE/HP/JGBzJ8T9f1NoaiUTzP6Gp6xz2v/Q/oanrHPa/9D/ifvweYzv2PyVUDSHQtvc/JVQNIdC29z9oKR4jPTL5P6r+LiWqrfo/qv4uJaqt+j/r0z8nFyn8Py6pUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAACY5u7Q0EGDP8xyKejdpqk/zXIp6N2mqT8F8irQkL3BP8w9NrUcP9I/zD02tRw/0j9S/fw6INHfPymDGdlS0eg/KYMZ2VLR6D82NsVAiujxP8LdKWyPbfg/wt0pbI9t+D/BBCGeB+7/P9eOYeQ9KgRA145h5D0qBEC+VY+cjMYIQFFQ9ksHyA1AUVD2SwfIDUA/LbSR/pMRQN96wNeZahRA33rA15lqFEDXRWOPTmIXQMYei0TafxpAxh6LRNp/GkCj92MJPsIdQLbxkgpmiyBAtvGSCmaLIEAD9DYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1054","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1055"}}},"glyph":{"type":"object","name":"Circle","id":"p1050","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"fill_color":{"type":"value","value":"#1f77b4"},"hatch_color":{"type":"value","value":"#1f77b4"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1051","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1052","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1062","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1056","attributes":{"selected":{"type":"object","name":"Selection","id":"p1058","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1057"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAjVA0h0La3PyNUDSHQtsc/I1QNIdC2xz8c/8kYHMnRPyVUDSHQttc/JVQNIdC21z8uqVAphKTdPxz/yRgcyeE/HP/JGBzJ4T+hqesc9r/kPyVUDSHQtuc/JVQNIdC25z+q/i4lqq3qPy6pUCmEpO0/LqlQKYSk7T/aKbkWr03wPxz/yRgcyfE/HP/JGBzJ8T9f1NoaiUTzP6Gp6xz2v/Q/oanrHPa/9D/ifvweYzv2PyVUDSHQtvc/JVQNIdC29z9oKR4jPTL5P6r+LiWqrfo/qv4uJaqt+j/r0z8nFyn8Py6pUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAACY5u7Q0EGDP8xyKejdpqk/zXIp6N2mqT8F8irQkL3BP8w9NrUcP9I/zD02tRw/0j9S/fw6INHfPymDGdlS0eg/KYMZ2VLR6D82NsVAiujxP8LdKWyPbfg/wt0pbI9t+D/BBCGeB+7/P9eOYeQ9KgRA145h5D0qBEC+VY+cjMYIQFFQ9ksHyA1AUVD2SwfIDUA/LbSR/pMRQN96wNeZahRA33rA15lqFEDXRWOPTmIXQMYei0TafxpAxh6LRNp/GkCj92MJPsIdQLbxkgpmiyBAtvGSCmaLIEAD9DYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1063","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1064"}}},"glyph":{"type":"object","name":"Line","id":"p1059","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1060","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1061","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1071","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1065","attributes":{"selected":{"type":"object","name":"Selection","id":"p1067","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1066"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAjVA0h0La3PyNUDSHQtsc/I1QNIdC2xz8c/8kYHMnRPyVUDSHQttc/JVQNIdC21z8uqVAphKTdPxz/yRgcyeE/HP/JGBzJ4T+hqesc9r/kPyVUDSHQtuc/JVQNIdC25z+q/i4lqq3qPy6pUCmEpO0/LqlQKYSk7T/aKbkWr03wPxz/yRgcyfE/HP/JGBzJ8T9f1NoaiUTzP6Gp6xz2v/Q/oanrHPa/9D/ifvweYzv2PyVUDSHQtvc/JVQNIdC29z9oKR4jPTL5P6r+LiWqrfo/qv4uJaqt+j/r0z8nFyn8Py6pUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDXFfpxP+sjQCTzdA9HsCNAJPN0D0ewI0Df+Du8blQjQFJi/q9m3iJAUmL+r2beIkA8ZyRTHVUiQNQh9D8qviFA1CH0Pyq+IUCjUb3yPx4hQOzk/yPfeSBA7OT/I995IEAgJx2EZaofQB+46Fq9Yx5AH7joWr1jHkAKwuTXMiIdQJrGvytO7RtAmsa/K07tG0CBDggyM8saQF6XchH+sRlAXpdyEf6xGUCyXr7CrJkYQBb29NOamhdAFvb005qaF0AZRx7FGMYWQOJNnPdH4hVA4k2c90fiFUDwh6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1072","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1073"}}},"glyph":{"type":"object","name":"Circle","id":"p1068","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"fill_color":{"type":"value","value":"#ff7f0e"},"hatch_color":{"type":"value","value":"#ff7f0e"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1069","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1070","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1080","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1074","attributes":{"selected":{"type":"object","name":"Selection","id":"p1076","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1075"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAjVA0h0La3PyNUDSHQtsc/I1QNIdC2xz8c/8kYHMnRPyVUDSHQttc/JVQNIdC21z8uqVAphKTdPxz/yRgcyeE/HP/JGBzJ4T+hqesc9r/kPyVUDSHQtuc/JVQNIdC25z+q/i4lqq3qPy6pUCmEpO0/LqlQKYSk7T/aKbkWr03wPxz/yRgcyfE/HP/JGBzJ8T9f1NoaiUTzP6Gp6xz2v/Q/oanrHPa/9D/ifvweYzv2PyVUDSHQtvc/JVQNIdC29z9oKR4jPTL5P6r+LiWqrfo/qv4uJaqt+j/r0z8nFyn8Py6pUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDXFfpxP+sjQCTzdA9HsCNAJPN0D0ewI0Df+Du8blQjQFJi/q9m3iJAUmL+r2beIkA8ZyRTHVUiQNQh9D8qviFA1CH0Pyq+IUCjUb3yPx4hQOzk/yPfeSBA7OT/I995IEAgJx2EZaofQB+46Fq9Yx5AH7joWr1jHkAKwuTXMiIdQJrGvytO7RtAmsa/K07tG0CBDggyM8saQF6XchH+sRlAXpdyEf6xGUCyXr7CrJkYQBb29NOamhdAFvb005qaF0AZRx7FGMYWQOJNnPdH4hVA4k2c90fiFUDwh6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1081","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1082"}}},"glyph":{"type":"object","name":"Line","id":"p1077","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1078","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1079","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1089","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1083","attributes":{"selected":{"type":"object","name":"Selection","id":"p1085","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1084"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAjVA0h0La3PyNUDSHQtsc/I1QNIdC2xz8c/8kYHMnRPyVUDSHQttc/JVQNIdC21z8uqVAphKTdPxz/yRgcyeE/HP/JGBzJ4T+hqesc9r/kPyVUDSHQtuc/JVQNIdC25z+q/i4lqq3qPy6pUCmEpO0/LqlQKYSk7T/aKbkWr03wPxz/yRgcyfE/HP/JGBzJ8T9f1NoaiUTzP6Gp6xz2v/Q/oanrHPa/9D/ifvweYzv2PyVUDSHQtvc/JVQNIdC29z9oKR4jPTL5P6r+LiWqrfo/qv4uJaqt+j/r0z8nFyn8Py6pUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAnc+TzkXnsP9jwtGji9fs/2PC0aOL1+z9ywj70yoEEQMxLx8dGpQpAzEvHx0alCkB7DuOiFC0QQGlc5+m20RJAaVzn6bbREkCu4ETpvkMVQKMwCCCvgxdAozAIIK+DF0BYSmWbN5IZQPlH31hbdRtA+UffWFt1G0ASMSaykzIdQENDCtmrxh5AQ0MK2avGHkCYIi4dJxggQIyyO38AwCBAjLI7fwDAIEAh18a3AGEhQEF9P2PC7iFAQX0/Y8LuIUBMIQ5UtWEiQPjloL+L2SJA+OWgv4vZIkC/uKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1090","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1091"}}},"glyph":{"type":"object","name":"Circle","id":"p1086","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"fill_color":{"type":"value","value":"#2ca02c"},"hatch_color":{"type":"value","value":"#2ca02c"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1087","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1088","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1098","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1092","attributes":{"selected":{"type":"object","name":"Selection","id":"p1094","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1093"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAjVA0h0La3PyNUDSHQtsc/I1QNIdC2xz8c/8kYHMnRPyVUDSHQttc/JVQNIdC21z8uqVAphKTdPxz/yRgcyeE/HP/JGBzJ4T+hqesc9r/kPyVUDSHQtuc/JVQNIdC25z+q/i4lqq3qPy6pUCmEpO0/LqlQKYSk7T/aKbkWr03wPxz/yRgcyfE/HP/JGBzJ8T9f1NoaiUTzP6Gp6xz2v/Q/oanrHPa/9D/ifvweYzv2PyVUDSHQtvc/JVQNIdC29z9oKR4jPTL5P6r+LiWqrfo/qv4uJaqt+j/r0z8nFyn8Py6pUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAnc+TzkXnsP9jwtGji9fs/2PC0aOL1+z9ywj70yoEEQMxLx8dGpQpAzEvHx0alCkB7DuOiFC0QQGlc5+m20RJAaVzn6bbREkCu4ETpvkMVQKMwCCCvgxdAozAIIK+DF0BYSmWbN5IZQPlH31hbdRtA+UffWFt1G0ASMSaykzIdQENDCtmrxh5AQ0MK2avGHkCYIi4dJxggQIyyO38AwCBAjLI7fwDAIEAh18a3AGEhQEF9P2PC7iFAQX0/Y8LuIUBMIQ5UtWEiQPjloL+L2SJA+OWgv4vZIkC/uKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1099","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1100"}}},"glyph":{"type":"object","name":"Line","id":"p1095","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1096","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1097","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1107","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1101","attributes":{"selected":{"type":"object","name":"Selection","id":"p1103","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1102"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1108","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1109"}}},"glyph":{"type":"object","name":"Circle","id":"p1104","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"fill_color":{"type":"value","value":"#d62728"},"hatch_color":{"type":"value","value":"#d62728"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1105","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1106","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1116","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1110","attributes":{"selected":{"type":"object","name":"Selection","id":"p1112","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1111"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1117","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1118"}}},"glyph":{"type":"object","name":"Line","id":"p1113","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1114","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1115","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1009","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1032"},{"type":"object","name":"WheelZoomTool","id":"p1033"},{"type":"object","name":"BoxZoomTool","id":"p1034","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1035","attributes":{"syncable":false,"level":"overlay","visible":false,"left_units":"canvas","right_units":"canvas","bottom_units":"canvas","top_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"SaveTool","id":"p1036"},{"type":"object","name":"ResetTool","id":"p1037"},{"type":"object","name":"HelpTool","id":"p1038"}]}},"left":[{"type":"object","name":"LinearAxis","id":"p1025","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1028","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1027"},"axis_label":"state value","major_label_policy":{"type":"object","name":"AllLabels","id":"p1026"}}}],"right":[{"type":"object","name":"Legend","id":"p1119","attributes":{"location":"bottom_right","items":[{"type":"object","name":"LegendItem","id":"p1120","attributes":{"label":{"type":"value","value":"x (m)"},"renderers":[{"id":"p1053"},{"id":"p1062"}]}},{"type":"object","name":"LegendItem","id":"p1121","attributes":{"label":{"type":"value","value":"y (m)"},"renderers":[{"id":"p1071"},{"id":"p1080"}]}},{"type":"object","name":"LegendItem","id":"p1122","attributes":{"label":{"type":"value","value":"v"},"renderers":[{"id":"p1089"},{"id":"p1098"}]}},{"type":"object","name":"LegendItem","id":"p1123","attributes":{"label":{"type":"value","value":"arclength"},"renderers":[{"id":"p1107"},{"id":"p1116"}]}}]}}],"below":[{"type":"object","name":"LinearAxis","id":"p1018","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1021","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1020"},"axis_label":"time (s)","major_label_policy":{"type":"object","name":"AllLabels","id":"p1019"}}}],"center":[{"type":"object","name":"Grid","id":"p1024","attributes":{"axis":{"id":"p1018"}}},{"type":"object","name":"Grid","id":"p1031","attributes":{"dimension":1,"axis":{"id":"p1025"}}}]}}]}}
     </script>
     <script type="text/javascript">
       (function() {
@@ -1769,7 +1791,7 @@ function _(e,t,n,s,o){var r;s();const i=e(434),a=e(14),l=e(56),c=e(40);class p e
             (function(root) {
               function embed_document(root) {
               const docs_json = document.getElementById('p1789').textContent;
-              const render_items = [{"docid":"6ac53dd2-e471-45dc-9b04-ad513dc04caa","roots":{"p1001":"1d99e680-66c9-4449-b10a-cdfc3659481a"},"root_ids":["p1001"]}];
+              const render_items = [{"docid":"a0f05758-50b2-4754-8a9c-dfff370670e1","roots":{"p1001":"aafe816a-6fa6-4afe-aaec-0bc3f7df0fb9"},"root_ids":["p1001"]}];
               root.Bokeh.embed.embed_items(docs_json, render_items);
               }
               if (root.Bokeh !== undefined) {
@@ -1822,50 +1844,125 @@ function _(e,t,n,s,o){var r;s();const i=e(434),a=e(14),l=e(56),c=e(40);class p e
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
-              
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
+            </article>
+            
+
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../cart_pole/cart_pole.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Cart-Pole Optimal Control</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../../features/phases/phases_list.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Phases</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+  <a class='left-prev' id="prev-link" href="../cart_pole/cart_pole.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Cart-Pole Optimal Control</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../../features/phases/phases_list.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Phases</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
 </div>
             </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
   
-    By The Dymos Development Team<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">
+   The first phase to integrate the standard brachistochrone ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">
+   The ODE for integrating the arc-length of the wire
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">
+   The second phase to integrate the arclength of the wire.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-and-run">
+   Setup and run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plots">
+   Plots
+  </a>
+ </li>
+</ul>
+
+</nav>
 </div>
 
-
-      </div>
-    </div>
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+<div class="bd-footer-content__inner container">
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Dymos Development Team
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2022.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+Last updated on None.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </div>
+        </footer>
+        
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
 
   </body>
 </html>

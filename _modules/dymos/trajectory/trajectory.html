@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -400,6 +400,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">openmdao.utils.om_warnings</span> <span class="kn">import</span> <span class="n">warn_deprecation</span>
 <span class="kn">from</span> <span class="nn">openmdao.utils.graph_utils</span> <span class="kn">import</span> <span class="n">get_sccs_topo</span>
+<span class="kn">from</span> <span class="nn">openmdao.utils.units</span> <span class="kn">import</span> <span class="n">unit_conversion</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -991,10 +992,16 @@ document.write(`
         <span class="k">if</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_b&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;connected&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_a&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units_b&#39;</span><span class="p">])</span> <span class="ow">and</span> \
-                <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">info_str</span><span class="si">}</span><span class="s1">Linkage units were not specified but the units of &#39;</span>
-                             <span class="sa">f</span><span class="s1">&#39;var_a (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) and var_b (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) are not the same. &#39;</span>
+        <span class="k">if</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">conversion_scaler</span><span class="p">,</span> <span class="n">conversion_offset</span> <span class="o">=</span> <span class="n">unit_conversion</span><span class="p">(</span><span class="n">units</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">conversion_scaler</span><span class="p">,</span> <span class="n">conversion_offset</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;connected&#39;</span><span class="p">]</span> \
+                <span class="ow">and</span> <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span> \
+                <span class="ow">and</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">conversion_scaler</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0E-15</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">conversion_offset</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0E-15</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">info_str</span><span class="si">}</span><span class="s1">Linkage units were not specified but the units of </span><span class="si">{</span><span class="n">phase_name_a</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">var_a</span><span class="si">}</span><span class="s1"> &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) and </span><span class="si">{</span><span class="n">phase_name_b</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">var_b</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">units</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) are not equivalent. &#39;</span>
                              <span class="sa">f</span><span class="s1">&#39;Units for this linkage constraint must be specified explicitly.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">linkage_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
@@ -1776,9 +1783,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -1788,7 +1801,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -1818,7 +1831,7 @@ By The Dymos Development Team
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -1827,8 +1840,8 @@ By The Dymos Development Team
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

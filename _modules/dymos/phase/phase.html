@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
@@ -413,7 +413,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">.options</span> <span class="kn">import</span> <span class="n">ControlOptionsDictionary</span><span class="p">,</span> <span class="n">ParameterOptionsDictionary</span><span class="p">,</span> \
     <span class="n">StateOptionsDictionary</span><span class="p">,</span> <span class="n">TimeOptionsDictionary</span><span class="p">,</span> <span class="n">ConstraintOptionsDictionary</span><span class="p">,</span> \
     <span class="n">PolynomialControlOptionsDictionary</span><span class="p">,</span> <span class="n">GridRefinementOptionsDictionary</span><span class="p">,</span> <span class="n">SimulateOptionsDictionary</span><span class="p">,</span> \
-    <span class="n">TimeseriesOutputOptionsDictionary</span>
+    <span class="n">TimeseriesOutputOptionsDictionary</span><span class="p">,</span> <span class="n">PhaseTimeseriesOptionsDictionary</span>
 
 <span class="kn">from</span> <span class="nn">..transcriptions.transcription_base</span> <span class="kn">import</span> <span class="n">TranscriptionBase</span>
 <span class="kn">from</span> <span class="nn">..transcriptions.grid_data</span> <span class="kn">import</span> <span class="n">GaussLobattoGrid</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">,</span> <span class="n">UniformGrid</span>
@@ -466,6 +466,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span> <span class="o">=</span> <span class="n">GridRefinementOptionsDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span> <span class="o">=</span> <span class="n">SimulateOptionsDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeseries_ec_vars</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeseries_options</span> <span class="o">=</span> <span class="n">PhaseTimeseriesOptionsDictionary</span><span class="p">()</span>
 
         <span class="c1"># Dictionaries of variable options that are set by the user via the API</span>
         <span class="c1"># These will be applied over any defaults specified by decorators on the ODE</span>
@@ -1848,15 +1849,16 @@ document.write(`
         <span class="k">if</span> <span class="n">timeseries</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timeseries </span><span class="si">{</span><span class="n">timeseries</span><span class="si">}</span><span class="s1"> does not exist in phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">expr</span><span class="p">:</span>
-            <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-            <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="k">elif</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">expr</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="k">elif</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">rate</span><span class="p">:</span>
-            <span class="n">output_name</span> <span class="o">=</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;_rate&#39;</span>
+            <span class="k">if</span> <span class="n">rate</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;_rate&#39;</span>
 
         <span class="k">if</span> <span class="n">output_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="n">timeseries</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]:</span>
             <span class="n">ts_output</span> <span class="o">=</span> <span class="n">TimeseriesOutputOptionsDictionary</span><span class="p">()</span>
@@ -2979,23 +2981,29 @@ document.write(`
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        case : Case</span>
-<span class="sd">            A Case from a CaseRecorder file.</span>
+<span class="sd">        case : Case or dict</span>
+<span class="sd">            A Case from a CaseReader, or a dictionary with key &#39;inputs&#39; mapped to the</span>
+<span class="sd">            output of problem.model.list_inputs and key &#39;outputs&#39; mapped to the output</span>
+<span class="sd">            of prob.model.list_outputs. Both list_inputs and list_outputs should be called</span>
+<span class="sd">            with `units=True`, `prom_names=True` and `return_format=&#39;dict&#39;`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="c1"># allow old style arguments using a Case or OpenMDAO problem instead of dictionary</span>
         <span class="k">assert</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">Case</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">Case</span><span class="p">):</span>
-            <span class="n">previous_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">list_inputs</span><span class="p">(</span><span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                                 <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">list_outputs</span><span class="p">(</span><span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+            <span class="n">previous_solution</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">list_inputs</span><span class="p">(</span><span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_format</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
+                                           <span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">list_outputs</span><span class="p">(</span><span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_format</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
+                                             <span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">previous_solution</span> <span class="o">=</span> <span class="n">case</span>
 
         <span class="n">prev_vars</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">prev_vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="s1">&#39;abs_name&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">}</span>
-                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]})</span>
+                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
         <span class="n">prev_vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="s1">&#39;abs_name&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">}</span>
-                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]})</span>
+                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
 
         <span class="n">phase_io</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_inputs</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
                     <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_outputs</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">)}</span>

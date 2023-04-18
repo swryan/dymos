@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
@@ -506,16 +506,16 @@ Friction force is ignored to simplify the problem.</p>
 <section id="trajectory-optimization-problem">
 <h2>Trajectory Optimization Problem<a class="headerlink" href="#trajectory-optimization-problem" title="Permalink to this heading">#</a></h2>
 <p>We use the following quadratic objective function to approximately minimize the total control effort:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3aede42f-bc16-4531-8fd0-fbbb17a7fa01">
-<span class="eqno">(86)<a class="headerlink" href="#equation-3aede42f-bc16-4531-8fd0-fbbb17a7fa01" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-1a52dcc2-0b9c-401c-a231-f5722e3577f7">
+<span class="eqno">(86)<a class="headerlink" href="#equation-1a52dcc2-0b9c-401c-a231-f5722e3577f7" title="Permalink to this equation">#</a></span>\[\begin{equation}
     J = \int_{t_0}^{t_f} F(t)^2 dt ~~ \rightarrow ~ \min
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(F(t)\)</span> is the external force, <span class="math notranslate nohighlight">\(t_0\)</span> is the initial time, and <span class="math notranslate nohighlight">\(t_f\)</span> is the final time.</p>
 <section id="dynamics">
 <h3>Dynamics<a class="headerlink" href="#dynamics" title="Permalink to this heading">#</a></h3>
 <p>The equations of motion of the cart-pole system are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-58dcb1ee-ff5e-4fd3-ac90-057bb8093666">
-<span class="eqno">(87)<a class="headerlink" href="#equation-58dcb1ee-ff5e-4fd3-ac90-057bb8093666" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-5fd7f90b-d481-479a-b901-868e6d2544ba">
+<span class="eqno">(87)<a class="headerlink" href="#equation-5fd7f90b-d481-479a-b901-868e6d2544ba" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \begin{bmatrix}
         \ddot{x} \\ \ddot{\theta}
     \end{bmatrix} =
@@ -532,13 +532,13 @@ Friction force is ignored to simplify the problem.</p>
 To do so, we define our state vector to be <span class="math notranslate nohighlight">\(X = [x, \dot{x}, \theta, \dot{\theta}]^T\)</span>.
 We also add an “energy” state <span class="math notranslate nohighlight">\(e\)</span> and set <span class="math notranslate nohighlight">\(\dot{e} = F^2\)</span> to keep track of the accumulated control input.
 By setting setting <span class="math notranslate nohighlight">\(e_0 = 0\)</span>, the objective function is equal to the final value of the state <span class="math notranslate nohighlight">\(e\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1fad81b7-0a8e-4dd7-917a-ee558be3bef8">
-<span class="eqno">(88)<a class="headerlink" href="#equation-1fad81b7-0a8e-4dd7-917a-ee558be3bef8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a649a3b2-10e9-46b3-91e1-11537592706a">
+<span class="eqno">(88)<a class="headerlink" href="#equation-a649a3b2-10e9-46b3-91e1-11537592706a" title="Permalink to this equation">#</a></span>\[\begin{equation}
     J = \int_{t_0}^{t_f} \dot{e} ~dt = e_f
 \end{equation}\]</div>
 <p>To summarize, the ODE for the cart-pole system is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4e4c88cb-253b-4810-a0fa-67363a0ced90">
-<span class="eqno">(89)<a class="headerlink" href="#equation-4e4c88cb-253b-4810-a0fa-67363a0ced90" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ee48c33a-732c-41c0-9cb6-4cfc5b33d8d9">
+<span class="eqno">(89)<a class="headerlink" href="#equation-ee48c33a-732c-41c0-9cb6-4cfc5b33d8d9" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \begin{bmatrix}
         \dot{x} \\ \dot{\theta} \\ \ddot{x} \\ \ddot{\theta} \\ \dot{e} 
     \end{bmatrix} =
@@ -559,8 +559,8 @@ By setting setting <span class="math notranslate nohighlight">\(e_0 = 0\)</span>
 <section id="initial-and-terminal-conditions">
 <h3>Initial and terminal conditions<a class="headerlink" href="#initial-and-terminal-conditions" title="Permalink to this heading">#</a></h3>
 <p>The initial state variables are all zero at <span class="math notranslate nohighlight">\(t_0 = 0\)</span>, and the final conditions at time <span class="math notranslate nohighlight">\(t_f\)</span> are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-75a7fb8f-011d-4de1-b110-7572584366e8">
-<span class="eqno">(90)<a class="headerlink" href="#equation-75a7fb8f-011d-4de1-b110-7572584366e8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1be2ded0-0d40-4598-b617-44842a95339f">
+<span class="eqno">(90)<a class="headerlink" href="#equation-1be2ded0-0d40-4598-b617-44842a95339f" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_f &amp;= d \\
     \dot{x}_f &amp;= 0 \\
     \theta_f &amp;= \pi \\
@@ -867,7 +867,7 @@ First, we instantiate the OpenMDAO problem and set up the Dymos trajectory, phas
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;dymos.phase.phase.Phase at 0x7f0c3b2bf070&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;dymos.phase.phase.Phase at 0x7f82cd0fc0a0&gt;
 </pre></div>
 </div>
 </div>
@@ -950,7 +950,7 @@ We then call the <code class="docutils literal notranslate"><span class="pre">se
         [final]   0.0000e+00 == f [N]
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f0c8d5b4df0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f82d07ffd90&gt;
 </pre></div>
 </div>
 </div>
@@ -976,10 +976,12 @@ We then call the <code class="docutils literal notranslate"><span class="pre">se
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.820773 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.789591 seconds.
 Total jacobian shape: (206, 281) 
 
 
@@ -988,14 +990,14 @@ FWD solves: 10   REV solves: 0
 Total colors vs. total size: 10 vs 281  (96.4% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.820773 sec.
-Time to compute coloring: 0.134884 sec.
+Time to compute sparsity: 0.789591 sec.
+Time to compute coloring: 0.137461 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2185: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2185: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2185: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2182: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2182: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2182: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
@@ -1041,7 +1043,7 @@ Memory to compute coloring: 0.000000 MB.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>objective value: [58.83924737]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>objective value: [58.83924782]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 1000x800 with 5 Axes&gt;,
@@ -1052,7 +1054,7 @@ Memory to compute coloring: 0.000000 MB.
         &lt;Axes: xlabel=&#39;time (s)&#39;, ylabel=&#39;control (N)&#39;&gt;], dtype=object))
 </pre></div>
 </div>
-<img alt="../../_images/74bc79c3ae563feb23fd56fec556ce9e9cf05ba56822fdf55a379b44664449d2.png" src="../../_images/74bc79c3ae563feb23fd56fec556ce9e9cf05ba56822fdf55a379b44664449d2.png" />
+<img alt="../../_images/e4aea2a8e20065f956f29ee8850395ecff41612da4263945a8f440ac70cebe38.png" src="../../_images/e4aea2a8e20065f956f29ee8850395ecff41612da4263945a8f440ac70cebe38.png" />
 </div>
 </div>
 <p>The optimized cart-pole motion should look like the following:</p>

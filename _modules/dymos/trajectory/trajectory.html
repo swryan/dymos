@@ -200,6 +200,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -689,7 +690,9 @@ document.write(`
                                   <span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;ref&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;adder&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;adder&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;scaler&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span>
-                                  <span class="s1">&#39;opt&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;opt&#39;</span><span class="p">],</span>
+                                  <span class="c1"># The phase-level parameter is never optimized</span>
+                                  <span class="c1"># if governed by the trajectory-level parameter.</span>
+                                  <span class="s1">&#39;opt&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                                   <span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">],</span>
                                   <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="n">tgts</span><span class="p">[</span><span class="n">phase_name</span><span class="p">]}</span>
@@ -769,6 +772,17 @@ document.write(`
             <span class="n">promoted_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">targets</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">]</span>
 
+            <span class="c1"># First check that the user gave valid phase names, if providing</span>
+            <span class="c1"># parameter targets as a dict.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">target_phases</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">targets</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">avail_phases</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">non_existing_phases</span> <span class="o">=</span> <span class="n">target_phases</span> <span class="o">-</span> <span class="n">avail_phases</span>
+                <span class="k">if</span> <span class="n">non_existing_phases</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The following phases were specified as</span><span class="se">\n</span><span class="s1">&#39;</span>
+                                     <span class="sa">f</span><span class="s1">&#39;targets for trajectory parameter </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                                     <span class="sa">f</span><span class="s1">&#39;but are not valid phase names: </span><span class="si">{</span><span class="n">non_existing_phases</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
             <span class="c1"># For each phase, use introspection to get the units and shape.</span>
             <span class="c1"># If units do not match across all phases, require user to set them.</span>
             <span class="c1"># If shapes do not match across all phases, this is an error.</span>
@@ -825,6 +839,8 @@ document.write(`
                     <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Option `targets=None` but no phase in the trajectory has a parameter named `</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">`.&#39;</span>
                 <span class="k">elif</span> <span class="nb">all</span><span class="p">([</span><span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span> <span class="ow">and</span> <span class="n">targets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Option `targets` is a dictionary keyed by phase name but target for each phase is None.&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">reason</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No target was found for trajectory parameter `</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">` in any phase.</span><span class="se">\n</span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">_unspecified</span><span class="p">:</span>
@@ -1031,16 +1047,17 @@ document.write(`
             <span class="n">var_pair</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">var_pair</span> <span class="ow">in</span> <span class="n">var_dict</span><span class="p">:</span>
                 <span class="n">options</span> <span class="o">=</span> <span class="n">var_dict</span><span class="p">[</span><span class="n">var_pair</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_linkage_constraint</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span> <span class="n">var_a</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
-                                            <span class="n">var_b</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">loc_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">],</span>
-                                            <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span> <span class="n">mult_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">],</span>
-                                            <span class="n">mult_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_linkage_constraint</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span>
+                                            <span class="n">var_a</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">var_b</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+                                            <span class="n">loc_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">],</span> <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span>
+                                            <span class="n">mult_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">],</span> <span class="n">mult_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">],</span>
+                                            <span class="n">connected</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;connected&#39;</span><span class="p">])</span>
                 <span class="k">for</span> <span class="n">state_name</span> <span class="ow">in</span> <span class="n">phase_b</span><span class="o">.</span><span class="n">state_options</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_linkage_constraint</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span> <span class="n">var_a</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span>
-                                                <span class="n">var_b</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span> <span class="n">loc_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">],</span>
-                                                <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span>
-                                                <span class="n">mult_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">],</span>
-                                                <span class="n">mult_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_linkage_constraint</span><span class="p">(</span><span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span>
+                                                <span class="n">var_a</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span> <span class="n">var_b</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span>
+                                                <span class="n">loc_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_a&#39;</span><span class="p">],</span> <span class="n">loc_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;loc_b&#39;</span><span class="p">],</span>
+                                                <span class="n">mult_a</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_a&#39;</span><span class="p">],</span> <span class="n">mult_b</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;mult_b&#39;</span><span class="p">],</span>
+                                                <span class="n">connected</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;connected&#39;</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_linkages</span><span class="p">[</span><span class="n">phase_pair</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">var_pair</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_is_valid_linkage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phase_name_a</span><span class="p">,</span> <span class="n">phase_name_b</span><span class="p">,</span> <span class="n">loc_a</span><span class="p">,</span> <span class="n">loc_b</span><span class="p">,</span> <span class="n">var_a</span><span class="p">,</span> <span class="n">var_b</span><span class="p">,</span> <span class="n">fixed_a</span><span class="p">,</span> <span class="n">fixed_b</span><span class="p">):</span>
@@ -1825,7 +1842,7 @@ By The Dymos Development Team
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>

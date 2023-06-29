@@ -205,6 +205,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../examples/cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -517,13 +518,13 @@ This makes scaling the problem easier, and gives the implicit variables more int
 <h2>Example:  Simulating the fall of an object<a class="headerlink" href="#example-simulating-the-fall-of-an-object" title="Permalink to this heading">#</a></h2>
 <p>As a “hello, world” problem for Dymos, consider the vertical fall of an object acting under gravity - like Galileo dropping cannonballs from the Tower of Pisa.
 Ignoring aerodynamics and treating the ball as a point mass in a rectilinear gravity field, the motion is governed by:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b5736295-64af-41dd-bbf5-13f4089f7714">
-<span class="eqno">(5)<a class="headerlink" href="#equation-b5736295-64af-41dd-bbf5-13f4089f7714" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7e0d33a4-9593-4442-9848-6ef69ad52e63">
+<span class="eqno">(5)<a class="headerlink" href="#equation-7e0d33a4-9593-4442-9848-6ef69ad52e63" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ddot{y} = -g
 \end{align}\]</div>
 <p>The techniques in Dymos are generally centered around first-order dynamics, so we convert the above equation into the following system of ODEs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b80d4110-7fd6-4bf0-b06f-dcbb8b2af19e">
-<span class="eqno">(6)<a class="headerlink" href="#equation-b80d4110-7fd6-4bf0-b06f-dcbb8b2af19e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ca4a6539-acf2-417d-bb1f-0a9b29afba35">
+<span class="eqno">(6)<a class="headerlink" href="#equation-ca4a6539-acf2-417d-bb1f-0a9b29afba35" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{y} &amp;= v_y \\
     \dot{v_y} &amp;= -g
 \end{align}\]</div>
@@ -599,8 +600,8 @@ In LGL collocation, these points are chosen to be the LGL <em>nodes</em> in the 
 <p>To form 3rd-order polynomials for the states we need four pieces of information, but so far we only have the two endpoint values.
 We’ll use the state rates at the state discretization nodes to provide the other two values needed for interpolation.
 To obtain these, we evaluate our ODE at the state discretization nodes.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-155d53b0-fbba-43d9-907d-841ece5bffb9">
-<span class="eqno">(7)<a class="headerlink" href="#equation-155d53b0-fbba-43d9-907d-841ece5bffb9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-287720c0-6121-4f4a-bc76-dc9c854ac8e6">
+<span class="eqno">(7)<a class="headerlink" href="#equation-287720c0-6121-4f4a-bc76-dc9c854ac8e6" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{y}_0 &amp;= 0 \\
     \dot{y}_f &amp;= -50 \\
     \dot{v}_{y0} &amp;= -9.80665 \\
@@ -614,21 +615,21 @@ We call this difference in slope the collocation <em>defect</em>.</p>
 <p>Having computed the ODE at the state discretization nodes, we can form interpolants for the values and the slope of the states at the collocation nodes.
 Dymos uses Lagrange interpolants, such that the inputs to the system are the values of the states and controls, rather than less intuitive coefficients.
 In this case, the state values at our single collocation node are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-65ed58da-e93a-4196-9d8c-9c5b3731518a">
-<span class="eqno">(8)<a class="headerlink" href="#equation-65ed58da-e93a-4196-9d8c-9c5b3731518a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6178c91f-8e8b-44e3-9729-4d368a5a6b68">
+<span class="eqno">(8)<a class="headerlink" href="#equation-6178c91f-8e8b-44e3-9729-4d368a5a6b68" title="Permalink to this equation">#</a></span>\[\begin{align}
     y_m &amp;= 50 \\
     v_{ym} &amp;= -25
 \end{align}\]</div>
 <p><img alt="Screenshot" src="../_images/lgl_animation_2.png" /></p>
 <p>The polynomial slopes at the collocation node are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4080b0e1-b1ff-4f3e-b9ab-c57d89fb41d6">
-<span class="eqno">(9)<a class="headerlink" href="#equation-4080b0e1-b1ff-4f3e-b9ab-c57d89fb41d6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-017d96ba-41e5-4916-b258-36afdca85486">
+<span class="eqno">(9)<a class="headerlink" href="#equation-017d96ba-41e5-4916-b258-36afdca85486" title="Permalink to this equation">#</a></span>\[\begin{align}
     y'_m &amp;= 50 \\
     v'_{ym} &amp;= -25
 \end{align}\]</div>
 <p>Now, having the state and time values at the collocation nodes, we can again evaluate the ODE.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0a321075-6f63-467e-b2ed-f3bf739250eb">
-<span class="eqno">(10)<a class="headerlink" href="#equation-0a321075-6f63-467e-b2ed-f3bf739250eb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6b067f99-6334-476c-9674-6aed544c58c7">
+<span class="eqno">(10)<a class="headerlink" href="#equation-6b067f99-6334-476c-9674-6aed544c58c7" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{y}_m &amp;= -17 \\
     \dot{v}_{ym} &amp;= -9.80665
 \end{align}\]</div>
@@ -783,7 +784,7 @@ By The Dymos Development Team
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>

@@ -205,6 +205,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -494,20 +495,20 @@ traveled by a block (that starts and ends at rest) sliding without
 friction along a horizontal surface, with acceleration as the control.</p>
 <p>We minimize the final time, <span class="math notranslate nohighlight">\(t_f\)</span>, by varying the dynamic control,
 <span class="math notranslate nohighlight">\(u\)</span>, subject to the dynamics:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2ec96044-37f6-422b-8e03-7392ab2ed3da">
-<span class="eqno">(45)<a class="headerlink" href="#equation-2ec96044-37f6-422b-8e03-7392ab2ed3da" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-11d91404-5cef-404d-a1de-a31e8b32a1a9">
+<span class="eqno">(45)<a class="headerlink" href="#equation-11d91404-5cef-404d-a1de-a31e8b32a1a9" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dx}{dt} &amp;= v \\
   \frac{dv}{dt} &amp;= u
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eee9420c-2af3-4267-97bd-6f8068bae4d9">
-<span class="eqno">(46)<a class="headerlink" href="#equation-eee9420c-2af3-4267-97bd-6f8068bae4d9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e9b1cb76-fe40-46c6-b955-0fdea9e92bc4">
+<span class="eqno">(46)<a class="headerlink" href="#equation-e9b1cb76-fe40-46c6-b955-0fdea9e92bc4" title="Permalink to this equation">#</a></span>\[\begin{align}
   x_0 &amp;= 0 \\
   v_0 &amp;= 0
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e1c137a4-de48-45f4-901e-3ca297bfaae5">
-<span class="eqno">(47)<a class="headerlink" href="#equation-e1c137a4-de48-45f4-901e-3ca297bfaae5" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-072adf4d-fa76-4cfb-893a-f841e4d9958c">
+<span class="eqno">(47)<a class="headerlink" href="#equation-072adf4d-fa76-4cfb-893a-f841e4d9958c" title="Permalink to this equation">#</a></span>\[\begin{align}
   x_f &amp;= \rm{free} \\
   v_f &amp;= 0
 \end{align}\]</div>
@@ -839,18 +840,18 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.159853 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.132218 seconds.
 Total jacobian shape: (181, 327) 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (181, 327)  ( 1.51% nonzero)
+
+
+Jacobian shape: (181, 327)  ( 1.51% nonzero)
 FWD solves: 0   REV solves: 6
 Total colors vs. total size: 6 vs 181  (96.7% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.159853 sec.
-Time to compute coloring: 0.200839 sec.
-Memory to compute coloring: 0.210938 MB.
+Time to compute sparsity: 0.132218 sec.
+Time to compute coloring: 0.157947 sec.
+Memory to compute coloring: 0.476562 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -859,11 +860,11 @@ Memory to compute coloring: 0.210938 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    3.2722
-       User Objective Time :       0.0400
-       User Sensitivity Time :     0.1391
-       Interface Time :            0.2232
-       Opt Solver Time:            2.8699
+    Total Time:                    3.2459
+       User Objective Time :       0.0343
+       User Sensitivity Time :     0.1097
+       Interface Time :            0.1764
+       Opt Solver Time:            2.9255
     Calls to Objective Function :      19
     Calls to Sens Function :           19
 
@@ -1484,7 +1485,7 @@ Memory to compute coloring: 0.210938 MB.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/59526793da4b05adb2932f557ef95f78cec3a2d4ac9939bdc72081336c0c5676.png" src="../../_images/59526793da4b05adb2932f557ef95f78cec3a2d4ac9939bdc72081336c0c5676.png" />
+<img alt="../../_images/abf1bed5b509974436202bb0dae208d0ce7168c6ab122b6e90d5f788f069be4a.png" src="../../_images/abf1bed5b509974436202bb0dae208d0ce7168c6ab122b6e90d5f788f069be4a.png" />
 </div>
 </div>
 </section>
@@ -1582,7 +1583,7 @@ By The Dymos Development Team
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>

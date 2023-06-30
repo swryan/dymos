@@ -496,8 +496,8 @@ three-phase orbit raising maneuver with a burn-coast-burn phase
 sequence. This example is based on the problem provided in
 Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J Enright and Brace A Conway. Optimal finite-thrust spacecraft trajectories using collocation and nonlinear programming. Journal of Guidance, Control, and Dynamics, 14(5):981–985, 1991.">EC91</a>]</span>.</p>
 <p>The dynamics are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f4e142cd-73ba-4e34-a7bb-23f347543d58">
-<span class="eqno">(58)<a class="headerlink" href="#equation-f4e142cd-73ba-4e34-a7bb-23f347543d58" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-76e46ca7-fffd-42c9-9290-e347d64ab63d">
+<span class="eqno">(58)<a class="headerlink" href="#equation-76e46ca7-fffd-42c9-9290-e347d64ab63d" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dr}{dt} &amp;= v_r \\
   \frac{d\theta}{dt} &amp;= \frac{v_\theta}{r} \\
   \frac{dv_r}{dt} &amp;= \frac{v^2_\theta}{r} - \frac{1}{r^2} + a_{thrust} \sin u_1 \\
@@ -506,8 +506,8 @@ Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J
   \frac{d \Delta v}{dt} &amp;= a_{thrust}
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0f8733f3-c0a8-4648-bd16-dd8bd6d77a75">
-<span class="eqno">(59)<a class="headerlink" href="#equation-0f8733f3-c0a8-4648-bd16-dd8bd6d77a75" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2cab3262-d514-464b-83f6-e284babe675f">
+<span class="eqno">(59)<a class="headerlink" href="#equation-2cab3262-d514-464b-83f6-e284babe675f" title="Permalink to this equation">#</a></span>\[\begin{align}
   r &amp;= 1 \rm{\,DU} \\
   \theta &amp;= 0 \rm{\,rad} \\
   v_r &amp;= 0 \rm{\,DU/TU}\\
@@ -516,8 +516,8 @@ Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J
   \Delta v &amp;= 0 \rm{\,DU/TU}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb635c61-e129-49b8-afc8-520d53d4d849">
-<span class="eqno">(60)<a class="headerlink" href="#equation-cb635c61-e129-49b8-afc8-520d53d4d849" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f154f2b3-b5d9-46f2-b5b4-676b0270a9f9">
+<span class="eqno">(60)<a class="headerlink" href="#equation-f154f2b3-b5d9-46f2-b5b4-676b0270a9f9" title="Permalink to this equation">#</a></span>\[\begin{align}
   r &amp;= 3 \rm{\,DU} \\
   \theta &amp;= \rm{free} \\
   v_r &amp;= 0 \rm{\,DU/TU}\\
@@ -1077,7 +1077,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.845009 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.824871 seconds.
 Total jacobian shape: (112, 204) 
 
 
@@ -1086,8 +1086,8 @@ FWD solves: 13   REV solves: 0
 Total colors vs. total size: 13 vs 204  (93.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.845009 sec.
-Time to compute coloring: 0.111042 sec.
+Time to compute sparsity: 0.824871 sec.
+Time to compute coloring: 0.095157 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
@@ -1097,11 +1097,11 @@ Memory to compute coloring: 0.000000 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    2.6666
-       User Objective Time :       0.1331
-       User Sensitivity Time :     2.0997
-       Interface Time :            0.3087
-       Opt Solver Time:            0.1250
+    Total Time:                    2.4923
+       User Objective Time :       0.1330
+       User Sensitivity Time :     1.9575
+       Interface Time :            0.2778
+       Opt Solver Time:            0.1240
     Calls to Objective Function :      24
     Calls to Sens Function :           24
 
@@ -1577,9 +1577,9 @@ Memory to compute coloring: 0.000000 MB.
              <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;coast&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
 <span class="n">y_sol</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.pos_y&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phs</span><span class="p">)))</span>
              <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;coast&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
-<span class="n">dv_sol</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.states:deltav&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phs</span><span class="p">)))</span>
+<span class="n">dv_sol</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.deltav&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phs</span><span class="p">)))</span>
               <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;coast&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
-<span class="n">u1_sol</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.controls:u1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phs</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">))</span>
+<span class="n">u1_sol</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.u1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phs</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">))</span>
               <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
 
 <span class="n">t_exp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.time&#39;</span><span class="p">))</span>
@@ -1588,9 +1588,9 @@ Memory to compute coloring: 0.000000 MB.
              <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;coast&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
 <span class="n">y_exp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.pos_y&#39;</span><span class="p">))</span>
              <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;coast&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
-<span class="n">dv_exp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.states:deltav&#39;</span><span class="p">))</span>
+<span class="n">dv_exp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.deltav&#39;</span><span class="p">))</span>
               <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;coast&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
-<span class="n">u1_exp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.controls:u1&#39;</span><span class="p">,</span>
+<span class="n">u1_exp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">phs</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;traj.</span><span class="si">{</span><span class="n">phs</span><span class="si">}</span><span class="s1">.timeseries.u1&#39;</span><span class="p">,</span>
                                 <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">))</span>
               <span class="k">for</span> <span class="n">phs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;burn1&#39;</span><span class="p">,</span> <span class="s1">&#39;burn2&#39;</span><span class="p">])</span>
 

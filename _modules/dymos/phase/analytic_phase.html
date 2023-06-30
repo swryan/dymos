@@ -806,6 +806,10 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">:</span>
             <span class="n">transcription</span><span class="o">.</span><span class="n">setup_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
+        <span class="c1"># Never allow state rate outputs for analytic phases</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeseries_options</span><span class="p">[</span><span class="s1">&#39;include_state_rates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeseries_options</span><span class="o">.</span><span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;include_state_rates&#39;</span><span class="p">][</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span>
+
         <span class="n">transcription</span><span class="o">.</span><span class="n">setup_states</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_ode</span><span class="p">()</span>
         <span class="n">transcription</span><span class="o">.</span><span class="n">setup_ode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

@@ -507,16 +507,16 @@ Friction force is ignored to simplify the problem.</p>
 <section id="trajectory-optimization-problem">
 <h2>Trajectory Optimization Problem<a class="headerlink" href="#trajectory-optimization-problem" title="Permalink to this heading">#</a></h2>
 <p>We use the following quadratic objective function to approximately minimize the total control effort:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4a72363d-15cc-4122-a7d4-018a9682707a">
-<span class="eqno">(86)<a class="headerlink" href="#equation-4a72363d-15cc-4122-a7d4-018a9682707a" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-25c54078-3122-42b5-ae94-e9d07c7da24c">
+<span class="eqno">(86)<a class="headerlink" href="#equation-25c54078-3122-42b5-ae94-e9d07c7da24c" title="Permalink to this equation">#</a></span>\[\begin{equation}
     J = \int_{t_0}^{t_f} F(t)^2 dt ~~ \rightarrow ~ \min
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(F(t)\)</span> is the external force, <span class="math notranslate nohighlight">\(t_0\)</span> is the initial time, and <span class="math notranslate nohighlight">\(t_f\)</span> is the final time.</p>
 <section id="dynamics">
 <h3>Dynamics<a class="headerlink" href="#dynamics" title="Permalink to this heading">#</a></h3>
 <p>The equations of motion of the cart-pole system are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8959f6ef-fc40-4bf7-876c-38b28436546a">
-<span class="eqno">(87)<a class="headerlink" href="#equation-8959f6ef-fc40-4bf7-876c-38b28436546a" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-562b8872-dd06-496c-b7ee-6fd7f911c86e">
+<span class="eqno">(87)<a class="headerlink" href="#equation-562b8872-dd06-496c-b7ee-6fd7f911c86e" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \begin{bmatrix}
         \ddot{x} \\ \ddot{\theta}
     \end{bmatrix} =
@@ -533,13 +533,13 @@ Friction force is ignored to simplify the problem.</p>
 To do so, we define our state vector to be <span class="math notranslate nohighlight">\(X = [x, \dot{x}, \theta, \dot{\theta}]^T\)</span>.
 We also add an “energy” state <span class="math notranslate nohighlight">\(e\)</span> and set <span class="math notranslate nohighlight">\(\dot{e} = F^2\)</span> to keep track of the accumulated control input.
 By setting setting <span class="math notranslate nohighlight">\(e_0 = 0\)</span>, the objective function is equal to the final value of the state <span class="math notranslate nohighlight">\(e\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9d1167d5-1b43-4a07-b357-4a4660a6cc82">
-<span class="eqno">(88)<a class="headerlink" href="#equation-9d1167d5-1b43-4a07-b357-4a4660a6cc82" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b687f1be-3c9f-4182-b28b-888276e181e8">
+<span class="eqno">(88)<a class="headerlink" href="#equation-b687f1be-3c9f-4182-b28b-888276e181e8" title="Permalink to this equation">#</a></span>\[\begin{equation}
     J = \int_{t_0}^{t_f} \dot{e} ~dt = e_f
 \end{equation}\]</div>
 <p>To summarize, the ODE for the cart-pole system is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6f90568c-ca96-4b47-8329-e7b9fc1eda65">
-<span class="eqno">(89)<a class="headerlink" href="#equation-6f90568c-ca96-4b47-8329-e7b9fc1eda65" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-cb93ebd5-e36e-427c-b951-8a93ffd02071">
+<span class="eqno">(89)<a class="headerlink" href="#equation-cb93ebd5-e36e-427c-b951-8a93ffd02071" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \begin{bmatrix}
         \dot{x} \\ \dot{\theta} \\ \ddot{x} \\ \ddot{\theta} \\ \dot{e} 
     \end{bmatrix} =
@@ -560,8 +560,8 @@ By setting setting <span class="math notranslate nohighlight">\(e_0 = 0\)</span>
 <section id="initial-and-terminal-conditions">
 <h3>Initial and terminal conditions<a class="headerlink" href="#initial-and-terminal-conditions" title="Permalink to this heading">#</a></h3>
 <p>The initial state variables are all zero at <span class="math notranslate nohighlight">\(t_0 = 0\)</span>, and the final conditions at time <span class="math notranslate nohighlight">\(t_f\)</span> are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e006f607-08cc-4236-9d5c-2acc628958a6">
-<span class="eqno">(90)<a class="headerlink" href="#equation-e006f607-08cc-4236-9d5c-2acc628958a6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-39a8de2c-94b3-428f-86fa-470080ab3714">
+<span class="eqno">(90)<a class="headerlink" href="#equation-39a8de2c-94b3-428f-86fa-470080ab3714" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_f &amp;= d \\
     \dot{x}_f &amp;= 0 \\
     \theta_f &amp;= \pi \\
@@ -868,7 +868,7 @@ First, we instantiate the OpenMDAO problem and set up the Dymos trajectory, phas
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;dymos.phase.phase.Phase at 0x7f2e8085d0f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;dymos.phase.phase.Phase at 0x7f1701bc9120&gt;
 </pre></div>
 </div>
 </div>
@@ -951,7 +951,7 @@ We then call the <code class="docutils literal notranslate"><span class="pre">se
         [final]   0.0000e+00 == f [N]
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f2e8b31acb0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f1703721f00&gt;
 </pre></div>
 </div>
 </div>
@@ -980,7 +980,7 @@ We then call the <code class="docutils literal notranslate"><span class="pre">se
 Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.994564 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.869170 seconds.
 Total jacobian shape: (206, 281) 
 
 
@@ -989,9 +989,9 @@ FWD solves: 10   REV solves: 0
 Total colors vs. total size: 10 vs 281  (96.4% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.994564 sec.
-Time to compute coloring: 0.158068 sec.
-Memory to compute coloring: 0.386719 MB.
+Time to compute sparsity: 0.869170 sec.
+Time to compute coloring: 0.138354 sec.
+Memory to compute coloring: 0.402344 MB.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/group.py:2829: UnusedOptionWarning:&#39;ode_eval&#39; &lt;class ODEEvaluationGroup&gt;: ignored flat_src_indices and/or src_shape because src_indices was not specified.
@@ -1023,17 +1023,17 @@ Memory to compute coloring: 0.386719 MB.
 <span class="n">sim</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">CaseReader</span><span class="p">(</span><span class="s1">&#39;dymos_simulation.db&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_case</span><span class="p">(</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
 
 <span class="c1"># plot time histories of x, x_dot, theta, theta_dot</span>
-<span class="n">plot_results</span><span class="p">([(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.states:x&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;x (m)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.states:x_dot&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;vx (m/s)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.states:theta&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;theta (rad)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.states:theta_dot&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;theta_dot (rad/s)&#39;</span><span class="p">),</span>
-              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.controls:f&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;control (N)&#39;</span><span class="p">)],</span>
+<span class="n">plot_results</span><span class="p">([(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.x&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;x (m)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.x_dot&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;vx (m/s)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.theta&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;theta (rad)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.theta_dot&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;theta_dot (rad/s)&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;traj.phase.timeseries.time&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.phase.timeseries.f&#39;</span><span class="p">,</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">,</span> <span class="s1">&#39;control (N)&#39;</span><span class="p">)],</span>
              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Cart-Pole Problem&#39;</span><span class="p">,</span> <span class="n">p_sol</span><span class="o">=</span><span class="n">sol</span><span class="p">,</span> <span class="n">p_sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
 
 <span class="c1"># uncomment the following lines to show the cart-pole animation</span>
-<span class="c1">### x = sol.get_val(&#39;traj.phase.timeseries.states:x&#39;, units=&#39;m&#39;)</span>
-<span class="c1">### theta = sol.get_val(&#39;traj.phase.timeseries.states:theta&#39;, units=&#39;rad&#39;)</span>
-<span class="c1">### force = sol.get_val(&#39;traj.phase.timeseries.controls:f&#39;, units=&#39;N&#39;)</span>
+<span class="c1">### x = sol.get_val(&#39;traj.phase.timeseries.x&#39;, units=&#39;m&#39;)</span>
+<span class="c1">### theta = sol.get_val(&#39;traj.phase.timeseries.theta&#39;, units=&#39;rad&#39;)</span>
+<span class="c1">### force = sol.get_val(&#39;traj.phase.timeseries.f&#39;, units=&#39;N&#39;)</span>
 <span class="c1">### npts = len(x)</span>
 
 <span class="c1">### from dymos.examples.cart_pole.animate_cartpole import animate_cartpole</span>

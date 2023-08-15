@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Phase Options &#8212; Dymos</title>
+    <title>The Phase API &#8212; Dymos</title>
   
   
   
@@ -203,7 +203,6 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../examples/cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -240,8 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Dymos Reference API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="run_problem_function.html">The run_problem function</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Phase Options</a></li>
-
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Phase API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transcriptions_api.html">The Transcriptions API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trajectory_api.html">The Trajectory API</a></li>
 </ul>
@@ -464,7 +462,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Phase Options</h1>
+    <h1>The Phase API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -474,14 +472,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Phase Options</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Phase.options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-timeseries-options">Phase.timeseries_options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-refine-options">Phase.refine_options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-simulate-options">Phase.simulate_options</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-methods">Phase Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-time-options">set_time_options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-state">add_state</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-state-options">set_state_options</a></li>
@@ -499,9 +490,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-refine-options">set_refine_options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interp">interp</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -512,11 +500,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="phase-options">
-<h1>Phase Options<a class="headerlink" href="#phase-options" title="Permalink to this heading">#</a></h1>
-<section id="id1">
-<h2>Phase.options<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>General options available to all dymos Phases.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-phase-api">
+<h1>The Phase API<a class="headerlink" href="#the-phase-api" title="Permalink to this heading">#</a></h1>
+<section id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this heading">#</a></h2>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html">
@@ -543,102 +530,7 @@ document.write(`
 </div></div>
 </div>
 <p>The transcription is an instance of one of the <a class="reference internal" href="transcriptions_api.html"><span class="doc std std-doc">transcriptions</span></a> available in Dymos.</p>
-<p>Other options listed below control the behavior of various aspects of Phases.
-While most have corresponding phase methods for setting these values, users may now use the <code class="docutils literal notranslate"><span class="pre">set</span></code> method of OpenMDAO’s OptionsDictionary to set the values of these options.</p>
 </section>
-<section id="phase-timeseries-options">
-<h2>Phase.timeseries_options<a class="headerlink" href="#phase-timeseries-options" title="Permalink to this heading">#</a></h2>
-<p>These options control the behavior of timeseries within a Phase.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-        h2 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h2></h2>
-        <table style="border: 1px solid #999; border-collapse: collapse;">
-        <tr><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Option</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: center;">Default</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Acceptable Values</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Acceptable Types</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Description</th></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">include_control_rates</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: center;">False</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, include control rates in the timeseries outputs by default.</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">include_parameters</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: center;">False</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, include the parameters in the timeseries outputs by default.</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">include_state_rates</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: center;">False</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, include state rates in the timeseries outputs by default.</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">include_t_phase</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: center;">False</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, include the elapsed phase time in the timeseries outputs by default.</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">use_prefix</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: center;">False</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, prefix the timeseries variable output with the type of variable (this is legacy behavior that changed in Dymos 1.8.0)</td></tr>
-    </table>
-</body>
-</html>
-</div></div>
-</div>
-</section>
-<section id="phase-refine-options">
-<h2>Phase.refine_options<a class="headerlink" href="#phase-refine-options" title="Permalink to this heading">#</a></h2>
-<p>These options control grid refinement within each Phase.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-        h2 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h2></h2>
-        <table style="border: 1px solid #999; border-collapse: collapse;">
-        <tr><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Option</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Default</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Acceptable Values</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Acceptable Types</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Description</th></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">max_order</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">14</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;int&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Maximum transcription order for segments in this phase.</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">min_order</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">3</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;int&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Minimum transcription order for segments in this phase.</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">refine</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">True</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, this Phase may be refined during the grid refinement procedure.</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">smoothness_factor</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">1.2</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;float&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Maximum allowed ratio of state second derivatives across refinement iterations</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">tolerance</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">0.0001</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;float&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Default tolerance for grid refinement in this phase.</td></tr>
-    </table>
-</body>
-</html>
-</div></div>
-</div>
-</section>
-<section id="phase-simulate-options">
-<h2>Phase.simulate_options<a class="headerlink" href="#phase-simulate-options" title="Permalink to this heading">#</a></h2>
-<p>These options control the behavior of phase explicit simulation.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-        h2 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h2></h2>
-        <table style="border: 1px solid #999; border-collapse: collapse;">
-        <tr><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Option</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Default</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Acceptable Values</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Acceptable Types</th><th style="border: 1px solid #999; border-collapse: collapse; padding: 5px; background-color: #E9E9E9; text-align: left;">Description</th></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">atol</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">1e-06</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;float&#x27;, &#x27;array&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Absolute error tolerance for variable step integration.</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">first_step</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;float&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Initial step size, or None if the algorithm should choose.</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">max_step</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">inf</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;float&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Maximum allowable step size</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">method</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">DOP853</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;RK23&#x27;, &#x27;RK45&#x27;, &#x27;DOP853&#x27;, &#x27;BDF&#x27;, &#x27;Radau&#x27;, &#x27;LSODA&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">The method used by simulate to propagate the ODE.</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">rtol</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">0.001</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;float&#x27;, &#x27;array&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Relative error tolerance for variable step integration.</td></tr>
-    </table>
-</body>
-</html>
-</div></div>
-</div>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="phase-methods">
-<h1>Phase Methods<a class="headerlink" href="#phase-methods" title="Permalink to this heading">#</a></h1>
 <section id="set-time-options">
 <h2>set_time_options<a class="headerlink" href="#set-time-options" title="Permalink to this heading">#</a></h2>
 <blockquote>
@@ -1075,7 +967,7 @@ place of rate_continuity_scaler.</p>
 <div><dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">Phase.</span></span><span class="sig-name descname"><span class="pre">add_polynomial_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_final</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate2_targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">unspecified</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dymos/phase/phase.html#Phase.add_polynomial_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Adds a polynomial control variable to be tied to a parameter in the ODE.</p>
+<dd><p>Adds an polynomial control variable to be tied to a parameter in the ODE.</p>
 <p>Polynomial controls are defined by values at the Legendre-Gauss-Lobatto nodes of a
 single polynomial, defined on [-1, 1] in phase tau space.</p>
 <p>For a polynomial control of a given order, the number of nodes used to define the
@@ -1688,14 +1580,7 @@ the first axis (0).</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Phase Options</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Phase.options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-timeseries-options">Phase.timeseries_options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-refine-options">Phase.refine_options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-simulate-options">Phase.simulate_options</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-methods">Phase Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-time-options">set_time_options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-state">add_state</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-state-options">set_state_options</a></li>
@@ -1713,9 +1598,6 @@ the first axis (0).</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-refine-options">set_refine_options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interp">interp</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

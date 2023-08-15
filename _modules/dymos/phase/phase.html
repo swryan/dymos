@@ -200,7 +200,6 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -237,8 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/api.html">Dymos Reference API</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/run_problem_function.html">The run_problem function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api/phase_api.html">Phase Options</a></li>
-
+<li class="toctree-l2"><a class="reference internal" href="../../../api/phase_api.html">The Phase API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/transcriptions_api.html">The Transcriptions API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/trajectory_api.html">The Trajectory API</a></li>
 </ul>
@@ -406,10 +404,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">openmdao</span>
 <span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
 <span class="kn">from</span> <span class="nn">openmdao.utils.mpi</span> <span class="kn">import</span> <span class="n">MPI</span>
-<span class="kn">from</span> <span class="nn">openmdao.utils.om_warnings</span> <span class="kn">import</span> <span class="n">issue_warning</span>
 <span class="kn">from</span> <span class="nn">openmdao.core.system</span> <span class="kn">import</span> <span class="n">System</span>
-<span class="kn">from</span> <span class="nn">openmdao.recorders.case</span> <span class="kn">import</span> <span class="n">Case</span>
-
 <span class="kn">import</span> <span class="nn">dymos</span> <span class="k">as</span> <span class="nn">dm</span>
 
 <span class="kn">from</span> <span class="nn">.options</span> <span class="kn">import</span> <span class="n">ControlOptionsDictionary</span><span class="p">,</span> <span class="n">ParameterOptionsDictionary</span><span class="p">,</span> \
@@ -1110,7 +1105,7 @@ document.write(`
                                <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">rate_targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                                <span class="n">rate2_targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a polynomial control variable to be tied to a parameter in the ODE.</span>
+<span class="sd">        Adds an polynomial control variable to be tied to a parameter in the ODE.</span>
 
 <span class="sd">        Polynomial controls are defined by values at the Legendre-Gauss-Lobatto nodes of a</span>
 <span class="sd">        single polynomial, defined on [-1, 1] in phase tau space.</span>
@@ -2107,67 +2102,6 @@ document.write(`
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span></div>
 
-    <span class="k">def</span> <span class="nf">set_duration_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mult_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a condition for the duration of the phase. This is satisfied using a nonlinear solver.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        name : str</span>
-<span class="sd">            Name of the variable.  This should be a state or control variable, the path to an output</span>
-<span class="sd">            from the top level of the RHS, or an expression to be evaluated. If an expression,</span>
-<span class="sd">            it must be provided in the form of an equation with a left- and right-hand side.</span>
-<span class="sd">        val :  float</span>
-<span class="sd">            The value that the residual must equal at the end  point of the phase.</span>
-<span class="sd">        index : int, optional</span>
-<span class="sd">            If variable is an array at each point in time, this indicates which index is to be</span>
-<span class="sd">            used as the objective, assuming C-ordered flattening.</span>
-<span class="sd">        units : str, optional</span>
-<span class="sd">            The units of the objective function.  If None, use the units associated with the target.</span>
-<span class="sd">            If provided, must be compatible with the target units.</span>
-<span class="sd">        mult_val : float, optional</span>
-<span class="sd">            Default value for the LHS multiplier.</span>
-<span class="sd">        normalize : bool, optional</span>
-<span class="sd">            Specifies whether the resulting residual should be normalized by a quadratic</span>
-<span class="sd">            function of the RHS.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_duration&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot implicitly solve for phase duration when fix_duration is True&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;input_duration&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot implicitly solve for phase duration when input_duration is True&#39;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">],</span> <span class="n">ExplicitShooting</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Transcription ExplicitShooting does not implement method setup_duration_balance&#39;</span><span class="p">)</span>
-
-        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                   <span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">val</span><span class="p">,</span>
-                   <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="n">index</span><span class="p">,</span>
-                   <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
-                   <span class="s1">&#39;mult_val&#39;</span><span class="p">:</span> <span class="n">mult_val</span><span class="p">,</span>
-                   <span class="s1">&#39;normalize&#39;</span><span class="p">:</span> <span class="n">normalize</span><span class="p">}</span>
-
-        <span class="n">expr_operators</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-            <span class="n">is_expr</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="s1">&#39;=&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">opr</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">for</span> <span class="n">opr</span> <span class="ow">in</span> <span class="n">expr_operators</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The expression provided `</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">` has invalid format. &#39;</span>
-                             <span class="s1">&#39;Expression may be a single variable or an equation &#39;</span>
-                             <span class="s1">&#39;of the form `constraint_name = func(vars)`&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">is_expr</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="n">balance_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">is_expr</span> <span class="k">else</span> <span class="n">name</span>
-
-        <span class="n">options</span><span class="p">[</span><span class="s1">&#39;is_expr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">is_expr</span>
-        <span class="n">options</span><span class="p">[</span><span class="s1">&#39;balance_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">balance_name</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;t_duration_balance_options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span>
-
-        <span class="n">var_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classify_var</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">var_type</span> <span class="o">==</span> <span class="s1">&#39;ode&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">balance_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">[</span><span class="s1">&#39;timeseries&#39;</span><span class="p">][</span><span class="s1">&#39;outputs&#39;</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_timeseries_output</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="n">balance_name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">classify_var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classifies a variable of the given name or path.</span>
@@ -2247,9 +2181,6 @@ document.write(`
         <span class="n">transcription</span><span class="o">.</span><span class="n">setup_ode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="n">transcription</span><span class="o">.</span><span class="n">setup_timeseries_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="n">transcription</span><span class="o">.</span><span class="n">setup_duration_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
         <span class="n">transcription</span><span class="o">.</span><span class="n">setup_defects</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">transcription</span><span class="o">.</span><span class="n">setup_solvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -2308,8 +2239,6 @@ document.write(`
                 <span class="kn">from</span> <span class="nn">val_err</span>
 
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_timeseries_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="n">transcription</span><span class="o">.</span><span class="n">configure_duration_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="n">transcription</span><span class="o">.</span><span class="n">configure_solvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -2617,9 +2546,8 @@ document.write(`
 <span class="sd">            times.  This instance has not yet been setup.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.simulation_phase</span> <span class="kn">import</span> <span class="n">SimulationPhase</span>
-        <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">SimulationPhase</span><span class="p">(</span><span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-                                    <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">first_step</span><span class="o">=</span><span class="n">first_step</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span>
-                                    <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">)</span>
+        <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">SimulationPhase</span><span class="p">(</span><span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+                                    <span class="n">first_step</span><span class="o">=</span><span class="n">first_step</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span> <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">sim_phase</span>
 
@@ -3043,172 +2971,6 @@ document.write(`
             <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">var_name</span><span class="p">][</span><span class="s1">&#39;opt&#39;</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># No way to know so we allow these to go through</span>
-
-    <span class="k">def</span> <span class="nf">load_case</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">case</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Pull all input and output variables from a case into the Phase.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        case : Case or dict</span>
-<span class="sd">            A Case from a CaseReader, or a dictionary with key &#39;inputs&#39; mapped to the</span>
-<span class="sd">            output of problem.model.list_inputs and key &#39;outputs&#39; mapped to the output</span>
-<span class="sd">            of prob.model.list_outputs. Both list_inputs and list_outputs should be called</span>
-<span class="sd">            with `units=True`, `prom_names=True` and `return_format=&#39;dict&#39;`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># allow old style arguments using a Case or OpenMDAO problem instead of dictionary</span>
-        <span class="k">assert</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">Case</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">Case</span><span class="p">):</span>
-            <span class="n">previous_solution</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">list_inputs</span><span class="p">(</span><span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_format</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
-                                           <span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">list_outputs</span><span class="p">(</span><span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_format</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
-                                             <span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">previous_solution</span> <span class="o">=</span> <span class="n">case</span>
-
-        <span class="n">prev_vars_abs2prom</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">prev_vars_abs2prom</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
-        <span class="n">prev_vars_abs2prom</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
-        <span class="n">prev_vars_prom2abs</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">prev_vars_abs2prom</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-
-        <span class="n">prev_vars</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">prev_vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="s1">&#39;abs_name&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">}</span>
-                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
-        <span class="n">prev_vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="s1">&#39;abs_name&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">}</span>
-                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">previous_solution</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
-
-        <span class="n">phase_io</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_inputs</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-                    <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_outputs</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_stream</span><span class="o">=</span><span class="kc">None</span><span class="p">)}</span>
-
-        <span class="n">phase_vars</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">phase_vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="s1">&#39;abs_name&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">}</span>
-                           <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">phase_io</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]})</span>
-        <span class="n">phase_vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;prom_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="s1">&#39;abs_name&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">}</span>
-                           <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">phase_io</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]})</span>
-
-        <span class="n">phase_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-
-        <span class="c1"># Get the initial time and duration from the previous result and set them into the new phase.</span>
-        <span class="n">integration_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">prev_time_path</span> <span class="o">=</span> <span class="n">prev_vars_abs2prom</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="si">}</span><span class="s1">.timeseries.timeseries_comp.</span><span class="si">{</span><span class="n">integration_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;load_case for phase </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> failed - phase not found in case data.&#39;</span><span class="p">)</span>
-            <span class="k">return</span>
-
-        <span class="n">prev_timeseries_prom_path</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">prev_time_path</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;.</span><span class="si">{</span><span class="n">integration_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">prev_phase_prom_path</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">prev_timeseries_prom_path</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.timeseries&#39;</span><span class="p">)</span>
-
-        <span class="n">prev_time_val</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_time_path</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-        <span class="n">prev_time_val</span><span class="p">,</span> <span class="n">unique_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">prev_time_val</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">prev_time_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_time_path</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
-
-        <span class="n">t_initial</span> <span class="o">=</span> <span class="n">prev_time_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">t_duration</span> <span class="o">=</span> <span class="n">prev_time_val</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">prev_time_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;t_initial&#39;</span><span class="p">,</span> <span class="n">t_initial</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_time_units</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;t_duration&#39;</span><span class="p">,</span> <span class="n">t_duration</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_time_units</span><span class="p">)</span>
-
-        <span class="c1"># Interpolate the timeseries state outputs from the previous solution onto the new grid.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">AnalyticPhase</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">state_name</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.states:</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars_prom2abs</span><span class="p">:</span>
-                    <span class="n">prev_state_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.states:</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="k">elif</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars_prom2abs</span><span class="p">:</span>
-                    <span class="n">prev_state_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unable to find state </span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1"> in timeseries data from case being loaded.&#39;</span><span class="p">,</span>
-                                  <span class="n">om</span><span class="o">.</span><span class="n">OpenMDAOWarning</span><span class="p">)</span>
-                    <span class="k">continue</span>
-
-                <span class="n">prev_state_val</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_state_path</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-                <span class="n">prev_state_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_state_path</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
-                <span class="n">interp_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">state_name</span><span class="p">,</span>
-                                          <span class="n">xs</span><span class="o">=</span><span class="n">prev_time_val</span><span class="p">,</span>
-                                          <span class="n">ys</span><span class="o">=</span><span class="n">prev_state_val</span><span class="p">[</span><span class="n">unique_idxs</span><span class="p">],</span>
-                                          <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">interp_vals</span> <span class="o">=</span> <span class="n">interp_vals</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;states:</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-                             <span class="n">interp_vals</span><span class="p">,</span>
-                             <span class="n">units</span><span class="o">=</span><span class="n">prev_state_units</span><span class="p">)</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;initial_states:</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">prev_state_val</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_state_units</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                    <span class="k">pass</span>
-
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;fix_final&#39;</span><span class="p">]:</span>
-                    <span class="n">warning_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s2">.states:</span><span class="si">{</span><span class="n">state_name</span><span class="si">}</span><span class="s2"> specifies &#39;fix_final=True&#39;. &quot;</span> \
-                                      <span class="sa">f</span><span class="s2">&quot;If the given restart file has a&quot;</span> \
-                                      <span class="sa">f</span><span class="s2">&quot; different final value this will overwrite the user-specified value&quot;</span>
-                    <span class="n">issue_warning</span><span class="p">(</span><span class="n">warning_message</span><span class="p">)</span>
-
-            <span class="c1"># Interpolate the timeseries control outputs from the previous solution onto the new grid.</span>
-            <span class="k">for</span> <span class="n">control_name</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.controls:</span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars_prom2abs</span><span class="p">:</span>
-                    <span class="n">prev_control_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.controls:</span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="k">elif</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars_prom2abs</span><span class="p">:</span>
-                    <span class="n">prev_control_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unable to find control </span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s1"> in timeseries data from case being loaded.&#39;</span><span class="p">,</span>
-                                  <span class="n">om</span><span class="o">.</span><span class="n">OpenMDAOWarning</span><span class="p">)</span>
-                    <span class="k">continue</span>
-
-                <span class="n">prev_control_val</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_control_path</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-                <span class="n">prev_control_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_control_path</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
-                <span class="n">interp_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">control_name</span><span class="p">,</span>
-                                          <span class="n">xs</span><span class="o">=</span><span class="n">prev_time_val</span><span class="p">,</span>
-                                          <span class="n">ys</span><span class="o">=</span><span class="n">prev_control_val</span><span class="p">[</span><span class="n">unique_idxs</span><span class="p">],</span>
-                                          <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">interp_vals</span> <span class="o">=</span> <span class="n">interp_vals</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;controls:</span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">interp_vals</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_control_units</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;fix_final&#39;</span><span class="p">]:</span>
-                    <span class="n">warning_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s2">.controls:</span><span class="si">{</span><span class="n">control_name</span><span class="si">}</span><span class="s2"> specifies &#39;fix_final=True&#39;. &quot;</span> \
-                                      <span class="sa">f</span><span class="s2">&quot;If the given restart file has a&quot;</span> \
-                                      <span class="sa">f</span><span class="s2">&quot; different final value this will overwrite the user-specified value&quot;</span>
-                    <span class="n">issue_warning</span><span class="p">(</span><span class="n">warning_message</span><span class="p">)</span>
-
-            <span class="c1"># Set the output polynomial control outputs from the previous solution as the value</span>
-            <span class="k">for</span> <span class="n">pc_name</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.polynomial_controls:</span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars_prom2abs</span><span class="p">:</span>
-                    <span class="n">prev_pc_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.polynomial_controls:</span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="k">elif</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars_prom2abs</span><span class="p">:</span>
-                    <span class="n">prev_pc_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_timeseries_prom_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unable to find polynomial control </span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s1"> in timeseries data from case being &#39;</span>
-                                  <span class="sa">f</span><span class="s1">&#39;loaded.&#39;</span><span class="p">,</span> <span class="n">om</span><span class="o">.</span><span class="n">OpenMDAOWarning</span><span class="p">)</span>
-                    <span class="k">continue</span>
-
-                <span class="n">prev_pc_val</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_pc_path</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-                <span class="n">prev_pc_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_pc_path</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
-                <span class="n">interp_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">pc_name</span><span class="p">,</span>
-                                          <span class="n">xs</span><span class="o">=</span><span class="n">prev_time_val</span><span class="p">,</span>
-                                          <span class="n">ys</span><span class="o">=</span><span class="n">prev_pc_val</span><span class="p">[</span><span class="n">unique_idxs</span><span class="p">],</span>
-                                          <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">interp_vals</span> <span class="o">=</span> <span class="n">interp_vals</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;polynomial_controls:</span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-                             <span class="n">interp_vals</span><span class="p">,</span>
-                             <span class="n">units</span><span class="o">=</span><span class="n">prev_pc_units</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;fix_final&#39;</span><span class="p">]:</span>
-                    <span class="n">warning_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">phase_name</span><span class="si">}</span><span class="s2">.polynomial_controls:</span><span class="si">{</span><span class="n">pc_name</span><span class="si">}</span><span class="s2"> specifies &#39;fix_final=True&#39;. &quot;</span> \
-                                      <span class="sa">f</span><span class="s2">&quot;If the given restart file has a&quot;</span> \
-                                      <span class="sa">f</span><span class="s2">&quot; different final value this will overwrite the user-specified value&quot;</span>
-                    <span class="n">issue_warning</span><span class="p">(</span><span class="n">warning_message</span><span class="p">)</span>
-
-        <span class="c1"># Set the timeseries parameter outputs from the previous solution as the parameter value</span>
-        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">:</span>
-            <span class="k">if</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_phase_prom_path</span><span class="si">}</span><span class="s1">.parameter_vals:</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">prev_vars</span><span class="p">:</span>
-                <span class="n">prev_param_val</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_phase_prom_path</span><span class="si">}</span><span class="s1">.parameter_vals:</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-                <span class="n">prev_param_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prev_phase_prom_path</span><span class="si">}</span><span class="s1">.parameter_vals:</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">prev_param_val</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_param_units</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">issue_warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unable to find &quot;</span><span class="si">{</span><span class="n">prev_phase_prom_path</span><span class="si">}</span><span class="s1">.parameter_vals:</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">&quot; &#39;</span>
-                              <span class="sa">f</span><span class="s1">&#39;in data from case being loaded.&#39;</span><span class="p">)</span>
 </pre></div>
 
                 </article>

@@ -826,27 +826,27 @@ title="Print to PDF"
 <p>This system has one state variables, the position (<span class="math notranslate nohighlight">\(x\)</span>) of the sliding block.</p>
 <p>This system has a single control variable (<span class="math notranslate nohighlight">\(u\)</span>), the velocity of the block.</p>
 <p>The dynamics of the system are governed by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-371dc345-ca04-4b2d-b6bb-7684bfa13e95">
-<span class="eqno">(48)<a class="headerlink" href="#equation-371dc345-ca04-4b2d-b6bb-7684bfa13e95" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1b62e245-9916-4d18-92e2-26e66420cba2">
+<span class="eqno">(48)<a class="headerlink" href="#equation-1b62e245-9916-4d18-92e2-26e66420cba2" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{x} &amp;= u
 \end{align}\]</div>
 </section>
 <section id="problem-definition">
 <h2>Problem Definition<a class="headerlink" href="#problem-definition" title="Permalink to this heading">#</a></h2>
 <p>We seek to minimize the control effort required and minimize the displacement from the origin.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d7de8b05-809e-42a0-a42d-62124f70bb23">
-<span class="eqno">(49)<a class="headerlink" href="#equation-d7de8b05-809e-42a0-a42d-62124f70bb23" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9064e4cc-674d-4538-83bc-072cd246ddea">
+<span class="eqno">(49)<a class="headerlink" href="#equation-9064e4cc-674d-4538-83bc-072cd246ddea" title="Permalink to this equation">#</a></span>\[\begin{align}
     \mathrm{Minimize} \, J &amp;= 2.5x_f^2 \, + \, 0.5 \int_0^1 u^2 dt
 \end{align}\]</div>
 <p>Subject to the initial conditions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a4ef2aa4-356d-4d80-9d34-b7c9071b9767">
-<span class="eqno">(50)<a class="headerlink" href="#equation-a4ef2aa4-356d-4d80-9d34-b7c9071b9767" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6b600029-111b-4b6a-a38e-6d5aa0106e2f">
+<span class="eqno">(50)<a class="headerlink" href="#equation-6b600029-111b-4b6a-a38e-6d5aa0106e2f" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_0 &amp;= 0.0 \\
     x_0 &amp;= 1.5
 \end{align}\]</div>
 <p>and the terminal constraints</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2c33d4cd-41c2-4580-aec2-c47f1df723bf">
-<span class="eqno">(51)<a class="headerlink" href="#equation-2c33d4cd-41c2-4580-aec2-c47f1df723bf" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-21a0763e-7b77-44d2-8ebf-ed9f33c34b0a">
+<span class="eqno">(51)<a class="headerlink" href="#equation-21a0763e-7b77-44d2-8ebf-ed9f33c34b0a" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_f &amp;= 10.0
 \end{align}\]</div>
 </section>
@@ -855,8 +855,8 @@ title="Print to PDF"
 <p>In classic optimal control, the objective is often broken into the terminal component (the Mayer term) and the integral component (the Lagrange term).
 Dymos does not distinguish between the two.
 In this case, since the objective <span class="math notranslate nohighlight">\(J\)</span> consists of both a terminal cost and an integrated cost (Bolza form), we add a term to the ODE to account for the integrated quantity</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f894f889-6b2b-4ac1-a6de-ac03a620009b">
-<span class="eqno">(52)<a class="headerlink" href="#equation-f894f889-6b2b-4ac1-a6de-ac03a620009b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4c6c5a7e-a64f-4f04-aaa9-a0a824a9eea7">
+<span class="eqno">(52)<a class="headerlink" href="#equation-4c6c5a7e-a64f-4f04-aaa9-a0a824a9eea7" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{x_L} &amp;= L \\
   L &amp;= 0.5 u^2
 \end{align}\]</div>
@@ -994,7 +994,7 @@ The rate source and units for the states are obtained from the tags in the ODE c
         None
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f2cf4cabdc0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7fc3544cb2b0&gt;
 </pre></div>
 </div>
 </div>
@@ -1035,12 +1035,10 @@ This will attempt to repeatedly solve the problem and change the number of segme
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.274608 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.450246 seconds.
 Total jacobian shape: (191, 216) 
 
 
@@ -1049,9 +1047,9 @@ FWD solves: 7   REV solves: 0
 Total colors vs. total size: 7 vs 216  (96.8% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 0.274608 sec.
-Time to compute coloring: 0.109561 sec.
-Memory to compute coloring: 0.281250 MB.
+Time to compute sparsity: 0.450246 sec.
+Time to compute coloring: 0.171776 sec.
+Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1060,11 +1058,11 @@ Memory to compute coloring: 0.281250 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    3.2605
-       User Objective Time :       0.1052
-       User Sensitivity Time :     0.4635
-       Interface Time :            0.3156
-       Opt Solver Time:            2.3762
+    Total Time:                    4.0136
+       User Objective Time :       0.1509
+       User Sensitivity Time :     0.6824
+       Interface Time :            0.4157
+       Opt Solver Time:            2.7647
     Calls to Objective Function :      66
     Calls to Sens Function :           65
 
@@ -1492,12 +1490,12 @@ Memory to compute coloring: 0.281250 MB.
 --------------------------------------------------------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/utils/introspection.py:879: SetupWarning:traj.phases.phase0: User-provided shape for timeseries expression output `J` using both the
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/utils/introspection.py:935: SetupWarning:traj.phases.phase0: User-provided shape for timeseries expression output `J` using both the
 `shape` keyword argument and the `J` keyword argument dictionary.
 The latter will take precedence.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/utils/introspection.py:873: UnusedOptionWarning:traj.phases.phase0: User-provided shape for timeseries expression input `x` ignored.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/utils/introspection.py:929: UnusedOptionWarning:traj.phases.phase0: User-provided shape for timeseries expression input `x` ignored.
 Using automatically determined shape (240, 1).
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/utils/introspection.py:873: UnusedOptionWarning:traj.phases.phase0: User-provided shape for timeseries expression input `xL` ignored.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/utils/introspection.py:929: UnusedOptionWarning:traj.phases.phase0: User-provided shape for timeseries expression input `xL` ignored.
 Using automatically determined shape (240, 1).
 </pre></div>
 </div>

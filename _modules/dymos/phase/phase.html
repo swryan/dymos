@@ -756,7 +756,6 @@ title="Open an issue"
 <span class="sd">    **kwargs : dict</span>
 <span class="sd">        Dictionary of optional phase arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_phase</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -1601,7 +1600,7 @@ title="Open an issue"
                       <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                       <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                       <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_target</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                      <span class="n">include_timeseries</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+                      <span class="n">include_timeseries</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a parameter (static control variable) to the phase.</span>
 
@@ -1647,6 +1646,12 @@ title="Open an issue"
 <span class="sd">            (meaning they cannot have a unique value at each node).  Otherwise False.</span>
 <span class="sd">        include_timeseries : bool</span>
 <span class="sd">            True if the static parameters should be included in output timeseries, else False.</span>
+<span class="sd">        static_targets : bool or Sequence or _unspecified</span>
+<span class="sd">            True if ALL targets in the ODE are not shaped with num_nodes as the first dimension</span>
+<span class="sd">            (meaning they cannot have a unique value at each node).  If False, ALL targets are</span>
+<span class="sd">            expected to be shaped with the first dimension as the number of nodes. If given</span>
+<span class="sd">            as a Sequence, it provides those targets not shaped with num_nodes. If left _unspecified,</span>
+<span class="sd">            static targets will be determined automatically.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
@@ -1654,16 +1659,18 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ParameterOptionsDictionary</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_parameter_options</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span>
-                                   <span class="n">scaler</span><span class="p">,</span> <span class="n">adder</span><span class="p">,</span> <span class="n">ref0</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dynamic</span><span class="p">,</span>
-                                   <span class="n">static_target</span><span class="p">,</span> <span class="n">include_timeseries</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_parameter_options</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span>
+                                   <span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">upper</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">adder</span><span class="p">,</span>
+                                   <span class="n">ref0</span><span class="o">=</span><span class="n">ref0</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="n">dynamic</span><span class="p">,</span>
+                                   <span class="n">static_target</span><span class="o">=</span><span class="n">static_target</span><span class="p">,</span> <span class="n">static_targets</span><span class="o">=</span><span class="n">static_targets</span><span class="p">,</span>
+                                   <span class="n">include_timeseries</span><span class="o">=</span><span class="n">include_timeseries</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Phase.set_parameter_options"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_parameter_options">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameter_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                               <span class="n">desc</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                               <span class="n">scaler</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">adder</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">ref0</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                               <span class="n">ref</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                               <span class="n">dynamic</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_target</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                              <span class="n">include_timeseries</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+                              <span class="n">include_timeseries</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">static_targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set options for an existing parameter (static control variable) in the phase.</span>
 
@@ -1709,6 +1716,12 @@ title="Open an issue"
 <span class="sd">            (meaning they cannot have a unique value at each node).  Otherwise False.</span>
 <span class="sd">        include_timeseries : bool</span>
 <span class="sd">            True if the static parameters should be included in output timeseries, else False.</span>
+<span class="sd">        static_targets : bool or Sequence or _unspecified</span>
+<span class="sd">            True if ALL targets in the ODE are not shaped with num_nodes as the first dimension</span>
+<span class="sd">            (meaning they cannot have a unique value at each node).  If False, ALL targets are</span>
+<span class="sd">            expected to be shaped with the first dimension as the number of nodes. If given</span>
+<span class="sd">            as a Sequence, it provides those targets not shaped with num_nodes. If left _unspecified,</span>
+<span class="sd">            static targets will be determined automatically.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
@@ -1734,22 +1747,29 @@ title="Open an issue"
                 <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape</span>
-        <span class="k">elif</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">complex</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">dynamic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;static_target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">dynamic</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;static_targets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">dynamic</span>
 
         <span class="k">if</span> <span class="n">static_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;static_target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">static_target</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;static_targets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">static_target</span>
+
+        <span class="k">if</span> <span class="n">static_targets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;static_target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">static_targets</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;static_targets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">static_targets</span>
 
         <span class="k">if</span> <span class="n">dynamic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="ow">and</span> <span class="n">static_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both the deprecated &#39;dynamic&#39; option and option &#39;static_target&#39; were &quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both the deprecated &#39;dynamic&#39; option and option &#39;static_target&#39; were</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot;specified for parameter &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;. Going forward, please use only</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;option static_targets. Options &#39;dynamic&#39; and &#39;static_target&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;will be removed in Dymos 2.0.0.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dynamic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="ow">and</span> <span class="n">static_targets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both the deprecated &#39;dynamic&#39; option and option &#39;static_targets&#39; were &quot;</span>
                              <span class="sa">f</span><span class="s2">&quot;specified for parameter &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;. Going forward, please use only &quot;</span>
-                             <span class="s2">&quot;option static_target.  Option &#39;dynamic&#39; will be removed in &quot;</span>
+                             <span class="s2">&quot;option static_targets.  Option &#39;dynamic&#39; will be removed in &quot;</span>
                              <span class="s2">&quot;Dymos 2.0.0.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">lower</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
@@ -2991,10 +3011,7 @@ title="Open an issue"
 
             <span class="c1"># We use this private function to grab the correctly sized variable from the</span>
             <span class="c1"># auto_ivc source.</span>
-            <span class="k">if</span> <span class="n">om_version</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="n">phs</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="n">phs</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">phs</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">phase_path</span><span class="p">:</span>
                 <span class="n">prob_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">phase_path</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">.parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>

@@ -804,8 +804,8 @@ three-phase orbit raising maneuver with a burn-coast-burn phase
 sequence. This example is based on the problem provided in
 Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J Enright and Brace A Conway. Optimal finite-thrust spacecraft trajectories using collocation and nonlinear programming. Journal of Guidance, Control, and Dynamics, 14(5):981–985, 1991.">EC91</a>]</span>.</p>
 <p>The dynamics are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3fd17976-dc0c-4808-abb5-f4906ba0c114">
-<span class="eqno">(58)<a class="headerlink" href="#equation-3fd17976-dc0c-4808-abb5-f4906ba0c114" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ed063807-7d39-4cc9-9611-d6673cd24b2d">
+<span class="eqno">(58)<a class="headerlink" href="#equation-ed063807-7d39-4cc9-9611-d6673cd24b2d" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dr}{dt} &amp;= v_r \\
   \frac{d\theta}{dt} &amp;= \frac{v_\theta}{r} \\
   \frac{dv_r}{dt} &amp;= \frac{v^2_\theta}{r} - \frac{1}{r^2} + a_{thrust} \sin u_1 \\
@@ -814,8 +814,8 @@ Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J
   \frac{d \Delta v}{dt} &amp;= a_{thrust}
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8874cf52-9c67-4d19-8d17-268e5fcdd841">
-<span class="eqno">(59)<a class="headerlink" href="#equation-8874cf52-9c67-4d19-8d17-268e5fcdd841" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-66c4fbb1-10e4-4f09-bc73-f0b2b4672d44">
+<span class="eqno">(59)<a class="headerlink" href="#equation-66c4fbb1-10e4-4f09-bc73-f0b2b4672d44" title="Permalink to this equation">#</a></span>\[\begin{align}
   r &amp;= 1 \rm{\,DU} \\
   \theta &amp;= 0 \rm{\,rad} \\
   v_r &amp;= 0 \rm{\,DU/TU}\\
@@ -824,8 +824,8 @@ Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J
   \Delta v &amp;= 0 \rm{\,DU/TU}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ffe20c4d-b548-41d2-a4a1-354358c3cb5a">
-<span class="eqno">(60)<a class="headerlink" href="#equation-ffe20c4d-b548-41d2-a4a1-354358c3cb5a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-60dbeab6-b2cf-471c-a06f-80801c2282b8">
+<span class="eqno">(60)<a class="headerlink" href="#equation-60dbeab6-b2cf-471c-a06f-80801c2282b8" title="Permalink to this equation">#</a></span>\[\begin{align}
   r &amp;= 3 \rm{\,DU} \\
   \theta &amp;= \rm{free} \\
   v_r &amp;= 0 \rm{\,DU/TU}\\
@@ -1275,9 +1275,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
         None
     --- burn2 ---
         None
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order
+
+INFO: checking out_of_order
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking out_of_order
@@ -1386,7 +1385,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:check_config:checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 1.045177 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian was computed 3 times, taking 0.539397 seconds.
 Total jacobian shape: (112, 204) 
 
 
@@ -1395,8 +1394,8 @@ FWD solves: 13   REV solves: 0
 Total colors vs. total size: 13 vs 204  (93.6% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity: 1.045177 sec.
-Time to compute coloring: 0.144768 sec.
+Time to compute sparsity: 0.539397 sec.
+Time to compute coloring: 0.097725 sec.
 Memory to compute coloring: 0.000000 MB.
 </pre></div>
 </div>
@@ -1406,11 +1405,11 @@ Memory to compute coloring: 0.000000 MB.
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    4.1978
-       User Objective Time :       0.2062
-       User Sensitivity Time :     3.4700
-       Interface Time :            0.2833
-       Opt Solver Time:            0.2384
+    Total Time:                    2.4368
+       User Objective Time :       0.1225
+       User Sensitivity Time :     1.9651
+       Interface Time :            0.1933
+       Opt Solver Time:            0.1560
     Calls to Objective Function :      28
     Calls to Sens Function :           28
 
@@ -1607,14 +1606,14 @@ Memory to compute coloring: 0.000000 MB.
         183  traj.phases.coast.indep_states.states:vt_7                         c    -1.000000E+21     4.374743E-01     1.000000E+21           
         184  traj.phases.coast.indep_states.states:vt_8                         c    -1.000000E+21     4.374743E-01     1.000000E+21           
         185  traj.phases.coast.indep_states.states:vt_9                         c    -1.000000E+21     4.217795E-01     1.000000E+21           
-        186  traj.phases.coast.indep_states.states:accel_0                      c    -1.000000E+21     1.217790E-19     1.000000E+21           
-        187  traj.phases.coast.indep_states.states:accel_1                      c    -1.000000E+21     1.215696E-19     1.000000E+21           
-        188  traj.phases.coast.indep_states.states:accel_2                      c    -1.000000E+21     7.918339E-20     1.000000E+21           
-        189  traj.phases.coast.indep_states.states:accel_3                      c    -1.000000E+21     4.456949E-20     1.000000E+21           
-        190  traj.phases.coast.indep_states.states:accel_4                      c    -1.000000E+21    -5.252039E-22     1.000000E+21           
-        191  traj.phases.coast.indep_states.states:accel_5                      c    -1.000000E+21    -1.401990E-20     1.000000E+21           
-        192  traj.phases.coast.indep_states.states:accel_6                      c    -1.000000E+21    -1.389690E-20     1.000000E+21           
-        193  traj.phases.coast.indep_states.states:accel_7                      c    -1.000000E+21    -5.526146E-21     1.000000E+21           
+        186  traj.phases.coast.indep_states.states:accel_0                      c    -1.000000E+21    -4.999524E-37     1.000000E+21           
+        187  traj.phases.coast.indep_states.states:accel_1                      c    -1.000000E+21    -1.986218E-36     1.000000E+21           
+        188  traj.phases.coast.indep_states.states:accel_2                      c    -1.000000E+21    -2.420049E-36     1.000000E+21           
+        189  traj.phases.coast.indep_states.states:accel_3                      c    -1.000000E+21    -5.575241E-36     1.000000E+21           
+        190  traj.phases.coast.indep_states.states:accel_4                      c    -1.000000E+21    -4.728426E-36     1.000000E+21           
+        191  traj.phases.coast.indep_states.states:accel_5                      c    -1.000000E+21    -7.247106E-36     1.000000E+21           
+        192  traj.phases.coast.indep_states.states:accel_6                      c    -1.000000E+21    -2.290561E-36     1.000000E+21           
+        193  traj.phases.coast.indep_states.states:accel_7                      c    -1.000000E+21    -6.915213E-38     1.000000E+21           
         194  traj.phases.coast.indep_states.states:deltav_0                     c    -1.000000E+21     2.411959E-01     1.000000E+21           
         195  traj.phases.coast.indep_states.states:deltav_1                     c    -1.000000E+21     2.411959E-01     1.000000E+21           
         196  traj.phases.coast.indep_states.states:deltav_2                     c    -1.000000E+21     2.411959E-01     1.000000E+21           
@@ -1641,36 +1640,36 @@ Memory to compute coloring: 0.000000 MB.
          10  traj.linkages.coast:vt_final|burn2:vt_initial                     e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          11  traj.linkages.coast:deltav_final|burn2:deltav_initial             e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          12  traj.linkages.burn1:accel_final|burn2:accel_initial               e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         13  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00    3.633115E-15    0.000000E+00              9.00000E+100
-         14  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00    2.164409E-15    0.000000E+00              9.00000E+100
-         15  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00   -3.092013E-16    0.000000E+00              9.00000E+100
-         16  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00   -1.855208E-15    0.000000E+00              9.00000E+100
-         17  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00   -1.360486E-14    0.000000E+00              9.00000E+100
-         18  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00   -4.947221E-15    0.000000E+00              9.00000E+100
-         19  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         20  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00   -2.473610E-14    0.000000E+00              9.00000E+100
-         21  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00    1.484166E-14    0.000000E+00              9.00000E+100
+         13  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00    3.053363E-15    0.000000E+00              9.00000E+100
+         14  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00   -4.638019E-16    0.000000E+00              9.00000E+100
+         15  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00   -9.894441E-15    0.000000E+00              9.00000E+100
+         16  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00    6.802428E-15    0.000000E+00              9.00000E+100
+         17  traj.phases.burn1.collocation_constraint.defects:r                e   0.000000E+00   -1.236805E-15    0.000000E+00              9.00000E+100
+         18  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
+         19  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00   -9.894441E-15    0.000000E+00              9.00000E+100
+         20  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00    9.894441E-15    0.000000E+00              9.00000E+100
+         21  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00   -2.720971E-14    0.000000E+00              9.00000E+100
          22  traj.phases.burn1.collocation_constraint.defects:theta            e   0.000000E+00    2.226249E-14    0.000000E+00              9.00000E+100
-         23  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00    4.947221E-15    0.000000E+00              9.00000E+100
-         24  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00   -1.422326E-14    0.000000E+00              9.00000E+100
-         25  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00   -1.422326E-14    0.000000E+00              9.00000E+100
-         26  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00    4.328818E-15    0.000000E+00              9.00000E+100
-         27  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00   -6.184026E-15    0.000000E+00              9.00000E+100
-         28  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00   -5.874825E-15    0.000000E+00              9.00000E+100
-         29  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00    1.345026E-14    0.000000E+00              9.00000E+100
-         30  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00   -4.638019E-16    0.000000E+00              9.00000E+100
-         31  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00   -6.802428E-15    0.000000E+00              9.00000E+100
-         32  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00    1.422326E-14    0.000000E+00              9.00000E+100
-         33  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00   -7.730032E-19    0.000000E+00              9.00000E+100
-         34  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00   -8.696286E-18    0.000000E+00              9.00000E+100
-         35  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00   -3.478515E-18    0.000000E+00              9.00000E+100
+         23  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00    8.966837E-15    0.000000E+00              9.00000E+100
+         24  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00    5.565623E-15    0.000000E+00              9.00000E+100
+         25  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00    4.947221E-15    0.000000E+00              9.00000E+100
+         26  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00   -4.328818E-15    0.000000E+00              9.00000E+100
+         27  traj.phases.burn1.collocation_constraint.defects:vr               e   0.000000E+00   -3.092013E-15    0.000000E+00              9.00000E+100
+         28  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00    5.256422E-15    0.000000E+00              9.00000E+100
+         29  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00   -8.966837E-15    0.000000E+00              9.00000E+100
+         30  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00    4.676670E-15    0.000000E+00              9.00000E+100
+         31  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00    7.730032E-15    0.000000E+00              9.00000E+100
+         32  traj.phases.burn1.collocation_constraint.defects:vt               e   0.000000E+00   -4.947221E-15    0.000000E+00              9.00000E+100
+         33  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00    3.865016E-19    0.000000E+00              9.00000E+100
+         34  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00    7.730032E-18    0.000000E+00              9.00000E+100
+         35  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00   -6.570527E-18    0.000000E+00              9.00000E+100
          36  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00    1.043554E-17    0.000000E+00              9.00000E+100
-         37  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00   -1.314105E-17    0.000000E+00              9.00000E+100
+         37  traj.phases.burn1.collocation_constraint.defects:accel            e   0.000000E+00   -2.125759E-17    0.000000E+00              9.00000E+100
          38  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00    3.092013E-18    0.000000E+00              9.00000E+100
-         39  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00   -1.236805E-17    0.000000E+00              9.00000E+100
-         40  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00    1.855208E-17    0.000000E+00              9.00000E+100
-         41  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00    3.092013E-18    0.000000E+00              9.00000E+100
-         42  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00   -1.236805E-17    0.000000E+00              9.00000E+100
+         39  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00   -6.184026E-18    0.000000E+00              9.00000E+100
+         40  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
+         41  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00   -1.546006E-17    0.000000E+00              9.00000E+100
+         42  traj.phases.burn1.collocation_constraint.defects:deltav           e   0.000000E+00    2.164409E-17    0.000000E+00              9.00000E+100
          43  traj.phases.burn1.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          44  traj.phases.burn1.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          45  traj.phases.burn1.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
@@ -1687,7 +1686,7 @@ Memory to compute coloring: 0.000000 MB.
          56  traj.phases.burn1.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          57  traj.phases.burn1.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          58  traj.phases.burn1.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         59  traj.phases.burn1.continuity_comp.defect_states:accel             e   0.000000E+00    1.387779E-17    0.000000E+00              9.00000E+100
+         59  traj.phases.burn1.continuity_comp.defect_states:accel             e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          60  traj.phases.burn1.continuity_comp.defect_states:accel             e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          61  traj.phases.burn1.continuity_comp.defect_states:accel             e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          62  traj.phases.burn1.continuity_comp.defect_states:accel             e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
@@ -1695,44 +1694,44 @@ Memory to compute coloring: 0.000000 MB.
          64  traj.phases.burn1.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          65  traj.phases.burn1.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          66  traj.phases.burn1.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         67  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -3.957777E-18    0.000000E+00              9.00000E+100
-         68  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -5.936665E-18    0.000000E+00              9.00000E+100
-         69  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -5.936665E-18    0.000000E+00              9.00000E+100
-         70  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    1.187333E-17    0.000000E+00              9.00000E+100
+         67  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
+         68  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -1.978888E-18    0.000000E+00              9.00000E+100
+         69  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    7.915553E-18    0.000000E+00              9.00000E+100
+         70  traj.phases.burn1.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    1.780999E-17    0.000000E+00              9.00000E+100
          71  traj.phases.burn1.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          72  traj.phases.burn1.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          73  traj.phases.burn1.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
          74  traj.phases.burn1.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-         75  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00   -3.451068E-15    0.000000E+00              9.00000E+100
-         76  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00    7.141056E-14    0.000000E+00              9.00000E+100
-         77  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00   -3.086051E-14    0.000000E+00              9.00000E+100
-         78  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00   -1.817341E-14    0.000000E+00              9.00000E+100
-         79  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00    2.255085E-15    0.000000E+00              9.00000E+100
-         80  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00    8.848893E-15    0.000000E+00              9.00000E+100
-         81  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00    2.619272E-14    0.000000E+00              9.00000E+100
-         82  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00   -7.433070E-15    0.000000E+00              9.00000E+100
-         83  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00    4.459842E-14    0.000000E+00              9.00000E+100
-         84  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00   -2.123734E-15    0.000000E+00              9.00000E+100
-         85  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    5.309336E-15    0.000000E+00              9.00000E+100
-         86  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    5.309336E-15    0.000000E+00              9.00000E+100
-         87  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00   -4.424446E-15    0.000000E+00              9.00000E+100
-         88  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    3.982002E-15    0.000000E+00              9.00000E+100
-         89  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    2.654668E-15    0.000000E+00              9.00000E+100
-         90  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    2.477690E-14    0.000000E+00              9.00000E+100
-         91  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    4.955380E-14    0.000000E+00              9.00000E+100
-         92  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00   -4.070491E-14    0.000000E+00              9.00000E+100
-         93  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    2.831646E-14    0.000000E+00              9.00000E+100
-         94  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    1.769779E-14    0.000000E+00              9.00000E+100
-         95  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00    6.857892E-18    0.000000E+00              9.00000E+100
-         96  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00    1.747656E-17    0.000000E+00              9.00000E+100
-         97  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00   -3.185601E-17    0.000000E+00              9.00000E+100
-         98  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00    1.858267E-17    0.000000E+00              9.00000E+100
-         99  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00   -4.424446E-18    0.000000E+00              9.00000E+100
-        100  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00    3.008624E-17    0.000000E+00              9.00000E+100
-        101  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        102  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00    5.309336E-18    0.000000E+00              9.00000E+100
-        103  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00    1.061867E-17    0.000000E+00              9.00000E+100
-        104  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00   -2.123734E-17    0.000000E+00              9.00000E+100
+         75  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00   -4.623546E-14    0.000000E+00              9.00000E+100
+         76  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00    1.637045E-15    0.000000E+00              9.00000E+100
+         77  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00    1.847206E-14    0.000000E+00              9.00000E+100
+         78  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00    1.561830E-14    0.000000E+00              9.00000E+100
+         79  traj.phases.burn2.collocation_constraint.defects:r                e   0.000000E+00   -2.215611E-14    0.000000E+00              9.00000E+100
+         80  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00    3.645744E-14    0.000000E+00              9.00000E+100
+         81  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00   -1.769779E-14    0.000000E+00              9.00000E+100
+         82  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00   -1.486614E-14    0.000000E+00              9.00000E+100
+         83  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00   -5.698687E-14    0.000000E+00              9.00000E+100
+         84  traj.phases.burn2.collocation_constraint.defects:theta            e   0.000000E+00    1.663592E-14    0.000000E+00              9.00000E+100
+         85  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    3.539557E-15    0.000000E+00              9.00000E+100
+         86  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
+         87  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00   -3.539557E-15    0.000000E+00              9.00000E+100
+         88  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00   -4.866891E-15    0.000000E+00              9.00000E+100
+         89  traj.phases.burn2.collocation_constraint.defects:vr               e   0.000000E+00    7.742781E-16    0.000000E+00              9.00000E+100
+         90  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    3.539557E-15    0.000000E+00              9.00000E+100
+         91  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    2.654668E-14    0.000000E+00              9.00000E+100
+         92  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00   -6.194225E-14    0.000000E+00              9.00000E+100
+         93  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00    6.371203E-14    0.000000E+00              9.00000E+100
+         94  traj.phases.burn2.collocation_constraint.defects:vt               e   0.000000E+00   -3.185601E-14    0.000000E+00              9.00000E+100
+         95  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00    1.371578E-17    0.000000E+00              9.00000E+100
+         96  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00   -1.083989E-17    0.000000E+00              9.00000E+100
+         97  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00    1.039745E-17    0.000000E+00              9.00000E+100
+         98  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00   -1.216723E-17    0.000000E+00              9.00000E+100
+         99  traj.phases.burn2.collocation_constraint.defects:accel            e   0.000000E+00    1.371578E-17    0.000000E+00              9.00000E+100
+        100  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00   -7.079114E-18    0.000000E+00              9.00000E+100
+        101  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00    1.061867E-17    0.000000E+00              9.00000E+100
+        102  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00   -1.769779E-17    0.000000E+00              9.00000E+100
+        103  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00   -2.123734E-17    0.000000E+00              9.00000E+100
+        104  traj.phases.burn2.collocation_constraint.defects:deltav           e   0.000000E+00    1.769779E-17    0.000000E+00              9.00000E+100
         105  traj.phases.burn2.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         106  traj.phases.burn2.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         107  traj.phases.burn2.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
@@ -1744,7 +1743,7 @@ Memory to compute coloring: 0.000000 MB.
         113  traj.phases.burn2.continuity_comp.defect_states:vr                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         114  traj.phases.burn2.continuity_comp.defect_states:vr                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         115  traj.phases.burn2.continuity_comp.defect_states:vr                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        116  traj.phases.burn2.continuity_comp.defect_states:vr                e   0.000000E+00   -2.168404E-19    0.000000E+00              9.00000E+100
+        116  traj.phases.burn2.continuity_comp.defect_states:vr                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         117  traj.phases.burn2.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         118  traj.phases.burn2.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         119  traj.phases.burn2.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
@@ -1757,44 +1756,44 @@ Memory to compute coloring: 0.000000 MB.
         126  traj.phases.burn2.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         127  traj.phases.burn2.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         128  traj.phases.burn2.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        129  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    5.663291E-16    0.000000E+00              9.00000E+100
-        130  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -9.202848E-16    0.000000E+00              9.00000E+100
-        131  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -1.061867E-16    0.000000E+00              9.00000E+100
-        132  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    1.946756E-15    0.000000E+00              9.00000E+100
+        129  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    1.557405E-15    0.000000E+00              9.00000E+100
+        130  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    2.973228E-15    0.000000E+00              9.00000E+100
+        131  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00    1.309636E-15    0.000000E+00              9.00000E+100
+        132  traj.phases.burn2.continuity_comp.defect_control_rates:u1_rate    e   0.000000E+00   -1.097263E-15    0.000000E+00              9.00000E+100
         133  traj.phases.burn2.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         134  traj.phases.burn2.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         135  traj.phases.burn2.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         136  traj.phases.burn2.continuity_comp.defect_controls:u1              e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        137  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00    4.100299E-15    0.000000E+00              9.00000E+100
-        138  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00   -2.460179E-14    0.000000E+00              9.00000E+100
+        137  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00   -4.100299E-15    0.000000E+00              9.00000E+100
+        138  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00   -1.640120E-14    0.000000E+00              9.00000E+100
         139  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00    2.460179E-14    0.000000E+00              9.00000E+100
-        140  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00    1.845135E-14    0.000000E+00              9.00000E+100
-        141  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00   -3.075224E-14    0.000000E+00              9.00000E+100
+        140  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00   -4.715344E-14    0.000000E+00              9.00000E+100
+        141  traj.phases.coast.collocation_constraint.defects:r                e   0.000000E+00    6.560478E-14    0.000000E+00              9.00000E+100
         142  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        143  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00   -1.640120E-14    0.000000E+00              9.00000E+100
-        144  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00   -4.305314E-14    0.000000E+00              9.00000E+100
-        145  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00    2.050150E-14    0.000000E+00              9.00000E+100
-        146  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00   -2.870209E-14    0.000000E+00              9.00000E+100
-        147  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        148  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00    1.025075E-15    0.000000E+00              9.00000E+100
-        149  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00    2.050150E-15    0.000000E+00              9.00000E+100
-        150  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        151  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00   -5.125374E-16    0.000000E+00              9.00000E+100
-        152  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        153  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00    1.025075E-15    0.000000E+00              9.00000E+100
-        154  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00   -8.713135E-15    0.000000E+00              9.00000E+100
-        155  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00    1.025075E-15    0.000000E+00              9.00000E+100
-        156  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00   -2.818956E-15    0.000000E+00              9.00000E+100
-        157  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00    9.133423E-20    0.000000E+00              9.00000E+100
-        158  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00   -3.178965E-20    0.000000E+00              9.00000E+100
-        159  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00   -3.382102E-20    0.000000E+00              9.00000E+100
-        160  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00    9.224784E-23    0.000000E+00              9.00000E+100
-        161  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00    4.144610E-21    0.000000E+00              9.00000E+100
-        162  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00   -2.782304E-17    0.000000E+00              9.00000E+100
-        163  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    2.764436E-17    0.000000E+00              9.00000E+100
-        164  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00   -2.439979E-20    0.000000E+00              9.00000E+100
-        165  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    1.546544E-20    0.000000E+00              9.00000E+100
-        166  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00   -2.775251E-17    0.000000E+00              9.00000E+100
+        143  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00    2.050150E-14    0.000000E+00              9.00000E+100
+        144  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00   -3.280239E-14    0.000000E+00              9.00000E+100
+        145  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00   -1.435105E-14    0.000000E+00              9.00000E+100
+        146  traj.phases.coast.collocation_constraint.defects:theta            e   0.000000E+00    1.435105E-14    0.000000E+00              9.00000E+100
+        147  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00   -8.200598E-15    0.000000E+00              9.00000E+100
+        148  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00   -7.175523E-15    0.000000E+00              9.00000E+100
+        149  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00   -4.100299E-15    0.000000E+00              9.00000E+100
+        150  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00    5.125374E-15    0.000000E+00              9.00000E+100
+        151  traj.phases.coast.collocation_constraint.defects:vr               e   0.000000E+00    3.075224E-15    0.000000E+00              9.00000E+100
+        152  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00   -4.100299E-15    0.000000E+00              9.00000E+100
+        153  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00    5.125374E-15    0.000000E+00              9.00000E+100
+        154  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00   -3.075224E-15    0.000000E+00              9.00000E+100
+        155  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00   -4.612836E-15    0.000000E+00              9.00000E+100
+        156  traj.phases.coast.collocation_constraint.defects:vt               e   0.000000E+00    5.637911E-15    0.000000E+00              9.00000E+100
+        157  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00   -3.749643E-37    0.000000E+00              9.00000E+100
+        158  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00   -3.253732E-37    0.000000E+00              9.00000E+100
+        159  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00    6.351113E-37    0.000000E+00              9.00000E+100
+        160  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00    3.717409E-36    0.000000E+00              9.00000E+100
+        161  traj.phases.coast.collocation_constraint.defects:accel            e   0.000000E+00    5.186410E-38    0.000000E+00              9.00000E+100
+        162  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    2.769652E-37    0.000000E+00              9.00000E+100
+        163  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    2.440998E-36    0.000000E+00              9.00000E+100
+        164  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    5.708058E-36    0.000000E+00              9.00000E+100
+        165  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    5.283707E-36    0.000000E+00              9.00000E+100
+        166  traj.phases.coast.collocation_constraint.defects:deltav           e   0.000000E+00    3.830911E-38    0.000000E+00              9.00000E+100
         167  traj.phases.coast.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         168  traj.phases.coast.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         169  traj.phases.coast.continuity_comp.defect_states:r                 e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
@@ -1811,10 +1810,10 @@ Memory to compute coloring: 0.000000 MB.
         180  traj.phases.coast.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         181  traj.phases.coast.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         182  traj.phases.coast.continuity_comp.defect_states:vt                e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
-        183  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00   -2.093765E-22    0.000000E+00              9.00000E+100
-        184  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00   -3.461391E-20    0.000000E+00              9.00000E+100
-        185  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00   -1.349470E-20    0.000000E+00              9.00000E+100
-        186  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00    8.370756E-21    0.000000E+00              9.00000E+100
+        183  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00   -1.486266E-36    0.000000E+00              9.00000E+100
+        184  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00   -3.155192E-36    0.000000E+00              9.00000E+100
+        185  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00   -2.518680E-36    0.000000E+00              9.00000E+100
+        186  traj.phases.coast.continuity_comp.defect_states:accel             e   0.000000E+00    2.221409E-36    0.000000E+00              9.00000E+100
         187  traj.phases.coast.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         188  traj.phases.coast.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
         189  traj.phases.coast.continuity_comp.defect_states:deltav            e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100

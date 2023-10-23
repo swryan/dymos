@@ -697,7 +697,7 @@ title="Open an issue"
             <article class="bd-article" role="main">
               
   <h1>Source code for dymos.phase.phase</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span>
+<span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
@@ -2170,7 +2170,11 @@ title="Open an issue"
 <span class="sd">        rate : bool</span>
 <span class="sd">            If True, add the rate of change of the named variable to the timeseries outputs of the</span>
 <span class="sd">            phase.  The rate variable will be named f&#39;{name}_rate&#39;.  Defaults to False.</span>
-<span class="sd">        expr :</span>
+<span class="sd">        expr : bool</span>
+<span class="sd">            True if the given name is an expression for an ExecComp.</span>
+<span class="sd">        expr_kwargs : dict</span>
+<span class="sd">            Keyword arguments for the expression.</span>
+
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2909,7 +2913,7 @@ title="Open an issue"
             <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">res</span></div>
 
-    <span class="k">def</span> <span class="nf">get_simulation_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">get_simulation_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                              <span class="n">rtol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                              <span class="n">reports</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2946,6 +2950,7 @@ title="Open an issue"
 <span class="sd">            times.  This instance has not yet been setup.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.simulation_phase</span> <span class="kn">import</span> <span class="n">SimulationPhase</span>
+
         <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">SimulationPhase</span><span class="p">(</span><span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
                                     <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">first_step</span><span class="o">=</span><span class="n">first_step</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span>
                                     <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">)</span>
@@ -3026,7 +3031,7 @@ title="Open an issue"
                 <span class="n">prob_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">.parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="n">prob</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="n">prob_path</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Phase.simulate"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
+<div class="viewcode-block" id="Phase.simulate"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                  <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">record_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulate the Phase using scipy.integrate.solve_ivp.</span>
@@ -3059,7 +3064,7 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sim_prob</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">())</span>
 
-        <span class="n">sim_phase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simulation_phase</span><span class="p">(</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+        <span class="n">sim_phase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simulation_phase</span><span class="p">(</span><span class="n">times_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
                                               <span class="n">first_step</span><span class="o">=</span><span class="n">first_step</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">)</span>
 
         <span class="n">sim_prob</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sim_phase</span><span class="p">)</span>
@@ -3114,7 +3119,7 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span><span class="p">[</span><span class="s1">&#39;smoothness_factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">smoothness_factor</span></div>
 
     <span class="k">def</span> <span class="nf">set_simulate_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
-                             <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
+                             <span class="n">first_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the specified option(s) for grid refinement in the phase.</span>
 
@@ -3130,6 +3135,8 @@ title="Open an issue"
 <span class="sd">            Initial step size for the integration.</span>
 <span class="sd">        max_step : float</span>
 <span class="sd">            Maximum step size for the integration.</span>
+<span class="sd">        times_per_seg : int</span>
+<span class="sd">            The number of time steps to output per segment.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
@@ -3141,6 +3148,8 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">[</span><span class="s1">&#39;first_step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">first_step</span>
         <span class="k">if</span> <span class="n">max_step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">[</span><span class="s1">&#39;max_step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_step</span>
+        <span class="k">if</span> <span class="n">times_per_seg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">[</span><span class="s1">&#39;times_per_seg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">times_per_seg</span>
 
     <span class="k">def</span> <span class="nf">is_time_fixed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -3427,13 +3436,17 @@ title="Open an issue"
 
         <span class="n">prev_timeseries_prom_path</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">prev_time_path</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;.</span><span class="si">{</span><span class="n">integration_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">prev_phase_prom_path</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">prev_timeseries_prom_path</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.timeseries&#39;</span><span class="p">)</span>
-
         <span class="n">prev_time_val</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_time_path</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-        <span class="n">prev_time_val</span><span class="p">,</span> <span class="n">unique_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">prev_time_val</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">prev_time_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_time_path</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
 
         <span class="n">t_initial</span> <span class="o">=</span> <span class="n">prev_time_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">t_duration</span> <span class="o">=</span> <span class="n">prev_time_val</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">prev_time_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">prev_time_val</span><span class="p">,</span> <span class="n">unique_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">prev_time_val</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">prev_time_units</span> <span class="o">=</span> <span class="n">prev_vars</span><span class="p">[</span><span class="n">prev_time_path</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">t_duration</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Unique sorts the data. In reverse-time phases, we need to undo it.</span>
+            <span class="n">prev_time_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">prev_time_val</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">unique_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">unique_idxs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;t_initial&#39;</span><span class="p">,</span> <span class="n">t_initial</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_time_units</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;t_duration&#39;</span><span class="p">,</span> <span class="n">t_duration</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">prev_time_units</span><span class="p">)</span>

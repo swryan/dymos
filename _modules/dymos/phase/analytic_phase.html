@@ -697,7 +697,9 @@ title="Open an issue"
             <article class="bd-article" role="main">
               
   <h1>Source code for dymos.phase.analytic_phase</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
 
 <span class="kn">from</span> <span class="nn">.phase</span> <span class="kn">import</span> <span class="n">Phase</span>
 <span class="kn">from</span> <span class="nn">..transcriptions</span> <span class="kn">import</span> <span class="n">Analytic</span>
@@ -1171,6 +1173,70 @@ title="Open an issue"
 <span class="sd">            Simulation cannot be performed on AnalyticPhase.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method set_simulate_options is not available for AnalyticPhase.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">boundary_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">path_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">objectives</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">fix_initial_time</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a copy of this phase where most options and attributes are deep copies of those in the original.</span>
+
+<span class="sd">        By default, a deepcopy of the transcription in the original phase is used.</span>
+<span class="sd">        Boundary constraints, path constraints, and objectives are _NOT_ copied by default, but the user may opt to do so.</span>
+<span class="sd">        By default, initial time is not fixed, nor are the initial or final state values.</span>
+<span class="sd">        These also can be overridden with the appropriate arguments.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        num_nodes : int or None</span>
+<span class="sd">            The number of nodes to use in the new phase, or None if it should use the same</span>
+<span class="sd">            number as the phase being duplicated.</span>
+<span class="sd">        boundary_constraints : bool</span>
+<span class="sd">            If True, retain all boundary constraints from the phase to be copied.</span>
+<span class="sd">        path_constraints : bool</span>
+<span class="sd">            If True, retain all path constraints from the phase to be copied.</span>
+<span class="sd">        objectives : bool</span>
+<span class="sd">            If True, retain all objectives from the phase to be copied.</span>
+<span class="sd">        fix_initial_time : bool</span>
+<span class="sd">            If True, fix the initial time of the returned phase.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        AnalyticPhase</span>
+<span class="sd">            The new phase created by duplicating this one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nn</span> <span class="o">=</span> <span class="n">num_nodes</span> <span class="k">if</span> <span class="n">num_nodes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">]</span>
+        <span class="n">ode_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span>
+        <span class="n">ode_init_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_init_kwargs&#39;</span><span class="p">]</span>
+        <span class="n">auto_solvers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;auto_solvers&#39;</span><span class="p">]</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">AnalyticPhase</span><span class="p">(</span><span class="n">num_nodes</span><span class="o">=</span><span class="n">nn</span><span class="p">,</span> <span class="n">ode_class</span><span class="o">=</span><span class="n">ode_class</span><span class="p">,</span> <span class="n">ode_init_kwargs</span><span class="o">=</span><span class="n">ode_init_kwargs</span><span class="p">,</span>
+                          <span class="n">auto_solvers</span><span class="o">=</span><span class="n">auto_solvers</span><span class="p">)</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">time_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">))</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fix_initial_time</span>
+
+        <span class="k">for</span> <span class="n">state_name</span><span class="p">,</span> <span class="n">state_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">state_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">state_options</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">param_options</span><span class="p">)</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">)</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">refine_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">simulate_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">timeseries_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeseries_options</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">boundary_constraints</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_final_boundary_constraints</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">path_constraints</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_path_constraints</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">objectives</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_objectives</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_objectives</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">p</span>
 </pre></div>
 
             </article>

@@ -698,7 +698,9 @@ title="Open an issue"
               
   <h1>Source code for dymos.phase.phase</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -720,7 +722,7 @@ title="Open an issue"
     <span class="n">TimeseriesOutputOptionsDictionary</span><span class="p">,</span> <span class="n">PhaseTimeseriesOptionsDictionary</span>
 
 <span class="kn">from</span> <span class="nn">..transcriptions.transcription_base</span> <span class="kn">import</span> <span class="n">TranscriptionBase</span>
-<span class="kn">from</span> <span class="nn">..transcriptions.grid_data</span> <span class="kn">import</span> <span class="n">GaussLobattoGrid</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">,</span> <span class="n">UniformGrid</span>
+<span class="kn">from</span> <span class="nn">..transcriptions.grid_data</span> <span class="kn">import</span> <span class="n">GaussLobattoGrid</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">,</span> <span class="n">UniformGrid</span><span class="p">,</span> <span class="n">BirkhoffGrid</span>
 <span class="kn">from</span> <span class="nn">..transcriptions</span> <span class="kn">import</span> <span class="n">ExplicitShooting</span><span class="p">,</span> <span class="n">GaussLobatto</span><span class="p">,</span> <span class="n">Radau</span>
 <span class="kn">from</span> <span class="nn">..utils.indexing</span> <span class="kn">import</span> <span class="n">get_constraint_flat_idxs</span>
 <span class="kn">from</span> <span class="nn">..utils.introspection</span> <span class="kn">import</span> <span class="n">configure_time_introspection</span><span class="p">,</span> <span class="n">_configure_constraint_introspection</span><span class="p">,</span> \
@@ -759,13 +761,18 @@ title="Open an issue"
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_phase</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
+        <span class="k">if</span> <span class="n">from_phase</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Instantiating a phase from another using the `from_phase`&#39;</span>
+                               <span class="s1">&#39; argument is no longer avaiable.&#39;</span>
+                               <span class="s1">&#39; Use the &lt;phase&gt;.duplicate() or &lt;phase&gt;.get_simulation_phase() methods.&#39;</span><span class="p">)</span>
+
         <span class="c1"># These are the options which will be set at setup time.</span>
         <span class="c1"># Prior to setup, the options are placed into the user_*_options dictionaries.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span> <span class="o">=</span> <span class="n">TimeOptionsDictionary</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># self.time_options = TimeOptionsDictionary()</span>
+        <span class="c1"># self.state_options = {}</span>
+        <span class="c1"># self.control_options = {}</span>
+        <span class="c1"># self.polynomial_control_options = {}</span>
+        <span class="c1"># self.parameter_options = {}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span> <span class="o">=</span> <span class="n">GridRefinementOptionsDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span> <span class="o">=</span> <span class="n">SimulateOptionsDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeseries_ec_vars</span> <span class="o">=</span> <span class="p">{}</span>
@@ -773,34 +780,104 @@ title="Open an issue"
 
         <span class="c1"># Dictionaries of variable options that are set by the user via the API</span>
         <span class="c1"># These will be applied over any defaults specified by decorators on the ODE</span>
-        <span class="k">if</span> <span class="n">from_phase</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;timeseries&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;transcription&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                                               <span class="s1">&#39;subset&#39;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-                                               <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_objectives</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">from_phase</span><span class="o">.</span><span class="n">time_options</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">state_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">control_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">parameter_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">from_phase</span><span class="o">.</span><span class="n">refine_options</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">from_phase</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">_final_boundary_constraints</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">_path_constraints</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">_timeseries</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_objectives</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">_objectives</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-            <span class="n">_kwargs</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span>
-            <span class="n">_kwargs</span><span class="p">[</span><span class="s1">&#39;ode_init_kwargs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_phase</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_init_kwargs&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;timeseries&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;transcription&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                           <span class="s1">&#39;subset&#39;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                                           <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_objectives</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">Phase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Phase.duplicate"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.duplicate">[docs]</a>    <span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transcription</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">boundary_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">path_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">objectives</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">fix_initial_time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_initial_states</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fix_final_states</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a copy of this phase where most options and attributes are deep copies of those in the original.</span>
+
+<span class="sd">        By default, a deepcopy of the transcription in the original phase is used.</span>
+<span class="sd">        Boundary constraints, path constraints, and objectives are _NOT_ copied by default, but the user may opt to do so.</span>
+<span class="sd">        By default, initial time is not fixed, nor are the initial or final state values.</span>
+<span class="sd">        These also can be overridden with the appropriate arguments.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        transcription : TranscriptionBase or None</span>
+<span class="sd">            If given, use the specified transcription for the new phase.</span>
+<span class="sd">            If None, use a copy of the transcription of the phase to be copied.</span>
+<span class="sd">        boundary_constraints : bool</span>
+<span class="sd">            If True, retain all boundary constraints from the phase to be copied.</span>
+<span class="sd">        path_constraints : bool</span>
+<span class="sd">            If True, retain all path constraints from the phase to be copied.</span>
+<span class="sd">        objectives : bool</span>
+<span class="sd">            If True, retain all objectives from the phase to be copied.</span>
+<span class="sd">        fix_initial_time : bool</span>
+<span class="sd">            If True, fix the initial time of the returned phase.</span>
+<span class="sd">        fix_initial_states : Sequence of str or None</span>
+<span class="sd">            If given, set fix_initial=True for the given state names. Otherwise, all states will have fix_initial=False.</span>
+<span class="sd">        fix_final_states : Sequence of str or None</span>
+<span class="sd">            If given, set fix_final=True for the given state names. Otherwise, all states will have fix_final=False.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Phase</span>
+<span class="sd">            The new phase created by duplicating this one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">transcription</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">transcription</span>
+        <span class="n">ode_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span>
+        <span class="n">ode_init_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_init_kwargs&#39;</span><span class="p">]</span>
+        <span class="n">auto_solvers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;auto_solvers&#39;</span><span class="p">]</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Phase</span><span class="p">(</span><span class="n">transcription</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">ode_class</span><span class="o">=</span><span class="n">ode_class</span><span class="p">,</span> <span class="n">ode_init_kwargs</span><span class="o">=</span><span class="n">ode_init_kwargs</span><span class="p">,</span>
+                  <span class="n">auto_solvers</span><span class="o">=</span><span class="n">auto_solvers</span><span class="p">)</span>
+
+        <span class="c1"># First copy over the variable information as is</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">time_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">state_name</span><span class="p">,</span> <span class="n">state_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">state_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">state_options</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">param_options</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">control_name</span><span class="p">,</span> <span class="n">control_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">control_options</span><span class="p">[</span><span class="n">control_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">control_options</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">pc_name</span><span class="p">,</span> <span class="n">pc_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">[</span><span class="n">pc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">pc_options</span><span class="p">)</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fix_initial_time</span>
+
+        <span class="n">_fis</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">fix_initial_states</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fix_initial_states</span>
+        <span class="n">_ffs</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">fix_final_states</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fix_final_states</span>
+
+        <span class="k">for</span> <span class="n">state_name</span><span class="p">,</span> <span class="n">state_options</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">state_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">state_name</span> <span class="ow">in</span> <span class="n">_fis</span><span class="p">:</span>
+                <span class="n">state_options</span><span class="p">[</span><span class="s1">&#39;fix_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">state_options</span><span class="p">[</span><span class="s1">&#39;fix_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">state_name</span> <span class="ow">in</span> <span class="n">_ffs</span><span class="p">:</span>
+                <span class="n">state_options</span><span class="p">[</span><span class="s1">&#39;fix_final&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">state_options</span><span class="p">[</span><span class="s1">&#39;fix_final&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">refine_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">simulate_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">timeseries_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeseries_options</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">boundary_constraints</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initial_boundary_constraints</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_final_boundary_constraints</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_final_boundary_constraints</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">path_constraints</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_path_constraints</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path_constraints</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">objectives</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_objectives</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_objectives</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">p</span></div>
 
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -815,6 +892,40 @@ title="Open an issue"
                              <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Transcription technique of the optimal control problem.&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;auto_solvers&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                              <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;If True, attempt to automatically assign solvers if necessary.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;time_options&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="n">TimeOptionsDictionary</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">TimeOptionsDictionary</span><span class="p">(),</span>
+                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Options for time in this phase.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;state_options&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Options for each state in this phase.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;parameter_options&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Options for each parameter in this phase.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;control_options&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Options for each control in this phase.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;polynomial_control_options&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Options for each polynomial control in this phase.&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;time_options&#39;</span><span class="p">]</span>
+
+    <span class="nd">@time_options</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">time_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tod</span><span class="p">:</span> <span class="n">TimeOptionsDictionary</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;time_options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tod</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">state_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;state_options&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameter_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;parameter_options&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">control_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;control_options&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">polynomial_control_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;polynomial_control_options&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Phase.add_state"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.add_state">[docs]</a>    <span class="k">def</span> <span class="nf">add_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
                   <span class="n">rate_source</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_unspecified</span><span class="p">,</span>
@@ -2953,9 +3064,88 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.simulation_phase</span> <span class="kn">import</span> <span class="n">SimulationPhase</span>
 
-        <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">SimulationPhase</span><span class="p">(</span><span class="n">from_phase</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">times_per_seg</span><span class="o">=</span><span class="n">times_per_seg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-                                    <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">first_step</span><span class="o">=</span><span class="n">first_step</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span>
-                                    <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">)</span>
+        <span class="c1"># t = deepcopy(self.options[&#39;transcription&#39;]) if transcription is None else transcription</span>
+        <span class="n">ode_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_class&#39;</span><span class="p">]</span>
+        <span class="n">ode_init_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ode_init_kwargs&#39;</span><span class="p">]</span>
+        <span class="n">auto_solvers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;auto_solvers&#39;</span><span class="p">]</span>
+
+        <span class="n">self_tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span>
+        <span class="n">num_seg</span> <span class="o">=</span> <span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="o">.</span><span class="n">num_segments</span>
+        <span class="n">seg_order</span> <span class="o">=</span> <span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="o">.</span><span class="n">transcription_order</span>
+        <span class="n">seg_ends</span> <span class="o">=</span> <span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="o">.</span><span class="n">segment_ends</span>
+        <span class="n">compressed</span> <span class="o">=</span> <span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="o">.</span><span class="n">compressed</span>
+
+        <span class="n">sim_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span>
+
+        <span class="n">_method</span> <span class="o">=</span> <span class="n">method</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="k">else</span> <span class="n">sim_options</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span>
+        <span class="n">_atol</span> <span class="o">=</span> <span class="n">atol</span> <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="k">else</span> <span class="n">sim_options</span><span class="p">[</span><span class="s1">&#39;atol&#39;</span><span class="p">]</span>
+        <span class="n">_rtol</span> <span class="o">=</span> <span class="n">rtol</span> <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="k">else</span> <span class="n">sim_options</span><span class="p">[</span><span class="s1">&#39;rtol&#39;</span><span class="p">]</span>
+        <span class="n">_first_step</span> <span class="o">=</span> <span class="n">first_step</span> <span class="k">if</span> <span class="n">first_step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="k">else</span> <span class="n">sim_options</span><span class="p">[</span><span class="s1">&#39;first_step&#39;</span><span class="p">]</span>
+        <span class="n">_max_step</span> <span class="o">=</span> <span class="n">max_step</span> <span class="k">if</span> <span class="n">max_step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="k">else</span> <span class="n">sim_options</span><span class="p">[</span><span class="s1">&#39;max_step&#39;</span><span class="p">]</span>
+        <span class="n">_times_per_seg</span> <span class="o">=</span> <span class="n">times_per_seg</span> <span class="k">if</span> <span class="n">times_per_seg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span> <span class="k">else</span> <span class="n">sim_options</span><span class="p">[</span><span class="s1">&#39;times_per_seg&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="p">,</span> <span class="n">GaussLobatto</span><span class="p">):</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">GaussLobattoGrid</span><span class="p">(</span><span class="n">num_segments</span><span class="o">=</span><span class="n">num_seg</span><span class="p">,</span> <span class="n">nodes_per_seg</span><span class="o">=</span><span class="n">seg_order</span><span class="p">,</span> <span class="n">segment_ends</span><span class="o">=</span><span class="n">seg_ends</span><span class="p">,</span>
+                                    <span class="n">compressed</span><span class="o">=</span><span class="n">compressed</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="p">,</span> <span class="n">Radau</span><span class="p">):</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">RadauGrid</span><span class="p">(</span><span class="n">num_segments</span><span class="o">=</span><span class="n">num_seg</span><span class="p">,</span> <span class="n">nodes_per_seg</span><span class="o">=</span><span class="n">seg_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">segment_ends</span><span class="o">=</span><span class="n">seg_ends</span><span class="p">,</span>
+                             <span class="n">compressed</span><span class="o">=</span><span class="n">compressed</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="p">,</span> <span class="n">GaussLobattoGrid</span><span class="p">)</span> <span class="ow">or</span> \
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="p">,</span> <span class="n">BirkhoffGrid</span><span class="p">):</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unexpected grid class for </span><span class="si">{</span><span class="n">phase_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="si">}</span><span class="s1">. Only phases with GaussLobatto &#39;</span>
+                               <span class="sa">f</span><span class="s1">&#39;or Radau grids can be simulated.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">_times_per_seg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_grid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output_grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span><span class="n">num_segments</span><span class="o">=</span><span class="n">num_seg</span><span class="p">,</span> <span class="n">nodes_per_seg</span><span class="o">=</span><span class="n">_times_per_seg</span><span class="p">,</span> <span class="n">segment_ends</span><span class="o">=</span><span class="n">seg_ends</span><span class="p">,</span>
+                                      <span class="n">compressed</span><span class="o">=</span><span class="n">compressed</span><span class="p">)</span>
+
+        <span class="n">tx</span> <span class="o">=</span> <span class="n">ExplicitShooting</span><span class="p">(</span><span class="n">propagate_derivs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">subprob_reports</span><span class="o">=</span><span class="n">reports</span><span class="p">,</span>
+                              <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
+                              <span class="n">output_grid</span><span class="o">=</span><span class="n">output_grid</span><span class="p">,</span>
+                              <span class="n">method</span><span class="o">=</span><span class="n">_method</span><span class="p">,</span>
+                              <span class="n">atol</span><span class="o">=</span><span class="n">_atol</span><span class="p">,</span>
+                              <span class="n">rtol</span><span class="o">=</span><span class="n">_rtol</span><span class="p">,</span>
+                              <span class="n">first_step</span><span class="o">=</span><span class="n">_first_step</span><span class="p">,</span>
+                              <span class="n">max_step</span><span class="o">=</span><span class="n">_max_step</span><span class="p">)</span>
+
+        <span class="n">sim_phase</span> <span class="o">=</span> <span class="n">SimulationPhase</span><span class="p">(</span><span class="n">transcription</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span>
+                                    <span class="n">ode_class</span><span class="o">=</span><span class="n">ode_class</span><span class="p">,</span>
+                                    <span class="n">ode_init_kwargs</span><span class="o">=</span><span class="n">ode_init_kwargs</span><span class="p">)</span>
+
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">time_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">)</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;fix_duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;initial_bounds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;duration_bounds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">state_name</span><span class="p">,</span> <span class="n">state_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">state_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">state_options</span><span class="p">)</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">state_name</span><span class="p">][</span><span class="s1">&#39;fix_final&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">state_name</span><span class="p">][</span><span class="s1">&#39;input_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">param_options</span><span class="p">)</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="s1">&#39;opt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">control_name</span><span class="p">,</span> <span class="n">control_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">control_options</span><span class="p">[</span><span class="n">control_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">control_options</span><span class="p">)</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">control_options</span><span class="p">[</span><span class="n">control_name</span><span class="p">][</span><span class="s1">&#39;opt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">pc_name</span><span class="p">,</span> <span class="n">pc_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">[</span><span class="n">pc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">pc_options</span><span class="p">)</span>
+            <span class="n">sim_phase</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">[</span><span class="n">pc_name</span><span class="p">][</span><span class="s1">&#39;opt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">_timeseries</span> <span class="o">=</span> <span class="p">{</span><span class="n">ts_name</span><span class="p">:</span> <span class="n">ts_options</span> <span class="k">for</span> <span class="n">ts_name</span><span class="p">,</span> <span class="n">ts_options</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeseries</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                                 <span class="k">if</span> <span class="n">ts_name</span> <span class="o">==</span> <span class="s1">&#39;timeseries&#39;</span><span class="p">}</span>
+
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">refine_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refine_options</span><span class="p">)</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">simulate_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulate_options</span><span class="p">)</span>
+        <span class="n">sim_phase</span><span class="o">.</span><span class="n">timeseries_options</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeseries_options</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">sim_phase</span>
 

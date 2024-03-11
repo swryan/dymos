@@ -759,7 +759,6 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_phase_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_connected_phases</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">ParallelGroup</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;parallel_phases&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -774,6 +773,12 @@ title="Open an issue"
                                   <span class="s1">&#39;otherwise it will be a standard OpenMDAO Group.&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;auto_solvers&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                              <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;If True, attempt to automatically assign solvers if necessary.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;parameter_options&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Options for each parameter in this Trajectory&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameter_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;parameter_options&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Trajectory.add_phase"><a class="viewcode-back" href="../../../features/trajectories/trajectories.html#dymos.Trajectory.add_phase">[docs]</a>    <span class="k">def</span> <span class="nf">add_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

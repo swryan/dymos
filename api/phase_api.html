@@ -874,6 +874,11 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#duplicate">
+     duplicate
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#set-refine-options">
      set_refine_options
     </a>
@@ -918,9 +923,97 @@ title="Print to PDF"
        <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">assembled_jac_type</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">csc</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;csc&#x27;, &#x27;dense&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Linear solver(s) in this group or implicit component, if using an assembled jacobian, will use this type.</td></tr>
        <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">auto_order</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">False</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True the order of subsystems is determined automatically based on the dependency graph.  It will not break or reorder cycles.</td></tr>
        <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">auto_solvers</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">True</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[True, False]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;bool&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">If True, attempt to automatically assign solvers if necessary.</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">ode_class</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">System defining the ODE</td></tr>
-       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">ode_init_kwargs</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">{}</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;dict&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Keyword arguments provided when initializing the ODE System</td></tr>
-       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">transcription</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">**Required**</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;TranscriptionBase&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Transcription technique of the optimal control problem.</td></tr>
+       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">control_options</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">{}</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;dict&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Options for each control in this phase.</td></tr>
+       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">ode_class</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">System defining the ODE</td></tr>
+       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">ode_init_kwargs</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">{}</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;dict&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Keyword arguments provided when initializing the ODE System</td></tr>
+       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">parameter_options</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">{}</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;dict&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Options for each parameter in this phase.</td></tr>
+       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">polynomial_control_options</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">{}</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;dict&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Options for each polynomial control in this phase.</td></tr>
+       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">state_options</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">{}</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;dict&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Options for each state in this phase.</td></tr>
+       <tr style="background-color: #F3F3F3;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">time_options</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">=======================  ============  =================  ================  ========================
+    Option                   Default       Acceptable Values  Acceptable Types  Description             
+    =======================  ============  =================  ================  ========================
+    duration_adder           N/A           N/A                [&#x27;Number&#x27;]        Adder for the duration  
+                                                                                of the integration      
+                                                                                variable across the     
+                                                                                phase.                  
+    duration_bounds          (None, None)  N/A                [&#x27;Iterable&#x27;]      Tuple of (lower, upper) 
+                                                                                bounds for the duration 
+                                                                                of the integration      
+                                                                                variable across the     
+                                                                                phase.                  
+    duration_ref             N/A           N/A                [&#x27;Number&#x27;]        Unit-reference value for
+                                                                                the duration of the     
+                                                                                integration variable    
+                                                                                across the phase.       
+    duration_ref0            N/A           N/A                [&#x27;Number&#x27;]        Zero-reference value for
+                                                                                the duration of the     
+                                                                                integration variable    
+                                                                                across the phase.       
+    duration_scaler          N/A           N/A                [&#x27;Number&#x27;]        Scalar for the duration 
+                                                                                of the integration      
+                                                                                variable across the     
+                                                                                phase.                  
+    duration_val             1.0           N/A                [&#x27;Number&#x27;]        Value of the duration of
+                                                                                the integration variable
+                                                                                across the phase.       
+    fix_duration             False         [True, False]      [&#x27;bool&#x27;]          If True, the  phase     
+                                                                                duration is not a design
+                                                                                variable.               
+    fix_initial              False         [True, False]      [&#x27;bool&#x27;]          If True, the initial    
+                                                                                value of time is not a  
+                                                                                design variable.        
+    initial_adder            N/A           N/A                [&#x27;Number&#x27;]        Adder for the initial   
+                                                                                value of the integration
+                                                                                variable.               
+    initial_bounds           (None, None)  N/A                [&#x27;Iterable&#x27;]      Tuple of (lower, upper) 
+                                                                                bounds for the          
+                                                                                integration variable at 
+                                                                                the start of the phase. 
+    initial_ref              N/A           N/A                [&#x27;Number&#x27;]        Unit-reference value for
+                                                                                the initial value of the
+                                                                                integration variable.   
+    initial_ref0             N/A           N/A                [&#x27;Number&#x27;]        Zero-reference value for
+                                                                                the initial value of the
+                                                                                integration variable.   
+    initial_scaler           N/A           N/A                [&#x27;Number&#x27;]        Scalar for the initial  
+                                                                                value of the integration
+                                                                                variable.               
+    initial_val              0.0           N/A                [&#x27;Number&#x27;]        Value of the integration
+                                                                                variable at the start of
+                                                                                the phase.              
+    input_duration           False         [True, False]      [&#x27;bool&#x27;]          If True, the phase      
+                                                                                duration (t_duration) is
+                                                                                expected to be connected
+                                                                                to an external output   
+                                                                                source.                 
+    input_initial            False         [True, False]      [&#x27;bool&#x27;]          If True, the initial    
+                                                                                value of time           
+                                                                                (t_initial) is expected 
+                                                                                to be connected to an   
+                                                                                external output source. 
+    name                     time          N/A                [&#x27;str&#x27;]           Name of the integraiton 
+                                                                                variable in the phase.  
+    t_duration_balance_opti  {}            N/A                N/A               options dictionary for  
+    ons                                                                         the duration residual   
+    t_duration_targets       []            N/A                N/A               targets in the ODE to   
+                                                                                which the total duration
+                                                                                of the phase is         
+                                                                                connected               
+    t_initial_targets        []            N/A                N/A               targets in the ODE to   
+                                                                                which the initial time  
+                                                                                of the phase is         
+                                                                                connected               
+    targets                  unspecified   N/A                N/A               targets in the ODE to   
+                                                                                which the integration   
+                                                                                variable is connected   
+    time_phase_targets       unspecified   N/A                N/A               targets in the ODE to   
+                                                                                which the elapsed       
+                                                                                duration of the phase is
+                                                                                connected               
+    units                    s             N/A                [&#x27;str&#x27;]           Units for the           
+                                                                                integration variable    
+    =======================  ============  =================  ================  ========================</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;TimeOptionsDictionary&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Options for time in this phase.</td></tr>
+       <tr style="background-color: ghostwhite;"><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">transcription</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">**Required**</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">N/A</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">[&#x27;TranscriptionBase&#x27;]</td><td style="border: 1px solid #999; border-collapse: collapse; padding: 5px; text-align: left;">Transcription technique of the optimal control problem.</td></tr>
     </table>
 </body>
 </html>
@@ -1940,6 +2033,48 @@ to obtain results at the requested times.</p>
 
 </div></blockquote>
 </section>
+<section id="duplicate">
+<h2>duplicate<a class="headerlink" href="#duplicate" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">Phase.</span></span><span class="sig-name descname"><span class="pre">duplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transcription</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objectives</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_initial_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_initial_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_final_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dymos/phase/phase.html#Phase.duplicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create a copy of this phase where most options and attributes are deep copies of those in the original.</p>
+<p>By default, a deepcopy of the transcription in the original phase is used.
+Boundary constraints, path constraints, and objectives are _NOT_ copied by default, but the user may opt to do so.
+By default, initial time is not fixed, nor are the initial or final state values.
+These also can be overridden with the appropriate arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>transcription</strong><span class="classifier">TranscriptionBase or None</span></dt><dd><p>If given, use the specified transcription for the new phase.
+If None, use a copy of the transcription of the phase to be copied.</p>
+</dd>
+<dt><strong>boundary_constraints</strong><span class="classifier">bool</span></dt><dd><p>If True, retain all boundary constraints from the phase to be copied.</p>
+</dd>
+<dt><strong>path_constraints</strong><span class="classifier">bool</span></dt><dd><p>If True, retain all path constraints from the phase to be copied.</p>
+</dd>
+<dt><strong>objectives</strong><span class="classifier">bool</span></dt><dd><p>If True, retain all objectives from the phase to be copied.</p>
+</dd>
+<dt><strong>fix_initial_time</strong><span class="classifier">bool</span></dt><dd><p>If True, fix the initial time of the returned phase.</p>
+</dd>
+<dt><strong>fix_initial_states</strong><span class="classifier">Sequence of str or None</span></dt><dd><p>If given, set fix_initial=True for the given state names. Otherwise, all states will have fix_initial=False.</p>
+</dd>
+<dt><strong>fix_final_states</strong><span class="classifier">Sequence of str or None</span></dt><dd><p>If given, set fix_final=True for the given state names. Otherwise, all states will have fix_final=False.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Phase</dt><dd><p>The new phase created by duplicating this one.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</section>
 <section id="set-refine-options">
 <h2>set_refine_options<a class="headerlink" href="#set-refine-options" title="Permalink to this heading">#</a></h2>
 <blockquote>
@@ -2176,6 +2311,11 @@ the first axis (0).</p>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#simulate">
      simulate
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#duplicate">
+     duplicate
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">

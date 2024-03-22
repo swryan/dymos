@@ -603,8 +603,8 @@ The design of a water rocket is somewhat constrained by the soda bottle used as 
 This means that the volume available for water and air is fixed, the initial launch pressure is limited by the bottle’s strength (since the pressure is directly related to the energy available for the rocket, it is easy to see that it should be as high as possible) and the nozzle throat area is also fixed.
 Given these manufacturing constraints, the design variables we are left with are the empty mass (it can be easily changed through adding ballast), the water volume at the launch, and the launch angle.
 With this considerations in mind, a natural formulation for the water rocket problem is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-668d52ad-504a-48f6-b0ee-954100c035c0">
-<span class="eqno">(84)<a class="headerlink" href="#equation-668d52ad-504a-48f6-b0ee-954100c035c0" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-efcb2d33-27b4-4dcb-91cb-29fb6e132101">
+<span class="eqno">(84)<a class="headerlink" href="#equation-efcb2d33-27b4-4dcb-91cb-29fb6e132101" title="Permalink to this equation">#</a></span>\[\begin{align}
     \text{maximize}   &amp;\quad \text{range or height} \\
     \text{w.r.t.}     &amp;\quad \text{empty mass, initial water volume, launch angle, trajectory} \\
     \text{subject to} &amp;\quad \text{flight dynamics} \\
@@ -1147,8 +1147,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">_MassAdder</span></code> component calculates the rocket’s instantaneous mass by
 summing the water mass with the rockets empty mass, i.e.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fa263778-81ae-47c2-9eaa-b5c64f76cf62">
-<span class="eqno">(85)<a class="headerlink" href="#equation-fa263778-81ae-47c2-9eaa-b5c64f76cf62" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-06da5a60-2742-4e72-a29d-5d44f20ee02d">
+<span class="eqno">(85)<a class="headerlink" href="#equation-06da5a60-2742-4e72-a29d-5d44f20ee02d" title="Permalink to this equation">#</a></span>\[\begin{align}
     m = m_\text{empty}+\rho_w V_w
 \end{align}\]</div>
 <div class="cell tag_remove-input docutils container">
@@ -2165,7 +2165,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 1.6704716999998936 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 1.6463537380000162 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -2174,10 +2174,10 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 1153  (98.27% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity:   1.6705 sec
-Time to compute coloring:   1.9322 sec
-Memory to compute coloring: -19.8789 MB
-Coloring created on: 2024-03-22 17:08:54
+Time to compute sparsity:   1.6464 sec
+Time to compute coloring:   2.0172 sec
+Memory to compute coloring: -19.8750 MB
+Coloring created on: 2024-03-22 17:43:33
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of user-set options:
@@ -2222,7 +2222,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 62
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total seconds in IPOPT                               = 12.923
+Total seconds in IPOPT                               = 12.731
 
 EXIT: Optimal Solution Found.
 </pre></div>
@@ -2251,9 +2251,6 @@ Maximum velocity: 46.1530 m/s
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/7f78eb0c4cec7aa7e5ddb452e7e7ffb9dc0a6c96eb420d27f4390ec8af7df23b.png" src="../../_images/7f78eb0c4cec7aa7e5ddb452e7e7ffb9dc0a6c96eb420d27f4390ec8af7df23b.png" />
-</div>
 </div>
 </section>
 </section>
@@ -2266,9 +2263,6 @@ Maximum velocity: 46.1530 m/s
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/1538e725213b00545c2358cd190aecae3c902bfd0dce0b5ec8e6cb5b50161f7e.png" src="../../_images/1538e725213b00545c2358cd190aecae3c902bfd0dce0b5ec8e6cb5b50161f7e.png" />
-</div>
 </div>
 </section>
 <section id="maximum-height-solution-state-history">
@@ -2278,9 +2272,6 @@ Maximum velocity: 46.1530 m/s
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_states</span><span class="p">(</span><span class="n">sol_out</span><span class="p">,</span> <span class="n">sim_out</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">legend_ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/43a7f0a9c125b65e81e4fa507fc4f03a45bce8fd6b2b48d7f64bb3032364aa79.png" src="../../_images/43a7f0a9c125b65e81e4fa507fc4f03a45bce8fd6b2b48d7f64bb3032364aa79.png" />
 </div>
 </div>
 </section>
@@ -2333,10 +2324,12 @@ Maximum velocity: 46.1530 m/s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem6&#39; was computed 3 times, taking 1.6567522719999488 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem6&#39; was computed 3 times, taking 1.6434777039999062 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -2345,10 +2338,10 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 1153  (98.27% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity:   1.6568 sec
-Time to compute coloring:   1.9280 sec
-Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-03-22 17:09:16
+Time to compute sparsity:   1.6435 sec
+Time to compute coloring:   1.9408 sec
+Memory to compute coloring:   1.1250 MB
+Coloring created on: 2024-03-22 17:43:55
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of user-set options:
@@ -2393,7 +2386,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 49
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total seconds in IPOPT                               = 11.762
+Total seconds in IPOPT                               = 11.717
 
 EXIT: Optimal Solution Found.
 
@@ -2404,11 +2397,11 @@ Optimization Problem -- Optimization using pyOpt_sparse
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                   11.7634
-       User Objective Time :       0.1761
-       User Sensitivity Time :    10.0713
-       Interface Time :            0.9561
-       Opt Solver Time:            0.5599
+    Total Time:                   11.7181
+       User Objective Time :       0.1676
+       User Sensitivity Time :    10.0653
+       Interface Time :            0.9511
+       Opt Solver Time:            0.5341
     Calls to Objective Function :      56
     Calls to Sens Function :           49
 
@@ -4760,9 +4753,6 @@ Maximum velocity: 41.3116 m/s
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/cd6adb206e17e27f48a8b52c0ea88fdbea43bac84752a52a9d94948d8e033289.png" src="../../_images/cd6adb206e17e27f48a8b52c0ea88fdbea43bac84752a52a9d94948d8e033289.png" />
-</div>
 </div>
 </section>
 <section id="maximum-range-solution-height-vs-range">
@@ -4773,9 +4763,6 @@ Maximum velocity: 41.3116 m/s
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/be89c0b5c6fae0576d8178eadc4b15287cd3a72587437ca9bfc59e755b3b7ea7.png" src="../../_images/be89c0b5c6fae0576d8178eadc4b15287cd3a72587437ca9bfc59e755b3b7ea7.png" />
-</div>
 </div>
 </section>
 <section id="maximum-range-solution-state-history">
@@ -4785,9 +4772,6 @@ Maximum velocity: 41.3116 m/s
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_states</span><span class="p">(</span><span class="n">sol_out</span><span class="p">,</span> <span class="n">sim_out</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/5244b3ed9d48a507dafcbcc2ac5008ded1f33ad57394bf5c2d6cbed702472465.png" src="../../_images/5244b3ed9d48a507dafcbcc2ac5008ded1f33ad57394bf5c2d6cbed702472465.png" />
 </div>
 </div>
 </section>

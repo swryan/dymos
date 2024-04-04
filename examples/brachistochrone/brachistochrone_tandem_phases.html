@@ -1,12 +1,10 @@
 
 <!DOCTYPE html>
 
-
-<html lang="en" data-content_root="../../" >
-
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Brachistochrone with tandem phases &#8212; Dymos</title>
   
@@ -18,156 +16,480 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/myfile.css?v=9678755d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
 
-    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/brachistochrone/brachistochrone_tandem_phases';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Cannonball Implicit Duration" href="../cannonball_implicit_duration/cannonball_implicit_duration.html" />
     <link rel="prev" title="Cart-Pole Optimal Control" href="../cart_pole/cart_pole.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
   <label class="overlay overlay-primary" for="__primary"></label>
+
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
   <label class="overlay overlay-secondary" for="__secondary"></label>
+
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../../search.html"
-      method="get">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
+</form>
+    </div>
   </div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/dymos_logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/dymos_logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../installation.html">
+                        Installing Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/optimal_control.html">
+                        Optimal Control
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/transcriptions.html">
+                        Optimal Control Transcriptions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/defining_odes.html">
+                        Defining ODEs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/collocation.html">
+                        What is collocation?
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_ivp.html">
+                        Modeling Dynamic Systems with Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_segments.html">
+                        Segments of Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../examples.html">
+                        Dymos by Example
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/phases/phases_list.html">
+                        Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/trajectories/trajectories.html">
+                        Organizing Phases into Trajectories
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/exploiting_sparsity.html">
+                        Exploiting Sparsity for Faster Derivative Calculation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/plotting.html">
+                        Plotting Timeseries
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq/faq.html">
+                        Frequently Asked Questions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/api.html">
+                        Dymos Reference API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing/contributing.html">
+                        Contributing to Dymos
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
   
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
-
   
   <div class="sidebar-header-items sidebar-primary__section">
     
     
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../installation.html">
+                        Installing Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/optimal_control.html">
+                        Optimal Control
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/transcriptions.html">
+                        Optimal Control Transcriptions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/defining_odes.html">
+                        Defining ODEs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/collocation.html">
+                        What is collocation?
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_ivp.html">
+                        Modeling Dynamic Systems with Dymos
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/intro_to_dymos/intro_segments.html">
+                        Segments of Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../examples.html">
+                        Dymos by Example
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/phases/phases_list.html">
+                        Phases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/trajectories/trajectories.html">
+                        Organizing Phases into Trajectories
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/exploiting_sparsity.html">
+                        Exploiting Sparsity for Faster Derivative Calculation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../features/plotting.html">
+                        Plotting Timeseries
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq/faq.html">
+                        Frequently Asked Questions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/api.html">
+                        Dymos Reference API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing/contributing.html">
+                        Contributing to Dymos
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
     
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
     
   </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
 
   
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+  
+
 
 <a class="navbar-brand logo" href="../../index.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="../../_static/dymos_logo.png" class="logo__image only-light" alt="Dymos - Home"/>
-    <script>document.write(`<img src="../../_static/dymos_logo.png" class="logo__image only-dark" alt="Dymos - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/dymos_logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/dymos_logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    </div>
+    <div class="sidebar-start-items__item">
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -273,47 +595,42 @@
 </ul>
 
     </div>
-</nav></div>
+</nav>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
   
   <div id="rtd-footer-container"></div>
 
-
       </div>
-      
       <main id="main-content" class="bd-main">
         
         
 
 <div class="sbt-scroll-pixel-helper"></div>
 
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        <label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" data-toggle="tooltip" data-placement="right" title="Toggle primary sidebar">
+            <span class="fa-solid fa-bars"></span>
+        </label>
     </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
+    <div class="header-article__right">
 
 
 <div class="dropdown dropdown-launch-buttons">
@@ -321,13 +638,11 @@
     <i class="fas fa-rocket"></i>
   </button>
   <ul class="dropdown-menu">
-      
-      
-      
       <li><a href="https://colab.research.google.com/github/OpenMDAO/dymos/blob/master/docs/dymos_book/examples/brachistochrone/brachistochrone_tandem_phases.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
-   data-bs-placement="left" data-bs-toggle="tooltip"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
 >
   
 
@@ -337,113 +652,16 @@
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
-</li>
+</a>
       
   </ul>
 </div>
-
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/OpenMDAO/dymos" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/brachistochrone/brachistochrone_tandem_phases.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../../_sources/examples/brachistochrone/brachistochrone_tandem_phases.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+  class="btn btn-sm"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
 >
   
 
@@ -455,35 +673,92 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+<div class="dropdown dropdown-repository-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
   </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <ul class="dropdown-menu">
+      <li><a href="https://github.com/OpenMDAO/dymos" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
   
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">repository</span>
+</a>
+</a>
+      
+      <li><a href="https://github.com/OpenMDAO/dymos/issues/new?title=Issue%20on%20page%20%2Fexamples/brachistochrone/brachistochrone_tandem_phases.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">open issue</span>
+</a>
+</a>
+      
+  </ul>
 </div>
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="../../_sources/examples/brachistochrone/brachistochrone_tandem_phases.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</a>
+      
+      <li>
+<button onclick="printPdf(this)"
+  class="btn btn-sm dropdown-item"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</a>
+      
+  </ul>
 </div>
-              
-              
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary" data-toggle="tooltip" data-placement="left" title="Toggle secondary sidebar">
+            <span class="fa-solid fa-list"></span>
+        </label>
+    </div>
+</div>
+            </div>
+            
+            
 
 <div id="jb-print-docs-body" class="onlyprint">
     <h1>Brachistochrone with tandem phases</h1>
@@ -496,24 +771,42 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">The first phase to integrate the standard brachistochrone ODE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">The ODE for integrating the arc-length of the wire</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">The second phase to integrate the arclength of the wire.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-run">Setup and run</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">
+   The first phase to integrate the standard brachistochrone ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">
+   The ODE for integrating the arc-length of the wire
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">
+   The second phase to integrate the arclength of the wire.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-and-run">
+   Setup and run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plots">
+   Plots
+  </a>
+ </li>
 </ul>
+
             </nav>
         </div>
     </div>
 </div>
 
+            <article class="bd-article" role="main">
               
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
   <section class="tex2jax_ignore mathjax_ignore" id="brachistochrone-with-tandem-phases">
-<span id="examples-brachistochrone-tandem-phases"></span><h1>Brachistochrone with tandem phases<a class="headerlink" href="#brachistochrone-with-tandem-phases" title="Link to this heading">#</a></h1>
+<span id="examples-brachistochrone-tandem-phases"></span><h1>Brachistochrone with tandem phases<a class="headerlink" href="#brachistochrone-with-tandem-phases" title="Permalink to this heading">#</a></h1>
 <div class="admonition-things-you-ll-learn-through-this-example admonition">
 <p class="admonition-title">Things you’ll learn through this example</p>
 <ul class="simple">
@@ -527,7 +820,7 @@ Or perhaps one phase has relatively rapid dynamics compared to the other one.  F
 <p>In this example we’ll evaulate the standard brachistochrone problem, but limit the arclength of the wire along which the bead travels.
 The arclength is integrated as a state variable, and can be done so along with the typical states <em>x</em>, <em>y</em>, and <em>v</em>, but for the purposes of this contrive example we’ll perform this integration in a separate phase that occurs at the same time.</p>
 <section id="the-first-phase-to-integrate-the-standard-brachistochrone-ode">
-<h2>The first phase to integrate the standard brachistochrone ODE<a class="headerlink" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode" title="Link to this heading">#</a></h2>
+<h2>The first phase to integrate the standard brachistochrone ODE<a class="headerlink" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode" title="Permalink to this heading">#</a></h2>
 <div class="admonition-things-to-note-about-this-phase admonition">
 <p class="admonition-title">Things to note about this phase</p>
 <ul class="simple">
@@ -590,7 +883,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </section>
 <section id="the-ode-for-integrating-the-arc-length-of-the-wire">
-<h2>The ODE for integrating the arc-length of the wire<a class="headerlink" href="#the-ode-for-integrating-the-arc-length-of-the-wire" title="Link to this heading">#</a></h2>
+<h2>The ODE for integrating the arc-length of the wire<a class="headerlink" href="#the-ode-for-integrating-the-arc-length-of-the-wire" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BrachistochroneArclengthODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
@@ -635,7 +928,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </section>
 <section id="the-second-phase-to-integrate-the-arclength-of-the-wire">
-<h2>The second phase to integrate the arclength of the wire.<a class="headerlink" href="#the-second-phase-to-integrate-the-arclength-of-the-wire" title="Link to this heading">#</a></h2>
+<h2>The second phase to integrate the arclength of the wire.<a class="headerlink" href="#the-second-phase-to-integrate-the-arclength-of-the-wire" title="Permalink to this heading">#</a></h2>
 <div class="admonition-things-to-note-about-this-phase admonition">
 <p class="admonition-title">Things to note about this phase</p>
 <ul class="simple">
@@ -676,7 +969,7 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </section>
 <section id="setup-and-run">
-<h2>Setup and run<a class="headerlink" href="#setup-and-run" title="Link to this heading">#</a></h2>
+<h2>Setup and run<a class="headerlink" href="#setup-and-run" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">linear_solver</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">DirectSolver</span><span class="p">()</span>
@@ -699,13 +992,13 @@ The arclength is integrated as a state variable, and can be done so along with t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:226: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.15938665399994534 seconds.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/recorders/sqlite_recorder.py:226: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.1626459690000388 seconds.
 Total jacobian shape: (223, 287) 
 </pre></div>
 </div>
@@ -714,10 +1007,10 @@ FWD solves: 29   REV solves: 0
 Total colors vs. total size: 29 vs 287  (89.90% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.1594 sec
-Time to compute coloring:   0.2714 sec
-Memory to compute coloring:   6.9258 MB
-Coloring created on: 2024-03-22 17:37:10
+Time to compute sparsity:   0.1626 sec
+Time to compute coloring:   0.2766 sec
+Memory to compute coloring:   6.5977 MB
+Coloring created on: 2024-04-04 17:01:21
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/visualization/opt_report/opt_report.py:625: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
@@ -728,7 +1021,7 @@ Coloring created on: 2024-03-22 17:37:10
 </div>
 </section>
 <section id="plots">
-<h2>Plots<a class="headerlink" href="#plots" title="Link to this heading">#</a></h2>
+<h2>Plots<a class="headerlink" href="#plots" title="Permalink to this heading">#</a></h2>
 <p>The following plots show the trajectory of the x, y, and v states (the top plot) and the trajectory of the arclength state (the bottom plot).  Note that these plots are linked, but use different grid spacings - the arclength is integrated on a significantly more dense grid.  This is enabled by the secondary timeseries output <code class="docutils literal notranslate"><span class="pre">timeseries2</span></code> in the first phase.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1529,10 +1822,10 @@ function _(e,t,s,n,o){var r;n();const i=e(122),a=e(14),l=e(63),c=e(42);class p e
     </script>
   </head>
   <body>
-    <div id="b01bdfda-84fd-42d6-b173-632ffa11efec" data-root-id="p1068" style="display: contents;"></div>
+    <div id="a0496487-8375-4619-85b4-ce7b5f8e02bf" data-root-id="p1068" style="display: contents;"></div>
   
-    <script type="application/json" id="ec6b29db-958d-4c1f-8904-8b89ae9e710d">
-      {"d812b91d-d125-4bbe-840e-e12ec1520355":{"version":"3.4.0","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1068","attributes":{"width":800,"height":300,"x_range":{"type":"object","name":"DataRange1d","id":"p1069"},"y_range":{"type":"object","name":"DataRange1d","id":"p1070"},"x_scale":{"type":"object","name":"LinearScale","id":"p1077"},"y_scale":{"type":"object","name":"LinearScale","id":"p1078"},"title":{"type":"object","name":"Title","id":"p1075","attributes":{"text_color":"#5B5B5B","text_font":"Helvetica","text_font_size":"1.15em"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1106","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1100","attributes":{"selected":{"type":"object","name":"Selection","id":"p1101","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1102"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAABi4e7Q0EGDPy1vKejdpqk/LG8p6N2mqT/S8CrQkL3BPwE9NrUcP9I/AT02tRw/0j8G/Pw6INHfP2uCGdlS0eg/a4IZ2VLR6D8HNsVAiujxP+DdKWyPbfg/4N0pbI9t+D8cBSGeB+7/PxGPYeQ9KgRAEY9h5D0qBEDwVY+cjMYIQHVQ9ksHyA1AdVD2SwfIDUBOLbSR/pMRQPB6wNeZahRA8HrA15lqFEDrRWOPTmIXQNoei0TafxpA2h6LRNp/GkCy92MJPsIdQLrxkgpmiyBAuvGSCmaLIEAF9DYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1107","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1108"}}},"glyph":{"type":"object","name":"Scatter","id":"p1103","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"fill_color":{"type":"value","value":"#1f77b4"},"hatch_color":{"type":"value","value":"#1f77b4"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1104","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1105","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1115","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1109","attributes":{"selected":{"type":"object","name":"Selection","id":"p1110","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1111"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAABi4e7Q0EGDPy1vKejdpqk/LG8p6N2mqT/S8CrQkL3BPwE9NrUcP9I/AT02tRw/0j8G/Pw6INHfP2uCGdlS0eg/a4IZ2VLR6D8HNsVAiujxP+DdKWyPbfg/4N0pbI9t+D8cBSGeB+7/PxGPYeQ9KgRAEY9h5D0qBEDwVY+cjMYIQHVQ9ksHyA1AdVD2SwfIDUBOLbSR/pMRQPB6wNeZahRA8HrA15lqFEDrRWOPTmIXQNoei0TafxpA2h6LRNp/GkCy92MJPsIdQLrxkgpmiyBAuvGSCmaLIEAF9DYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1116","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1117"}}},"glyph":{"type":"object","name":"Line","id":"p1112","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1113","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1114","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1124","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1118","attributes":{"selected":{"type":"object","name":"Selection","id":"p1119","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1120"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDWFfpxP+sjQCLzdA9HsCNAIvN0D0ewI0Db+Du8blQjQEti/q9m3iJAS2L+r2beIkAuZyRTHVUiQMIh9D8qviFAwiH0Pyq+IUCTUb3yPx4hQOTk/yPfeSBA5OT/I995IEAlJx2EZaofQDK46Fq9Yx5AMrjoWr1jHkAawuTXMiIdQJ/GvytO7RtAn8a/K07tG0CEDggyM8saQGiXchH+sRlAaJdyEf6xGUDJXr7CrJkYQDf29NOamhdAN/b005qaF0A3Rx7FGMYWQPZNnPdH4hVA9k2c90fiFUD2h6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1125","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1126"}}},"glyph":{"type":"object","name":"Scatter","id":"p1121","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"fill_color":{"type":"value","value":"#ff7f0e"},"hatch_color":{"type":"value","value":"#ff7f0e"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1122","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1123","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1133","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1127","attributes":{"selected":{"type":"object","name":"Selection","id":"p1128","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1129"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDWFfpxP+sjQCLzdA9HsCNAIvN0D0ewI0Db+Du8blQjQEti/q9m3iJAS2L+r2beIkAuZyRTHVUiQMIh9D8qviFAwiH0Pyq+IUCTUb3yPx4hQOTk/yPfeSBA5OT/I995IEAlJx2EZaofQDK46Fq9Yx5AMrjoWr1jHkAawuTXMiIdQJ/GvytO7RtAn8a/K07tG0CEDggyM8saQGiXchH+sRlAaJdyEf6xGUDJXr7CrJkYQDf29NOamhdAN/b005qaF0A3Rx7FGMYWQPZNnPdH4hVA9k2c90fiFUD2h6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1134","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1135"}}},"glyph":{"type":"object","name":"Line","id":"p1130","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1131","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1132","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1142","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1136","attributes":{"selected":{"type":"object","name":"Selection","id":"p1137","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1138"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAB/c+TzkXnsPzrxtGji9fs/OvG0aOL1+z+xwj70yoEEQB5Mx8dGpQpAHkzHx0alCkC7DuOiFC0QQLhc5+m20RJAuFzn6bbREkDt4ETpvkMVQL4wCCCvgxdAvjAIIK+DF0BPSmWbN5IZQNxH31hbdRtA3EffWFt1G0D8MCaykzIdQDtDCtmrxh5AO0MK2avGHkCWIi4dJxggQIayO38AwCBAhrI7fwDAIEAU18a3AGEhQC59P2PC7iFALn0/Y8LuIUA8IQ5UtWEiQO3loL+L2SJA7eWgv4vZIkC7uKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1143","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1144"}}},"glyph":{"type":"object","name":"Scatter","id":"p1139","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"fill_color":{"type":"value","value":"#2ca02c"},"hatch_color":{"type":"value","value":"#2ca02c"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1140","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1141","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1151","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1145","attributes":{"selected":{"type":"object","name":"Selection","id":"p1146","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1147"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAB/c+TzkXnsPzrxtGji9fs/OvG0aOL1+z+xwj70yoEEQB5Mx8dGpQpAHkzHx0alCkC7DuOiFC0QQLhc5+m20RJAuFzn6bbREkDt4ETpvkMVQL4wCCCvgxdAvjAIIK+DF0BPSmWbN5IZQNxH31hbdRtA3EffWFt1G0D8MCaykzIdQDtDCtmrxh5AO0MK2avGHkCWIi4dJxggQIayO38AwCBAhrI7fwDAIEAU18a3AGEhQC59P2PC7iFALn0/Y8LuIUA8IQ5UtWEiQO3loL+L2SJA7eWgv4vZIkC7uKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1152","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1153"}}},"glyph":{"type":"object","name":"Line","id":"p1148","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1149","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1150","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1160","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1154","attributes":{"selected":{"type":"object","name":"Selection","id":"p1155","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1156"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1161","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1162"}}},"glyph":{"type":"object","name":"Scatter","id":"p1157","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"fill_color":{"type":"value","value":"#d62728"},"hatch_color":{"type":"value","value":"#d62728"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1158","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1159","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1169","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1163","attributes":{"selected":{"type":"object","name":"Selection","id":"p1164","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1165"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAg/qO0reYVP2C2D9s9m0w/Pcu3V5YubD+ke7N3CK6BP2TTrQ2k0pA/y8PqzN5Gmj9NAjJ2M4yhP+P2Cs4pfKQ/PjY/B5U6pT8+Nj8HlTqlP3rVbLNfJ6c/MSv2NbDAqz9Y4y85KYSxPwAO4MPIV7Y/msR4wU/suz9NV/WOjsPAP768rBbEH8M/v0fyUp2bxD9hOKgKhvnEP2E4qAqG+cQ/wNxFHtLoxT+L67ImzxHIP/ejsX1KU8s/UO8BhoBrzz+UKpSl+/bRP4xAtNYwJNQ/Cdj8R/fr1T/M7XQaQQXXPzekt3A8Stc/N6S3cDxK1z/5XaDbE/nXP2onQAteiNk/tO2rfz3X2z/rPyKMw67eP5rWDI7O3+A/AmUc3+RT4j8sEfQFFoDjP9SrJJGzN+Q/8ZZLGI1k5D/xlksYjWTkPyVZ3hvs1eQ/V/ktRETX5T/lWHC9blDnP6AEerOEG+k/SGPxQgwF6z/crtaKZtDsP/QWlZT1P+4/bEkk9I0f7z+xyoIKCVbvP7HKggoJVu8/1EkAAoff7z/Qk7alPYvwP7P0w6rEbfE/JNhBJol/8j+RZmFyUqHzP+5VWi9wr/Q/PR//LW2G9T9d8Okavgj2P9hIIaBxKPY/2EghoHEo9j+xww5nXHj2Px7VEfKoLPc/gn3jw08y+D8Ejo9tAG35PwEumfVvuPo/QQim9PXr+z9kPD+b0d/8P9iCFmFEc/0/3N4TdRiX/T/c3hN1GJf9P1ybCwFZ8f0/s+WHLZu8/j83xLKvu+L/P2hvkASeoQBA39JTHI9aAUD6gBF8kQUCQE38IGLLjAJAlkSIM2feAkBedIxJN/ICQF50jEk38gJArKJGSBgkA0AtOBw0RpQDQEETNA8+NgRAgvrB1dL3BEB6pqftXcIFQAqMvbAnfQZAdne8XYoQB0DEYlKPW2kHQEOOPADofgdAQ448AOh+B0C2N56RIbUHQIgaU6n2LghAYzEx25TeCEBiS+qGDLAJQNVgkSm9igpAK4m/3wFUC0B2vVdcjfILQEEaYQb8UQxABy1XNSBpDEAHLVc1IGkMQKhgE7JWowxAWdbzsQcmDUDFHr+6LeINQJah8qU8wg5AXImdUcSrD0BclCliLUEQQADIxxOWlRBAfXfmY1nIEEBM3xlXp9QQQEzfGVen1BBArF+T25jzEECAlLsjBTkRQAMJsEfanBFAX54/nJITEkD7BTguII8SQC1oUe5+ABNAKTpdfJRZE0C50iJ2HI8TQLRAJ/IUnBNAtEAn8hScE0CPn3wAsbwTQO4mAPvNBRRATTTfCtVuFEBx57tzkesUQExFtiY1bRVAkKLRWgTkFUBgWR2xSEEWQAz+ibpKeRZAiVhg0tuGFkCJWGDS24YWQL4i5An2qBZAZLMrgmT1FkArxIxhHmMXQDDsoB5V5RdAywji7IxsGEB9Qb9aX+gYQJxjqk6CSRlAbgwBR9CDGUA+goMC75EZQD6CgwLvkRlAMw9RXmy1GUBQ0I/78gQaQEeW34IUdxpAVUHdHHb+GkDIUrIH+YobQD2s++OSCxxANK+2Z2lwHEAAewTR6qwcQFhsBGSRuxxAWGwEZJG7HEAXBBSqYuAcQKAVGDvaMh1AR12biR+pHUBoVmAKSzUeQO7Ui06jxh5AelIwFYtLH0D7EUicrbMfQASCEyMh8h9AQhF/sp8AIEBCEX+ynwAgQFDll3edEyBA3UaOGiA+IEBWZ89MB3sgQOXOXRAfwyBAWESOy8kNIUDGXa14/1EhQKLp2WpnhyFAOloDIWunIUBW8q3HKq8hQFbyrccqryFAostrVaLCIUBHtajsNe4hQDJQxgKlLCJAJosm6412IkC8GS7NG8MiQCSpKBAMCSNA8eB6Vc8/I0B8EXaUo2AjQGCqh72VaCNAYKqHvZVoI0DQ2utIjXwjQF/i7sFGqSNA8YzWnGrpI0BdZCYRbDUkQOLtzR42hCRAuZzucjrMJEBiEfttoQQlQEixwZJxJiVAmT/eqqAuJUCZP96qoC4lQCPgjSEwQyVAPDuPeTVxJUCvcuMzIbMlQNN1QcEgASZAY5abwNlRJkAUGfnlhJsmQLgMqZkj1SZAz9lLiab3JkAAAAAAAAAnQA=="},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1170","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1171"}}},"glyph":{"type":"object","name":"Line","id":"p1166","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1167","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1168","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1076","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1089"},{"type":"object","name":"WheelZoomTool","id":"p1090","attributes":{"renderers":"auto"}},{"type":"object","name":"BoxZoomTool","id":"p1091","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1092","attributes":{"syncable":false,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"SaveTool","id":"p1097"},{"type":"object","name":"ResetTool","id":"p1098"},{"type":"object","name":"HelpTool","id":"p1099"}]}},"left":[{"type":"object","name":"LinearAxis","id":"p1084","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1085","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1086"},"axis_label":"state value","axis_label_standoff":10,"axis_label_text_color":"#5B5B5B","axis_label_text_font":"Helvetica","axis_label_text_font_size":"1.25em","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1087"},"major_label_text_color":"#5B5B5B","major_label_text_font":"Helvetica","major_label_text_font_size":"1.025em","axis_line_color":"#5B5B5B","axis_line_alpha":0,"major_tick_line_color":"#5B5B5B","major_tick_line_alpha":0,"minor_tick_line_color":"#5B5B5B","minor_tick_line_alpha":0}}],"right":[{"type":"object","name":"Legend","id":"p1172","attributes":{"location":"bottom_right","border_line_alpha":0,"background_fill_alpha":0.25,"label_text_color":"#5B5B5B","label_text_font":"Helvetica","label_text_font_size":"1.025em","label_standoff":8,"glyph_width":15,"spacing":8,"items":[{"type":"object","name":"LegendItem","id":"p1173","attributes":{"label":{"type":"value","value":"x (m)"},"renderers":[{"id":"p1106"},{"id":"p1115"}]}},{"type":"object","name":"LegendItem","id":"p1174","attributes":{"label":{"type":"value","value":"y (m)"},"renderers":[{"id":"p1124"},{"id":"p1133"}]}},{"type":"object","name":"LegendItem","id":"p1175","attributes":{"label":{"type":"value","value":"v"},"renderers":[{"id":"p1142"},{"id":"p1151"}]}},{"type":"object","name":"LegendItem","id":"p1176","attributes":{"label":{"type":"value","value":"arclength"},"renderers":[{"id":"p1160"},{"id":"p1169"}]}}]}}],"below":[{"type":"object","name":"LinearAxis","id":"p1079","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1080","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1081"},"axis_label":"time (s)","axis_label_standoff":10,"axis_label_text_color":"#5B5B5B","axis_label_text_font":"Helvetica","axis_label_text_font_size":"1.25em","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1082"},"major_label_text_color":"#5B5B5B","major_label_text_font":"Helvetica","major_label_text_font_size":"1.025em","axis_line_color":"#5B5B5B","axis_line_alpha":0,"major_tick_line_color":"#5B5B5B","major_tick_line_alpha":0,"minor_tick_line_color":"#5B5B5B","minor_tick_line_alpha":0}}],"center":[{"type":"object","name":"Grid","id":"p1083","attributes":{"axis":{"id":"p1079"}}},{"type":"object","name":"Grid","id":"p1088","attributes":{"dimension":1,"axis":{"id":"p1084"}}}]}}]}}
+    <script type="application/json" id="efdf6976-1fa2-4979-87ee-053506ec0526">
+      {"a9992e0d-982a-418d-9bd3-533fe7c3adb9":{"version":"3.4.0","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1068","attributes":{"width":800,"height":300,"x_range":{"type":"object","name":"DataRange1d","id":"p1069"},"y_range":{"type":"object","name":"DataRange1d","id":"p1070"},"x_scale":{"type":"object","name":"LinearScale","id":"p1077"},"y_scale":{"type":"object","name":"LinearScale","id":"p1078"},"title":{"type":"object","name":"Title","id":"p1075","attributes":{"text_color":"#5B5B5B","text_font":"Helvetica","text_font_size":"1.15em"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1106","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1100","attributes":{"selected":{"type":"object","name":"Selection","id":"p1101","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1102"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAABi4e7Q0EGDPy1vKejdpqk/LG8p6N2mqT/S8CrQkL3BPwE9NrUcP9I/AT02tRw/0j8G/Pw6INHfP2uCGdlS0eg/a4IZ2VLR6D8HNsVAiujxP+DdKWyPbfg/4N0pbI9t+D8cBSGeB+7/PxGPYeQ9KgRAEY9h5D0qBEDwVY+cjMYIQHVQ9ksHyA1AdVD2SwfIDUBOLbSR/pMRQPB6wNeZahRA8HrA15lqFEDrRWOPTmIXQNoei0TafxpA2h6LRNp/GkCy92MJPsIdQLrxkgpmiyBAuvGSCmaLIEAF9DYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1107","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1108"}}},"glyph":{"type":"object","name":"Scatter","id":"p1103","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"fill_color":{"type":"value","value":"#1f77b4"},"hatch_color":{"type":"value","value":"#1f77b4"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1104","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1105","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1115","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1109","attributes":{"selected":{"type":"object","name":"Selection","id":"p1110","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1111"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAABi4e7Q0EGDPy1vKejdpqk/LG8p6N2mqT/S8CrQkL3BPwE9NrUcP9I/AT02tRw/0j8G/Pw6INHfP2uCGdlS0eg/a4IZ2VLR6D8HNsVAiujxP+DdKWyPbfg/4N0pbI9t+D8cBSGeB+7/PxGPYeQ9KgRAEY9h5D0qBEDwVY+cjMYIQHVQ9ksHyA1AdVD2SwfIDUBOLbSR/pMRQPB6wNeZahRA8HrA15lqFEDrRWOPTmIXQNoei0TafxpA2h6LRNp/GkCy92MJPsIdQLrxkgpmiyBAuvGSCmaLIEAF9DYJvzsiQAAAAAAAACRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1116","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1117"}}},"glyph":{"type":"object","name":"Line","id":"p1112","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1113","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1114","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1124","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1118","attributes":{"selected":{"type":"object","name":"Selection","id":"p1119","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1120"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDWFfpxP+sjQCLzdA9HsCNAIvN0D0ewI0Db+Du8blQjQEti/q9m3iJAS2L+r2beIkAuZyRTHVUiQMIh9D8qviFAwiH0Pyq+IUCTUb3yPx4hQOTk/yPfeSBA5OT/I995IEAlJx2EZaofQDK46Fq9Yx5AMrjoWr1jHkAawuTXMiIdQJ/GvytO7RtAn8a/K07tG0CEDggyM8saQGiXchH+sRlAaJdyEf6xGUDJXr7CrJkYQDf29NOamhdAN/b005qaF0A3Rx7FGMYWQPZNnPdH4hVA9k2c90fiFUD2h6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1125","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1126"}}},"glyph":{"type":"object","name":"Scatter","id":"p1121","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"fill_color":{"type":"value","value":"#ff7f0e"},"hatch_color":{"type":"value","value":"#ff7f0e"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1122","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1123","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1133","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1127","attributes":{"selected":{"type":"object","name":"Selection","id":"p1128","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1129"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAJEDWFfpxP+sjQCLzdA9HsCNAIvN0D0ewI0Db+Du8blQjQEti/q9m3iJAS2L+r2beIkAuZyRTHVUiQMIh9D8qviFAwiH0Pyq+IUCTUb3yPx4hQOTk/yPfeSBA5OT/I995IEAlJx2EZaofQDK46Fq9Yx5AMrjoWr1jHkAawuTXMiIdQJ/GvytO7RtAn8a/K07tG0CEDggyM8saQGiXchH+sRlAaJdyEf6xGUDJXr7CrJkYQDf29NOamhdAN/b005qaF0A3Rx7FGMYWQPZNnPdH4hVA9k2c90fiFUD2h6+TmMcUQAAAAAAAABRA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1134","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1135"}}},"glyph":{"type":"object","name":"Line","id":"p1130","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1131","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1132","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1142","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1136","attributes":{"selected":{"type":"object","name":"Selection","id":"p1137","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1138"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAB/c+TzkXnsPzrxtGji9fs/OvG0aOL1+z+xwj70yoEEQB5Mx8dGpQpAHkzHx0alCkC7DuOiFC0QQLhc5+m20RJAuFzn6bbREkDt4ETpvkMVQL4wCCCvgxdAvjAIIK+DF0BPSmWbN5IZQNxH31hbdRtA3EffWFt1G0D8MCaykzIdQDtDCtmrxh5AO0MK2avGHkCWIi4dJxggQIayO38AwCBAhrI7fwDAIEAU18a3AGEhQC59P2PC7iFALn0/Y8LuIUA8IQ5UtWEiQO3loL+L2SJA7eWgv4vZIkC7uKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1143","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1144"}}},"glyph":{"type":"object","name":"Scatter","id":"p1139","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"fill_color":{"type":"value","value":"#2ca02c"},"hatch_color":{"type":"value","value":"#2ca02c"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1140","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1141","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1151","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1145","attributes":{"selected":{"type":"object","name":"Selection","id":"p1146","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1147"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAgVA0h0La3PyBUDSHQtsc/IFQNIdC2xz8a/8kYHMnRPyJUDSHQttc/IlQNIdC21z8qqVAphKTdPxr/yRgcyeE/Gv/JGBzJ4T+eqesc9r/kPyJUDSHQtuc/IlQNIdC25z+m/i4lqq3qPyqpUCmEpO0/KqlQKYSk7T/XKbkWr03wPxr/yRgcyfE/Gv/JGBzJ8T9c1NoaiUTzP56p6xz2v/Q/nqnrHPa/9D/gfvweYzv2PyJUDSHQtvc/IlQNIdC29z9kKR4jPTL5P6b+LiWqrfo/pv4uJaqt+j/o0z8nFyn8PyqpUCmEpP0/"},"shape":[30],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAB/c+TzkXnsPzrxtGji9fs/OvG0aOL1+z+xwj70yoEEQB5Mx8dGpQpAHkzHx0alCkC7DuOiFC0QQLhc5+m20RJAuFzn6bbREkDt4ETpvkMVQL4wCCCvgxdAvjAIIK+DF0BPSmWbN5IZQNxH31hbdRtA3EffWFt1G0D8MCaykzIdQDtDCtmrxh5AO0MK2avGHkCWIi4dJxggQIayO38AwCBAhrI7fwDAIEAU18a3AGEhQC59P2PC7iFALn0/Y8LuIUA8IQ5UtWEiQO3loL+L2SJA7eWgv4vZIkC7uKsIEWojQCLUeQEpziNA"},"shape":[30],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1152","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1153"}}},"glyph":{"type":"object","name":"Line","id":"p1148","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1149","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1150","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1160","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1154","attributes":{"selected":{"type":"object","name":"Selection","id":"p1155","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1156"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAAAAg/qO0reYVP2C2D9s9m0w/Pcu3V5YubD+ke7N3CK6BP2TTrQ2k0pA/y8PqzN5Gmj9NAjJ2M4yhP+P2Cs4pfKQ/PjY/B5U6pT8+Nj8HlTqlP3rVbLNfJ6c/MSv2NbDAqz9Y4y85KYSxPwAO4MPIV7Y/msR4wU/suz9NV/WOjsPAP768rBbEH8M/v0fyUp2bxD9hOKgKhvnEP2E4qAqG+cQ/wNxFHtLoxT+L67ImzxHIP/ejsX1KU8s/UO8BhoBrzz+UKpSl+/bRP4xAtNYwJNQ/Cdj8R/fr1T/M7XQaQQXXPzekt3A8Stc/N6S3cDxK1z/5XaDbE/nXP2onQAteiNk/tO2rfz3X2z/rPyKMw67eP5rWDI7O3+A/AmUc3+RT4j8sEfQFFoDjP9SrJJGzN+Q/8ZZLGI1k5D/xlksYjWTkPyVZ3hvs1eQ/V/ktRETX5T/lWHC9blDnP6AEerOEG+k/SGPxQgwF6z/crtaKZtDsP/QWlZT1P+4/bEkk9I0f7z+xyoIKCVbvP7HKggoJVu8/1EkAAoff7z/Qk7alPYvwP7P0w6rEbfE/JNhBJol/8j+RZmFyUqHzP+5VWi9wr/Q/PR//LW2G9T9d8Okavgj2P9hIIaBxKPY/2EghoHEo9j+xww5nXHj2Px7VEfKoLPc/gn3jw08y+D8Ejo9tAG35PwEumfVvuPo/QQim9PXr+z9kPD+b0d/8P9iCFmFEc/0/3N4TdRiX/T/c3hN1GJf9P1ybCwFZ8f0/s+WHLZu8/j83xLKvu+L/P2hvkASeoQBA39JTHI9aAUD6gBF8kQUCQE38IGLLjAJAlkSIM2feAkBedIxJN/ICQF50jEk38gJArKJGSBgkA0AtOBw0RpQDQEETNA8+NgRAgvrB1dL3BEB6pqftXcIFQAqMvbAnfQZAdne8XYoQB0DEYlKPW2kHQEOOPADofgdAQ448AOh+B0C2N56RIbUHQIgaU6n2LghAYzEx25TeCEBiS+qGDLAJQNVgkSm9igpAK4m/3wFUC0B2vVdcjfILQEEaYQb8UQxABy1XNSBpDEAHLVc1IGkMQKhgE7JWowxAWdbzsQcmDUDFHr+6LeINQJah8qU8wg5AXImdUcSrD0BclCliLUEQQADIxxOWlRBAfXfmY1nIEEBM3xlXp9QQQEzfGVen1BBArF+T25jzEECAlLsjBTkRQAMJsEfanBFAX54/nJITEkD7BTguII8SQC1oUe5+ABNAKTpdfJRZE0C50iJ2HI8TQLRAJ/IUnBNAtEAn8hScE0CPn3wAsbwTQO4mAPvNBRRATTTfCtVuFEBx57tzkesUQExFtiY1bRVAkKLRWgTkFUBgWR2xSEEWQAz+ibpKeRZAiVhg0tuGFkCJWGDS24YWQL4i5An2qBZAZLMrgmT1FkArxIxhHmMXQDDsoB5V5RdAywji7IxsGEB9Qb9aX+gYQJxjqk6CSRlAbgwBR9CDGUA+goMC75EZQD6CgwLvkRlAMw9RXmy1GUBQ0I/78gQaQEeW34IUdxpAVUHdHHb+GkDIUrIH+YobQD2s++OSCxxANK+2Z2lwHEAAewTR6qwcQFhsBGSRuxxAWGwEZJG7HEAXBBSqYuAcQKAVGDvaMh1AR12biR+pHUBoVmAKSzUeQO7Ui06jxh5AelIwFYtLH0D7EUicrbMfQASCEyMh8h9AQhF/sp8AIEBCEX+ynwAgQFDll3edEyBA3UaOGiA+IEBWZ89MB3sgQOXOXRAfwyBAWESOy8kNIUDGXa14/1EhQKLp2WpnhyFAOloDIWunIUBW8q3HKq8hQFbyrccqryFAostrVaLCIUBHtajsNe4hQDJQxgKlLCJAJosm6412IkC8GS7NG8MiQCSpKBAMCSNA8eB6Vc8/I0B8EXaUo2AjQGCqh72VaCNAYKqHvZVoI0DQ2utIjXwjQF/i7sFGqSNA8YzWnGrpI0BdZCYRbDUkQOLtzR42hCRAuZzucjrMJEBiEfttoQQlQEixwZJxJiVAmT/eqqAuJUCZP96qoC4lQCPgjSEwQyVAPDuPeTVxJUCvcuMzIbMlQNN1QcEgASZAY5abwNlRJkAUGfnlhJsmQLgMqZkj1SZAz9lLiab3JkAAAAAAAAAnQA=="},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1161","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1162"}}},"glyph":{"type":"object","name":"Scatter","id":"p1157","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"fill_color":{"type":"value","value":"#d62728"},"hatch_color":{"type":"value","value":"#d62728"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1158","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1159","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":5},"line_color":{"type":"value","value":"#d62728"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#d62728"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#d62728"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1169","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1163","attributes":{"selected":{"type":"object","name":"Selection","id":"p1164","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1165"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"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"},"shape":[200],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1170","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1171"}}},"glyph":{"type":"object","name":"Line","id":"p1166","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1167","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1168","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#d62728","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1076","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1089"},{"type":"object","name":"WheelZoomTool","id":"p1090","attributes":{"renderers":"auto"}},{"type":"object","name":"BoxZoomTool","id":"p1091","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1092","attributes":{"syncable":false,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"SaveTool","id":"p1097"},{"type":"object","name":"ResetTool","id":"p1098"},{"type":"object","name":"HelpTool","id":"p1099"}]}},"left":[{"type":"object","name":"LinearAxis","id":"p1084","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1085","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1086"},"axis_label":"state value","axis_label_standoff":10,"axis_label_text_color":"#5B5B5B","axis_label_text_font":"Helvetica","axis_label_text_font_size":"1.25em","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1087"},"major_label_text_color":"#5B5B5B","major_label_text_font":"Helvetica","major_label_text_font_size":"1.025em","axis_line_color":"#5B5B5B","axis_line_alpha":0,"major_tick_line_color":"#5B5B5B","major_tick_line_alpha":0,"minor_tick_line_color":"#5B5B5B","minor_tick_line_alpha":0}}],"right":[{"type":"object","name":"Legend","id":"p1172","attributes":{"location":"bottom_right","border_line_alpha":0,"background_fill_alpha":0.25,"label_text_color":"#5B5B5B","label_text_font":"Helvetica","label_text_font_size":"1.025em","label_standoff":8,"glyph_width":15,"spacing":8,"items":[{"type":"object","name":"LegendItem","id":"p1173","attributes":{"label":{"type":"value","value":"x (m)"},"renderers":[{"id":"p1106"},{"id":"p1115"}]}},{"type":"object","name":"LegendItem","id":"p1174","attributes":{"label":{"type":"value","value":"y (m)"},"renderers":[{"id":"p1124"},{"id":"p1133"}]}},{"type":"object","name":"LegendItem","id":"p1175","attributes":{"label":{"type":"value","value":"v"},"renderers":[{"id":"p1142"},{"id":"p1151"}]}},{"type":"object","name":"LegendItem","id":"p1176","attributes":{"label":{"type":"value","value":"arclength"},"renderers":[{"id":"p1160"},{"id":"p1169"}]}}]}}],"below":[{"type":"object","name":"LinearAxis","id":"p1079","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1080","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1081"},"axis_label":"time (s)","axis_label_standoff":10,"axis_label_text_color":"#5B5B5B","axis_label_text_font":"Helvetica","axis_label_text_font_size":"1.25em","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1082"},"major_label_text_color":"#5B5B5B","major_label_text_font":"Helvetica","major_label_text_font_size":"1.025em","axis_line_color":"#5B5B5B","axis_line_alpha":0,"major_tick_line_color":"#5B5B5B","major_tick_line_alpha":0,"minor_tick_line_color":"#5B5B5B","minor_tick_line_alpha":0}}],"center":[{"type":"object","name":"Grid","id":"p1083","attributes":{"axis":{"id":"p1079"}}},{"type":"object","name":"Grid","id":"p1088","attributes":{"dimension":1,"axis":{"id":"p1084"}}}]}}]}}
     </script>
     <script type="text/javascript">
       (function() {
@@ -1540,8 +1833,8 @@ function _(e,t,s,n,o){var r;n();const i=e(122),a=e(14),l=e(63),c=e(42);class p e
           Bokeh.safely(function() {
             (function(root) {
               function embed_document(root) {
-              const docs_json = document.getElementById('ec6b29db-958d-4c1f-8904-8b89ae9e710d').textContent;
-              const render_items = [{"docid":"d812b91d-d125-4bbe-840e-e12ec1520355","roots":{"p1068":"b01bdfda-84fd-42d6-b173-632ffa11efec"},"root_ids":["p1068"]}];
+              const docs_json = document.getElementById('efdf6976-1fa2-4979-87ee-053506ec0526').textContent;
+              const render_items = [{"docid":"a9992e0d-982a-418d-9bd3-533fe7c3adb9","roots":{"p1068":"a0496487-8375-4619-85b4-ce7b5f8e02bf"},"root_ids":["p1068"]}];
               root.Bokeh.embed.embed_items(docs_json, render_items);
               }
               if (root.Bokeh !== undefined) {
@@ -1594,63 +1887,80 @@ function _(e,t,s,n,o){var r;n();const i=e(122),a=e(14),l=e(63),c=e(42);class p e
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
-              
+            </article>
+            
 
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="../cart_pole/cart_pole.html"
-       title="previous page">
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="../cart_pole/cart_pole.html" title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Cart-Pole Optimal Control</p>
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Cart-Pole Optimal Control</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="../cannonball_implicit_duration/cannonball_implicit_duration.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Cannonball Implicit Duration</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
+  </a>
+  <a class='right-next' id="next-link" href="../cannonball_implicit_duration/cannonball_implicit_duration.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Cannonball Implicit Duration</p>
   </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">The first phase to integrate the standard brachistochrone ODE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">The ODE for integrating the arc-length of the wire</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">The second phase to integrate the arclength of the wire.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-run">Setup and run</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
             
           </div>
-          <footer class="bd-footer-content">
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-first-phase-to-integrate-the-standard-brachistochrone-ode">
+   The first phase to integrate the standard brachistochrone ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-ode-for-integrating-the-arc-length-of-the-wire">
+   The ODE for integrating the arc-length of the wire
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-second-phase-to-integrate-the-arclength-of-the-wire">
+   The second phase to integrate the arclength of the wire.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-and-run">
+   Setup and run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plots">
+   Plots
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
             
 <div class="bd-footer-content__inner container">
   
@@ -1664,18 +1974,18 @@ By The Dymos Development Team
   
   <div class="footer-item">
     
+<p class="copyright">
 
-  <p class="copyright">
-    
-      © Copyright 2023.
-      <br/>
-    
-  </p>
+    &copy; Copyright 2022.<br>
+
+</p>
 
   </div>
   
   <div class="footer-item">
-    
+    <p class="last-updated">
+Last updated on None.<br>
+</p>
   </div>
   
   <div class="footer-item">
@@ -1683,18 +1993,19 @@ By The Dymos Development Team
   </div>
   
 </div>
-          </footer>
+          </div>
+        </footer>
         
 
       </main>
     </div>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-  <footer class="bd-footer">
-  </footer>
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
   </body>
 </html>

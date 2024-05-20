@@ -1000,13 +1000,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
+
+
+Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/6188c13f7c41856c92fb9f96e60b835b482d4cfce8baa84ee37acd3c1844700d.png" src="../../_images/6188c13f7c41856c92fb9f96e60b835b482d4cfce8baa84ee37acd3c1844700d.png" />
+<img alt="../../_images/7d8c9043aee3f5cefdd337f6c30d96cd1c91517c3a5cbb093fb19a1f5a2215dd.png" src="../../_images/7d8c9043aee3f5cefdd337f6c30d96cd1c91517c3a5cbb093fb19a1f5a2215dd.png" />
 </div>
 </div>
 <p>Why does this happen?
@@ -1104,7 +1106,7 @@ Let’s try increasing that number to ten third-order segments.</p>
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
-            Current function value: [15.]
+            Current function value: 15.0
             Iterations: 1
             Function evaluations: 2
             Gradient evaluations: 1
@@ -1113,14 +1115,14 @@ Optimization Complete
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/driver.py:1007: DriverWarning:ScipyOptimizeDriver: objective(s) [&#39;t&#39;] do not depend on any design variables. Please check your problem formulation.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1627: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[39])] cannot be impacted by the design variables of the problem.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1635: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[39])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/90e3e2b9c8d1e92302610d0078e1e71ba66563e250058fc42e34ae5d2e3d592b.png" src="../../_images/90e3e2b9c8d1e92302610d0078e1e71ba66563e250058fc42e34ae5d2e3d592b.png" />
+<img alt="../../_images/ebd9f27d386ca62fe5b43206c9d0517ff1f13c5dc3d1724be81b8d13dbae6cfd.png" src="../../_images/ebd9f27d386ca62fe5b43206c9d0517ff1f13c5dc3d1724be81b8d13dbae6cfd.png" />
 </div>
 </div>
 <p>Alternatively, we could stick with 4 segments but give each a higher order (7 in this case).</p>
@@ -1208,7 +1210,7 @@ Done simulating trajectory traj
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
-            Current function value: [15.]
+            Current function value: 15.0
             Iterations: 1
             Function evaluations: 2
             Gradient evaluations: 1
@@ -1217,14 +1219,14 @@ Optimization Complete
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/driver.py:1007: DriverWarning:ScipyOptimizeDriver: objective(s) [&#39;t&#39;] do not depend on any design variables. Please check your problem formulation.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1627: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[31])] cannot be impacted by the design variables of the problem.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1635: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[31])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/9210de9de3547d3ceff1e50550e552fa34027f27988adf4a25e3e54473344873.png" src="../../_images/9210de9de3547d3ceff1e50550e552fa34027f27988adf4a25e3e54473344873.png" />
+<img alt="../../_images/3f08791dd414e4e71feb11121f921fa90820f99066c957772699752e9ac381dc.png" src="../../_images/3f08791dd414e4e71feb11121f921fa90820f99066c957772699752e9ac381dc.png" />
 </div>
 </div>
 <p>In both these cases, we obtained a better match of the dynamics using either more segments or higher-order segments. This gives the state interpolating polynomials enough freedom to more accurately match the true behavior of the system. Increasing the number of segments and increasing the segment orders both increase the number of discrete points, and thus slow down the solution a bit. Theres a balance to be found between using enough discretization points to get an accurate solution, and slowing down the analysis due to having an overabundance of points. In general, using a high number of low-order segments is preferable to using fewer high-order segments because it makes the constraint jacobian more sparse.</p>

@@ -832,13 +832,13 @@ Dynamic systems are typically defined by some set of ordinary
 differential equations (the ODE) which governs their behavior.</p>
 <p>Consider a simple damped harmonic oscillator.</p>
 <p><img alt="Damped harmonic oscillator free-body diagram" src="../../_images/spring_mass_damper.png" /></p>
-<div class="amsmath math notranslate nohighlight" id="equation-3cc5bd76-1e45-49d2-9849-be119264ac22">
-<span class="eqno">(11)<a class="headerlink" href="#equation-3cc5bd76-1e45-49d2-9849-be119264ac22" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-69493b49-25f4-40df-8417-7483816414d6">
+<span class="eqno">(11)<a class="headerlink" href="#equation-69493b49-25f4-40df-8417-7483816414d6" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ddot{x} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
 <p>Converting this to a first order system results in an ODE system with two states:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-95713708-1340-4d14-9108-4ad39ab5d415">
-<span class="eqno">(12)<a class="headerlink" href="#equation-95713708-1340-4d14-9108-4ad39ab5d415" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-da405d46-0e9e-46a4-bfc4-4511bcca9d70">
+<span class="eqno">(12)<a class="headerlink" href="#equation-da405d46-0e9e-46a4-bfc4-4511bcca9d70" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{x} &amp;= v \\
     \dot{v} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
@@ -984,13 +984,15 @@ Some elements of this code will be explained later, but we’ll hit the highligh
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
+
+
+Simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/6188c13f7c41856c92fb9f96e60b835b482d4cfce8baa84ee37acd3c1844700d.png" src="../../_images/6188c13f7c41856c92fb9f96e60b835b482d4cfce8baa84ee37acd3c1844700d.png" />
+<img alt="../../_images/7d8c9043aee3f5cefdd337f6c30d96cd1c91517c3a5cbb093fb19a1f5a2215dd.png" src="../../_images/7d8c9043aee3f5cefdd337f6c30d96cd1c91517c3a5cbb093fb19a1f5a2215dd.png" />
 </div>
 </div>
 </section>
@@ -1121,6 +1123,11 @@ Otherwise, we can pass it only to certain states as an argument to <code class="
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
+    --- phase0 ---
+        None
+</pre></div>
+</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/dymos/transcriptions/transcription_base.py:448: OpenMDAOWarning:&#39;traj.phases.phase0&#39; &lt;class Phase&gt;
   Non-default solvers are required
     implicit duration: False
@@ -1133,16 +1140,13 @@ Otherwise, we can pass it only to certain states as an argument to <code class="
   Set `traj.phases.phase0.options[&quot;auto_solvers&quot;] = False` to disable this behavior.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
-    --- phase0 ---
-        None
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/2da03142d05bae09132f95fbe0bd40a17c30e93dffa84aec49383ca1fe7cdf44.png" src="../../_images/2da03142d05bae09132f95fbe0bd40a17c30e93dffa84aec49383ca1fe7cdf44.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+</pre></div>
+</div>
+<img alt="../../_images/82b7d0cf1a0fab9658cc0855288b3e57b1371b94cb74247951a0b552c800244e.png" src="../../_images/82b7d0cf1a0fab9658cc0855288b3e57b1371b94cb74247951a0b552c800244e.png" />
 </div>
 </div>
 </section>
@@ -1238,7 +1242,7 @@ Even though the initial time and duration of the phase are fixed, we provide the
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
-            Current function value: [15.]
+            Current function value: 15.0
             Iterations: 1
             Function evaluations: 2
             Gradient evaluations: 1
@@ -1247,14 +1251,14 @@ Optimization Complete
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/driver.py:1007: DriverWarning:ScipyOptimizeDriver: objective(s) [&#39;t&#39;] do not depend on any design variables. Please check your problem formulation.
-/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1627: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
+/usr/share/miniconda/envs/test/lib/python3.10/site-packages/openmdao/core/total_jac.py:1635: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
 Done simulating trajectory traj
 </pre></div>
 </div>
-<img alt="../../_images/2da03142d05bae09132f95fbe0bd40a17c30e93dffa84aec49383ca1fe7cdf44.png" src="../../_images/2da03142d05bae09132f95fbe0bd40a17c30e93dffa84aec49383ca1fe7cdf44.png" />
+<img alt="../../_images/82b7d0cf1a0fab9658cc0855288b3e57b1371b94cb74247951a0b552c800244e.png" src="../../_images/82b7d0cf1a0fab9658cc0855288b3e57b1371b94cb74247951a0b552c800244e.png" />
 </div>
 </div>
 </section>

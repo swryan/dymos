@@ -826,27 +826,27 @@ title="Print to PDF"
 <p>This system has one state variables, the position (<span class="math notranslate nohighlight">\(x\)</span>) of the sliding block.</p>
 <p>This system has a single control variable (<span class="math notranslate nohighlight">\(u\)</span>), the velocity of the block.</p>
 <p>The dynamics of the system are governed by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4d9e7231-3877-4e65-8b56-2d263b0e30bf">
-<span class="eqno">(48)<a class="headerlink" href="#equation-4d9e7231-3877-4e65-8b56-2d263b0e30bf" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6aa3ecfc-5df5-45c1-8824-1253c867b15a">
+<span class="eqno">(48)<a class="headerlink" href="#equation-6aa3ecfc-5df5-45c1-8824-1253c867b15a" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{x} &amp;= u
 \end{align}\]</div>
 </section>
 <section id="problem-definition">
 <h2>Problem Definition<a class="headerlink" href="#problem-definition" title="Permalink to this heading">#</a></h2>
 <p>We seek to minimize the control effort required and minimize the displacement from the origin.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-81f5e027-c7d2-4422-90d7-12dccdea757f">
-<span class="eqno">(49)<a class="headerlink" href="#equation-81f5e027-c7d2-4422-90d7-12dccdea757f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bd91c0dc-a1ac-43c4-ab3c-fb484d4a61e8">
+<span class="eqno">(49)<a class="headerlink" href="#equation-bd91c0dc-a1ac-43c4-ab3c-fb484d4a61e8" title="Permalink to this equation">#</a></span>\[\begin{align}
     \mathrm{Minimize} \, J &amp;= 2.5x_f^2 \, + \, 0.5 \int_0^1 u^2 dt
 \end{align}\]</div>
 <p>Subject to the initial conditions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0520f5a7-9d72-4c83-a48a-9f0e4f0d9ab2">
-<span class="eqno">(50)<a class="headerlink" href="#equation-0520f5a7-9d72-4c83-a48a-9f0e4f0d9ab2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-251eff9f-cdb0-44d0-8810-0125fef6d930">
+<span class="eqno">(50)<a class="headerlink" href="#equation-251eff9f-cdb0-44d0-8810-0125fef6d930" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_0 &amp;= 0.0 \\
     x_0 &amp;= 1.5
 \end{align}\]</div>
 <p>and the terminal constraints</p>
-<div class="amsmath math notranslate nohighlight" id="equation-83076981-fdf6-4277-ba47-cca2778c7d9c">
-<span class="eqno">(51)<a class="headerlink" href="#equation-83076981-fdf6-4277-ba47-cca2778c7d9c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f8f20d7e-d7ee-434e-8270-c3a3ed80c407">
+<span class="eqno">(51)<a class="headerlink" href="#equation-f8f20d7e-d7ee-434e-8270-c3a3ed80c407" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_f &amp;= 10.0
 \end{align}\]</div>
 </section>
@@ -855,8 +855,8 @@ title="Print to PDF"
 <p>In classic optimal control, the objective is often broken into the terminal component (the Mayer term) and the integral component (the Lagrange term).
 Dymos does not distinguish between the two.
 In this case, since the objective <span class="math notranslate nohighlight">\(J\)</span> consists of both a terminal cost and an integrated cost (Bolza form), we add a term to the ODE to account for the integrated quantity</p>
-<div class="amsmath math notranslate nohighlight" id="equation-022034c5-6147-4396-a00d-864072bf9965">
-<span class="eqno">(52)<a class="headerlink" href="#equation-022034c5-6147-4396-a00d-864072bf9965" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-65753910-38a8-4d01-8838-4ca98245cf2d">
+<span class="eqno">(52)<a class="headerlink" href="#equation-65753910-38a8-4d01-8838-4ca98245cf2d" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{x_L} &amp;= L \\
   L &amp;= 0.5 u^2
 \end{align}\]</div>
@@ -994,7 +994,7 @@ The rate source and units for the states are obtained from the tags in the ODE c
         None
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f1efb1d4310&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7f3a239ff5d0&gt;
 </pre></div>
 </div>
 </div>
@@ -1016,11 +1016,11 @@ This will attempt to repeatedly solve the problem and change the number of segme
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Set the initial values</span>
 <span class="c1">#</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:x&#39;</span><span class="p">,</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:xL&#39;</span><span class="p">,</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;xL&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.t_initial&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.t_duration&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.controls:u&#39;</span><span class="p">,</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.14</span><span class="p">]))</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;xL&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_control_val</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.14</span><span class="p">])</span>
+
 <span class="c1">#</span>
 <span class="c1"># Solve for the optimal trajectory</span>
 <span class="c1">#</span>
@@ -1035,12 +1035,10 @@ This will attempt to repeatedly solve the problem and change the number of segme
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.20134554100002333 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.20290059799992832 seconds.
 Total jacobian shape: (191, 216) 
 
 
@@ -1049,10 +1047,10 @@ FWD solves: 7   REV solves: 0
 Total colors vs. total size: 7 vs 216  (96.76% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.2013 sec
-Time to compute coloring:   0.0699 sec
-Memory to compute coloring:   0.1250 MB
-Coloring created on: 2024-05-21 13:49:21
+Time to compute sparsity:   0.2029 sec
+Time to compute coloring:   0.0705 sec
+Memory to compute coloring:   0.2500 MB
+Coloring created on: 2024-06-10 16:10:06
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1061,11 +1059,11 @@ Coloring created on: 2024-05-21 13:49:21
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    2.5990
-       User Objective Time :       0.0549
-       User Sensitivity Time :     0.6882
-       Interface Time :            0.1912
-       Opt Solver Time:            1.6647
+    Total Time:                    2.6760
+       User Objective Time :       0.0556
+       User Sensitivity Time :     0.7737
+       Interface Time :            0.1928
+       Opt Solver Time:            1.6539
     Calls to Objective Function :      66
     Calls to Sens Function :           65
 
@@ -1503,7 +1501,16 @@ Model viewer data has already been recorded for Driver.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Problem: problem
+Driver:  pyOptSparseDriver
+  success     : True
+  iterations  : 67
+  runtime     : 3.0155E+00 s
+  model_evals : 67
+  model_time  : 3.6501E-02 s
+  deriv_evals : 65
+  deriv_time  : 2.9155E-01 s
+  exit_status : SUCCESS
 </pre></div>
 </div>
 </div>

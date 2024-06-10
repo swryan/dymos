@@ -1139,37 +1139,32 @@ This allows us to declare a single ODE component for use in the problem regardle
 <span class="c1">#</span>
 <span class="n">p</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.br_to_v1.t_initial&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.br_to_v1.t_duration&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.br_to_v1.states:r&#39;</span><span class="p">,</span> <span class="n">br_to_v1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2500.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.br_to_v1.states:v&#39;</span><span class="p">,</span> <span class="n">br_to_v1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.br_to_v1.parameters:alpha&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">br_to_v1</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">35.0</span><span class="p">)</span>
+<span class="n">br_to_v1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2500.0</span><span class="p">])</span>
+<span class="n">br_to_v1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">])</span>
+<span class="n">br_to_v1</span><span class="o">.</span><span class="n">set_parameter_val</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.v1_to_vr.t_initial&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.v1_to_vr.t_duration&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.v1_to_vr.states:r&#39;</span><span class="p">,</span> <span class="n">v1_to_vr</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2500</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.v1_to_vr.states:v&#39;</span><span class="p">,</span> <span class="n">v1_to_vr</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mf">110.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.v1_to_vr.parameters:alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">v1_to_vr</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">35.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">35.0</span><span class="p">)</span>
+<span class="n">v1_to_vr</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2500</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">])</span>
+<span class="n">v1_to_vr</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mf">110.0</span><span class="p">])</span>
+<span class="n">v1_to_vr</span><span class="o">.</span><span class="n">set_parameter_val</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.t_initial&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.t_duration&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.states:r&#39;</span><span class="p">,</span> <span class="n">rto</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2500</span><span class="p">,</span> <span class="mf">5000.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.states:v&#39;</span><span class="p">,</span> <span class="n">rto</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rto.parameters:alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">rto</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">35.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">rto</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2500</span><span class="p">,</span> <span class="mf">5000.0</span><span class="p">])</span>
+<span class="n">rto</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">])</span>
+<span class="n">rto</span><span class="o">.</span><span class="n">set_parameter_val</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rotate.t_initial&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rotate.t_duration&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rotate.states:r&#39;</span><span class="p">,</span> <span class="n">rotate</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1750</span><span class="p">,</span> <span class="mf">1800.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rotate.states:v&#39;</span><span class="p">,</span> <span class="n">rotate</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.rotate.polynomial_controls:alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">rotate</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">35.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">rotate</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1750</span><span class="p">,</span> <span class="mf">1800.0</span><span class="p">])</span>
+<span class="n">rotate</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">])</span>
+<span class="n">rotate</span><span class="o">.</span><span class="n">set_polynomial_control_val</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.t_initial&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.t_duration&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.states:r&#39;</span><span class="p">,</span> <span class="n">climb</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5000</span><span class="p">,</span> <span class="mf">5500.0</span><span class="p">]),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.states:v&#39;</span><span class="p">,</span> <span class="n">climb</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mf">170.0</span><span class="p">]),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;kn&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.states:h&#39;</span><span class="p">,</span> <span class="n">climb</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">]),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.states:gam&#39;</span><span class="p">,</span> <span class="n">climb</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;gam&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.climb.controls:alpha&#39;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">climb</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">20.0</span><span class="p">)</span>
+<span class="n">climb</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5000</span><span class="p">,</span> <span class="mf">5500.0</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">)</span>
+<span class="n">climb</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mf">170.0</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;kn&#39;</span><span class="p">)</span>
+<span class="n">climb</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">)</span>
+<span class="n">climb</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;gam&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">climb</span><span class="o">.</span><span class="n">set_control_val</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
 <span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">run_driver</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">simulate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1256,14 +1251,14 @@ INFO: checking out_of_order
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.br_to_v1.rhs_all&#39; (class ExplicitFuncComp)
 
-Jacobian shape: (132, 60)  (9.81% nonzero)
+Jacobian shape: (132, 60)  (10.13% nonzero)
 FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.2683 sec
-Time to compute coloring:   0.0102 sec
-Memory to compute coloring:   0.1250 MB
+Time to compute sparsity:   0.2726 sec
+Time to compute coloring:   0.0108 sec
+Memory to compute coloring:   0.2500 MB
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:1648: DerivativesWarning:&#39;traj.phases.rto.rhs_all&#39; &lt;class ExplicitFuncComp&gt;: No partials found but coloring was requested.  Declaring ALL partials as dense (method=&#39;jax&#39;)
@@ -1271,13 +1266,13 @@ Memory to compute coloring:   0.1250 MB
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.rto.rhs_all&#39; (class ExplicitFuncComp)
 
-Jacobian shape: (132, 60)  (9.79% nonzero)
+Jacobian shape: (132, 60)  (10.13% nonzero)
 FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.2324 sec
-Time to compute coloring:   0.0101 sec
+Time to compute sparsity:   0.2367 sec
+Time to compute coloring:   0.0107 sec
 Memory to compute coloring:   0.0000 MB
 </pre></div>
 </div>
@@ -1291,8 +1286,8 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.2358 sec
-Time to compute coloring:   0.0103 sec
+Time to compute sparsity:   0.2373 sec
+Time to compute coloring:   0.0107 sec
 Memory to compute coloring:   0.0000 MB
 </pre></div>
 </div>
@@ -1306,8 +1301,8 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.2348 sec
-Time to compute coloring:   0.0103 sec
+Time to compute sparsity:   0.3284 sec
+Time to compute coloring:   0.0106 sec
 Memory to compute coloring:   0.0000 MB
 </pre></div>
 </div>
@@ -1321,12 +1316,12 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 111  (85.59% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.4109 sec
-Time to compute coloring:   0.0190 sec
+Time to compute sparsity:   0.3168 sec
+Time to compute coloring:   0.0197 sec
 Memory to compute coloring:   0.1250 MB
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 3.259103863000007 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 3.286398838000025 seconds.
 Total jacobian shape: (178, 166) 
 
 
@@ -1335,10 +1330,10 @@ FWD solves: 14   REV solves: 0
 Total colors vs. total size: 14 vs 166  (91.57% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   3.2591 sec
-Time to compute coloring:   0.0681 sec
-Memory to compute coloring:   0.2500 MB
-Coloring created on: 2024-05-21 13:46:45
+Time to compute sparsity:   3.2864 sec
+Time to compute coloring:   0.0695 sec
+Memory to compute coloring:   0.1250 MB
+Coloring created on: 2024-06-10 16:07:31
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/total_jac.py:1635: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb-&gt;path_constraint-&gt;gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
@@ -1354,7 +1349,7 @@ Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
-[2197.71356351]
+[2197.7135635]
 </pre></div>
 </div>
 </div>
@@ -1403,7 +1398,7 @@ Model viewer data has already been recorded for Driver.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/9ab9ccf7d26aec4f8679478b3dcb98e80d16ef41339328c847553867d923b6ce.png" src="../../_images/9ab9ccf7d26aec4f8679478b3dcb98e80d16ef41339328c847553867d923b6ce.png" />
+<img alt="../../_images/8ac1b657f0116c104e2523d46c8045c24dfdd62630e0dd8d32d65b53769cc0bd.png" src="../../_images/8ac1b657f0116c104e2523d46c8045c24dfdd62630e0dd8d32d65b53769cc0bd.png" />
 </div>
 </div>
 </section>

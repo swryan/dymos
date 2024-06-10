@@ -881,18 +881,17 @@ title="Print to PDF"
 <span class="c1"># p.set_val(&#39;x0&#39;, 0.0, units=&#39;m&#39;)</span>
 <span class="c1"># Here we&#39;re intentially setting the intiial x value to something other than zero, just</span>
 <span class="c1"># to demonstrate that the optimizer brings it back in line with the value of x0 set above.</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:x&#39;</span><span class="p">,</span>
-          <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span>
-          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:y&#39;</span><span class="p">,</span>
-          <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">]),</span>
-          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:v&#39;</span><span class="p">,</span>
-          <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]),</span>
-          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m/s&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.controls:theta&#39;</span><span class="p">,</span>
-          <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">]),</span>
-          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+                    <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                    <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">9.9</span><span class="p">],</span>
+                    <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m/s&#39;</span><span class="p">)</span>
+
+<span class="n">phase</span><span class="o">.</span><span class="n">set_control_val</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mf">100.5</span><span class="p">],</span>
+                      <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
 
 <span class="c1"># Run the driver to solve the problem</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">simulate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -962,7 +961,7 @@ INFO: checking out_of_order
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/recorders/sqlite_recorder.py:226: UserWarning:The existing case recorder file, dymos_solution.db, is being overwritten.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.07886562800001684 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.07759930800000348 seconds.
 Total jacobian shape: (40, 50) 
 
 
@@ -971,17 +970,17 @@ FWD solves: 8   REV solves: 0
 Total colors vs. total size: 8 vs 50  (84.00% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0789 sec
-Time to compute coloring:   0.0216 sec
+Time to compute sparsity:   0.0776 sec
+Time to compute coloring:   0.0212 sec
 Memory to compute coloring:   0.1250 MB
-Coloring created on: 2024-05-21 13:47:13
+Coloring created on: 2024-06-10 16:07:59
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
-            Current function value: 1.8016043521242897
-            Iterations: 60
-            Function evaluations: 62
-            Gradient evaluations: 60
+            Current function value: 1.8016052392021373
+            Iterations: 39
+            Function evaluations: 40
+            Gradient evaluations: 39
 Optimization Complete
 -----------------------------------
 </pre></div>
@@ -994,7 +993,16 @@ Model viewer data has already been recorded for Driver.
 Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Problem: problem
+Driver:  ScipyOptimizeDriver
+  success     : True
+  iterations  : 41
+  runtime     : 5.8930E-01 s
+  model_evals : 41
+  model_time  : 2.6122E-02 s
+  deriv_evals : 39
+  deriv_time  : 1.9893E-01 s
+  exit_status : SUCCESS
 </pre></div>
 </div>
 </div>
@@ -1036,7 +1044,7 @@ Done simulating trajectory traj
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/555893bbb45ad07899651aa1d4cdc3f7ea7d00942322a8060e772f3b41c2d01f.png" src="../../_images/555893bbb45ad07899651aa1d4cdc3f7ea7d00942322a8060e772f3b41c2d01f.png" />
+<img alt="../../_images/5b4fd2175fba23e07de64f3bc4a7bece03bc7cff36c22c36a81defdf9014af63.png" src="../../_images/5b4fd2175fba23e07de64f3bc4a7bece03bc7cff36c22c36a81defdf9014af63.png" />
 </div>
 </div>
 </section>

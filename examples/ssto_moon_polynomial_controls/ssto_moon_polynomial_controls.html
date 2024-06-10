@@ -1045,14 +1045,13 @@ current value of the polynomial controls.</p>
 <span class="c1">#</span>
 <span class="c1"># Assign initial guesses for the independent variables in the problem.</span>
 <span class="c1">#</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.t_initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.t_duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">500.0</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.states:x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">350000.0</span><span class="p">])</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.states:y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">185000.0</span><span class="p">])</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.states:vx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vx&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1627.0</span><span class="p">])</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.states:vy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vy&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0E-6</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.states:m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">])</span>
-<span class="n">p</span><span class="p">[</span><span class="s1">&#39;traj.phase0.polynomial_controls:tan_theta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]]</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">500.0</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">350000.0</span><span class="p">])</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">185000.0</span><span class="p">])</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vx&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1627.0</span><span class="p">])</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vy&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0E-6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="mi">50000</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_polynomial_control_val</span><span class="p">(</span><span class="s1">&#39;tan_theta&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]])</span>
 
 <span class="c1">#</span>
 <span class="c1"># Solve the problem.</span>
@@ -1123,7 +1122,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.12425041400001646 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.12432332200000928 seconds.
 Total jacobian shape: (303, 398) 
 </pre></div>
 </div>
@@ -1133,9 +1132,9 @@ Total colors vs. total size: 10 vs 398  (97.49% improvement)
 
 Sparsity computed using tolerance: 1e-25
 Time to compute sparsity:   0.1243 sec
-Time to compute coloring:   0.2632 sec
-Memory to compute coloring:   0.6250 MB
-Coloring created on: 2024-05-21 13:52:18
+Time to compute coloring:   0.2646 sec
+Memory to compute coloring:   1.0000 MB
+Coloring created on: 2024-06-10 16:13:01
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1144,11 +1143,11 @@ Coloring created on: 2024-05-21 13:52:18
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.0604
-       User Objective Time :       0.0071
-       User Sensitivity Time :     0.0349
-       Interface Time :            0.0326
-       Opt Solver Time:            0.9858
+    Total Time:                    1.0566
+       User Objective Time :       0.0075
+       User Sensitivity Time :     0.0351
+       Interface Time :            0.0327
+       Opt Solver Time:            0.9812
     Calls to Objective Function :       6
     Calls to Sens Function :            5
 
@@ -1980,7 +1979,16 @@ Model viewer data has already been recorded for Driver.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Problem: problem
+Driver:  pyOptSparseDriver
+  success     : True
+  iterations  : 8
+  runtime     : 2.4397E+00 s
+  model_evals : 8
+  model_time  : 7.2429E-03 s
+  deriv_evals : 7
+  deriv_time  : 8.4371E-02 s
+  exit_status : SUCCESS
 </pre></div>
 </div>
 </div>

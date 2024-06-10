@@ -804,8 +804,8 @@ three-phase orbit raising maneuver with a burn-coast-burn phase
 sequence. This example is based on the problem provided in
 Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J Enright and Brace A Conway. Optimal finite-thrust spacecraft trajectories using collocation and nonlinear programming. Journal of Guidance, Control, and Dynamics, 14(5):981–985, 1991.">EC91</a>]</span>.</p>
 <p>The dynamics are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b0ddb5ee-d97b-420b-ad46-14fb85ff685b">
-<span class="eqno">(58)<a class="headerlink" href="#equation-b0ddb5ee-d97b-420b-ad46-14fb85ff685b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f4550cbf-e7ef-4d3b-98bf-42566f36f9bf">
+<span class="eqno">(58)<a class="headerlink" href="#equation-f4550cbf-e7ef-4d3b-98bf-42566f36f9bf" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dr}{dt} &amp;= v_r \\
   \frac{d\theta}{dt} &amp;= \frac{v_\theta}{r} \\
   \frac{dv_r}{dt} &amp;= \frac{v^2_\theta}{r} - \frac{1}{r^2} + a_{thrust} \sin u_1 \\
@@ -814,8 +814,8 @@ Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J
   \frac{d \Delta v}{dt} &amp;= a_{thrust}
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-392dbce0-5256-4b62-80e1-172f151fe554">
-<span class="eqno">(59)<a class="headerlink" href="#equation-392dbce0-5256-4b62-80e1-172f151fe554" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9caf1d09-627b-4221-ae1b-f60783eac2b6">
+<span class="eqno">(59)<a class="headerlink" href="#equation-9caf1d09-627b-4221-ae1b-f60783eac2b6" title="Permalink to this equation">#</a></span>\[\begin{align}
   r &amp;= 1 \rm{\,DU} \\
   \theta &amp;= 0 \rm{\,rad} \\
   v_r &amp;= 0 \rm{\,DU/TU}\\
@@ -824,8 +824,8 @@ Enright <span id="id1">[<a class="reference internal" href="#id24" title="Paul J
   \Delta v &amp;= 0 \rm{\,DU/TU}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9b310eb1-80eb-4f18-a47d-bb8044d4641c">
-<span class="eqno">(60)<a class="headerlink" href="#equation-9b310eb1-80eb-4f18-a47d-bb8044d4641c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8d640489-0532-4af0-a3db-c6c155897df8">
+<span class="eqno">(60)<a class="headerlink" href="#equation-8d640489-0532-4af0-a3db-c6c155897df8" title="Permalink to this equation">#</a></span>\[\begin{align}
   r &amp;= 3 \rm{\,DU} \\
   \theta &amp;= \rm{free} \\
   v_r &amp;= 0 \rm{\,DU/TU}\\
@@ -1232,36 +1232,30 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <span class="n">burn2</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">traj</span><span class="o">.</span><span class="n">phases</span><span class="o">.</span><span class="n">burn2</span>
 <span class="n">coast</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">traj</span><span class="o">.</span><span class="n">phases</span><span class="o">.</span><span class="n">coast</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.t_initial&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.t_duration&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">2.25</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.states:r&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.states:theta&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.states:vr&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vr&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.states:vt&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.states:accel&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;accel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.states:deltav&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;deltav&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn1.controls:u1&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">]))</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">2.25</span><span class="p">)</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">])</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vr&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;accel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;deltav&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="n">burn1</span><span class="o">.</span><span class="n">set_control_val</span><span class="p">(</span><span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">])</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.t_initial&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">2.25</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.t_duration&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">coast</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">2.25</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">coast</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+<span class="n">coast</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.1767</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">])</span>
+<span class="n">coast</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vr&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3285</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">coast</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.97</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">coast</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;accel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.states:r&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">coast</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.states:theta&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">coast</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.1767</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.states:vr&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">coast</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vr&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3285</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.states:vt&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">coast</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.97</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.coast.states:accel&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">coast</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;accel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.t_initial&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">5.25</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.t_duration&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">1.75</span><span class="p">)</span>
-
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.states:r&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.states:theta&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.states:vr&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vr&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.states:vt&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;vt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mf">3.</span><span class="p">)]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.states:deltav&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;deltav&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.states:accel&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;accel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.burn2.controls:u1&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">burn2</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">5.25</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">1.75</span><span class="p">)</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vr&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;vt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;accel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_state_val</span><span class="p">(</span><span class="s1">&#39;deltav&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">burn2</span><span class="o">.</span><span class="n">set_control_val</span><span class="p">(</span><span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
 <span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">simulate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -1331,7 +1325,7 @@ INFO: checking out_of_order
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.4244438939999782 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.414762015000008 seconds.
 Total jacobian shape: (112, 204) 
 
 
@@ -1340,10 +1334,10 @@ FWD solves: 13   REV solves: 0
 Total colors vs. total size: 13 vs 204  (93.63% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.4244 sec
-Time to compute coloring:   0.0630 sec
-Memory to compute coloring:   0.1250 MB
-Coloring created on: 2024-05-21 13:49:12
+Time to compute sparsity:   0.4148 sec
+Time to compute coloring:   0.0637 sec
+Memory to compute coloring:   0.2500 MB
+Coloring created on: 2024-06-10 16:09:57
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1352,11 +1346,11 @@ Coloring created on: 2024-05-21 13:49:12
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.6350
-       User Objective Time :       0.0935
-       User Sensitivity Time :     1.2902
-       Interface Time :            0.1341
-       Opt Solver Time:            0.1172
+    Total Time:                    1.5660
+       User Objective Time :       0.0819
+       User Sensitivity Time :     1.2450
+       Interface Time :            0.1267
+       Opt Solver Time:            0.1125
     Calls to Objective Function :      28
     Calls to Sens Function :           28
 
@@ -1788,7 +1782,16 @@ Model viewer data has already been recorded for Driver.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Problem: problem
+Driver:  pyOptSparseDriver
+  success     : True
+  iterations  : 30
+  runtime     : 2.6276E+00 s
+  model_evals : 30
+  model_time  : 7.4967E-02 s
+  deriv_evals : 30
+  deriv_time  : 1.2790E+00 s
+  exit_status : SUCCESS
 </pre></div>
 </div>
 </div>

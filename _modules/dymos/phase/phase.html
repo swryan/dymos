@@ -723,7 +723,7 @@ title="Open an issue"
 
 <span class="kn">from</span> <span class="nn">..transcriptions.transcription_base</span> <span class="kn">import</span> <span class="n">TranscriptionBase</span>
 <span class="kn">from</span> <span class="nn">..transcriptions.grid_data</span> <span class="kn">import</span> <span class="n">GaussLobattoGrid</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">,</span> <span class="n">UniformGrid</span><span class="p">,</span> <span class="n">BirkhoffGrid</span>
-<span class="kn">from</span> <span class="nn">..transcriptions</span> <span class="kn">import</span> <span class="n">ExplicitShooting</span><span class="p">,</span> <span class="n">GaussLobatto</span><span class="p">,</span> <span class="n">Radau</span>
+<span class="kn">from</span> <span class="nn">..transcriptions</span> <span class="kn">import</span> <span class="n">ExplicitShooting</span><span class="p">,</span> <span class="n">GaussLobatto</span><span class="p">,</span> <span class="n">Radau</span><span class="p">,</span> <span class="n">Birkhoff</span>
 <span class="kn">from</span> <span class="nn">..utils.indexing</span> <span class="kn">import</span> <span class="n">get_constraint_flat_idxs</span>
 <span class="kn">from</span> <span class="nn">..utils.introspection</span> <span class="kn">import</span> <span class="n">configure_time_introspection</span><span class="p">,</span> <span class="n">_configure_constraint_introspection</span><span class="p">,</span> \
     <span class="n">configure_controls_introspection</span><span class="p">,</span> <span class="n">configure_parameters_introspection</span><span class="p">,</span> \
@@ -2553,6 +2553,145 @@ title="Open an issue"
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_unspecified</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span></div>
 
+<div class="viewcode-block" id="Phase.set_time_val"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_time_val">[docs]</a>    <span class="k">def</span> <span class="nf">set_time_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the values for initial time and the duration of the phase.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initial : float or None</span>
+<span class="sd">            Value for the initial time.</span>
+<span class="sd">        duration : float or None</span>
+<span class="sd">            Value for the phase duration.</span>
+<span class="sd">        units : str or None</span>
+<span class="sd">            Units of the time. If none are specified, the default units are used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_options</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">initial</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;t_initial&#39;</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">duration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;t_duration&#39;</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Phase.set_state_val"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_state_val">[docs]</a>    <span class="k">def</span> <span class="nf">set_state_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the necessary input values for state as appropriate for the specified transcription.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the variable. This should be a state variable.</span>
+<span class="sd">        vals : ndarray or Sequence or float or None</span>
+<span class="sd">            Array of state values.</span>
+<span class="sd">        time_vals :  ndarray or Sequence or None</span>
+<span class="sd">            Array of integration variable values.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            The units of the state values specified.</span>
+<span class="sd">            If None, use the units associated with the target.</span>
+<span class="sd">            If provided, must be compatible with the target units.</span>
+<span class="sd">        interpolation_kind : str</span>
+<span class="sd">            Specifies the kind of interpolation, as per the scipy.interpolate package.</span>
+<span class="sd">            One of (&#39;linear&#39;, &#39;nearest&#39;, &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39;, &#39;cubic&#39;</span>
+<span class="sd">            where &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39; and &#39;cubic&#39; refer to a spline</span>
+<span class="sd">            interpolation of zeroth, first, second or third order) or as an</span>
+<span class="sd">            integer specifying the order of the spline interpolator to use.</span>
+<span class="sd">            Default is &#39;linear&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transcription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;transcription&#39;</span><span class="p">]</span>
+        <span class="n">input_data_to_set</span> <span class="o">=</span> <span class="n">transcription</span><span class="o">.</span><span class="n">_phase_set_state_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                                                               <span class="n">vals</span><span class="p">,</span> <span class="n">time_vals</span><span class="p">,</span>
+                                                               <span class="n">interpolation_kind</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">input_data_to_set</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Phase.set_control_val"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_control_val">[docs]</a>    <span class="k">def</span> <span class="nf">set_control_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the control values as appropriate.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the variable. This should be a control variable.</span>
+<span class="sd">        vals : ndarray or Sequence or None</span>
+<span class="sd">            Array of state values.</span>
+<span class="sd">        time_vals :  ndarray or Sequence or None</span>
+<span class="sd">            Array of integration variable values.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            The units of the state values specified.</span>
+<span class="sd">            If None, use the units associated with the target.</span>
+<span class="sd">            If provided, must be compatible with the target units.</span>
+<span class="sd">        interpolation_kind : str</span>
+<span class="sd">            Specifies the kind of interpolation, as per the scipy.interpolate package.</span>
+<span class="sd">            One of (&#39;linear&#39;, &#39;nearest&#39;, &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39;, &#39;cubic&#39;</span>
+<span class="sd">            where &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39; and &#39;cubic&#39; refer to a spline</span>
+<span class="sd">            interpolation of zeroth, first, second or third order) or as an</span>
+<span class="sd">            integer specifying the order of the spline interpolator to use.</span>
+<span class="sd">            Default is &#39;linear&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">vals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span> <span class="n">xs</span><span class="o">=</span><span class="n">time_vals</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="s1">&#39;control_input&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">interpolation_kind</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;controls:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Phase.set_polynomial_control_val"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_polynomial_control_val">[docs]</a>    <span class="k">def</span> <span class="nf">set_polynomial_control_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the polynomial control values as appropriate.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the variable. This should be a polynomial control variable.</span>
+<span class="sd">        vals : ndarray or Sequence or None</span>
+<span class="sd">            Array of state values.</span>
+<span class="sd">        time_vals :  ndarray or Sequence or None</span>
+<span class="sd">            Array of integration variable values.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            The units of the state values specified.</span>
+<span class="sd">            If None, use the units associated with the target.</span>
+<span class="sd">            If provided, must be compatible with the target units.</span>
+<span class="sd">        interpolation_kind : str</span>
+<span class="sd">            Specifies the kind of interpolation, as per the scipy.interpolate package.</span>
+<span class="sd">            One of (&#39;linear&#39;, &#39;nearest&#39;, &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39;, &#39;cubic&#39;</span>
+<span class="sd">            where &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39; and &#39;cubic&#39; refer to a spline</span>
+<span class="sd">            interpolation of zeroth, first, second or third order) or as an</span>
+<span class="sd">            integer specifying the order of the spline interpolator to use.</span>
+<span class="sd">            Default is &#39;linear&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">vals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span> <span class="n">xs</span><span class="o">=</span><span class="n">time_vals</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">interpolation_kind</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polynomial_control_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;polynomial_controls:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Phase.set_parameter_val"><a class="viewcode-back" href="../../../api/phase_api.html#dymos.Phase.set_parameter_val">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameter_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the parameter values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the variable. This should be a parameter variable.</span>
+<span class="sd">        val : ndarray or Sequence or None</span>
+<span class="sd">            Array of state values.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            The units of the state values specified.</span>
+<span class="sd">            If None, use the units associated with the target.</span>
+<span class="sd">            If provided, must be compatible with the target units.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_options</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parameters:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">set_duration_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mult_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a condition for the duration of the phase. This is satisfied using a nonlinear solver.</span>
@@ -3094,7 +3233,7 @@ title="Open an issue"
                 <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="p">,</span> <span class="n">RadauGrid</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="p">,</span> <span class="n">BirkhoffGrid</span><span class="p">):</span>
             <span class="n">grid</span> <span class="o">=</span> <span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unexpected grid class for </span><span class="si">{</span><span class="n">phase_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="si">}</span><span class="s1">. Only phases with GaussLobatto &#39;</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unexpected grid class for </span><span class="si">{</span><span class="n">self_tx</span><span class="o">.</span><span class="n">grid_data</span><span class="si">}</span><span class="s1">. Only phases with GaussLobatto &#39;</span>
                                <span class="sa">f</span><span class="s1">&#39;or Radau grids can be simulated.&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">_times_per_seg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

@@ -535,6 +535,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../examples/length_constrained_brachistochrone/length_constrained_brachistochrone.html">The Length-Constrained Brachistochrone</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/min_time_climb/min_time_climb.html">Supersonic Interceptor Minimum Time Climb</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/mountain_car/mountain_car.html">The Mountain Car Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/moon_landing/moon_landing.html">Moon Landing Problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/multi_phase_cannonball/multi_phase_cannonball.html">Multi-Phase Cannonball</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/multibranch_trajectory/multibranch_trajectory.html">Multibranch Trajectory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/racecar/racecar.html">Race car Lap Simulation</a></li>
@@ -825,8 +826,8 @@ Such phases are avaialble in dymos through the <code class="docutils literal not
 Compared to implicit approaches this reduces the size of the optimization problem by removing some design variables and corresponding defect constraints.
 Compared to explicit approaches it removes the need to numerically propagate the ODE, which is generally a performance bottleneck.</p>
 <p>For analytic phases, the OpenMDAO system we provide to the phase provides the <em>solution</em> to the ODE, not the ODE itself.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b0df489c-9b06-4536-aba0-cc2cb9f70670">
-<span class="eqno">(94)<a class="headerlink" href="#equation-b0df489c-9b06-4536-aba0-cc2cb9f70670" title="Permalink to this equation">#</a></span>\[\begin{align}  
+<div class="amsmath math notranslate nohighlight" id="equation-91fbd398-932c-4e16-874a-07cf1cc0078e">
+<span class="eqno">(99)<a class="headerlink" href="#equation-91fbd398-932c-4e16-874a-07cf1cc0078e" title="Permalink to this equation">#</a></span>\[\begin{align}  
     \textbf x = \textbf f(t, \textbf p)
 \end{align}\]</div>
 <p>where
@@ -877,26 +878,26 @@ a shape of (3,).</p>
 <section id="a-basic-example">
 <h2>A basic example<a class="headerlink" href="#a-basic-example" title="Permalink to this heading">#</a></h2>
 <p>Suppose we want to use Dymos to solve the ODE</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bc6579f5-0e2f-4030-93e9-0e1e73292713">
-<span class="eqno">(95)<a class="headerlink" href="#equation-bc6579f5-0e2f-4030-93e9-0e1e73292713" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b0b9bb93-821c-4291-9776-f5ff1f4d197f">
+<span class="eqno">(100)<a class="headerlink" href="#equation-b0b9bb93-821c-4291-9776-f5ff1f4d197f" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dx}{dt} = x - t^2 + 1
 \end{align}\]</div>
 <p>subject to:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5cc104e8-1835-4c5b-96c9-637c19709e75">
-<span class="eqno">(96)<a class="headerlink" href="#equation-5cc104e8-1835-4c5b-96c9-637c19709e75" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0822b7c1-de7f-42e5-957f-342adc5516cc">
+<span class="eqno">(101)<a class="headerlink" href="#equation-0822b7c1-de7f-42e5-957f-342adc5516cc" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) = 0.5
 \end{align}\]</div>
 <p>Here we want to find the value of <em>x</em> at t=2.</p>
 <p>We can absolutely use a pseudospectral method or explicit shooting in Dymos to find the value of <em>x</em> on a given interval using this information.
 But in this case, the solution is known analytically.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-61817577-8c3b-4fb7-878a-4fb89dd6c066">
-<span class="eqno">(97)<a class="headerlink" href="#equation-61817577-8c3b-4fb7-878a-4fb89dd6c066" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c6614cce-e346-40f5-b8e6-41184f601ed6">
+<span class="eqno">(102)<a class="headerlink" href="#equation-c6614cce-e346-40f5-b8e6-41184f601ed6" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(t) &amp;= t^2 + 2t + 1 - c_1e^t
 \end{align}\]</div>
 <p>We need to find the value of constant <span class="math notranslate nohighlight">\(c_1\)</span> to find our particular solution.
 Applying the given initial condition gives c_1 as 0.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-85e31e29-1d4b-47d1-aff1-9f466abd157e">
-<span class="eqno">(98)<a class="headerlink" href="#equation-85e31e29-1d4b-47d1-aff1-9f466abd157e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c77dedd8-eb54-4d1c-a4f1-56369898184c">
+<span class="eqno">(103)<a class="headerlink" href="#equation-c77dedd8-eb54-4d1c-a4f1-56369898184c" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) &amp;= 1 - c_1 = 0.5 \\
   c_1 &amp;\equiv y_0 = 0.5
 \end{align}\]</div>
@@ -987,7 +988,7 @@ Applying the given initial condition gives c_1 as 0.</p>
 x(2.0) = 5.305471950534675
 </pre></div>
 </div>
-<img alt="../../_images/3dbd030b3b7ed9b7bd05e0aa761d3c3a598c8eb80f80a533e8b806e520b2405b.png" src="../../_images/3dbd030b3b7ed9b7bd05e0aa761d3c3a598c8eb80f80a533e8b806e520b2405b.png" />
+<img alt="../../_images/faa2a8d26519db9e1012c8fd47951cc930ce5c2ba305ffdf382826b75f9773f9.png" src="../../_images/faa2a8d26519db9e1012c8fd47951cc930ce5c2ba305ffdf382826b75f9773f9.png" />
 </div>
 </div>
 </section>
@@ -1115,13 +1116,11 @@ You’ll need to make sure that both of the target parameters are not designated
             Gradient evaluations: 4
 Optimization Complete
 -----------------------------------
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x(0.533871279941519) = 1.5000000542207101
+x(0.533871279941519) = 1.5000000542207101
 x(2.0) = 5.305471950534675
 </pre></div>
 </div>
-<img alt="../../_images/1a4ed3faac666ef1f25717975f845de239d1aa2239c902484d14c6893926250d.png" src="../../_images/1a4ed3faac666ef1f25717975f845de239d1aa2239c902484d14c6893926250d.png" />
+<img alt="../../_images/048a53b1d535fc12d15e382eed98a67e05becef07d1417bb10e5b844ac757437.png" src="../../_images/048a53b1d535fc12d15e382eed98a67e05becef07d1417bb10e5b844ac757437.png" />
 </div>
 </div>
 </section>

@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Multibranch Trajectory" href="../multibranch_trajectory/multibranch_trajectory.html" />
-    <link rel="prev" title="The Mountain Car Problem" href="../mountain_car/mountain_car.html" />
+    <link rel="prev" title="Moon Landing Problem" href="../moon_landing/moon_landing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
   </head>
@@ -535,6 +535,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../length_constrained_brachistochrone/length_constrained_brachistochrone.html">The Length-Constrained Brachistochrone</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../min_time_climb/min_time_climb.html">Supersonic Interceptor Minimum Time Climb</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mountain_car/mountain_car.html">The Mountain Car Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../moon_landing/moon_landing.html">Moon Landing Problem</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Multi-Phase Cannonball</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../multibranch_trajectory/multibranch_trajectory.html">Multibranch Trajectory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../racecar/racecar.html">Race car Lap Simulation</a></li>
@@ -838,24 +839,24 @@ the system at an event in the trajectory. Here, we have the first phase
 (ascent) terminate when the flight path angle reaches zero (apogee). The
 descent phase follows until the cannonball impacts the ground.</p>
 <p>The dynamics are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-89819a41-9cc9-45e6-ba86-2df5b22bdf3e">
-<span class="eqno">(70)<a class="headerlink" href="#equation-89819a41-9cc9-45e6-ba86-2df5b22bdf3e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a7ad7a0f-f00f-4c65-8f9f-731a76ad21fa">
+<span class="eqno">(75)<a class="headerlink" href="#equation-a7ad7a0f-f00f-4c65-8f9f-731a76ad21fa" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dv}{dt} &amp;= \frac{D}{m} - g \sin \gamma \\
   \frac{d\gamma}{dt} &amp;= - \frac{g \cos \gamma}{v} \\
   \frac{dh}{dt} &amp;= v \sin \gamma \\
   \frac{dr}{dt} &amp;= v \cos \gamma \\
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-29350c38-973d-4416-8210-712506ef1d53">
-<span class="eqno">(71)<a class="headerlink" href="#equation-29350c38-973d-4416-8210-712506ef1d53" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a3b86c84-2190-4a40-b0c1-52b56191efc2">
+<span class="eqno">(76)<a class="headerlink" href="#equation-a3b86c84-2190-4a40-b0c1-52b56191efc2" title="Permalink to this equation">#</a></span>\[\begin{align}
   r_0 &amp;= 0 \rm{\,m} \\
   h_0 &amp;= 100 \rm{\,m} \\
   v_0 &amp;= \rm{free} \\
   \gamma_0 &amp;= \rm{free}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fb1af0b2-496d-439a-9108-41d930a0fd37">
-<span class="eqno">(72)<a class="headerlink" href="#equation-fb1af0b2-496d-439a-9108-41d930a0fd37" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b8ab8457-d12d-4025-a27f-f25bfddeb563">
+<span class="eqno">(77)<a class="headerlink" href="#equation-b8ab8457-d12d-4025-a27f-f25bfddeb563" title="Permalink to this equation">#</a></span>\[\begin{align}
   h_f &amp;= 0 \rm{\,m}
 \end{align}\]</div>
 </section>
@@ -868,8 +869,8 @@ energy and that our cannonball is made of solid iron. The volume (and
 mass) of the cannonball is proportional to its radius cubed, while the
 cross-sectional area is proportional to its radius squared. If we
 increase the size of the cannonball, the ballistic coefficient</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d2081cd9-4810-405c-8a63-93ae70470a36">
-<span class="eqno">(73)<a class="headerlink" href="#equation-d2081cd9-4810-405c-8a63-93ae70470a36" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3699c58d-e02c-4627-9f33-641755d9fefb">
+<span class="eqno">(78)<a class="headerlink" href="#equation-3699c58d-e02c-4627-9f33-641755d9fefb" title="Permalink to this equation">#</a></span>\[\begin{align}
   BC &amp;= \frac{m}{C_D A}
 \end{align}\]</div>
 <p>will increase, meaning the cannonball overcome air resistance more
@@ -1159,17 +1160,16 @@ account.</p>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
 Model viewer data has already been recorded for Driver.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.ascent.rhs_all&#39; (class CannonballODE)
+
+Coloring for &#39;traj.phases.ascent.rhs_all&#39; (class CannonballODE)
 
 Jacobian shape: (100, 63)  (4.44% nonzero)
 FWD solves: 6   REV solves: 0
 Total colors vs. total size: 6 vs 63  (90.48% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0173 sec
-Time to compute coloring:   0.0071 sec
+Time to compute sparsity:   0.0172 sec
+Time to compute coloring:   0.0072 sec
 Memory to compute coloring:   0.3750 MB
 
 Coloring for &#39;traj.phases.descent.rhs_disc&#39; (class CannonballODE)
@@ -1179,8 +1179,8 @@ FWD solves: 6   REV solves: 0
 Total colors vs. total size: 6 vs 33  (81.82% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0109 sec
-Time to compute coloring:   0.0039 sec
+Time to compute sparsity:   0.0090 sec
+Time to compute coloring:   0.0037 sec
 Memory to compute coloring:   0.0000 MB
 
 Coloring for &#39;traj.phases.descent.rhs_col&#39; (class CannonballODE)
@@ -1193,7 +1193,9 @@ Sparsity computed using tolerance: 1e-25
 Time to compute sparsity:   0.0052 sec
 Time to compute coloring:   0.0022 sec
 Memory to compute coloring:   0.0000 MB
-Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.1114323780000177 seconds.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.10947129400005906 seconds.
 Total jacobian shape: (87, 88) 
 
 
@@ -1202,10 +1204,10 @@ FWD solves: 30   REV solves: 0
 Total colors vs. total size: 30 vs 88  (65.91% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.1114 sec
-Time to compute coloring:   0.0550 sec
-Memory to compute coloring:   0.5000 MB
-Coloring created on: 2024-08-02 23:02:58
+Time to compute sparsity:   0.1095 sec
+Time to compute coloring:   0.0543 sec
+Memory to compute coloring:   0.3750 MB
+Coloring created on: 2024-08-14 16:39:58
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1214,11 +1216,11 @@ Coloring created on: 2024-08-02 23:02:58
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.9361
-       User Objective Time :       0.2461
-       User Sensitivity Time :     1.3014
-       Interface Time :            0.2216
-       Opt Solver Time:            0.1670
+    Total Time:                    1.8911
+       User Objective Time :       0.2348
+       User Sensitivity Time :     1.2743
+       Interface Time :            0.2162
+       Opt Solver Time:            0.1657
     Calls to Objective Function :     118
     Calls to Sens Function :           89
 
@@ -1477,11 +1479,11 @@ INFO: checking out_of_order
 Driver:  pyOptSparseDriver
   success     : True
   iterations  : 119
-  runtime     : 2.2242E+00 s
+  runtime     : 2.1554E+00 s
   model_evals : 119
-  model_time  : 1.9082E-01 s
+  model_time  : 1.8173E-01 s
   deriv_evals : 89
-  deriv_time  : 9.6195E-01 s
+  deriv_time  : 9.4215E-01 s
   exit_status : SUCCESS
 </pre></div>
 </div>
@@ -1570,8 +1572,8 @@ launch angle: 32.01951038345158 deg
 maximum range: 3183.11772679979 m
 </pre></div>
 </div>
-<img alt="../../_images/81222cf8a3e1a560f02b3acf82b4a7f36ea4d4820060f01344090d996e3d9238.png" src="../../_images/81222cf8a3e1a560f02b3acf82b4a7f36ea4d4820060f01344090d996e3d9238.png" />
-<img alt="../../_images/5d169c008d10cbcaa82e394b517618f358df3d9f9236b1d41f121e96f11fc506.png" src="../../_images/5d169c008d10cbcaa82e394b517618f358df3d9f9236b1d41f121e96f11fc506.png" />
+<img alt="../../_images/454d1c5f0d5e3e0e7ed94f4ac5938302109e73edc37093319a12442574d371e4.png" src="../../_images/454d1c5f0d5e3e0e7ed94f4ac5938302109e73edc37093319a12442574d371e4.png" />
+<img alt="../../_images/7c5515a29afcef76f5efa3822b5c0c110bdf74fbb54f3af27d0b64046b579b71.png" src="../../_images/7c5515a29afcef76f5efa3822b5c0c110bdf74fbb54f3af27d0b64046b579b71.png" />
 </div>
 </div>
 </section>
@@ -1605,11 +1607,11 @@ maximum range: 3183.11772679979 m
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="../mountain_car/mountain_car.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="../moon_landing/moon_landing.html" title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">The Mountain Car Problem</p>
+          <p class="prev-next-title">Moon Landing Problem</p>
       </div>
   </a>
   <a class='right-next' id="next-link" href="../multibranch_trajectory/multibranch_trajectory.html" title="next page">

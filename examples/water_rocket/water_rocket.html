@@ -952,8 +952,8 @@ The design of a water rocket is somewhat constrained by the soda bottle used as 
 This means that the volume available for water and air is fixed, the initial launch pressure is limited by the bottle’s strength (since the pressure is directly related to the energy available for the rocket, it is easy to see that it should be as high as possible) and the nozzle throat area is also fixed.
 Given these manufacturing constraints, the design variables we are left with are the empty mass (it can be easily changed through adding ballast), the water volume at the launch, and the launch angle.
 With this considerations in mind, a natural formulation for the water rocket problem is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f7c45ca-f850-401a-8a35-2cafeec7df8f">
-<span class="eqno">(89)<a class="headerlink" href="#equation-3f7c45ca-f850-401a-8a35-2cafeec7df8f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1fe43560-7829-4c5f-b6d5-c4b7e4ea9f3b">
+<span class="eqno">(89)<a class="headerlink" href="#equation-1fe43560-7829-4c5f-b6d5-c4b7e4ea9f3b" title="Permalink to this equation">#</a></span>\[\begin{align}
     \text{maximize}   &amp;\quad \text{range or height} \\
     \text{w.r.t.}     &amp;\quad \text{empty mass, initial water volume, launch angle, trajectory} \\
     \text{subject to} &amp;\quad \text{flight dynamics} \\
@@ -1496,8 +1496,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">_MassAdder</span></code> component calculates the rocket’s instantaneous mass by
 summing the water mass with the rockets empty mass, i.e.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3416c65b-5f7f-4c81-ba2e-d941b50573f8">
-<span class="eqno">(90)<a class="headerlink" href="#equation-3416c65b-5f7f-4c81-ba2e-d941b50573f8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d1a09ee7-33a8-4c22-afda-849348da8908">
+<span class="eqno">(90)<a class="headerlink" href="#equation-d1a09ee7-33a8-4c22-afda-849348da8908" title="Permalink to this equation">#</a></span>\[\begin{align}
     m = m_\text{empty}+\rho_w V_w
 \end{align}\]</div>
 <div class="cell tag_remove-input docutils container">
@@ -2422,14 +2422,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_trajectory</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">exp_out</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;center right&#39;</span><span class="p">):</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-    <span class="n">time_imp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ballistic_ascent&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.ballistic_ascent.timeseries.time&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;propelled_ascent&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.propelled_ascent.timeseries.time&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;descent&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.descent.timeseries.time&#39;</span><span class="p">)}</span>
-
-    <span class="n">time_exp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ballistic_ascent&#39;</span><span class="p">:</span> <span class="n">exp_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.ballistic_ascent.timeseries.time&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;propelled_ascent&#39;</span><span class="p">:</span> <span class="n">exp_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.propelled_ascent.timeseries.time&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;descent&#39;</span><span class="p">:</span> <span class="n">exp_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.descent.timeseries.time&#39;</span><span class="p">)}</span>
-
     <span class="n">r_imp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ballistic_ascent&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.ballistic_ascent.timeseries.r&#39;</span><span class="p">),</span>
              <span class="s1">&#39;propelled_ascent&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.propelled_ascent.timeseries.r&#39;</span><span class="p">),</span>
              <span class="s1">&#39;descent&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.descent.timeseries.r&#39;</span><span class="p">)}</span>
@@ -2514,12 +2506,10 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 1.7155052250000153 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 1.6884076970000024 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -2528,10 +2518,10 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 1153  (98.27% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity:   1.7155 sec
-Time to compute coloring:   1.8487 sec
+Time to compute sparsity:   1.6884 sec
+Time to compute coloring:   1.8117 sec
 Memory to compute coloring:  -9.6289 MB
-Coloring created on: 2024-08-15 12:54:09
+Coloring created on: 2024-08-19 15:45:26
 
 List of user-set options:
 
@@ -2577,7 +2567,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 62
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total seconds in IPOPT                               = 10.729
+Total seconds in IPOPT                               = 10.750
 
 EXIT: Optimal Solution Found.
 </pre></div>
@@ -2743,12 +2733,10 @@ Maximum velocity: 46.1530 m/s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
+Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem6&#39; was computed 3 times, taking 1.6616627460000473 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem6&#39; was computed 3 times, taking 1.6654971479999858 seconds.
 Total jacobian shape: (1151, 1153) 
 </pre></div>
 </div>
@@ -2757,10 +2745,10 @@ FWD solves: 20   REV solves: 0
 Total colors vs. total size: 20 vs 1153  (98.27% improvement)
 
 Sparsity computed using tolerance: 1e-12
-Time to compute sparsity:   1.6617 sec
-Time to compute coloring:   1.8490 sec
+Time to compute sparsity:   1.6655 sec
+Time to compute coloring:   1.8254 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-08-15 12:54:28
+Coloring created on: 2024-08-19 15:45:45
 
 List of user-set options:
 
@@ -2806,7 +2794,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 49
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 0
-Total seconds in IPOPT                               = 9.490
+Total seconds in IPOPT                               = 9.461
 
 EXIT: Optimal Solution Found.
 
@@ -2817,11 +2805,11 @@ Optimization Problem -- Optimization using pyOpt_sparse
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    9.4918
-       User Objective Time :       0.1653
-       User Sensitivity Time :     8.0133
-       Interface Time :            0.7801
-       Opt Solver Time:            0.5332
+    Total Time:                    9.4616
+       User Objective Time :       0.1560
+       User Sensitivity Time :     8.0123
+       Interface Time :            0.7609
+       Opt Solver Time:            0.5324
     Calls to Objective Function :      56
     Calls to Sens Function :           49
 

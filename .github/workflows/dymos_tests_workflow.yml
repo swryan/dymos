@@ -179,7 +179,7 @@ jobs:
 
       - name: Checkout code
         if: ${{ ! matrix.EXCLUDE }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup conda
         if: ${{ ! matrix.EXCLUDE }}
@@ -352,9 +352,9 @@ jobs:
           pip install pipdeptree
           pipdeptree
 
-      - name: 'Upload environment artifact'
+      - name: Upload environment artifact
         if: ${{ ! matrix.EXCLUDE }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.NAME }}_environment
           path: ${{ matrix.NAME }}_environment.yml

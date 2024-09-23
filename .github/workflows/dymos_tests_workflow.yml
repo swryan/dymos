@@ -154,15 +154,12 @@ jobs:
           echo "Run #${GITHUB_RUN_NUMBER}"
           echo "Run ID: ${GITHUB_RUN_ID}"
           echo "Testing: ${GITHUB_REPOSITORY}"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "Build Selected: ${{ ! matrix.EXCLUDE }}"
+          fi
           echo "Triggered by: ${GITHUB_EVENT_NAME}"
           echo "Initiated by: ${GITHUB_ACTOR}"
           echo "============================================================="
-
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            if [[ "${{ matrix.EXCLUDE }}"  ]]; then
-              echo "'${{ matrix.NAME }}' build was not selected and will not run."
-            fi
-          fi
 
       - name: Create SSH key
         if: ${{ ! matrix.EXCLUDE }}

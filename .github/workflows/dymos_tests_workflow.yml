@@ -158,15 +158,9 @@ jobs:
           echo "============================================================="
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            if [[ "${{ matrix.NAME }}" == "latest" ]]; then
-              echo "Triggered by 'workflow_dispatch' event, will run '${{ matrix.NAME }}' build."
-              echo "RUN_BUILD=true" >> $GITHUB_ENV
-            else
-              echo "Triggered by 'workflow_dispatch' event, will not run '${{ matrix.NAME }}' build."
+            if [[ "${{ matrix.EXCLUDE }}"  ]]; then
+              echo "'${{ matrix.NAME }}' build was not selected and will not run."
             fi
-          else
-            echo "Triggered by '${{ github.event_name }}' event, running all builds."
-            echo "RUN_BUILD=true" >> $GITHUB_ENV
           fi
 
       - name: Create SSH key

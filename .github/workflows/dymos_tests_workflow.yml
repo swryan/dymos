@@ -186,12 +186,15 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.PY }}
-          miniforge-version: latest
+          channels: conda-forge
 
       - name: Install Numpy/Scipy
         if: ${{ ! matrix.EXCLUDE }}
         shell: bash -l {0}
         run: |
+          echo "Make sure we are not using anaconda packages"
+          conda config --remove channels defaults
+
           echo "============================================================="
           echo "Install Numpy/Scipy"
           echo "============================================================="

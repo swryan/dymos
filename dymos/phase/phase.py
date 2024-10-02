@@ -2962,7 +2962,7 @@ class Phase(om.Group):
             duplicate_idxs = all_flat_idxs.intersection(flat_idxs)
             if duplicate_idxs:
                 s = {'initial': 'initial boundary', 'final': 'final boundary', 'path': 'path'}
-                with np.printoptions(legacy='1.25'):
+                with np.printoptions(legacy='1.13'):
                     raise ValueError(f'Duplicate constraint in phase {self.pathname}. '
                                      f'The following indices of `{name}` are used in '
                                      f'multiple {s[loc]} constraints:\n{duplicate_idxs}')

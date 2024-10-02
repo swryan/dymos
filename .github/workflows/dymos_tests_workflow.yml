@@ -103,12 +103,11 @@ jobs:
             OPTIONAL: '[test]'
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.no_pyoptsparse }}
 
-          # numpy 2.x but no pyoptsparse or SNOPT
+          # numpy 2.x but no PETSc, pyoptsparse or SNOPT
           - NAME: numpy2_no_pyoptsparse
             PY: '3.12'
             NUMPY: 2
             SCIPY: 1.14
-            PETSc: 3.21.0
             OPENMDAO: 'latest'
             OPTIONAL: '[all]'
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.numpy2_no_pyoptsparse }}

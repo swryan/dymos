@@ -5,8 +5,9 @@ from packaging.version import Version
 
 import numpy as np
 
+from scipy.interpolate import interp1d
+
 import openmdao.api as om
-from openmdao.components.interp_util.interp import InterpND
 import openmdao.utils.assert_utils as _om_assert_utils
 from openmdao import __version__ as openmdao_version
 
@@ -272,7 +273,7 @@ def assert_timeseries_near_equal(t_ref, x_ref, t_check, x_check, abs_tolerance=N
     x_to_interp = x_ref_data_flattened[idxs_unique_ref, ...]
     t_check = t_check.ravel()
 
-    interp = InterpND('slinear', x=t_ref_unique, y=x_to_interp, axis=0).interpolate
+    interp = interp1d(x=t_ref_unique, y=x_to_interp, kind='slinear', axis=0)
 
     # only want t_check in the overlapping range of t_begin and t_end
     t_check_in_range_condition = np.logical_and(t_check >= t_begin, t_check <= t_end)

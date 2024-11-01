@@ -28,9 +28,9 @@ class TestCannonballForJOSS(unittest.TestCase):
         # CREATE an atmosphere interpolant
         english_to_metric_rho = om.unit_conversion('slug/ft**3', 'kg/m**3')[0]
         english_to_metric_alt = om.unit_conversion('ft', 'm')[0]
-        rho_interp = InterpND('sliner',
-                              np.unique(USatm1976Data.alt * english_to_metric_alt, dtype=complex),
-                              np.unique(USatm1976Data.rho * english_to_metric_rho, dtype=complex))
+        rho_interp = InterpND('slinear',
+                              USatm1976Data.alt * english_to_metric_alt,
+                              USatm1976Data.rho * english_to_metric_rho)
 
         class CannonballSize(om.ExplicitComponent):
             """

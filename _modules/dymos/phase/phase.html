@@ -3135,14 +3135,12 @@ title="Open an issue"
 <span class="sd">            Array of control/state/parameter values.</span>
 <span class="sd">        xs :  ndarray or Sequence or None</span>
 <span class="sd">            Array of integration variable values.</span>
-<span class="sd">        nodes : str or None</span>
-<span class="sd">            The name of the node subset or None (default).</span>
+<span class="sd">        nodes : str or Sequence or None</span>
+<span class="sd">            The name of the node subset, a set of nodes in phase tau space ([-1, 1] across the phase), or None (default).</span>
 <span class="sd">        kind : str</span>
 <span class="sd">            Specifies the kind of interpolation, as per the scipy.interpolate package.</span>
-<span class="sd">            One of (&#39;linear&#39;, &#39;nearest&#39;, &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39;, &#39;cubic&#39;</span>
-<span class="sd">            where &#39;zero&#39;, &#39;slinear&#39;, &#39;quadratic&#39; and &#39;cubic&#39; refer to a spline</span>
-<span class="sd">            interpolation of zeroth, first, second or third order) or as an</span>
-<span class="sd">            integer specifying the order of the spline interpolator to use.</span>
+<span class="sd">            One of (&#39;linear&#39;, &#39;quadratic&#39;, &#39;cubic&#39;). Any other value will result in</span>
+<span class="sd">            linear interpolation and is allowed for backward compatibility.</span>
 <span class="sd">            Default is &#39;linear&#39;.</span>
 <span class="sd">        axis : int</span>
 <span class="sd">            Specifies the axis along which interpolation should be performed.  Default is</span>
@@ -3155,11 +3153,24 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;ys must be provided as an Iterable of length at least 2.&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">nodes</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;state_disc&#39;</span><span class="p">,</span> <span class="s1">&#39;state_input&#39;</span><span class="p">,</span> <span class="s1">&#39;control_disc&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;control_input&#39;</span><span class="p">,</span> <span class="s1">&#39;segment_ends&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;nodes must be one of &#39;col&#39;, &#39;all&#39;, &#39;state_disc&#39;, &quot;</span>
-                             <span class="s2">&quot;&#39;state_input&#39;, &#39;control_disc&#39;, &#39;control_input&#39;, &#39;segment_ends&#39;, or &quot;</span>
-                             <span class="s2">&quot;None.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nodes</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;state_disc&#39;</span><span class="p">,</span> <span class="s1">&#39;state_input&#39;</span><span class="p">,</span> <span class="s1">&#39;control_disc&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;control_input&#39;</span><span class="p">,</span> <span class="s1">&#39;segment_ends&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;nodes must be one of &#39;col&#39;, &#39;all&#39;, &#39;state_disc&#39;, &quot;</span>
+                                <span class="s2">&quot;&#39;state_input&#39;, &#39;control_disc&#39;, &#39;control_input&#39;, &#39;segment_ends&#39;, or &quot;</span>
+                                <span class="s2">&quot;None.&quot;</span><span class="p">)</span>
+
+        <span class="n">order_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;linear&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                     <span class="s1">&#39;quadratic&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                     <span class="s1">&#39;cubic&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">_kind</span> <span class="o">=</span> <span class="n">order_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">_kind</span> <span class="o">=</span> <span class="n">kind</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;kind must be an integer of the spline order or one of &#39;linear&#39;, &#39;quadratic&#39;, or &#39;cubic&#39;. &quot;</span>
+                             <span class="s2">&quot; Any other string value will result in linear interpolation.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">xs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
@@ -3192,16 +3203,22 @@ title="Open an issue"
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Could not find a state, control, or polynomial control named &#39;</span>
                                  <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> to be interpolated.</span><span class="se">\n</span><span class="s1">Please explicitly specify the &#39;</span>
                                  <span class="sa">f</span><span class="s1">&#39;node subset onto which this value should be interpolated.&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">node_locations</span> <span class="o">=</span> <span class="n">gd</span><span class="o">.</span><span class="n">node_ptau</span><span class="p">[</span><span class="n">gd</span><span class="o">.</span><span class="n">subset_node_indices</span><span class="p">[</span><span class="n">nodes</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node_locations</span> <span class="o">=</span> <span class="n">nodes</span>
 
         <span class="c1"># Affine transform xs into tau space [-1, 1]</span>
         <span class="n">_xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">_xs</span><span class="p">,</span> <span class="n">unique_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">_xs</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">_ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+        <span class="n">_ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">_ys</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ys</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_ys</span>
+
         <span class="n">m</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">_xs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">_xs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">_xs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">taus</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">_xs</span> <span class="o">+</span> <span class="n">b</span>
-        <span class="n">interpfunc</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">taus</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
-                                          <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+
+        <span class="n">interpfunc</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">make_interp_spline</span><span class="p">(</span><span class="n">taus</span><span class="p">,</span> <span class="n">_ys</span><span class="p">[</span><span class="n">unique_idxs</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">_kind</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">interpfunc</span><span class="p">(</span><span class="n">node_locations</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">T</span>

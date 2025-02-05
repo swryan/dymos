@@ -171,7 +171,7 @@ jobs:
           - NAME: oldest
             PY: 3.9
             NUMPY: 1.26
-            SCIPY: 1.7
+            SCIPY: 1.11
             OPENMPI: '4.0'
             MPI4PY: '3.0'
             PETSc: 3.13
@@ -321,7 +321,7 @@ jobs:
               echo "SNOPT version ${{ matrix.SNOPT }} was requested but source is not available"
             fi
 
-            build_pyoptsparse $BRANCH $PAROPT $SNOPT
+            build_pyoptsparse -v $BRANCH $PAROPT $SNOPT
           fi
 
       - name: Install OpenMDAO

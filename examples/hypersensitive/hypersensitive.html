@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -805,18 +805,18 @@ title="Print to PDF"
 Patterson <span id="id1">[<a class="reference internal" href="#id22" title="Michael A Patterson, William W Hager, and Anil V Rao. A ph mesh refinement method for optimal control. Optimal Control Applications and Methods, 36(4):398–421, 2015.">PHR15</a>]</span>. In this problem we seek to minimize both
 the distance traveled when moving between fixed boundary conditions and
 also to minimize the control <span class="math notranslate nohighlight">\(u\)</span> used. The cost function to be minimized is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e037d101-0bce-4783-81d3-94a915879318">
-<span class="eqno">(53)<a class="headerlink" href="#equation-e037d101-0bce-4783-81d3-94a915879318" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9936902e-fb55-43ab-b84b-b42a1e4f8555">
+<span class="eqno">(53)<a class="headerlink" href="#equation-9936902e-fb55-43ab-b84b-b42a1e4f8555" title="Permalink to this equation">#</a></span>\[\begin{align}
     J &amp;= \frac{1}{2} \int_{0}^{t_f} (x^2 + u^2) dt
 \end{align}\]</div>
 <p>The system is subject to the dynamic constraints:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cc2a3ad3-36bd-4a85-bae7-0bc499acf4dd">
-<span class="eqno">(54)<a class="headerlink" href="#equation-cc2a3ad3-36bd-4a85-bae7-0bc499acf4dd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-125506f0-9b9b-4e36-9587-a0e559b6bceb">
+<span class="eqno">(54)<a class="headerlink" href="#equation-125506f0-9b9b-4e36-9587-a0e559b6bceb" title="Permalink to this equation">#</a></span>\[\begin{align}
     \frac{dx}{dt} &amp;= -x + u
 \end{align}\]</div>
 <p>The boundary conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4b36f558-d1dc-41dd-8dc8-ee78e145effb">
-<span class="eqno">(55)<a class="headerlink" href="#equation-4b36f558-d1dc-41dd-8dc8-ee78e145effb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f08df0a8-6ad7-40d9-8b73-67190002e0b4">
+<span class="eqno">(55)<a class="headerlink" href="#equation-f08df0a8-6ad7-40d9-8b73-67190002e0b4" title="Permalink to this equation">#</a></span>\[\begin{align}
     x(t_0) &amp;= 1.5 \\
     x(t_f) &amp;= 1
 \end{align}\]</div>
@@ -826,14 +826,14 @@ the problem exhibits a <em>dive</em>, <em>cruise</em>, and <em>resurface</em> ty
 structure, where the all interesting behavior occurs at the beginning and
 end while remaining relatively constant in the middle.</p>
 <p>This problem has a known analytic optimal solution:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dd9bf77f-34b3-4111-93b2-5b8b5ef8de99">
-<span class="eqno">(56)<a class="headerlink" href="#equation-dd9bf77f-34b3-4111-93b2-5b8b5ef8de99" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1cc100d4-f746-4adc-9e54-ebf9df5326b1">
+<span class="eqno">(56)<a class="headerlink" href="#equation-1cc100d4-f746-4adc-9e54-ebf9df5326b1" title="Permalink to this equation">#</a></span>\[\begin{align}
     x^*(t) &amp;= c_1 e^{\sqrt{2} t} + c_2 e^{-\sqrt{2} t} \\
       u^*(t) &amp;= \dot{x}^*(t) + x^*(t)
 \end{align}\]</div>
 <p>where:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-361d1e5a-ba50-47e5-aa27-4c720de0ff01">
-<span class="eqno">(57)<a class="headerlink" href="#equation-361d1e5a-ba50-47e5-aa27-4c720de0ff01" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-22b893b3-379a-4d19-8ed3-2ec948cfcbc4">
+<span class="eqno">(57)<a class="headerlink" href="#equation-22b893b3-379a-4d19-8ed3-2ec948cfcbc4" title="Permalink to this equation">#</a></span>\[\begin{align}
     c_1 &amp;= \frac{1.5 e^{-\sqrt{2} t_f} - 1}{e^{-\sqrt{2} t_f} - e^{\sqrt{2} t_f}} \\
     c_2 &amp;= \frac{1 - 1.5 e^{\sqrt{2} t_f}}{e^{-\sqrt{2} t_f} - e^{\sqrt{2} t_f}}
 \end{align}\]</div>
@@ -841,20 +841,20 @@ end while remaining relatively constant in the middle.</p>
 <h2>The ODE System: hyper_sensitive_ode.py<a class="headerlink" href="#the-ode-system-hyper-sensitive-ode-py" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
 
 
-<span class="k">class</span> <span class="nc">HyperSensitiveODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HyperSensitiveODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
     <span class="n">states</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rate_source&#39;</span><span class="p">:</span> <span class="s1">&#39;x_dot&#39;</span><span class="p">},</span>
               <span class="s1">&#39;xL&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rate_source&#39;</span><span class="p">:</span> <span class="s1">&#39;L&#39;</span><span class="p">}}</span>
 
     <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="s1">&#39;u&#39;</span><span class="p">}}</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">nn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">]</span>
 
         <span class="c1"># inputs</span>
@@ -873,14 +873,14 @@ end while remaining relatively constant in the middle.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">declare_partials</span><span class="p">(</span><span class="n">of</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nn</span><span class="p">),</span> <span class="n">cols</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nn</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">declare_partials</span><span class="p">(</span><span class="n">of</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nn</span><span class="p">),</span> <span class="n">cols</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nn</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
         <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;x_dot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">+</span> <span class="n">u</span>
         <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">u</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 
-    <span class="k">def</span> <span class="nf">compute_partials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">jacobian</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_partials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">jacobian</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
@@ -899,10 +899,10 @@ To counter this, grid refinement algorithms are used to assess error in the inte
 <p>In the example below, we tell Dymos to use, at most, ten passes of its default grid refinement algorithm by providing <code class="docutils literal notranslate"><span class="pre">run_problem</span></code> with the <code class="docutils literal notranslate"><span class="pre">refine_iteration_limit</span></code> option.</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
-<span class="kn">import</span> <span class="nn">dymos</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">from</span> <span class="nn">dymos.examples.plotting</span> <span class="kn">import</span> <span class="n">plot_results</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dymos</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dymos.examples.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_results</span>
 
 <span class="c1"># Initialize the problem and assign the driver</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">())</span>
@@ -948,68 +948,115 @@ To counter this, grid refinement algorithms are used to assess error in the inte
     --- phase0 ---
         [final]   1.0000e+00 == x [None]
 
-INFO: checking out_of_order
+INFO: checking out_of_order...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.000334 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000024 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000294 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000043 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-INFO: checking out_of_order
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     missing_recorders check complete (0.000003 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.003370 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000042 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     auto_ivc_warnings check complete (0.000003 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.08885335299999042 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.000245 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000016 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000161 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000035 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     missing_recorders check complete (0.000002 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.004375 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000045 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     auto_ivc_warnings check complete (0.000002 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.09277024399989386 seconds.
 Total jacobian shape: (80, 108) 
-
-
-Jacobian shape: (80, 108)  (4.80% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (80, 108)  (4.80% nonzero)
 FWD solves: 0   REV solves: 9
 Total colors vs. total size: 9 vs 80  (88.75% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0889 sec
-Time to compute coloring:   0.0336 sec
+Time to compute sparsity:   0.0928 sec
+Time to compute coloring:   0.0730 sec
 Memory to compute coloring:   0.2500 MB
-Coloring created on: 2024-11-15 14:36:20
+Coloring created on: 2025-02-19 17:04:27
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1018,11 +1065,11 @@ Coloring created on: 2024-11-15 14:36:20
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.4250
-       User Objective Time :       0.0136
-       User Sensitivity Time :     0.3439
-       Interface Time :            0.0263
-       Opt Solver Time:            0.0413
+    Total Time:                    0.4640
+       User Objective Time :       0.0172
+       User Sensitivity Time :     0.3577
+       Interface Time :            0.0464
+       Opt Solver Time:            0.0427
     Calls to Objective Function :      16
     Calls to Sens Function :           14
 
@@ -1249,7 +1296,7 @@ Coloring created on: 2024-11-15 14:36:20
 --------------------------------------------------------------------------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/visualization/opt_report/opt_report.py:625: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/visualization/opt_report/opt_report.py:623: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
   ax.set_ylim([ymin_plot, ymax_plot])
 </pre></div>
 </div>
@@ -1278,14 +1325,12 @@ Coloring created on: 2024-11-15 14:36:20
 --- Constraint Report [traj] ---
     --- phase0 ---
         [final]   1.0000e+00 == x [None]
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4357: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4431: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.17038330700006554 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.174044227999957 seconds.
 Total jacobian shape: (140, 198) 
 
 
@@ -1294,10 +1339,10 @@ FWD solves: 0   REV solves: 15
 Total colors vs. total size: 15 vs 140  (89.29% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.1704 sec
-Time to compute coloring:   0.0659 sec
+Time to compute sparsity:   0.1740 sec
+Time to compute coloring:   0.1349 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-11-15 14:36:21
+Coloring created on: 2025-02-19 17:04:28
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1306,11 +1351,11 @@ Coloring created on: 2024-11-15 14:36:21
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.2338
-       User Objective Time :       0.0093
-       User Sensitivity Time :     0.0589
-       Interface Time :            0.0229
-       Opt Solver Time:            0.1427
+    Total Time:                    0.2750
+       User Objective Time :       0.0110
+       User Sensitivity Time :     0.0575
+       Interface Time :            0.0598
+       Opt Solver Time:            0.1467
     Calls to Objective Function :       9
     Calls to Sens Function :            8
 
@@ -1712,26 +1757,24 @@ Coloring created on: 2024-11-15 14:36:21
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         [final]   1.0000e+00 == x [None]
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4357: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4431: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.29023071000005984 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.2963034790000165 seconds.
 Total jacobian shape: (224, 318) 
-
-
-Jacobian shape: (224, 318)  (2.68% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (224, 318)  (2.68% nonzero)
 FWD solves: 0   REV solves: 15
 Total colors vs. total size: 15 vs 224  (93.30% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.2902 sec
-Time to compute coloring:   0.1042 sec
+Time to compute sparsity:   0.2963 sec
+Time to compute coloring:   0.2192 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-11-15 14:36:22
+Coloring created on: 2025-02-19 17:04:29
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1740,11 +1783,11 @@ Coloring created on: 2024-11-15 14:36:22
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.8090
-       User Objective Time :       0.0110
-       User Sensitivity Time :     0.0669
-       Interface Time :            0.0395
-       Opt Solver Time:            0.6915
+    Total Time:                    0.9228
+       User Objective Time :       0.0111
+       User Sensitivity Time :     0.0730
+       Interface Time :            0.1447
+       Opt Solver Time:            0.6940
     Calls to Objective Function :       9
     Calls to Sens Function :            9
 
@@ -2362,26 +2405,24 @@ Coloring created on: 2024-11-15 14:36:22
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         [final]   1.0000e+00 == x [None]
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4357: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4431: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.3866559949999555 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.39527494599997226 seconds.
 Total jacobian shape: (284, 405) 
-
-
-Jacobian shape: (284, 405)  (2.30% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (284, 405)  (2.30% nonzero)
 FWD solves: 0   REV solves: 27
 Total colors vs. total size: 27 vs 284  (90.49% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.3867 sec
-Time to compute coloring:   0.1377 sec
+Time to compute sparsity:   0.3953 sec
+Time to compute coloring:   0.2861 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-11-15 14:36:24
+Coloring created on: 2025-02-19 17:04:31
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -2390,11 +2431,11 @@ Coloring created on: 2024-11-15 14:36:24
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.2217
-       User Objective Time :       0.0072
-       User Sensitivity Time :     0.0765
-       Interface Time :            0.0323
-       Opt Solver Time:            1.1057
+    Total Time:                    1.3479
+       User Objective Time :       0.0076
+       User Sensitivity Time :     0.0815
+       Interface Time :            0.1491
+       Opt Solver Time:            1.1097
     Calls to Objective Function :       6
     Calls to Sens Function :            6
 
@@ -3167,30 +3208,28 @@ Coloring created on: 2024-11-15 14:36:24
 --- Constraint Report [traj] ---
     --- phase0 ---
         [final]   1.0000e+00 == x [None]
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/dymos/grid_refinement/hp_adaptive/hp_adaptive.py:379: RuntimeWarning: divide by zero encountered in divide
   q_smooth = (np.log(self.error[phase_path][smooth_need_refine_idxs] /
 /usr/share/miniconda/envs/test/lib/python3.11/site-packages/dymos/grid_refinement/hp_adaptive/hp_adaptive.py:411: RuntimeWarning: divide by zero encountered in divide
   q_split = np.log((self.error[phase_path][split_seg_idxs] /
-/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4357: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
+/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4431: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.4821133429999236 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.477168944000141 seconds.
 Total jacobian shape: (332, 474) 
-
-
-Jacobian shape: (332, 474)  (1.99% nonzero)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (332, 474)  (1.99% nonzero)
 FWD solves: 0   REV solves: 27
 Total colors vs. total size: 27 vs 332  (91.87% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.4821 sec
-Time to compute coloring:   0.1589 sec
+Time to compute sparsity:   0.4772 sec
+Time to compute coloring:   0.3376 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-11-15 14:36:26
+Coloring created on: 2025-02-19 17:04:34
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -3199,11 +3238,11 @@ Coloring created on: 2024-11-15 14:36:26
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.6581
-       User Objective Time :       0.0035
-       User Sensitivity Time :     0.0278
-       Interface Time :            0.0131
-       Opt Solver Time:            0.6137
+    Total Time:                    0.7148
+       User Objective Time :       0.0038
+       User Sensitivity Time :     0.0293
+       Interface Time :            0.0669
+       Opt Solver Time:            0.6149
     Calls to Objective Function :       3
     Calls to Sens Function :            2
 
@@ -4099,14 +4138,12 @@ Coloring created on: 2024-11-15 14:36:26
 --- Constraint Report [traj] ---
     --- phase0 ---
         [final]   1.0000e+00 == x [None]
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4357: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/system.py:4431: OpenMDAOWarning:Calling `list_inputs` before `final_setup` will only display the default values of variables and will not show the result of any `set_val` calls.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.6068545460000223 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.6173602909998408 seconds.
 Total jacobian shape: (406, 581) 
 </pre></div>
 </div>
@@ -4115,10 +4152,10 @@ FWD solves: 0   REV solves: 27
 Total colors vs. total size: 27 vs 406  (93.35% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.6069 sec
-Time to compute coloring:   0.1985 sec
-Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-11-15 14:36:28
+Time to compute sparsity:   0.6174 sec
+Time to compute coloring:   0.4185 sec
+Memory to compute coloring:   0.1250 MB
+Coloring created on: 2025-02-19 17:04:36
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -4127,11 +4164,11 @@ Coloring created on: 2024-11-15 14:36:28
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.6123
-       User Objective Time :       0.0024
-       User Sensitivity Time :     0.0155
-       Interface Time :            0.0087
-       Opt Solver Time:            0.5857
+    Total Time:                    0.6905
+       User Objective Time :       0.0028
+       User Sensitivity Time :     0.0167
+       Interface Time :            0.0549
+       Opt Solver Time:            0.6162
     Calls to Objective Function :       2
     Calls to Sens Function :            1
 
@@ -5207,11 +5244,10 @@ Successfully completed grid refinement.
 ==================================================
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1137: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:u_rate, ode_eval.control_interp.control_rates:u_rate2, ode_eval.control_interp.control_values:u] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1166: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:u_rate, ode_eval.control_interp.control_rates:u_rate2, ode_eval.control_interp.control_values:u] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
@@ -5221,11 +5257,11 @@ Model viewer data has already been recorded for Driver.
 Driver:  pyOptSparseDriver
   success     : True
   iterations  : 4
-  runtime     : 1.4813E+00 s
+  runtime     : 1.8066E+00 s
   model_evals : 4
-  model_time  : 2.8663E-03 s
+  model_time  : 3.2206E-03 s
   deriv_evals : 2
-  deriv_time  : 2.4412E-02 s
+  deriv_time  : 2.6051E-02 s
   exit_status : SUCCESS
 </pre></div>
 </div>
@@ -5248,7 +5284,7 @@ Driver:  pyOptSparseDriver
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a827f4fcab6c7e4c3c2ad528d7c8ed3906e7201ae72793d98864982e3ded4094.png" src="../../_images/a827f4fcab6c7e4c3c2ad528d7c8ed3906e7201ae72793d98864982e3ded4094.png" />
+<img alt="../../_images/d529323571122cfa99adab5d1b5f73b0879a526c97f3b78feb88573440e3b151.png" src="../../_images/d529323571122cfa99adab5d1b5f73b0879a526c97f3b78feb88573440e3b151.png" />
 </div>
 </div>
 </section>

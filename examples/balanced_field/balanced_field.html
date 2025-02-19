@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -942,13 +942,13 @@ Also, since the duration of the trajectory is small, we’re going to assume tha
 <h3>The Aerodynamic Model<a class="headerlink" href="#the-aerodynamic-model" title="Permalink to this heading">#</a></h3>
 <p>Both sets of equations of motion have common aerodynamic models.</p>
 <p>First, the lift coefficient is computed using a model which assumes linearity in lift wrt the angle of attack.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-903ac64a-2ee1-4195-923c-989fdf4401c4">
-<span class="eqno">(21)<a class="headerlink" href="#equation-903ac64a-2ee1-4195-923c-989fdf4401c4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dbff9b2f-3912-4ca0-9fb2-198d2ece78eb">
+<span class="eqno">(21)<a class="headerlink" href="#equation-dbff9b2f-3912-4ca0-9fb2-198d2ece78eb" title="Permalink to this equation">#</a></span>\[\begin{align}
     C_L &amp;= C_{L0} + \frac{\alpha}{\alpha_{max}} \left(C_{L-max} - C_{L0}\right)
 \end{align}\]</div>
 <p>Next, the drag-due-to-lift factor is computed (Equations 12.48 and 12.61 in Raymer[&#64;raymer2012aircraft]).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bdb9c1a1-093c-4139-aa63-3ed60e70d7a8">
-<span class="eqno">(22)<a class="headerlink" href="#equation-bdb9c1a1-093c-4139-aa63-3ed60e70d7a8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-34b478d3-bb24-4fe6-b743-2db346b04a95">
+<span class="eqno">(22)<a class="headerlink" href="#equation-34b478d3-bb24-4fe6-b743-2db346b04a95" title="Permalink to this equation">#</a></span>\[\begin{align}
     K_{nom} &amp;= \frac{1}{ \pi  AR  e} \\
     b &amp;= \frac{span}{2} \\
     K &amp;= 33 K_{nom} \frac{ \left(\frac{h + h_w}{b} \right) ^{\frac{3}{2}}}{1.0 + 33 \left( \frac{h + h_w}{b}\right) ^{\frac{3}{2}}}
@@ -957,8 +957,8 @@ Also, since the duration of the trajectory is small, we’re going to assume tha
 This causes this problem to be difficult to solve using a shooting method.
 If the optimizer proposes a combination of initial states and a control history that results in altitude dropping significantly below zero, the propagation will fail.</p>
 <p>Finally, the lift and drag are computed after computing the dynamic pressure.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-955299b7-f18f-452f-ba56-a859e639b953">
-<span class="eqno">(23)<a class="headerlink" href="#equation-955299b7-f18f-452f-ba56-a859e639b953" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ad7fa810-c163-4426-bc27-391214be185b">
+<span class="eqno">(23)<a class="headerlink" href="#equation-ad7fa810-c163-4426-bc27-391214be185b" title="Permalink to this equation">#</a></span>\[\begin{align}
     q &amp;= 0.5 \rho v^2 \\
     L &amp;= q  S  C_L \\
     D &amp;= q S \left( C_{D0} + K C_{L}^2 \right)
@@ -969,8 +969,8 @@ If the optimizer proposes a combination of initial states and a control history 
 <p>This model relies on the ratio of the current true airspeed to stall speed (<span class="math notranslate nohighlight">\(\frac{v}{v_{stall}}\)</span>).
 This constraint is used to trigger the beginning of rotation and is used as a boundary constraint at the end of the initial climb.
 Stall speed is given by Equation 5.6 in Raymer[&#64;raymer2012aircraft].</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a1c7a0e5-2faf-4240-9b22-a541438613b6">
-<span class="eqno">(24)<a class="headerlink" href="#equation-a1c7a0e5-2faf-4240-9b22-a541438613b6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-db3bfa02-c215-44c3-970e-eee78aa33ea4">
+<span class="eqno">(24)<a class="headerlink" href="#equation-db3bfa02-c215-44c3-970e-eee78aa33ea4" title="Permalink to this equation">#</a></span>\[\begin{align}
     W &amp;= m g \\
     v_{stall} &amp;= \sqrt{\frac{2 * W}{\rho S C_{L-max}}}
 \end{align}\]</div>
@@ -978,8 +978,8 @@ Stall speed is given by Equation 5.6 in Raymer[&#64;raymer2012aircraft].</p>
 <section id="runway-equations-of-motion">
 <h3>Runway Equations of Motion<a class="headerlink" href="#runway-equations-of-motion" title="Permalink to this heading">#</a></h3>
 <p>The runway equations of motion are used to integrate range and speed as the vehicle rolls along the runway.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d1d3f4f6-76b4-47bb-88ee-eb80d76ec60a">
-<span class="eqno">(25)<a class="headerlink" href="#equation-d1d3f4f6-76b4-47bb-88ee-eb80d76ec60a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-94a98d7e-fe6c-4816-858a-5c9e63d83ea4">
+<span class="eqno">(25)<a class="headerlink" href="#equation-94a98d7e-fe6c-4816-858a-5c9e63d83ea4" title="Permalink to this equation">#</a></span>\[\begin{align}
   F_r &amp;= mg - L \cos \alpha - T \sin \alpha \\
   \dot{v} &amp;= \frac{T \cos \alpha - D - F_r \mu_r}{m} \\
   \dot{r} &amp;= v
@@ -1006,8 +1006,8 @@ Stall speed is given by Equation 5.6 in Raymer[&#64;raymer2012aircraft].</p>
 <section id="flight-equations-of-motion">
 <h3>Flight Equations of Motion<a class="headerlink" href="#flight-equations-of-motion" title="Permalink to this heading">#</a></h3>
 <p>The flight equations of motion include two additional state variables: the flight-path angle (<span class="math notranslate nohighlight">\(\gamma\)</span>) and altitude (<span class="math notranslate nohighlight">\(h\)</span>).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8c79399c-c7c4-4b77-b195-feae16e3cdab">
-<span class="eqno">(26)<a class="headerlink" href="#equation-8c79399c-c7c4-4b77-b195-feae16e3cdab" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4b61e5fb-1f4e-4b9b-a481-1edc732b4b17">
+<span class="eqno">(26)<a class="headerlink" href="#equation-4b61e5fb-1f4e-4b9b-a481-1edc732b4b17" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{v} &amp;= \frac{T}{m} \cos \alpha - \frac{D}{m} - g \sin \gamma \\
   \dot{\gamma} &amp;= \frac{T}{m v} \sin \alpha + \frac{L}{m v} - \frac{g \cos \gamma}{v} \\
   \dot{h} &amp;= v \sin \gamma \\
@@ -1313,7 +1313,7 @@ Based on the value of <code class="docutils literal notranslate"><span class="pr
 <h3>BalancedFieldODEComp<a class="headerlink" href="#balancedfieldodecomp" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BalancedFieldODEComp</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BalancedFieldODEComp</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The ODE System for an aircraft takeoff climb.</span>
 
@@ -1324,12 +1324,12 @@ Based on the value of <code class="docutils literal notranslate"><span class="pr
 <span class="sd">    .. [1] Raymer, Daniel. Aircraft design: a conceptual approach. American Institute of</span>
 <span class="sd">    Aeronautics and Astronautics, Inc., 2012.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">9.80665</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;gravitational acceleration (m/s**2)&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;runway&#39;</span><span class="p">,</span> <span class="s1">&#39;climb&#39;</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;mode of operation (ground roll or flight)&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">nn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">]</span>
 
         <span class="c1"># Scalar (constant) inputs</span>
@@ -1378,7 +1378,7 @@ Based on the value of <code class="docutils literal notranslate"><span class="pr
 
         <span class="bp">self</span><span class="o">.</span><span class="n">declare_coloring</span><span class="p">(</span><span class="n">wrt</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cs&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">discrete_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">discrete_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">discrete_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">discrete_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span>
 
         <span class="c1"># Compute factor k to include ground effect on lift</span>
@@ -1443,11 +1443,11 @@ Based on the value of <code class="docutils literal notranslate"><span class="pr
 First we define the problem and specify the optimizer settings.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
-<span class="kn">from</span> <span class="nn">openmdao.utils.general_utils</span> <span class="kn">import</span> <span class="n">set_pyoptsparse_opt</span>
-<span class="kn">import</span> <span class="nn">dymos</span> <span class="k">as</span> <span class="nn">dm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openmdao.utils.general_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_pyoptsparse_opt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dymos</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dm</span>
 
 <span class="n">p</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">()</span>
 
@@ -1532,7 +1532,7 @@ First we define the problem and specify the optimizer settings.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;dymos.phase.phase.Phase at 0x7fde01d27290&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;dymos.phase.phase.Phase at 0x7fbd43291cd0&gt;
 </pre></div>
 </div>
 </div>
@@ -1672,53 +1672,100 @@ By specifying these constraints as linear, we’re also letting the optimizer kn
         [final]   1.2500e+00 &lt;= v_over_v_stall  [None]
         [path]    0.0000e+00 &lt;= gam &lt;= 5.0000e+00  [deg]
 
-INFO: checking out_of_order
+INFO: checking out_of_order...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.001292 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000066 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000463 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000357 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model viewer data has already been recorded for Driver.
-INFO: checking out_of_order
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     missing_recorders check complete (0.000003 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.012393 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000192 sec).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     auto_ivc_warnings check complete (0.000004 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.001062 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000061 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000447 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000435 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     missing_recorders check complete (0.000003 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.020139 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000204 sec).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     auto_ivc_warnings check complete (0.000004 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.br_to_v1.rhs_all&#39; (class BalancedFieldODEComp)
@@ -1728,9 +1775,9 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0175 sec
-Time to compute coloring:   0.0112 sec
-Memory to compute coloring:   0.3750 MB
+Time to compute sparsity:   0.0160 sec
+Time to compute coloring:   0.0102 sec
+Memory to compute coloring:   0.1250 MB
 
 Coloring for &#39;traj.phases.rto.rhs_all&#39; (class BalancedFieldODEComp)
 
@@ -1739,8 +1786,8 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0156 sec
-Time to compute coloring:   0.0108 sec
+Time to compute sparsity:   0.0157 sec
+Time to compute coloring:   0.0100 sec
 Memory to compute coloring:   0.0000 MB
 
 Coloring for &#39;traj.phases.v1_to_vr.rhs_all&#39; (class BalancedFieldODEComp)
@@ -1750,8 +1797,8 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0155 sec
-Time to compute coloring:   0.0100 sec
+Time to compute sparsity:   0.0160 sec
+Time to compute coloring:   0.0099 sec
 Memory to compute coloring:   0.0000 MB
 
 Coloring for &#39;traj.phases.rotate.rhs_all&#39; (class BalancedFieldODEComp)
@@ -1761,46 +1808,46 @@ FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 60  (73.33% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0158 sec
-Time to compute coloring:   0.0099 sec
+Time to compute sparsity:   0.0157 sec
+Time to compute coloring:   0.0098 sec
 Memory to compute coloring:   0.0000 MB
-
-Coloring for &#39;traj.phases.climb.rhs_all&#39; (class BalancedFieldODEComp)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coloring for &#39;traj.phases.climb.rhs_all&#39; (class BalancedFieldODEComp)
 
 Jacobian shape: (260, 111)  (5.54% nonzero)
 FWD solves: 16   REV solves: 0
 Total colors vs. total size: 16 vs 111  (85.59% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.0329 sec
-Time to compute coloring:   0.0186 sec
-Memory to compute coloring:   0.2500 MB
+Time to compute sparsity:   0.0326 sec
+Time to compute coloring:   0.0198 sec
+Memory to compute coloring:   0.1250 MB
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 0.9945553139999674 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem&#39; was computed 3 times, taking 1.020031222000057 seconds.
 Total jacobian shape: (178, 166) 
 
 
-Jacobian shape: (178, 166)  (3.16% nonzero)
-FWD solves: 14   REV solves: 0
-Total colors vs. total size: 14 vs 166  (91.57% improvement)
+Jacobian shape: (178, 166)  (6.99% nonzero)
+FWD solves: 47   REV solves: 0
+Total colors vs. total size: 47 vs 166  (71.69% improvement)
 
 Sparsity computed using tolerance: 1e-25
-Time to compute sparsity:   0.9946 sec
-Time to compute coloring:   0.0689 sec
-Memory to compute coloring:   0.0000 MB
-Coloring created on: 2024-11-15 14:33:13
+Time to compute sparsity:   1.0200 sec
+Time to compute coloring:   0.1676 sec
+Memory to compute coloring:   0.8750 MB
+Coloring created on: 2025-02-19 16:59:54
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/total_jac.py:1652: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb-&gt;path_constraint-&gt;gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/total_jac.py:1728: DerivativesWarning:Constraints or objectives [(&#39;traj.phases.climb-&gt;path_constraint-&gt;gam&#39;, inds=[(0, 0)])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1137: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:alpha_rate, ode_eval.control_interp.control_rates:alpha_rate2, ode_eval.control_interp.control_values:alpha] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
-/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1137: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:alpha_rate, ode_eval.control_interp.control_rates:alpha_rate2, ode_eval.control_interp.control_values:alpha] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1166: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:alpha_rate, ode_eval.control_interp.control_rates:alpha_rate2, ode_eval.control_interp.control_values:alpha] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
+/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1166: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:alpha_rate, ode_eval.control_interp.control_rates:alpha_rate2, ode_eval.control_interp.control_values:alpha] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
@@ -1810,11 +1857,11 @@ Model viewer data has already been recorded for Driver.
 Driver:  pyOptSparseDriver
   success     : True
   iterations  : 25
-  runtime     : 3.1217E+00 s
+  runtime     : 3.9822E+00 s
   model_evals : 25
-  model_time  : 7.5355E-02 s
+  model_time  : 7.5089E-02 s
   deriv_evals : 24
-  deriv_time  : 1.2314E+00 s
+  deriv_time  : 1.9064E+00 s
   exit_status : SUCCESS
 </pre></div>
 </div>
@@ -1874,7 +1921,7 @@ This is the shortest possible field that accommodates both a rejected takeoff an
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/93d03485f213f5611481515b640a14c330707a8a1e70682e551d3c4dde616d96.png" src="../../_images/93d03485f213f5611481515b640a14c330707a8a1e70682e551d3c4dde616d96.png" />
+<img alt="../../_images/0b75e971565ffe9c9968db68fb5bfa4c9d496ed2815c03d5e5022838447beee4.png" src="../../_images/0b75e971565ffe9c9968db68fb5bfa4c9d496ed2815c03d5e5022838447beee4.png" />
 </div>
 </div>
 </section>

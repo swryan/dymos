@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cannonball_implicit_duration/cannonball_implicit_duration.html">Cannonball Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
 </ul>
 </li>
 </ul>
@@ -852,7 +852,7 @@ A to B in the shortest possible time.</em></p>
 without friction along the wire moves from point A to point B in minimum time.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../../_images/b363607d768972a8cac37b1f27bbc81bcb7dc835c0de27dc7124339132f876b3.png" src="../../_images/b363607d768972a8cac37b1f27bbc81bcb7dc835c0de27dc7124339132f876b3.png" />
+<img alt="../../_images/71d078f97cbc4ecb63a62f703ef44be0301447756f35f234ee7449ab84c450b1.png" src="../../_images/71d078f97cbc4ecb63a62f703ef44be0301447756f35f234ee7449ab84c450b1.png" />
 </div>
 </div>
 <section id="state-variables">
@@ -867,8 +867,8 @@ without friction along the wire moves from point A to point B in minimum time.</
 <section id="system-dynamics">
 <h2>System dynamics<a class="headerlink" href="#system-dynamics" title="Permalink to this heading">#</a></h2>
 <p>From the free-body diagram above, the evolution of the state variables is given by the following ordinary differential equations (ODE).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2cb6b014-8f8e-47e0-85a0-152aa421d59d">
-<span class="eqno">(13)<a class="headerlink" href="#equation-2cb6b014-8f8e-47e0-85a0-152aa421d59d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-81b6168f-6d13-4140-b799-2702755b7679">
+<span class="eqno">(13)<a class="headerlink" href="#equation-81b6168f-6d13-4140-b799-2702755b7679" title="Permalink to this equation">#</a></span>\[\begin{align}
     \frac{d x}{d t} &amp;= v \sin(\theta) \\
     \frac{d y}{d t} &amp;= -v \cos(\theta) \\
     \frac{d v}{d t} &amp;= g \cos(\theta)
@@ -886,8 +886,8 @@ without friction along the wire moves from point A to point B in minimum time.</
 <p>In this case, starting point <strong>A</strong> is given as <em>(0, 10)</em>.
 The point moving along the curve will begin there with zero initial velocity.</p>
 <p>The initial conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-25715c44-92c3-4cb4-b63d-59f879f39f99">
-<span class="eqno">(14)<a class="headerlink" href="#equation-25715c44-92c3-4cb4-b63d-59f879f39f99" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4de4df75-0769-41ea-b0b9-2dc321f207f3">
+<span class="eqno">(14)<a class="headerlink" href="#equation-4de4df75-0769-41ea-b0b9-2dc321f207f3" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_0 &amp;= 0 \\
     y_0 &amp;= 10 \\
     v_0 &amp;= 0
@@ -895,8 +895,8 @@ The point moving along the curve will begin there with zero initial velocity.</p
 <p>The end point <strong>B</strong> is given as <em>(10, 5)</em>.
 The point will end there, but the velocity at that point is not constrained.</p>
 <p>The final conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-66c15967-dba9-4de3-8e76-d0d169109701">
-<span class="eqno">(15)<a class="headerlink" href="#equation-66c15967-dba9-4de3-8e76-d0d169109701" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-27d30b2b-4747-49fe-b746-c8d33c01697d">
+<span class="eqno">(15)<a class="headerlink" href="#equation-27d30b2b-4747-49fe-b746-c8d33c01697d" title="Permalink to this equation">#</a></span>\[\begin{align}
     x_f &amp;= 10 \\
     y_f &amp;= 5 \\
     v_f &amp;= \mathrm{free}
@@ -915,19 +915,19 @@ The following ExplicitComponent computes the state rates for the brachistochrone
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
 
 
-<span class="k">class</span> <span class="nc">BrachistochroneODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BrachistochroneODE</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">ExplicitComponent</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">declare</span><span class="p">(</span><span class="s1">&#39;static_gravity&#39;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">bool</span><span class="p">,),</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                              <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;If True, treat gravity as a static (scalar) input, rather than &#39;</span>
                                   <span class="s1">&#39;having different values at each node.&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">nn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;num_nodes&#39;</span><span class="p">]</span>
 
         <span class="c1"># Inputs</span>
@@ -972,7 +972,7 @@ The following ExplicitComponent computes the state rates for the brachistochrone
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">declare_partials</span><span class="p">(</span><span class="n">of</span><span class="o">=</span><span class="s1">&#39;vdot&#39;</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="n">arange</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="n">arange</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
         <span class="n">theta</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
         <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
         <span class="n">sin_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
@@ -984,7 +984,7 @@ The following ExplicitComponent computes the state rates for the brachistochrone
         <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;ydot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">v</span> <span class="o">*</span> <span class="n">cos_theta</span>
         <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;check&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="n">sin_theta</span>
 
-    <span class="k">def</span> <span class="nf">compute_partials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">partials</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_partials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">partials</span><span class="p">):</span>
         <span class="n">theta</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
         <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
         <span class="n">sin_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
@@ -1026,8 +1026,8 @@ The problem is setup with the <code class="docutils literal notranslate"><span c
 Complex step typically produces derivative approximations with an error on the order of 1.0E-16, as opposed to ~1.0E-6 for forward finite difference approximations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
 
 <span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">5</span>
 
@@ -1062,27 +1062,27 @@ Component: BrachistochroneODE &#39;ode&#39;
 +=================+==================+=============+=============+=============+=============+============+
 | &#39;check&#39;         | &#39;g&#39;              |  0.0000e+00 |  0.0000e+00 |  0.0000e+00 |         nan |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;check&#39;         | &#39;theta&#39;          |  9.3764e+00 |  9.3764e+00 |  1.7902e-15 |  1.9092e-16 |            |
+| &#39;check&#39;         | &#39;theta&#39;          |  1.8596e+01 |  1.8596e+01 |  4.4431e-16 |  2.3893e-17 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;check&#39;         | &#39;v&#39;              |  2.8816e+00 |  2.8816e+00 |  0.0000e+00 |  0.0000e+00 |            |
+| &#39;check&#39;         | &#39;v&#39;              |  4.7589e+00 |  4.7589e+00 |  2.2204e-16 |  4.6659e-17 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;vdot&#39;          | &#39;g&#39;              |  1.0838e+00 |  1.0838e+00 |  2.7756e-17 |  2.5610e-17 |            |
+| &#39;vdot&#39;          | &#39;g&#39;              |  1.5701e+00 |  1.5701e+00 |  0.0000e+00 |  0.0000e+00 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;vdot&#39;          | &#39;theta&#39;          |  1.9180e+01 |  1.9180e+01 |  2.5121e-15 |  1.3097e-16 |            |
+| &#39;vdot&#39;          | &#39;theta&#39;          |  1.5613e+01 |  1.5613e+01 |  2.6645e-15 |  1.7066e-16 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
 | &#39;vdot&#39;          | &#39;v&#39;              |  0.0000e+00 |  0.0000e+00 |  0.0000e+00 |         nan |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
 | &#39;xdot&#39;          | &#39;g&#39;              |  0.0000e+00 |  0.0000e+00 |  0.0000e+00 |         nan |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;xdot&#39;          | &#39;theta&#39;          |  3.0651e+00 |  3.0651e+00 |  2.2388e-16 |  7.3043e-17 |            |
+| &#39;xdot&#39;          | &#39;theta&#39;          |  6.1712e+00 |  6.1712e+00 |  8.9002e-16 |  1.4422e-16 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;xdot&#39;          | &#39;v&#39;              |  1.9559e+00 |  1.9559e+00 |  1.5701e-16 |  8.0276e-17 |            |
+| &#39;xdot&#39;          | &#39;v&#39;              |  1.5921e+00 |  1.5921e+00 |  1.5701e-16 |  9.8619e-17 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
 | &#39;ydot&#39;          | &#39;g&#39;              |  0.0000e+00 |  0.0000e+00 |  0.0000e+00 |         nan |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;ydot&#39;          | &#39;theta&#39;          |  9.2297e+00 |  9.2297e+00 |  1.7902e-15 |  1.9396e-16 |            |
+| &#39;ydot&#39;          | &#39;theta&#39;          |  5.4664e+00 |  5.4664e+00 |  2.2888e-16 |  4.1870e-17 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
-| &#39;ydot&#39;          | &#39;v&#39;              |  1.0838e+00 |  1.0838e+00 |  2.7756e-17 |  2.5610e-17 |            |
+| &#39;ydot&#39;          | &#39;v&#39;              |  1.5701e+00 |  1.5701e+00 |  0.0000e+00 |  0.0000e+00 |            |
 +-----------------+------------------+-------------+-------------+-------------+-------------+------------+
 
 ##################################################################
@@ -1091,7 +1091,7 @@ Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 +-----------------+------------------+-------------+-------------+-------------+-------------+
 | of &#39;&lt;variable&gt;&#39; | wrt &#39;&lt;variable&gt;&#39; |   calc mag. |  check mag. |  a(cal-chk) |  r(cal-chk) |
 +=================+==================+=============+=============+=============+=============+
-| &#39;ydot&#39;          | &#39;theta&#39;          |  9.2297e+00 |  9.2297e+00 |  1.7902e-15 |  1.9396e-16 |
+| &#39;vdot&#39;          | &#39;theta&#39;          |  1.5613e+01 |  1.5613e+01 |  2.6645e-15 |  1.7066e-16 |
 +-----------------+------------------+-------------+-------------+-------------+-------------+
 </pre></div>
 </div>
@@ -1103,11 +1103,11 @@ Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 <p>The following script fully defines the brachistochrone problem with Dymos and solves it.  In this section we’ll walk through each step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
-<span class="kn">import</span> <span class="nn">dymos</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">from</span> <span class="nn">dymos.examples.plotting</span> <span class="kn">import</span> <span class="n">plot_results</span>
-<span class="kn">from</span> <span class="nn">dymos.examples.brachistochrone</span> <span class="kn">import</span> <span class="n">BrachistochroneODE</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dymos</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dymos.examples.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_results</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dymos.examples.brachistochrone</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrachistochroneODE</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1">#</span>
 <span class="c1"># Initialize the Problem and the optimization driver</span>
@@ -1176,11 +1176,9 @@ Sub Jacobian with Largest Relative Error: BrachistochroneODE &#39;ode&#39;
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
     --- phase0 ---
         None
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem2&#39; was computed 3 times, taking 0.021624577000011413 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem2&#39; was computed 3 times, taking 0.021598216000029424 seconds.
 Total jacobian shape: (40, 50) 
 </pre></div>
 </div>
@@ -1190,9 +1188,9 @@ Total colors vs. total size: 8 vs 50  (84.00% improvement)
 
 Sparsity computed using tolerance: 1e-25
 Time to compute sparsity:   0.0216 sec
-Time to compute coloring:   0.0219 sec
+Time to compute coloring:   0.0442 sec
 Memory to compute coloring:   0.1250 MB
-Coloring created on: 2024-11-15 14:33:33
+Coloring created on: 2025-02-19 17:00:16
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
@@ -1227,15 +1225,13 @@ Optimization Complete
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
+Done simulating trajectory traj
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1137: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:theta_rate, ode_eval.control_interp.control_rates:theta_rate2, ode_eval.control_interp.control_values:theta] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/group.py:1166: DerivativesWarning:Constraints or objectives [ode_eval.control_interp.control_rates:theta_rate, ode_eval.control_interp.control_rates:theta_rate2, ode_eval.control_interp.control_values:theta] cannot be impacted by the design variables of the problem because no partials were defined for them in their parent component(s).
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
-</pre></div>
-</div>
-<img alt="../../_images/641dbbbf9acf90c98aae44242277ddf462100c19bcc4438bc09478eaec5ea721.png" src="../../_images/641dbbbf9acf90c98aae44242277ddf462100c19bcc4438bc09478eaec5ea721.png" />
+<img alt="../../_images/b444e5c2cb26b1df83bb6ea5306e9902bfedea215701759baa5801f83b9a5fa5.png" src="../../_images/b444e5c2cb26b1df83bb6ea5306e9902bfedea215701759baa5801f83b9a5fa5.png" />
 </div>
 </div>
 </section>
@@ -1249,11 +1245,11 @@ Key differences are shown when defining the transcription, specifying how to con
 <p>Since the <code class="docutils literal notranslate"><span class="pre">order</span></code> specification is somewhat ambiguous (especially for explicit shooting where it doesn’t impact the behavior of the state), the <code class="docutils literal notranslate"><span class="pre">Grid</span></code> objects use <code class="docutils literal notranslate"><span class="pre">nodes_per_seg</span></code> instead of <code class="docutils literal notranslate"><span class="pre">order</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
-<span class="kn">import</span> <span class="nn">dymos</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">from</span> <span class="nn">dymos.examples.plotting</span> <span class="kn">import</span> <span class="n">plot_results</span>
-<span class="kn">from</span> <span class="nn">dymos.examples.brachistochrone</span> <span class="kn">import</span> <span class="n">BrachistochroneODE</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">openmdao.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">om</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dymos</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dymos.examples.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_results</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dymos.examples.brachistochrone</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrachistochroneODE</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1">#</span>
 <span class="c1"># Initialize the Problem and the optimization driver</span>
@@ -1336,17 +1332,15 @@ Key differences are shown when defining the transcription, specifying how to con
     --- phase0 ---
         [final]   1.0000e+01 == x [m]
         [final]   5.0000e+00 == y [m]
-
-Model viewer data has already been recorded for Driver.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem5&#39; was computed 3 times, taking 0.014441298000008373 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full total jacobian for problem &#39;problem5&#39; was computed 3 times, taking 0.014428665999957957 seconds.
 Total jacobian shape: (12, 51) 
 
 No coloring was computed successfully.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/utils/coloring.py:395: DerivativesWarning:Coloring was deactivated.  Improvement of 0.0% was less than min allowed (5.0%).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/utils/coloring.py:409: DerivativesWarning:Coloring was deactivated.  Improvement of 0.0% was less than min allowed (5.0%).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully    (Exit mode 0)
@@ -1361,7 +1355,7 @@ Optimization Complete
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.80185208]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/visualization/opt_report/opt_report.py:625: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/visualization/opt_report/opt_report.py:623: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
   ax.set_ylim([ymin_plot, ymax_plot])
 </pre></div>
 </div>
@@ -1381,7 +1375,7 @@ Optimization Complete
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/9b35f64ad98c60f3cc14baa1b2e531529830431a70a3e97a3b1809cb5d89004d.png" src="../../_images/9b35f64ad98c60f3cc14baa1b2e531529830431a70a3e97a3b1809cb5d89004d.png" />
+<img alt="../../_images/6a58314cf1a5e2856c3c4ae93385b943e735890be48e5da75577a1d217434ff6.png" src="../../_images/6a58314cf1a5e2856c3c4ae93385b943e735890be48e5da75577a1d217434ff6.png" />
 </div>
 </div>
 </section>

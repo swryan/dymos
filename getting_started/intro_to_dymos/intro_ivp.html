@@ -834,13 +834,13 @@ Dynamic systems are typically defined by some set of ordinary
 differential equations (the ODE) which governs their behavior.</p>
 <p>Consider a simple damped harmonic oscillator.</p>
 <p><img alt="Damped harmonic oscillator free-body diagram" src="../../_images/spring_mass_damper.png" /></p>
-<div class="amsmath math notranslate nohighlight" id="equation-00b6c704-42f3-4573-8b2f-d569139687f7">
-<span class="eqno">(11)<a class="headerlink" href="#equation-00b6c704-42f3-4573-8b2f-d569139687f7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-36783b4e-addb-4f28-b2a9-1730531a41c5">
+<span class="eqno">(11)<a class="headerlink" href="#equation-36783b4e-addb-4f28-b2a9-1730531a41c5" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ddot{x} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
 <p>Converting this to a first order system results in an ODE system with two states:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-97627b8a-3401-43ea-9aaa-c2bc13510a8d">
-<span class="eqno">(12)<a class="headerlink" href="#equation-97627b8a-3401-43ea-9aaa-c2bc13510a8d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-cdd00af5-dca5-47e6-ab38-c0a3c5d0028d">
+<span class="eqno">(12)<a class="headerlink" href="#equation-cdd00af5-dca5-47e6-ab38-c0a3c5d0028d" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{x} &amp;= v \\
     \dot{v} &amp;= -\frac{kx}{m} - \frac{c \dot{x}}{m}
 \end{align}\]</div>
@@ -987,9 +987,7 @@ Some elements of this code will be explained later, but we’ll hit the highligh
 
 
 Simulating trajectory traj
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done simulating trajectory traj
+Done simulating trajectory traj
 </pre></div>
 </div>
 <img alt="../../_images/23e0a14bdfc98b5ac7fc680f13c09202ff53df350d75b5267786d516056577fc.png" src="../../_images/23e0a14bdfc98b5ac7fc680f13c09202ff53df350d75b5267786d516056577fc.png" />
@@ -1123,11 +1121,6 @@ Otherwise, we can pass it only to certain states as an argument to <code class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
-    --- phase0 ---
-        None
-</pre></div>
-</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/dymos/transcriptions/transcription_base.py:390: OpenMDAOWarning:&#39;traj.phases.phase0&#39; &lt;class Phase&gt;
   Non-default solvers are required
     implicit duration: False
@@ -1140,7 +1133,12 @@ Otherwise, we can pass it only to certain states as an argument to <code class="
   Set `traj.phases.phase0.options[&quot;auto_solvers&quot;] = False` to disable this behavior.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Constraint Report [traj] ---
+    --- phase0 ---
+        None
+
+
+Simulating trajectory traj
 Done simulating trajectory traj
 </pre></div>
 </div>
@@ -1249,7 +1247,7 @@ Optimization Complete
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/driver.py:1240: DriverWarning:ScipyOptimizeDriver: objective(s) [&#39;traj.phase0.t&#39;] do not depend on any design variables. Please check your problem formulation.
-/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/total_jac.py:1728: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
+/usr/share/miniconda/envs/test/lib/python3.11/site-packages/openmdao/core/total_jac.py:1730: DerivativesWarning:Constraints or objectives [(&#39;traj.phase0.t&#39;, inds=[15])] cannot be impacted by the design variables of the problem.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulating trajectory traj

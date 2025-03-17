@@ -563,6 +563,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../features/phases/objective.html">Objective</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../features/phases/timeseries.html">Timeseries Outputs</a></li>
 
+<li class="toctree-l2"><a class="reference internal" href="../features/phases/calc_expressions.html">Calculation Expressions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../features/trajectories/trajectories.html">Organizing Phases into Trajectories</a></li>
@@ -790,8 +791,8 @@ of a trajectory in which the <em>states</em> of the system evolve with time.  Th
 <span class="math notranslate nohighlight">\(\left(\bar{x}\right)\)</span> are typically governed by an ordinary differential equation (ODE) or
 a differential algebraic equation (DAE).  In Dymos we characterize all dynamics as an (ODE),
 although solving systems of DAEs is also possible.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5ab2c2eb-2425-49f0-8b05-20a49fd02d3f">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5ab2c2eb-2425-49f0-8b05-20a49fd02d3f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-eeee3d77-3f4c-44f8-89f5-ba0c27cb0c1f">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eeee3d77-3f4c-44f8-89f5-ba0c27cb0c1f" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{\bar{x}} = f_{ode}(\bar{x},t,\bar{u},\bar{d})
 \end{align}\]</div>
 </section>
@@ -810,8 +811,8 @@ In Dymos, we discretize these variables in time to convert a continuous-time opt
 <p>When optimizing problems there will always be constraints on the system.
 Some of these constraints can be characterized as bounds on our independent variables.
 For instance, fixing the initial conditions of a trajectory can be accomplished by bounding the initial states and time to the desired value.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-751b46fa-122b-441c-a4b3-42c182b89ab9">
-<span class="eqno">(2)<a class="headerlink" href="#equation-751b46fa-122b-441c-a4b3-42c182b89ab9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-200a1766-c1b3-4080-ad70-ec55a7c967db">
+<span class="eqno">(2)<a class="headerlink" href="#equation-200a1766-c1b3-4080-ad70-ec55a7c967db" title="Permalink to this equation">#</a></span>\[\begin{align}
   \mathrm{Time:}&amp; \qquad {t}_{lb} \leq t \leq {t}_{ub} \\
   \mathrm{State \, Variables:}&amp; \qquad \bar{x}_{lb} \leq \bar{x} \leq \bar{x}_{ub} \\
   \mathrm{Dynamic \, Controls:}&amp; \qquad \bar{u}_{lb} \leq \bar{u} \leq \bar{u}_{ub} \\
@@ -819,8 +820,8 @@ For instance, fixing the initial conditions of a trajectory can be accomplished 
 \end{align}\]</div>
 <p>Other times we may want to constrain an output of our system at a specific point along the trajectory (boundary constraints) or along the entire trajectory (path constraints).
 These are so-called nonlinear constraints because they <em>may</em> be nonlinear functions of our independent variables.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c66d7678-ac8f-4de2-8352-94697958910e">
-<span class="eqno">(3)<a class="headerlink" href="#equation-c66d7678-ac8f-4de2-8352-94697958910e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-39c10823-213c-4390-81dc-d3fa55ffcc91">
+<span class="eqno">(3)<a class="headerlink" href="#equation-39c10823-213c-4390-81dc-d3fa55ffcc91" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathrm{Initial \, Boundary \, Constraints:}&amp; \qquad \bar{g}_{0,lb} \leq g_{0}(\bar{x}_0,t_0,\bar{u}_0, \bar{d}) \leq \bar{g}_{0,ub} \\
 \mathrm{Final \, Boundary \, Constraints:}&amp; \qquad \bar{g}_{f,lb} \leq g_{f}(\bar{x}_f,t_f,\bar{u}_f, \bar{d}) \leq \bar{g}_{f,ub} \\
 \mathrm{Path \, Constraints:}&amp; \qquad \bar{p}_{f,lb} \leq p_{f}(\bar{x},t,\bar{u},\bar{d}) \leq \bar{p}_{f,ub} \\

@@ -40,6 +40,22 @@ jobs:
         shell: bash -l {0}
 
     steps:
+      - name: Display run details
+        run: |
+          echo "============================================================="
+          echo "Run #${GITHUB_RUN_NUMBER}"
+          echo "Run ID: ${GITHUB_RUN_ID}"
+          echo "Testing: ${GITHUB_REPOSITORY}"
+          echo "Triggered by: ${GITHUB_EVENT_NAME}"
+          echo "Initiated by: ${GITHUB_ACTOR}"
+          echo "============================================================="
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:

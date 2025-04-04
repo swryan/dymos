@@ -200,6 +200,12 @@ jobs:
             fi
           fi
 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+
       - name: Create SSH key
         if: ${{ ! matrix.EXCLUDE }}
         shell: bash

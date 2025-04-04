@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Boundary Balance</a></li>
 </ul>
 </li>
 </ul>
@@ -806,18 +806,18 @@ title="Print to PDF"
 Patterson <span id="id1">[<a class="reference internal" href="#id22" title="Michael A Patterson, William W Hager, and Anil V Rao. A ph mesh refinement method for optimal control. Optimal Control Applications and Methods, 36(4):398–421, 2015.">PHR15</a>]</span>. In this problem we seek to minimize both
 the distance traveled when moving between fixed boundary conditions and
 also to minimize the control <span class="math notranslate nohighlight">\(u\)</span> used. The cost function to be minimized is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9180c51b-5ed7-44a6-bb75-fbc2c98b2c59">
-<span class="eqno">(53)<a class="headerlink" href="#equation-9180c51b-5ed7-44a6-bb75-fbc2c98b2c59" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bc88e0d4-4ccd-4a57-99c9-0568f1ddae3b">
+<span class="eqno">(53)<a class="headerlink" href="#equation-bc88e0d4-4ccd-4a57-99c9-0568f1ddae3b" title="Permalink to this equation">#</a></span>\[\begin{align}
     J &amp;= \frac{1}{2} \int_{0}^{t_f} (x^2 + u^2) dt
 \end{align}\]</div>
 <p>The system is subject to the dynamic constraints:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-27857b64-7109-4e0e-8b07-d5432eb63987">
-<span class="eqno">(54)<a class="headerlink" href="#equation-27857b64-7109-4e0e-8b07-d5432eb63987" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-71c4b99f-8ab4-44f1-89b4-98345be92c78">
+<span class="eqno">(54)<a class="headerlink" href="#equation-71c4b99f-8ab4-44f1-89b4-98345be92c78" title="Permalink to this equation">#</a></span>\[\begin{align}
     \frac{dx}{dt} &amp;= -x + u
 \end{align}\]</div>
 <p>The boundary conditions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f46ee6be-432a-4415-a18a-1891cc433066">
-<span class="eqno">(55)<a class="headerlink" href="#equation-f46ee6be-432a-4415-a18a-1891cc433066" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c1d5bb29-58be-4449-b1f2-14d4f05d7e72">
+<span class="eqno">(55)<a class="headerlink" href="#equation-c1d5bb29-58be-4449-b1f2-14d4f05d7e72" title="Permalink to this equation">#</a></span>\[\begin{align}
     x(t_0) &amp;= 1.5 \\
     x(t_f) &amp;= 1
 \end{align}\]</div>
@@ -827,14 +827,14 @@ the problem exhibits a <em>dive</em>, <em>cruise</em>, and <em>resurface</em> ty
 structure, where the all interesting behavior occurs at the beginning and
 end while remaining relatively constant in the middle.</p>
 <p>This problem has a known analytic optimal solution:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c615ec9f-d38b-475e-8a2b-94927f1d2e9e">
-<span class="eqno">(56)<a class="headerlink" href="#equation-c615ec9f-d38b-475e-8a2b-94927f1d2e9e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-fae91497-b3b9-4294-bf42-e70dcef33f7b">
+<span class="eqno">(56)<a class="headerlink" href="#equation-fae91497-b3b9-4294-bf42-e70dcef33f7b" title="Permalink to this equation">#</a></span>\[\begin{align}
     x^*(t) &amp;= c_1 e^{\sqrt{2} t} + c_2 e^{-\sqrt{2} t} \\
       u^*(t) &amp;= \dot{x}^*(t) + x^*(t)
 \end{align}\]</div>
 <p>where:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-63e808d1-2d27-4cbc-870b-e22995bb8261">
-<span class="eqno">(57)<a class="headerlink" href="#equation-63e808d1-2d27-4cbc-870b-e22995bb8261" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a888a0ad-8443-4933-ad78-24fa7e7579d0">
+<span class="eqno">(57)<a class="headerlink" href="#equation-a888a0ad-8443-4933-ad78-24fa7e7579d0" title="Permalink to this equation">#</a></span>\[\begin{align}
     c_1 &amp;= \frac{1.5 e^{-\sqrt{2} t_f} - 1}{e^{-\sqrt{2} t_f} - e^{\sqrt{2} t_f}} \\
     c_2 &amp;= \frac{1 - 1.5 e^{\sqrt{2} t_f}}{e^{-\sqrt{2} t_f} - e^{\sqrt{2} t_f}}
 \end{align}\]</div>
@@ -948,25 +948,25 @@ To counter this, grid refinement algorithms are used to assess error in the inte
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.000263 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.000288 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000015 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000022 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000152 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000226 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000066 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000062 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders...
@@ -978,13 +978,13 @@ To counter this, grid refinement algorithms are used to assess error in the inte
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.001078 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.001212 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000062 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000043 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings...
@@ -996,25 +996,25 @@ To counter this, grid refinement algorithms are used to assess error in the inte
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking out_of_order...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.000196 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     out_of_order check complete (0.000239 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking system...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000018 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     system check complete (0.000019 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking solvers...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000168 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     solvers check complete (0.000170 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking dup_inputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000053 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     dup_inputs check complete (0.000054 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking missing_recorders...
@@ -1026,19 +1026,19 @@ To counter this, grid refinement algorithms are used to assess error in the inte
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking unserializable_options...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.001219 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     unserializable_options check complete (0.001498 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking comp_has_no_outputs...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000037 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     comp_has_no_outputs check complete (0.000031 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: checking auto_ivc_warnings...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     auto_ivc_warnings check complete (0.000003 sec).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:     auto_ivc_warnings check complete (0.000002 sec).
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian shape: (80, 108)  (4.80% nonzero)
@@ -1047,10 +1047,10 @@ Total colors vs. total size: 9 vs 80  (88.75% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.0911 sec
-Time to compute coloring:   0.0726 sec
+Time to compute sparsity:   0.0917 sec
+Time to compute coloring:   0.0723 sec
 Memory to compute coloring:  -3.2227 MB
-Coloring created on: 2025-03-17 13:55:56
+Coloring created on: 2025-04-04 15:44:15
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1059,11 +1059,11 @@ Coloring created on: 2025-03-17 13:55:56
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.4422
-       User Objective Time :       0.0125
-       User Sensitivity Time :     0.3439
-       Interface Time :            0.0442
-       Opt Solver Time:            0.0417
+    Total Time:                    0.4555
+       User Objective Time :       0.0127
+       User Sensitivity Time :     0.3566
+       Interface Time :            0.0446
+       Opt Solver Time:            0.0415
     Calls to Objective Function :      16
     Calls to Sens Function :           14
 
@@ -1185,7 +1185,7 @@ Coloring created on: 2025-03-17 13:55:56
 
    Constraints (i - inequality, e - equality)
       Index  Name                                                    Type          Lower           Value           Upper    Status  Lagrange Multiplier (N/A)
-          0  traj.phases.phase0-&gt;final_boundary_constraint-&gt;x           e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
+          0  traj.phase0.x[final]                                       e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
           1  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00    0.000000E+00    0.000000E+00              9.00000E+100
           2  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.110223E-16    0.000000E+00              9.00000E+100
           3  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00    1.665335E-16    0.000000E+00              9.00000E+100
@@ -1325,10 +1325,10 @@ Total colors vs. total size: 15 vs 140  (89.29% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.1768 sec
-Time to compute coloring:   0.1371 sec
+Time to compute sparsity:   0.1755 sec
+Time to compute coloring:   0.1375 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2025-03-17 13:55:57
+Coloring created on: 2025-04-04 15:44:16
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1337,11 +1337,11 @@ Coloring created on: 2025-03-17 13:55:57
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.2654
-       User Objective Time :       0.0072
-       User Sensitivity Time :     0.0559
-       Interface Time :            0.0574
-       Opt Solver Time:            0.1449
+    Total Time:                    0.2692
+       User Objective Time :       0.0077
+       User Sensitivity Time :     0.0558
+       Interface Time :            0.0590
+       Opt Solver Time:            0.1467
     Calls to Objective Function :       9
     Calls to Sens Function :            8
 
@@ -1553,7 +1553,7 @@ Coloring created on: 2025-03-17 13:55:57
 
    Constraints (i - inequality, e - equality)
       Index  Name                                                    Type          Lower           Value           Upper    Status  Lagrange Multiplier (N/A)
-          0  traj.phases.phase0-&gt;final_boundary_constraint-&gt;x           e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
+          0  traj.phase0.x[final]                                       e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
           1  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -4.440892E-16    0.000000E+00              9.00000E+100
           2  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00    1.110223E-16    0.000000E+00              9.00000E+100
           3  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.110223E-16    0.000000E+00              9.00000E+100
@@ -1749,10 +1749,10 @@ Total colors vs. total size: 15 vs 224  (93.30% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.2904 sec
-Time to compute coloring:   0.2211 sec
-Memory to compute coloring:   0.1250 MB
-Coloring created on: 2025-03-17 13:55:58
+Time to compute sparsity:   0.2952 sec
+Time to compute coloring:   0.2167 sec
+Memory to compute coloring:   0.0000 MB
+Coloring created on: 2025-04-04 15:44:17
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1761,11 +1761,11 @@ Coloring created on: 2025-03-17 13:55:58
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.8972
-       User Objective Time :       0.0078
-       User Sensitivity Time :     0.0684
-       Interface Time :            0.1405
-       Opt Solver Time:            0.6806
+    Total Time:                    0.9187
+       User Objective Time :       0.0096
+       User Sensitivity Time :     0.0710
+       Interface Time :            0.1577
+       Opt Solver Time:            0.6804
     Calls to Objective Function :       9
     Calls to Sens Function :            9
 
@@ -2097,7 +2097,7 @@ Coloring created on: 2025-03-17 13:55:58
 
    Constraints (i - inequality, e - equality)
       Index  Name                                                    Type          Lower           Value           Upper    Status  Lagrange Multiplier (N/A)
-          0  traj.phases.phase0-&gt;final_boundary_constraint-&gt;x           e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
+          0  traj.phase0.x[final]                                       e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
           1  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.998401E-15    0.000000E+00              9.00000E+100
           2  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00    2.775558E-16    0.000000E+00              9.00000E+100
           3  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -4.440892E-16    0.000000E+00              9.00000E+100
@@ -2389,10 +2389,10 @@ Total colors vs. total size: 27 vs 284  (90.49% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.3958 sec
-Time to compute coloring:   0.2889 sec
+Time to compute sparsity:   0.4009 sec
+Time to compute coloring:   0.2814 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2025-03-17 13:56:00
+Coloring created on: 2025-04-04 15:44:19
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -2401,11 +2401,11 @@ Coloring created on: 2025-03-17 13:56:00
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.3326
-       User Objective Time :       0.0064
-       User Sensitivity Time :     0.0804
-       Interface Time :            0.1460
-       Opt Solver Time:            1.0999
+    Total Time:                    1.4221
+       User Objective Time :       0.0072
+       User Sensitivity Time :     0.0830
+       Interface Time :            0.1500
+       Opt Solver Time:            1.1820
     Calls to Objective Function :       6
     Calls to Sens Function :            6
 
@@ -2824,7 +2824,7 @@ Coloring created on: 2025-03-17 13:56:00
 
    Constraints (i - inequality, e - equality)
       Index  Name                                                    Type          Lower           Value           Upper    Status  Lagrange Multiplier (N/A)
-          0  traj.phases.phase0-&gt;final_boundary_constraint-&gt;x           e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
+          0  traj.phase0.x[final]                                       e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
           1  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.036208E-15    0.000000E+00              9.00000E+100
           2  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00    7.031412E-16    0.000000E+00              9.00000E+100
           3  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -8.141636E-16    0.000000E+00              9.00000E+100
@@ -3188,10 +3188,10 @@ Total colors vs. total size: 27 vs 332  (91.87% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.4781 sec
-Time to compute coloring:   0.3384 sec
+Time to compute sparsity:   0.4849 sec
+Time to compute coloring:   0.3328 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2025-03-17 13:56:03
+Coloring created on: 2025-04-04 15:44:22
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -3200,11 +3200,11 @@ Coloring created on: 2025-03-17 13:56:03
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.7101
+    Total Time:                    0.7144
        User Objective Time :       0.0034
-       User Sensitivity Time :     0.0289
-       Interface Time :            0.0662
-       Opt Solver Time:            0.6115
+       User Sensitivity Time :     0.0297
+       Interface Time :            0.0676
+       Opt Solver Time:            0.6137
     Calls to Objective Function :       3
     Calls to Sens Function :            2
 
@@ -3692,7 +3692,7 @@ Coloring created on: 2025-03-17 13:56:03
 
    Constraints (i - inequality, e - equality)
       Index  Name                                                    Type          Lower           Value           Upper    Status  Lagrange Multiplier (N/A)
-          0  traj.phases.phase0-&gt;final_boundary_constraint-&gt;x           e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
+          0  traj.phase0.x[final]                                       e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
           1  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -2.405483E-15    0.000000E+00              9.00000E+100
           2  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.850372E-16    0.000000E+00              9.00000E+100
           3  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00    8.881784E-16    0.000000E+00              9.00000E+100
@@ -4106,10 +4106,10 @@ Total colors vs. total size: 27 vs 406  (93.35% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.6222 sec
-Time to compute coloring:   0.4166 sec
+Time to compute sparsity:   0.6276 sec
+Time to compute coloring:   0.4150 sec
 Memory to compute coloring:   0.0000 MB
-Coloring created on: 2025-03-17 13:56:05
+Coloring created on: 2025-04-04 15:44:24
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -4118,11 +4118,11 @@ Coloring created on: 2025-03-17 13:56:05
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    0.6567
+    Total Time:                    0.6585
        User Objective Time :       0.0024
-       User Sensitivity Time :     0.0164
-       Interface Time :            0.0531
-       Opt Solver Time:            0.5847
+       User Sensitivity Time :     0.0163
+       Interface Time :            0.0554
+       Opt Solver Time:            0.5845
     Calls to Objective Function :       2
     Calls to Sens Function :            1
 
@@ -4717,7 +4717,7 @@ Coloring created on: 2025-03-17 13:56:05
 
    Constraints (i - inequality, e - equality)
       Index  Name                                                    Type          Lower           Value           Upper    Status  Lagrange Multiplier (N/A)
-          0  traj.phases.phase0-&gt;final_boundary_constraint-&gt;x           e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
+          0  traj.phase0.x[final]                                       e   1.000000E+00    1.000000E+00    1.000000E+00              9.00000E+100
           1  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.776357E-15    0.000000E+00              9.00000E+100
           2  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -1.110223E-16    0.000000E+00              9.00000E+100
           3  traj.phase0.collocation_constraint.defects:x               e   0.000000E+00   -6.106227E-16    0.000000E+00              9.00000E+100
@@ -5211,11 +5211,11 @@ Successfully completed grid refinement.
 Driver:  pyOptSparseDriver
   success     : True
   iterations  : 4
-  runtime     : 1.7682E+00 s
+  runtime     : 1.7742E+00 s
   model_evals : 4
-  model_time  : 2.7759E-03 s
+  model_time  : 2.8178E-03 s
   deriv_evals : 2
-  deriv_time  : 2.6358E-02 s
+  deriv_time  : 2.6065E-02 s
   exit_status : SUCCESS
 </pre></div>
 </div>

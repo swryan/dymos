@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../examples/cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/implicit_duration/brachistochrone_implicit_duration.html">Boundary Balance</a></li>
 </ul>
 </li>
 </ul>
@@ -851,13 +851,13 @@ This makes scaling the problem easier, and gives the implicit variables more int
 <h2>Example:  Simulating the fall of an object<a class="headerlink" href="#example-simulating-the-fall-of-an-object" title="Permalink to this heading">#</a></h2>
 <p>As a “hello, world” problem for Dymos, consider the vertical fall of an object acting under gravity - like Galileo dropping cannonballs from the Tower of Pisa.
 Ignoring aerodynamics and treating the ball as a point mass in a rectilinear gravity field, the motion is governed by:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-97deaac4-7079-4f83-91dc-4bd71ef77991">
-<span class="eqno">(5)<a class="headerlink" href="#equation-97deaac4-7079-4f83-91dc-4bd71ef77991" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-35d6fdb2-0ddf-4cdb-875a-49e63cd56831">
+<span class="eqno">(5)<a class="headerlink" href="#equation-35d6fdb2-0ddf-4cdb-875a-49e63cd56831" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ddot{y} = -g
 \end{align}\]</div>
 <p>The techniques in Dymos are generally centered around first-order dynamics, so we convert the above equation into the following system of ODEs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2eb69398-982e-4c4f-9665-07e3d25e8b5c">
-<span class="eqno">(6)<a class="headerlink" href="#equation-2eb69398-982e-4c4f-9665-07e3d25e8b5c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dcfa5a62-9064-4f31-b725-6e581dc67cb2">
+<span class="eqno">(6)<a class="headerlink" href="#equation-dcfa5a62-9064-4f31-b725-6e581dc67cb2" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{y} &amp;= v_y \\
     \dot{v_y} &amp;= -g
 \end{align}\]</div>
@@ -933,8 +933,8 @@ In LGL collocation, these points are chosen to be the LGL <em>nodes</em> in the 
 <p>To form 3rd-order polynomials for the states we need four pieces of information, but so far we only have the two endpoint values.
 We’ll use the state rates at the state discretization nodes to provide the other two values needed for interpolation.
 To obtain these, we evaluate our ODE at the state discretization nodes.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9b2facfd-3457-40d2-bc88-2e390b389e06">
-<span class="eqno">(7)<a class="headerlink" href="#equation-9b2facfd-3457-40d2-bc88-2e390b389e06" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b0d0de1b-905e-413c-be68-651783ba4b88">
+<span class="eqno">(7)<a class="headerlink" href="#equation-b0d0de1b-905e-413c-be68-651783ba4b88" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{y}_0 &amp;= 0 \\
     \dot{y}_f &amp;= -50 \\
     \dot{v}_{y0} &amp;= -9.80665 \\
@@ -948,21 +948,21 @@ We call this difference in slope the collocation <em>defect</em>.</p>
 <p>Having computed the ODE at the state discretization nodes, we can form interpolants for the values and the slope of the states at the collocation nodes.
 Dymos uses Lagrange interpolants, such that the inputs to the system are the values of the states and controls, rather than less intuitive coefficients.
 In this case, the state values at our single collocation node are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-af461ccf-a298-4d2e-8003-21c63c59b494">
-<span class="eqno">(8)<a class="headerlink" href="#equation-af461ccf-a298-4d2e-8003-21c63c59b494" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-91af6d75-7bd2-4e7b-a1f6-38184d0c2d64">
+<span class="eqno">(8)<a class="headerlink" href="#equation-91af6d75-7bd2-4e7b-a1f6-38184d0c2d64" title="Permalink to this equation">#</a></span>\[\begin{align}
     y_m &amp;= 50 \\
     v_{ym} &amp;= -25
 \end{align}\]</div>
 <p><img alt="Screenshot" src="../_images/lgl_animation_2.png" /></p>
 <p>The polynomial slopes at the collocation node are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-de460899-6252-4f0f-ac8c-08490cab4658">
-<span class="eqno">(9)<a class="headerlink" href="#equation-de460899-6252-4f0f-ac8c-08490cab4658" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-25fb1968-7a71-47db-a275-b9f07d29d609">
+<span class="eqno">(9)<a class="headerlink" href="#equation-25fb1968-7a71-47db-a275-b9f07d29d609" title="Permalink to this equation">#</a></span>\[\begin{align}
     y'_m &amp;= 50 \\
     v'_{ym} &amp;= -25
 \end{align}\]</div>
 <p>Now, having the state and time values at the collocation nodes, we can again evaluate the ODE.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6f17d333-3681-4f6a-9d7e-f654e716341c">
-<span class="eqno">(10)<a class="headerlink" href="#equation-6f17d333-3681-4f6a-9d7e-f654e716341c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-10e0fc26-56cd-4d81-9621-f40d2bc6df0c">
+<span class="eqno">(10)<a class="headerlink" href="#equation-10e0fc26-56cd-4d81-9621-f40d2bc6df0c" title="Permalink to this equation">#</a></span>\[\begin{align}
     \dot{y}_m &amp;= -17 \\
     \dot{v}_{ym} &amp;= -9.80665
 \end{align}\]</div>

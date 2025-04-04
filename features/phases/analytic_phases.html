@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../../examples/cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/implicit_duration/brachistochrone_implicit_duration.html">Boundary Balance</a></li>
 </ul>
 </li>
 </ul>
@@ -828,8 +828,8 @@ Such phases are avaialble in dymos through the <code class="docutils literal not
 Compared to implicit approaches this reduces the size of the optimization problem by removing some design variables and corresponding defect constraints.
 Compared to explicit approaches it removes the need to numerically propagate the ODE, which is generally a performance bottleneck.</p>
 <p>For analytic phases, the OpenMDAO system we provide to the phase provides the <em>solution</em> to the ODE, not the ODE itself.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d4878698-8f29-4f95-b0e7-817c047ff1c5">
-<span class="eqno">(100)<a class="headerlink" href="#equation-d4878698-8f29-4f95-b0e7-817c047ff1c5" title="Permalink to this equation">#</a></span>\[\begin{align}  
+<div class="amsmath math notranslate nohighlight" id="equation-050620ad-eecb-481d-b880-3441ab9ef61f">
+<span class="eqno">(100)<a class="headerlink" href="#equation-050620ad-eecb-481d-b880-3441ab9ef61f" title="Permalink to this equation">#</a></span>\[\begin{align}  
     \textbf x = \textbf f(t, \textbf p)
 \end{align}\]</div>
 <p>where
@@ -880,26 +880,26 @@ a shape of (3,).</p>
 <section id="a-basic-example">
 <h2>A basic example<a class="headerlink" href="#a-basic-example" title="Permalink to this heading">#</a></h2>
 <p>Suppose we want to use Dymos to solve the ODE</p>
-<div class="amsmath math notranslate nohighlight" id="equation-be2628cc-dc45-456d-8342-a9c63d809667">
-<span class="eqno">(101)<a class="headerlink" href="#equation-be2628cc-dc45-456d-8342-a9c63d809667" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-56c84f26-19d5-4ae8-a328-90affc96a461">
+<span class="eqno">(101)<a class="headerlink" href="#equation-56c84f26-19d5-4ae8-a328-90affc96a461" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dx}{dt} = x - t^2 + 1
 \end{align}\]</div>
 <p>subject to:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6315f6de-40a4-454a-8665-b07e69229d68">
-<span class="eqno">(102)<a class="headerlink" href="#equation-6315f6de-40a4-454a-8665-b07e69229d68" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8fb11f3a-11ef-4368-9437-cf7990d28173">
+<span class="eqno">(102)<a class="headerlink" href="#equation-8fb11f3a-11ef-4368-9437-cf7990d28173" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) = 0.5
 \end{align}\]</div>
 <p>Here we want to find the value of <em>x</em> at t=2.</p>
 <p>We can absolutely use a pseudospectral method or explicit shooting in Dymos to find the value of <em>x</em> on a given interval using this information.
 But in this case, the solution is known analytically.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d472ff57-d307-4c24-b53e-2fe6703637be">
-<span class="eqno">(103)<a class="headerlink" href="#equation-d472ff57-d307-4c24-b53e-2fe6703637be" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-48cd952e-9e4b-4b2c-ba1f-ad68f50436ed">
+<span class="eqno">(103)<a class="headerlink" href="#equation-48cd952e-9e4b-4b2c-ba1f-ad68f50436ed" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(t) &amp;= t^2 + 2t + 1 - c_1e^t
 \end{align}\]</div>
 <p>We need to find the value of constant <span class="math notranslate nohighlight">\(c_1\)</span> to find our particular solution.
 Applying the given initial condition gives c_1 as 0.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7ec7ada2-a9c7-47df-8483-24107405a4b3">
-<span class="eqno">(104)<a class="headerlink" href="#equation-7ec7ada2-a9c7-47df-8483-24107405a4b3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-afddefdf-716e-452d-b1df-d21a0af1f7f2">
+<span class="eqno">(104)<a class="headerlink" href="#equation-afddefdf-716e-452d-b1df-d21a0af1f7f2" title="Permalink to this equation">#</a></span>\[\begin{align}
   x(0) &amp;= 1 - c_1 = 0.5 \\
   c_1 &amp;\equiv y_0 = 0.5
 \end{align}\]</div>
@@ -957,9 +957,8 @@ Applying the given initial condition gives c_1 as 0.</p>
 
 <span class="n">p</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase.t_initial&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase.t_duration&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase.parameters:x0&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;unitless&#39;</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_parameter_val</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;unitless&#39;</span><span class="p">)</span>
 
 <span class="n">p</span><span class="o">.</span><span class="n">run_model</span><span class="p">()</span>
 
@@ -1036,7 +1035,7 @@ Changing the <code class="docutils literal notranslate"><span class="pre">connec
 
 <span class="n">second_phase</span><span class="o">.</span><span class="n">add_boundary_constraint</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
 
-<span class="c1"># Since we&#39;re using constraints to enforce continuity between the two phases, we need a </span>
+<span class="c1"># Since we&#39;re using constraints to enforce continuity between the two phases, we need a</span>
 <span class="c1"># driver and a dummy objective.  As usual, time works well for a dummy objective here.</span>
 <span class="n">first_phase</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">ScipyOptimizeDriver</span><span class="p">()</span>
@@ -1068,8 +1067,7 @@ You’ll need to make sure that both of the target parameters are not designated
 
 <span class="n">p</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.first_phase.t_initial&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.first_phase.t_duration&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="n">first_phase</span><span class="o">.</span><span class="n">set_time_val</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.parameters:x0&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;unitless&#39;</span><span class="p">)</span>
 
 <span class="n">p</span><span class="o">.</span><span class="n">run_driver</span><span class="p">()</span>

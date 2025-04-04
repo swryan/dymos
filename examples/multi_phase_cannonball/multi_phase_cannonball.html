@@ -548,7 +548,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l2"><a class="reference internal" href="../cart_pole/cart_pole.html">Cart-Pole Optimal Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../brachistochrone/brachistochrone_tandem_phases.html">Brachistochrone with tandem phases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Implicit Duration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implicit_duration/brachistochrone_implicit_duration.html">Boundary Balance</a></li>
 </ul>
 </li>
 </ul>
@@ -841,24 +841,24 @@ the system at an event in the trajectory. Here, we have the first phase
 (ascent) terminate when the flight path angle reaches zero (apogee). The
 descent phase follows until the cannonball impacts the ground.</p>
 <p>The dynamics are given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1f4e7887-6f87-43f0-82dd-6f93dcace06c">
-<span class="eqno">(75)<a class="headerlink" href="#equation-1f4e7887-6f87-43f0-82dd-6f93dcace06c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a696f787-8751-418b-969a-56eff2268a66">
+<span class="eqno">(75)<a class="headerlink" href="#equation-a696f787-8751-418b-969a-56eff2268a66" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{dv}{dt} &amp;= \frac{D}{m} - g \sin \gamma \\
   \frac{d\gamma}{dt} &amp;= - \frac{g \cos \gamma}{v} \\
   \frac{dh}{dt} &amp;= v \sin \gamma \\
   \frac{dr}{dt} &amp;= v \cos \gamma \\
 \end{align}\]</div>
 <p>The initial conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-103ee906-255d-4c30-9dab-f35439da44e9">
-<span class="eqno">(76)<a class="headerlink" href="#equation-103ee906-255d-4c30-9dab-f35439da44e9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ddb5cc13-08c1-4468-b14f-59148cfae074">
+<span class="eqno">(76)<a class="headerlink" href="#equation-ddb5cc13-08c1-4468-b14f-59148cfae074" title="Permalink to this equation">#</a></span>\[\begin{align}
   r_0 &amp;= 0 \rm{\,m} \\
   h_0 &amp;= 100 \rm{\,m} \\
   v_0 &amp;= \rm{free} \\
   \gamma_0 &amp;= \rm{free}
 \end{align}\]</div>
 <p>and the final conditions are</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e5812506-fe1c-43d0-897a-8373206948fb">
-<span class="eqno">(77)<a class="headerlink" href="#equation-e5812506-fe1c-43d0-897a-8373206948fb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-59bd2045-47c1-413c-9468-022215c50f64">
+<span class="eqno">(77)<a class="headerlink" href="#equation-59bd2045-47c1-413c-9468-022215c50f64" title="Permalink to this equation">#</a></span>\[\begin{align}
   h_f &amp;= 0 \rm{\,m}
 \end{align}\]</div>
 </section>
@@ -871,8 +871,8 @@ energy and that our cannonball is made of solid iron. The volume (and
 mass) of the cannonball is proportional to its radius cubed, while the
 cross-sectional area is proportional to its radius squared. If we
 increase the size of the cannonball, the ballistic coefficient</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8273dcfa-c0a6-415c-8f4e-af4b257695fe">
-<span class="eqno">(78)<a class="headerlink" href="#equation-8273dcfa-c0a6-415c-8f4e-af4b257695fe" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b38d6871-5589-4027-b4c7-649a6c39a377">
+<span class="eqno">(78)<a class="headerlink" href="#equation-b38d6871-5589-4027-b4c7-649a6c39a377" title="Permalink to this equation">#</a></span>\[\begin{align}
   BC &amp;= \frac{m}{C_D A}
 \end{align}\]</div>
 <p>will increase, meaning the cannonball overcome air resistance more
@@ -1173,8 +1173,8 @@ Total colors vs. total size: 6 vs 33  (81.82% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense partial jacobian for CannonballODE &#39;traj.phases.descent.rhs_disc&#39; was computed 3 times.
-Time to compute sparsity:   0.0116 sec
-Time to compute coloring:   0.0037 sec
+Time to compute sparsity:   0.0115 sec
+Time to compute coloring:   0.0038 sec
 Memory to compute coloring:   0.0000 MB
 
 Coloring for &#39;traj.phases.descent.rhs_col&#39; (class CannonballODE)
@@ -1195,10 +1195,10 @@ Total colors vs. total size: 30 vs 88  (65.91% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.1247 sec
-Time to compute coloring:   0.0966 sec
-Memory to compute coloring:   0.6250 MB
-Coloring created on: 2025-03-17 13:57:32
+Time to compute sparsity:   0.1246 sec
+Time to compute coloring:   0.0968 sec
+Memory to compute coloring:   0.5000 MB
+Coloring created on: 2025-04-04 15:45:51
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -1207,11 +1207,11 @@ Coloring created on: 2025-03-17 13:57:32
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    1.9900
-       User Objective Time :       0.2198
-       User Sensitivity Time :     1.3119
-       Interface Time :            0.2990
-       Opt Solver Time:            0.1593
+    Total Time:                    2.0282
+       User Objective Time :       0.2222
+       User Sensitivity Time :     1.3426
+       Interface Time :            0.3026
+       Opt Solver Time:            0.1609
     Calls to Objective Function :     118
     Calls to Sens Function :           89
 
@@ -1398,7 +1398,7 @@ Coloring created on: 2025-03-17 13:57:32
          82  traj.descent.collocation_constraint.defects:v           e   0.000000E+00    1.241069E-12    0.000000E+00              9.00000E+100
          83  traj.descent.collocation_constraint.defects:v           e   0.000000E+00    2.198085E-12    0.000000E+00              9.00000E+100
          84  traj.descent.collocation_constraint.defects:v           e   0.000000E+00    2.716633E-12    0.000000E+00              9.00000E+100
-         85  traj.phases.ascent-&gt;initial_boundary_constraint-&gt;ke     i   0.000000E+00    4.000000E+00    4.000000E+00         u    9.00000E+100
+         85  traj.ascent.ke[initial]                                 i   0.000000E+00    4.000000E+00    4.000000E+00         u    9.00000E+100
 
 
    Exit Status
@@ -1415,11 +1415,11 @@ Done simulating trajectory traj
 Driver:  pyOptSparseDriver
   success     : True
   iterations  : 119
-  runtime     : 2.3064E+00 s
+  runtime     : 2.3579E+00 s
   model_evals : 119
-  model_time  : 1.8135E-01 s
+  model_time  : 1.8277E-01 s
   deriv_evals : 89
-  deriv_time  : 1.0254E+00 s
+  deriv_time  : 1.0389E+00 s
   exit_status : SUCCESS
 </pre></div>
 </div>

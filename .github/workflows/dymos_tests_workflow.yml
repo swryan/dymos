@@ -90,85 +90,62 @@ jobs:
         include:
           # baseline versions
           - NAME: baseline
-            PY: '3.12'
-            NUMPY: 1.26
-            SCIPY: 1.13
-            PETSc: 3.21.0
-            PYOPTSPARSE: 'v2.11.0'
+            PY: '3.13'
+            NUMPY: '2.2'
+            SCIPY: '1.15'
+            PETSc: '3.21'
+            PYOPTSPARSE: 'v2.13.1'
             SNOPT: 7.7
             OPENMDAO: 'latest'
             PEP517: true
             OPTIONAL: '[all]'
-            JAX: '0.4.28'
+            JAX: true
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.baseline }}
 
           # baseline versions except no pyoptsparse or SNOPT
           - NAME: no_pyoptsparse
-            PY: '3.12'
-            NUMPY: 1.26
-            SCIPY: 1.13
-            PETSc: 3.21.0
+            PY: '3.13'
+            NUMPY: '2.2'
+            SCIPY: '1.15'
+            PETSc: '3.21'
             OPENMDAO: 'latest'
             OPTIONAL: '[test]'
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.no_pyoptsparse }}
 
-          # numpy 2.x but no PETSc, pyoptsparse or SNOPT
-          - NAME: numpy2_no_pyoptsparse
-            PY: '3.12'
-            NUMPY: 2
-            SCIPY: 1.14
-            OPENMDAO: 'latest'
-            OPTIONAL: '[all]'
-            EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.numpy2_no_pyoptsparse }}
-
           # baseline versions except with pyoptsparse but no SNOPT
           - NAME: no_snopt
-            PY: '3.12'
-            NUMPY: 1.26
-            SCIPY: 1.13
-            PETSc: 3.21.0
-            PYOPTSPARSE: 'v2.11.0'
+            PY: '3.13'
+            NUMPY: '2.2'
+            SCIPY: '1.15'
+            PETSc: '3.21'
+            PYOPTSPARSE: 'v2.13.1'
             OPENMDAO: 'latest'
             OPTIONAL: '[all]'
-            JAX: '0.4.28'
+            JAX: true
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.no_snopt }}
 
           # baseline versions except no MPI/PETSc
           - NAME: no_mpi
-            PY: '3.12'
-            NUMPY: 1.26
-            SCIPY: 1.13
-            PYOPTSPARSE: 'v2.11.0'
+            PY: '3.13'
+            NUMPY: '2.2'
+            SCIPY: '1.15'
+            PYOPTSPARSE: 'v2.13.1'
             OPENMDAO: 'latest'
             OPTIONAL: '[test]'
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.no_mpi }}
 
           # try latest versions
-          # sticking with Python 3.12 here, 3.13 requires NumPy 2.1 which does not work yet with pyoptsparse
           - NAME: latest
             PY: '3.12'
-            NUMPY: 1
+            NUMPY: 2
             SCIPY: 1
-            PETSc: 3.21.0
+            PETSc: '3.22.2'
             PYOPTSPARSE: 'latest'
             SNOPT: 7.7
             OPENMDAO: 'dev'
             OPTIONAL: '[all]'
-            JAX: 'latest'
+            JAX: true
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.latest }}
-
-          # Python 3.13 (requires NumPy 2.1 which does not work yet with pyoptsparse)
-          - NAME: python313
-            PY: '3.13'
-            NUMPY: 2
-            SCIPY: 1
-            PETSc: 3.22.2
-            # PYOPTSPARSE: 'latest'
-            SNOPT: 7.7
-            OPENMDAO: 'dev'
-            OPTIONAL: '[test]'
-            JAX: 'latest'
-            EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.python313 }}
 
           # oldest supported versions
           - NAME: oldest
@@ -243,16 +220,7 @@ jobs:
           echo "============================================================="
           echo "Install jax"
           echo "============================================================="
-          if [[ "${{ matrix.JAX }}" == "latest" ]]; then
-            {
-              python -m pip install jaxlib
-            } || {
-              echo "Failed to install jaxlib..."
-            }
-            python -m pip install jax
-          else
-            python -m pip install jaxlib==${{ matrix.JAX }} jax==${{ matrix.JAX }}
-          fi
+          python -m pip install jax
 
       - name: Install PETSc
         if: ${{ ! matrix.EXCLUDE && matrix.PETSc }}

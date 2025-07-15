@@ -135,10 +135,12 @@ jobs:
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.no_mpi }}
 
           # try latest versions
+          # TODO: couple of tests fail with SciPy 1.16, so sticking with 1.15 for now
+          #       see https://github.com/OpenMDAO/OpenMDAO/issues/3564
           - NAME: latest
             PY: '3'
             NUMPY: '2'
-            SCIPY: '1'
+            SCIPY: '1.15'
             PETSc: '3.23'
             PYOPTSPARSE: 'latest'
             SNOPT: '7.7'

@@ -269,13 +269,13 @@ jobs:
           matrix.PUBLISH_DOCS == '1'
         env:
           DOCS_LOCATION: ${{ secrets.DOCS_LOCATION }}
-        shell: bash -l {0}
         run: |
           if [[ "${#DOCS_LOCATION}" ]]; then
             echo "============================================================="
-            echo "Install version of openssl compatible with hosting service"
+            echo "Create env with openssl compatible with hosting service"
             echo "============================================================="
-            conda install -c conda-forge 'openssl=3.0'
+            conda create -n upload python=3.11 packaging openssl=3
+            conda activate upload
 
             echo "============================================================="
             echo "Publishing Docs to openmdao.org"

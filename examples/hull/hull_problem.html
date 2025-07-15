@@ -531,27 +531,27 @@ document.write(`
 <p>This system has one state variables, the position (<span class="math notranslate nohighlight">\(x\)</span>) of the sliding block.</p>
 <p>This system has a single control variable (<span class="math notranslate nohighlight">\(u\)</span>), the velocity of the block.</p>
 <p>The dynamics of the system are governed by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4d6767e7-89f1-4a3e-89c0-232b46d67add">
-<span class="eqno">(48)<a class="headerlink" href="#equation-4d6767e7-89f1-4a3e-89c0-232b46d67add" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e550dac9-ef70-4fa6-b6bf-e409d579ecee">
+<span class="eqno">(48)<a class="headerlink" href="#equation-e550dac9-ef70-4fa6-b6bf-e409d579ecee" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{x} &amp;= u
 \end{align}\]</div>
 </section>
 <section id="problem-definition">
 <h2>Problem Definition<a class="headerlink" href="#problem-definition" title="Link to this heading">#</a></h2>
 <p>We seek to minimize the control effort required and minimize the displacement from the origin.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c911fb1e-86a7-4060-b795-81044b04260c">
-<span class="eqno">(49)<a class="headerlink" href="#equation-c911fb1e-86a7-4060-b795-81044b04260c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-527a636b-891f-4c63-83f2-6bbbd223260c">
+<span class="eqno">(49)<a class="headerlink" href="#equation-527a636b-891f-4c63-83f2-6bbbd223260c" title="Permalink to this equation">#</a></span>\[\begin{align}
     \mathrm{Minimize} \, J &amp;= 2.5x_f^2 \, + \, 0.5 \int_0^1 u^2 dt
 \end{align}\]</div>
 <p>Subject to the initial conditions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c95234a6-0cd5-4cff-b8c9-50e1a4369bf0">
-<span class="eqno">(50)<a class="headerlink" href="#equation-c95234a6-0cd5-4cff-b8c9-50e1a4369bf0" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-33e0fe71-9d18-47b9-8bb4-d9e8d9a7cc68">
+<span class="eqno">(50)<a class="headerlink" href="#equation-33e0fe71-9d18-47b9-8bb4-d9e8d9a7cc68" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_0 &amp;= 0.0 \\
     x_0 &amp;= 1.5
 \end{align}\]</div>
 <p>and the terminal constraints</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d7bc20fc-bd05-4b2a-b38e-ccfb15745efa">
-<span class="eqno">(51)<a class="headerlink" href="#equation-d7bc20fc-bd05-4b2a-b38e-ccfb15745efa" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-733dc763-112d-411f-8e34-1cf27031b2b2">
+<span class="eqno">(51)<a class="headerlink" href="#equation-733dc763-112d-411f-8e34-1cf27031b2b2" title="Permalink to this equation">#</a></span>\[\begin{align}
     t_f &amp;= 10.0
 \end{align}\]</div>
 </section>
@@ -560,8 +560,8 @@ document.write(`
 <p>In classic optimal control, the objective is often broken into the terminal component (the Mayer term) and the integral component (the Lagrange term).
 Dymos does not distinguish between the two.
 In this case, since the objective <span class="math notranslate nohighlight">\(J\)</span> consists of both a terminal cost and an integrated cost (Bolza form), we add a term to the ODE to account for the integrated quantity</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3b6aa660-0cd7-4a1a-9af1-4d61b5ecc239">
-<span class="eqno">(52)<a class="headerlink" href="#equation-3b6aa660-0cd7-4a1a-9af1-4d61b5ecc239" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3862aeec-f435-4d7f-80f6-cca7fc5da6a2">
+<span class="eqno">(52)<a class="headerlink" href="#equation-3862aeec-f435-4d7f-80f6-cca7fc5da6a2" title="Permalink to this equation">#</a></span>\[\begin{align}
   \dot{x_L} &amp;= L \\
   L &amp;= 0.5 u^2
 \end{align}\]</div>
@@ -694,7 +694,7 @@ The rate source and units for the states are obtained from the tags in the ODE c
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7fbab30becf0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmdao.core.problem.Problem at 0x7ff5303becf0&gt;
 </pre></div>
 </div>
 </div>
@@ -743,10 +743,10 @@ Total colors vs. total size: 7 vs 216  (96.76% improvement)
 
 Sparsity computed using tolerance: 1e-25.
 Dense total jacobian for Problem &#39;problem&#39; was computed 3 times.
-Time to compute sparsity:   0.2442 sec
-Time to compute coloring:   0.1417 sec
-Memory to compute coloring:   0.1250 MB
-Coloring created on: 2025-07-15 17:08:56
+Time to compute sparsity:   0.2515 sec
+Time to compute coloring:   0.1463 sec
+Memory to compute coloring:   0.2500 MB
+Coloring created on: 2025-07-15 17:51:31
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization Problem -- Optimization using pyOpt_sparse
@@ -755,11 +755,11 @@ Coloring created on: 2025-07-15 17:08:56
 
     Solution: 
 --------------------------------------------------------------------------------
-    Total Time:                    3.2312
-       User Objective Time :       0.0546
-       User Sensitivity Time :     0.9881
-       Interface Time :            0.5180
-       Opt Solver Time:            1.6705
+    Total Time:                    3.4103
+       User Objective Time :       0.0829
+       User Sensitivity Time :     1.0799
+       Interface Time :            0.5310
+       Opt Solver Time:            1.7165
     Calls to Objective Function :      66
     Calls to Sens Function :           65
 
@@ -1197,11 +1197,11 @@ Coloring created on: 2025-07-15 17:08:56
 Driver:  pyOptSparseDriver
   success     : True
   iterations  : 67
-  runtime     : 3.7025E+00 s
+  runtime     : 3.8983E+00 s
   model_evals : 67
-  model_time  : 3.6388E-02 s
+  model_time  : 5.3525E-02 s
   deriv_evals : 65
-  deriv_time  : 4.2268E-01 s
+  deriv_time  : 4.8067E-01 s
   exit_status : SUCCESS
 </pre></div>
 </div>

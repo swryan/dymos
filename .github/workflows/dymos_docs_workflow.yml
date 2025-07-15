@@ -21,6 +21,10 @@ jobs:
   docs_ubuntu:
     runs-on: ubuntu-22.04
 
+    defaults:
+      run:
+        shell: bash -l {0}
+
     timeout-minutes: 90
 
     strategy:
@@ -63,7 +67,6 @@ jobs:
           echo "============================================================="
 
       - name: Create SSH key
-        shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
           SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
@@ -88,7 +91,6 @@ jobs:
           conda-remove-defaults: true
 
       - name: Install Numpy/Scipy
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install Numpy/Scipy"
@@ -96,7 +98,6 @@ jobs:
           conda install numpy=${{ matrix.NUMPY }} scipy=${{ matrix.SCIPY }} -q -y
 
       - name: Install jax
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install jax"
@@ -105,7 +106,6 @@ jobs:
 
       - name: Install PETSc
         if: matrix.PETSc
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install PETSc"
@@ -128,7 +128,6 @@ jobs:
 
       - name: Install pyOptSparse
         if: matrix.PYOPTSPARSE
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install pyoptsparse"
@@ -174,7 +173,6 @@ jobs:
 
       - name: Install OpenMDAO
         if: matrix.OPENMDAO
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install OpenMDAO"
@@ -188,7 +186,6 @@ jobs:
           fi
 
       - name: Install bokeh
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install additional packages for testing/coverage"
@@ -196,7 +193,6 @@ jobs:
           conda install bokeh
 
       - name: Install Dymos
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Install Dymos"
@@ -205,7 +201,6 @@ jobs:
 
       - name: Display environment info
         id: env_info
-        shell: bash -l {0}
         run: |
           conda info
           conda list
@@ -230,7 +225,6 @@ jobs:
 
       - name: Build docs
         id: build_docs
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Building Docs"
@@ -254,7 +248,6 @@ jobs:
       - name: Publish docs to github.io
         if: |
           github.event_name == 'push' && matrix.PUBLISH_DOCS == '1'
-        shell: bash -l {0}
         run: |
           echo "============================================================="
           echo "Publishing Docs to github.io"

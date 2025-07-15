@@ -80,7 +80,7 @@ run-name:  ${{ inputs.run_name }}
 jobs:
 
   test_ubuntu:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     timeout-minutes: 90
 
@@ -93,9 +93,9 @@ jobs:
             PY: '3.13'
             NUMPY: '2.2'
             SCIPY: '1.15'
-            PETSc: '3.21'
+            PETSc: '3.23'
             PYOPTSPARSE: 'v2.13.1'
-            SNOPT: 7.7
+            SNOPT: '7.7'
             OPENMDAO: 'latest'
             PEP517: true
             OPTIONAL: '[all]'
@@ -107,7 +107,7 @@ jobs:
             PY: '3.13'
             NUMPY: '2.2'
             SCIPY: '1.15'
-            PETSc: '3.21'
+            PETSc: '3.23'
             OPENMDAO: 'latest'
             OPTIONAL: '[test]'
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.no_pyoptsparse }}
@@ -117,7 +117,7 @@ jobs:
             PY: '3.13'
             NUMPY: '2.2'
             SCIPY: '1.15'
-            PETSc: '3.21'
+            PETSc: '3.23'
             PYOPTSPARSE: 'v2.13.1'
             OPENMDAO: 'latest'
             OPTIONAL: '[all]'
@@ -136,12 +136,12 @@ jobs:
 
           # try latest versions
           - NAME: latest
-            PY: 3
-            NUMPY: 2
-            SCIPY: 1
-            PETSc: '3.22.2'
+            PY: '3'
+            NUMPY: '2'
+            SCIPY: '1'
+            PETSc: '3.23'
             PYOPTSPARSE: 'latest'
-            SNOPT: 7.7
+            SNOPT: '7.7'
             OPENMDAO: 'dev'
             OPTIONAL: '[all]'
             JAX: true
@@ -149,16 +149,16 @@ jobs:
 
           # oldest supported versions
           - NAME: oldest
-            PY: 3.9
-            NUMPY: 1.25
-            SCIPY: 1.11
+            PY: '3.9'
+            NUMPY: '1.25'
+            SCIPY: '1.11'
             OPENMPI: '4.0'
             MPI4PY: '3.0'
-            PETSc: 3.13
+            PETSc: '3.13'
             PYOPTSPARSE: 'v2.10.2'
-            SNOPT: 7.2
+            SNOPT: '7.2'
             OPENMDAO: 3.36.0
-            MATPLOTLIB: 3.5
+            MATPLOTLIB: '3.5'
             OPTIONAL: '[test]'
             EXCLUDE: ${{ github.event_name == 'workflow_dispatch'  && ! inputs.oldest }}
 

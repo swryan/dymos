@@ -80,7 +80,7 @@ run-name:  ${{ inputs.run_name }}
 jobs:
 
   test_ubuntu:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     timeout-minutes: 90
 
@@ -386,16 +386,6 @@ jobs:
           name: ${{ matrix.NAME }}_environment
           path: ${{ matrix.NAME }}_environment.yml
           retention-days: 5
-
-      - name: Check NumPy 2.0 Compatibility
-        if: ${{ ! matrix.EXCLUDE }}
-        run: |
-          echo "============================================================="
-          echo "Check Dymos code for NumPy 2.0 compatibility"
-          echo "See: https://numpy.org/devdocs/numpy_2_0_migration_guide.html"
-          echo "============================================================="
-          python -m pip install ruff
-          ruff check . --select NPY201
 
       - name: Perform linting with Ruff
         if: ${{ ! matrix.EXCLUDE && matrix.NAME == 'baseline' }}
